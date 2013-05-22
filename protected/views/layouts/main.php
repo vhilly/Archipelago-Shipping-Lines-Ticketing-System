@@ -17,16 +17,50 @@
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
+        ),
+    ),
+)); ?>
+
+<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+    'type'=>'inverse', // null or 'inverse'
+    'brand'=>Yii::app()->name,
+    'brandUrl'=>'#',
+    'collapse'=>true, // requires bootstrap-responsive.css
+    'items'=>array(
+        array(
+            'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
                 array('label'=>'Home', 'url'=>array('/site/index')),
-                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                array('label'=>'Contact', 'url'=>array('/site/contact')),
+                #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                #array('label'=>'Contact', 'url'=>array('/site/contact')),
+                array('label'=>'Transaction', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Purchase Ticket', 'url'=>'#'),
+                    array('label'=>'Purchase Cargo Ticket', 'url'=>'#'),
+                    array('label'=>'Purchase Bulk Ticket', 'url'=>'#'),
+                    '---',
+                    array('label'=>'TRANSACTIONS'),
+                    array('label'=>'Overview', 'url'=>'#'),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+            ),
+        ),
+       // '<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
+        array(
+            'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
                 array('label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                array('label'=>'Admin('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Voyage', 'url'=>'#'),
+                    array('label'=>'Vessel', 'url'=>'#'),
+                    array('label'=>'Something else here', 'url'=>'#'),
+                    '---',
+                    array('label'=>'Logout', 'url'=>array('/site/logout')), 
+                ),'visible'=>!Yii::app()->user->isGuest ),
             ),
         ),
     ),
 )); ?>
+
 
 <div class="container" id="page">
 
