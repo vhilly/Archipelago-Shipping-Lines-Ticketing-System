@@ -4,11 +4,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 	<?php Yii::app()->bootstrap->register(); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
 </head>
 
 <body>
@@ -23,33 +23,38 @@
 
 <?php $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
-    'brand'=>Yii::app()->name,
+    'brand'=>'',
     'brandUrl'=>'#',
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
-                array('label'=>'Home', 'url'=>array('/site/index')),
+		'...',
+                array('icon'=>'home','label'=>'Home', 'url'=>array('/site/index')),
+		'...',
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('label'=>'Transaction', 'url'=>'#', 'items'=>array(
+                array('icon'=>'align-justify','label'=>'Transaction', 'url'=>'#', 'items'=>array(
                     array('label'=>'Purchase Ticket', 'url'=>array('/purchase/index')),
                     array('label'=>'Purchase Cargo Ticket', 'url'=>'#'),
                     array('label'=>'Purchase Bulk Ticket', 'url'=>'#'),
                     '---',
                     array('label'=>'TRANSACTIONS'),
-                    array('label'=>'Overview', 'url'=>'#'),
+                    array('icon'=>'eye-open','label'=>'Overview', 'url'=>'#'),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
+
             ),
         ),
        // '<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
+						'<div class="pull-right sub-brand"></div>',
         array(
             'class'=>'bootstrap.widgets.TbMenu',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Admin('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
+                array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('icon'=>'user','label'=>'Admin('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                     array('label'=>'Seat', 'url'=>array('seat/')),
                     array('label'=>'Route', 'url'=>array('route/')),
                     array('label'=>'Voyage', 'url'=>array('voyage/')),
@@ -59,7 +64,7 @@
                     array('label'=>'RATES'),
                     array('label'=>'Passage Fare Rates', 'url'=>array('/passageFareRates')), 
                     '---',
-                    array('label'=>'Logout', 'url'=>array('/site/logout')), 
+                    array('icon'=>'off','label'=>'Logout', 'url'=>array('/site/logout')), 
                 ),'visible'=>!Yii::app()->user->isGuest ),
             ),
         ),
@@ -79,10 +84,10 @@
 
 	<div class="clear"></div>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+	<div class="footer">
+		<p>&copy; <?php echo date('Y'); ?> Archipelago | Philippine Ferries Corporation.<p/>
+		<p>Designed by A-Team.<p/>
+		<p><?php echo Yii::powered(); ?></p>
 	</div><!-- footer -->
 
 </div><!-- page -->

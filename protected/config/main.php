@@ -10,7 +10,7 @@ return array(
 	'name'=>'Archipelago',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log','bootstrap'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -114,7 +114,10 @@ return array(
 			),
 		),
               'bootstrap'=>array(
-                'class'=>'bootstrap.components.Bootstrap',
+//                'class'=>'bootstrap.components.Bootstrap',
+                'class'=>'ext.bootstrap.components.Bootstrap',
+		'responsiveCss'=>true,
+		'fontAwesomeCss'=>true,
                ),
 	),
 
