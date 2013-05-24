@@ -1,0 +1,33 @@
+<?php
+  class PurchaseController extends Controller{
+
+    public function filters(){
+      return array(
+        'accessControl',
+        'postOnly + delete',
+      );
+    }
+    public function accessRules(){
+      return array(
+        array('allow',
+          'actions'=>array('index'),
+          'users'=>array('*'),
+        ),
+      );
+    }
+    public function actionIndex($type,$key=null){
+
+      $model=new Purchase;
+      $model->passengerTotal=0;
+      $model->step = isset($_POST['Purchase']['step']) ? $_POST['Purchase']['step'] : '1';
+      $hash = md5(rand(1,1000000));
+
+      if(isset($_POST['Purchase'])){
+        $model->step ++;
+        $model->attributes=$_POST['Purchase'];
+        if($model->validate()){
+        }
+      }
+          $this->render('index',array('model'=>$model));
+    }
+  }

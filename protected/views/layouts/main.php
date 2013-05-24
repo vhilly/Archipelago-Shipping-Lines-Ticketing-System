@@ -34,7 +34,7 @@
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
                 array('label'=>'Transaction', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Purchase Ticket', 'url'=>'#'),
+                    array('label'=>'Purchase Ticket', 'url'=>array('/purchase/index')),
                     array('label'=>'Purchase Cargo Ticket', 'url'=>'#'),
                     array('label'=>'Purchase Bulk Ticket', 'url'=>'#'),
                     '---',
@@ -50,9 +50,14 @@
             'items'=>array(
                 array('label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Admin('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Voyage', 'url'=>'#'),
-                    array('label'=>'Vessel', 'url'=>'#'),
+                    array('label'=>'Seat', 'url'=>array('seat/')),
+                    array('label'=>'Route', 'url'=>array('route/')),
+                    array('label'=>'Voyage', 'url'=>array('voyage/')),
+                    array('label'=>'Vessel', 'url'=>array('vessel/')),
                     array('label'=>'Something else here', 'url'=>'#'),
+                    '---',
+                    array('label'=>'RATES'),
+                    array('label'=>'Passage Fare Rates', 'url'=>array('/passageFareRates')), 
                     '---',
                     array('label'=>'Logout', 'url'=>array('/site/logout')), 
                 ),'visible'=>!Yii::app()->user->isGuest ),
