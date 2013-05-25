@@ -27,7 +27,7 @@ return array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'vhilly27',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('172.31.1.31','::1'),
+			'ipFilters'=>array('*','::1'),
                        'generatorPaths'=>array(
                          'bootstrap.gii',
                         ),
@@ -81,6 +81,11 @@ return array(
 			),
 		),
 		*/
+       'bootstrap' => array(
+	    'class' => 'ext.bootstrap.components.Bootstrap',
+	    'responsiveCss' => true,
+	),
+
       'user'=>array(
             // enable cookie-based authentication
             'class' => 'WebUser',

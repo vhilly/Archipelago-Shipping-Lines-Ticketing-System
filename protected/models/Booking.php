@@ -7,7 +7,7 @@
  * @property integer $id
  * @property integer $passenger
  * @property integer $ticket
- * @property string $status
+ * @property integer $status
  * @property string $date_booked
  * @property string $departure_date
  *
@@ -44,8 +44,7 @@ class Booking extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('passenger, ticket, status,  departure_date', 'required'),
-			array('passenger, ticket', 'numerical', 'integerOnly'=>true),
-			array('status', 'length', 'max'=>1),
+			array('passenger, ticket,status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, passenger, ticket, status, date_booked, departure_date', 'safe', 'on'=>'search'),
@@ -62,6 +61,7 @@ class Booking extends CActiveRecord
 		return array(
 			'passenger0' => array(self::BELONGS_TO, 'Passenger', 'passenger'),
 			'ticket0' => array(self::BELONGS_TO, 'Ticket', 'ticket'),
+			'status0' => array(self::BELONGS_TO, 'Status', 'status'),
 		);
 	}
 
@@ -90,6 +90,7 @@ class Booking extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->with = array('passenger0');
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('passenger',$this->passenger);
@@ -97,9 +98,11 @@ class Booking extends CActiveRecord
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('date_booked',$this->date_booked,true);
 		$criteria->compare('departure_date',$this->departure_date,true);
+		$criteria->compare('passenger0.first_name',$this->passenger,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                        'pagination'=>array('pageSize'=>100)
 		));
 	}
 }

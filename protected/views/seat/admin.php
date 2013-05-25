@@ -3,7 +3,6 @@ $this->breadcrumbs=array(
 	'Seats'=>array('index'),
 	'Manage',
 );
-
 $this->menu=array(
 	array('label'=>'List Seat','url'=>array('index')),
 	array('label'=>'Create Seat','url'=>array('create')),

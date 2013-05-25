@@ -7,9 +7,9 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'type',array('class'=>'span5','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($model,'type',array('class'=>'span3','maxlength'=>100)); ?>
 
-	<?php echo $form->textFieldRow($model,'proposed',array('class'=>'span5','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($model,'proposed',array('class'=>'span3','maxlength'=>100)); ?>
 
         <?php echo $form->dropDownListRow($model, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>
 	<?php echo $form->textFieldRow($model,'price',array('class'=>'span1','maxlength'=>4)); ?>

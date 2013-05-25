@@ -44,6 +44,10 @@
                     array('icon'=>'eye-open','label'=>'Overview', 'url'=>'#'),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
+                array('icon'=>'align-justify','label'=>'Booking', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
 
             ),
         ),

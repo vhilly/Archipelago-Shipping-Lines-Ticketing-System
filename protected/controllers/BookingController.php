@@ -31,7 +31,7 @@ class BookingController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','editableSaver'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -127,9 +127,13 @@ class BookingController extends Controller
 	 */
 	public function actionIndex()
 	{
-                $bookings = Booking::model()->findAll();
+            
+		$model=new Booking('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Booking']))
+			$model->attributes=$_GET['Booking'];
 		$this->render('index',array(
-			'bookings'=>$bookings,
+			'model'=>$model,
 		));
 	}
 
@@ -138,7 +142,7 @@ class BookingController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Booking('search');
+		$filter=new Booking('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Booking']))
 			$model->attributes=$_GET['Booking'];
@@ -173,4 +177,9 @@ class BookingController extends Controller
 			Yii::app()->end();
 		}
 	}
+        public function actionEditableSaver(){
+          Yii::import('bootstrap.widgets.TbEditableSaver');
+          $es = new TbEditableSaver('Booking');
+          $es->update();
+        }
 }

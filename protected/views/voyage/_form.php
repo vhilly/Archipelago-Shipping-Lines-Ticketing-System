@@ -2,20 +2,19 @@
 	'id'=>'voyage-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($model,'name',array('class'=>'span2.5','maxlength'=>100)); ?>
 
-	<?php echo $form->textFieldRow($model,'vessel',array('class'=>'span5')); ?>
+       <?php echo $form->dropDownListRow($model, 'vessel',CHtml::listData(Vessel::model()->findAll(),'id','name'),array('class'=>'span2.5')); ?>
 
-	<?php echo $form->textFieldRow($model,'route',array('class'=>'span5')); ?>
+       <?php echo $form->dropDownListRow($model, 'route',CHtml::listData(Route::model()->findAll(),'id','name'),array('class'=>'span2.5')); ?>
 
-	<?php echo $form->textFieldRow($model,'departure_time',array('class'=>'span5')); ?>
+        <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>
 
-	<?php echo $form->textFieldRow($model,'arrival_time',array('class'=>'span5')); ?>
+        <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

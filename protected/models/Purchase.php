@@ -19,8 +19,9 @@
     }
     public function rules(){
       return array(
-        array('departureDate','required'),
-        array('passengerTotal,voyage,class', 'numerical', 'integerOnly'=>true),
+        array('departureDate,passengerTotal','required'),
+        array('passengerTotal', 'numerical','min'=>1),
+        array('voyage,class', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class', 'length', 'max'=>3),
         array('hash', 'length', 'max'=>32),
       );
