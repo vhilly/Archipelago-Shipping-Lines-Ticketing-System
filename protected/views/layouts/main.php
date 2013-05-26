@@ -44,7 +44,7 @@
                     array('icon'=>'eye-open','label'=>'Overview', 'url'=>'#'),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('icon'=>'align-justify','label'=>'Booking', 'url'=>'#', 'items'=>array(
+                array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
                     array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
@@ -58,12 +58,12 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('icon'=>'user','label'=>'Admin('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Seat', 'url'=>array('seat/')),
-                    array('label'=>'Route', 'url'=>array('route/')),
-                    array('label'=>'Voyage', 'url'=>array('voyage/')),
-                    array('label'=>'Vessel', 'url'=>array('vessel/')),
-                    array('label'=>'Something else here', 'url'=>'#'),
+                array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
+                    array('icon'=>'cog','label'=>'SETTINGS'),
+                    array('label'=>'Seats', 'url'=>array('seat/')),
+                    array('label'=>'Routes', 'url'=>array('route/')),
+                    array('label'=>'Voyages', 'url'=>array('voyage/')),
+                    array('label'=>'Vessels', 'url'=>array('vessel/')),
                     '---',
                     array('label'=>'RATES'),
                     array('label'=>'Passage Fare Rates', 'url'=>array('/passageFareRates')), 

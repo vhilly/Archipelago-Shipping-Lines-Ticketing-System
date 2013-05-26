@@ -55,7 +55,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
               <?php echo $form->radioButtonListRow($passenger, "[$key]gender", array('M'=>'M','F'=>'F')); ?>
             </td>
             <td>
-              <?php echo $form->textFieldRow($passenger, "[$key]nationality", array('class'=>'span2')); ?>
+            <?php echo $form->labelEx($passenger, 'nationality', array('M'=>'M','F'=>'F')); ?>
+            <?php
+              $this->widget('bootstrap.widgets.TbTypeahead', array(
+                'model'=>$passenger,
+                'attribute'=>"[$key]nationality",
+                'options'=>array(
+	          'name'=>"[$key]nationality",
+	        'source'=>array(
+		  'Filipino','Chinese','American'
+                ),
+	        'items'=>4,
+	        'matcher'=>"js:function(item) {
+                  return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+               }",
+              )));
+            ?>
             </td>
             <td>
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>

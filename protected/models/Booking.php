@@ -22,6 +22,9 @@ class Booking extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Booking the static model class
 	 */
+        public $last_name;
+        public $first_name;
+        public $voyage;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -47,7 +50,7 @@ class Booking extends CActiveRecord
 			array('passenger, ticket,status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, passenger, ticket, status, date_booked, departure_date', 'safe', 'on'=>'search'),
+			array('id, passenger, ticket, status, date_booked, departure_date,last_name,first_name,voyage', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,7 +93,16 @@ class Booking extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with = array('passenger0');
+		$criteria->with=array(
+                                     'passenger0'=>array(
+                                                        'together'=>false,
+                                                        'select'=>false
+                                                        ),
+                                     'ticket0'=>array(
+                                                        'together'=>false,
+                                                        'select'=>false
+                                                        ),
+                                );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('passenger',$this->passenger);
@@ -98,10 +110,29 @@ class Booking extends CActiveRecord
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('date_booked',$this->date_booked,true);
 		$criteria->compare('departure_date',$this->departure_date,true);
-		$criteria->compare('passenger0.first_name',$this->passenger,true);
+		$criteria->compare('passenger0.first_name',$this->first_name,true);
+		$criteria->compare('passenger0.last_name',$this->last_name,true);
+		$criteria->compare('ticket0.voyage',$this->voyage,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                        'sort'=>array(
+                          'attributes'=>array(
+                            'first_name'=>array(
+                              'asc'=>'passenger0.first_name',
+                              'desc'=>'passenger0.first_name DESC'
+                            ),
+                            'last_name'=>array(
+                              'asc'=>'passenger0.last_name',
+                              'desc'=>'passenger0.last_name DESC'
+                            ),
+                            'voyage'=>array(
+                              'asc'=>'ticket0.voyage',
+                              'desc'=>'ticket0.voyage DESC'
+                            ),
+                            '*',
+                          )
+                        ),
                         'pagination'=>array('pageSize'=>100)
 		));
 	}
