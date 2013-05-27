@@ -5,10 +5,12 @@
  *
  * The followings are the available columns in table 'seat':
  * @property integer $id
+ * @property integer $seating_class
  * @property string $name
  * @property string $active
  *
  * The followings are the available model relations:
+ * @property SeatingClass $seatingClass
  * @property SeatTicketMap[] $seatTicketMaps
  */
 class Seat extends CActiveRecord
@@ -39,12 +41,13 @@ class Seat extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, active', 'required'),
+			array('seating_class, name', 'required'),
+			array('seating_class', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, active', 'safe', 'on'=>'search'),
+			array('id, seating_class, name, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +59,7 @@ class Seat extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'seatingClass' => array(self::BELONGS_TO, 'SeatingClass', 'seating_class'),
 			'seatTicketMaps' => array(self::HAS_MANY, 'SeatTicketMap', 'seat'),
 		);
 	}
@@ -67,6 +71,7 @@ class Seat extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'seating_class' => 'Seating Class',
 			'name' => 'Name',
 			'active' => 'Active',
 		);
@@ -84,6 +89,7 @@ class Seat extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('seating_class',$this->seating_class);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('active',$this->active,true);
 

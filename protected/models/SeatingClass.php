@@ -10,6 +10,7 @@
  *
  * The followings are the available model relations:
  * @property PassageFareRates[] $passageFareRates
+ * @property Seat[] $seats
  */
 class SeatingClass extends CActiveRecord
 {
@@ -57,6 +58,7 @@ class SeatingClass extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'passageFareRates' => array(self::HAS_MANY, 'PassageFareRates', 'class'),
+			'seats' => array(self::HAS_MANY, 'Seat', 'seating_class'),
 		);
 	}
 

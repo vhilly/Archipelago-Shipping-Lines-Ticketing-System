@@ -8,6 +8,7 @@
         <?php echo $form->radioButtonListRow($model, 'active',
           array('Y'=>'Yes','N'=>'No')); 
         ?>
+        <?php echo $form->dropdownListRow($model, 'seating_class',CHtml::listData(SeatingClass::model()->findAll(),'id','name'))?>
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
