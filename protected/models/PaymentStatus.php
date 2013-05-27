@@ -1,24 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "ticket".
+ * This is the model class for table "payment_status".
  *
- * The followings are the available columns in table 'ticket':
+ * The followings are the available columns in table 'payment_status':
  * @property integer $id
- * @property integer $voyage
- * @property string $price
+ * @property string $name
+ * @property string $desc
+ * @property string $active
  *
  * The followings are the available model relations:
- * @property Booking[] $bookings
- * @property SeatTicketMap[] $seatTicketMaps
- * @property Voyage $voyage0
+ * @property Transaction[] $transactions
  */
-class Ticket extends CActiveRecord
+class PaymentStatus extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Ticket the static model class
+	 * @return PaymentStatus the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +29,7 @@ class Ticket extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ticket';
+		return 'payment_status';
 	}
 
 	/**
@@ -41,12 +40,13 @@ class Ticket extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('voyage', 'required'),
-			array('voyage', 'numerical', 'integerOnly'=>true),
-			array('price', 'length', 'max'=>20),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>100),
+			array('active', 'length', 'max'=>1),
+			array('desc', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, voyage, price', 'safe', 'on'=>'search'),
+			array('id, name, desc, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,9 +58,7 @@ class Ticket extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'bookings' => array(self::HAS_MANY, 'Booking', 'ticket'),
-			'seatTicketMaps' => array(self::HAS_MANY, 'SeatTicketMap', 'ticket'),
-			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
+			'transactions' => array(self::HAS_MANY, 'Transaction', 'payment_status'),
 		);
 	}
 
@@ -71,8 +69,9 @@ class Ticket extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'voyage' => 'VOYAGE',
-			'price' => 'PRICE',
+			'name' => 'Name',
+			'desc' => 'Desc',
+			'active' => 'Active',
 		);
 	}
 
@@ -88,8 +87,9 @@ class Ticket extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('voyage',$this->voyage);
-		$criteria->compare('price',$this->price,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

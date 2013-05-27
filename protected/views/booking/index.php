@@ -64,6 +64,7 @@ $gridColumns = array(
 
 			),
 		),
+                 array('name'=>'transaction','value'=>'$data->transaction'),
                  array(
                    'header'=>'Ticket Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',
@@ -72,12 +73,19 @@ $gridColumns = array(
                      'viewtkt' => array(
                        'label'=>'view',
                        'icon'=>'plus',
-                       'url'=>'Yii::app()->controller->createUrl("events/create", array("id"=>$data->id))', // Problem here on $data->id
+                       'url'=>'Yii::app()->controller->createUrl("ticket/view", array("id"=>$data->ticket))',
+                       'options'=>array(
+                            'ajax'=>array(
+                                'type'=>'POST',
+                                'url'=>"js:$(this).attr('href')",
+                                'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); }'
+                            ),
+                        ),
                      ),
                     ),
-                  )
+                  ),
 );
-$this->widget('bootstrap.widgets.TbGridView', array(
+  $this->widget('bootstrap.widgets.TbGridView', array(
 	'type' => 'striped bordered',
 	'dataProvider' => $model->search(),
 	'template' => "{items},{pager}",
@@ -94,3 +102,4 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 ));
 ?>
 
+<?php echo $this->renderPartial('ticketModal'); ?>
