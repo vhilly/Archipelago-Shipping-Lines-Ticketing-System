@@ -1,6 +1,6 @@
 <?php
 
-class BookingStatusController extends Controller
+class TicketController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -35,7 +35,7 @@ array('allow', // allow authenticated user to perform 'create' and 'update' acti
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete'),
+'actions'=>array('admin','delete','editableSaver'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -50,9 +50,18 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+  if( Yii::app()->request->isAjaxRequest )
+        {
+        $this->renderPartial('view',array(
+            'ticket'=>$this->loadModel($id),
+        ), false, true);
+    }
+    else
+    {
+        $this->render('view',array(
+            'ticket'=>$this->loadModel($id),
+        ));
+    }
 }
 
 /**
@@ -61,14 +70,14 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new BookingStatus;
+$model=new Ticket;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['BookingStatus']))
+if(isset($_POST['Ticket']))
 {
-$model->attributes=$_POST['BookingStatus'];
+$model->attributes=$_POST['Ticket'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -90,9 +99,9 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['BookingStatus']))
+if(isset($_POST['Ticket']))
 {
-$model->attributes=$_POST['BookingStatus'];
+$model->attributes=$_POST['Ticket'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -127,7 +136,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('BookingStatus');
+$dataProvider=new CActiveDataProvider('Ticket');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
@@ -138,10 +147,10 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new BookingStatus('search');
+$model=new Ticket('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['BookingStatus']))
-$model->attributes=$_GET['BookingStatus'];
+if(isset($_GET['Ticket']))
+$model->attributes=$_GET['Ticket'];
 
 $this->render('admin',array(
 'model'=>$model,
@@ -155,7 +164,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=BookingStatus::model()->findByPk($id);
+$model=Ticket::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -167,10 +176,15 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='booking-status-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='ticket-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+        public function actionEditableSaver(){
+          Yii::import('bootstrap.widgets.TbEditableSaver');
+          $es = new TbEditableSaver('Ticket');
+          $es->update();
+        }
 }

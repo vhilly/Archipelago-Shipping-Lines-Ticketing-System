@@ -1,5 +1,5 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'booking-status-form',
+	'id'=>'payment-method-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 

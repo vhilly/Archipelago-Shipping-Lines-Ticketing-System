@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Booking Statuses',
+	'Payment Statuses',
 );
 
 $this->menu=array(
-array('label'=>'Create BookingStatus','url'=>array('create')),
-array('label'=>'Manage BookingStatus','url'=>array('admin')),
+array('label'=>'Create PaymentStatus','url'=>array('create')),
+array('label'=>'Manage PaymentStatus','url'=>array('admin')),
 );
 ?>
 
-<h1>Booking Statuses</h1>
+<h1>Payment Statuses</h1>
 
 <?php $this->widget('bootstrap.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

@@ -130,8 +130,9 @@ class BookingController extends Controller
             
 		$model=new Booking('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Booking']))
-			$model->attributes=$_GET['Booking'];
+		if(isset($_GET['Booking'])){
+			$model->attributes=$_GET['Booking']; 
+               }
 		$this->render('index',array(
 			'model'=>$model,
 		));

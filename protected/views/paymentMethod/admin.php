@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Booking Statuses'=>array('index'),
+	'Payment Methods'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-array('label'=>'List BookingStatus','url'=>array('index')),
-array('label'=>'Create BookingStatus','url'=>array('create')),
+array('label'=>'List PaymentMethod','url'=>array('index')),
+array('label'=>'Create PaymentMethod','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-form').toggle();
 return false;
 });
 $('.search-form form').submit(function(){
-$.fn.yiiGridView.update('booking-status-grid', {
+$.fn.yiiGridView.update('payment-method-grid', {
 data: $(this).serialize()
 });
 return false;
@@ -23,7 +23,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Booking Statuses</h1>
+<h1>Manage Payment Methods</h1>
 
 <p>
 	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
@@ -39,7 +39,7 @@ return false;
 </div><!-- search-form -->
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-'id'=>'booking-status-grid',
+'id'=>'payment-method-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(

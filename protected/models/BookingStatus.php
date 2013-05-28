@@ -6,6 +6,11 @@
  * The followings are the available columns in table 'booking_status':
  * @property integer $id
  * @property string $name
+ * @property string $desc
+ * @property string $active
+ *
+ * The followings are the available model relations:
+ * @property Booking[] $bookings
  */
 class BookingStatus extends CActiveRecord
 {
@@ -37,9 +42,11 @@ class BookingStatus extends CActiveRecord
 		return array(
 			array('name', 'required'),
 			array('name', 'length', 'max'=>100),
+			array('active', 'length', 'max'=>1),
+			array('desc', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, desc, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +58,7 @@ class BookingStatus extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'bookings' => array(self::HAS_MANY, 'Booking', 'status'),
 		);
 	}
 
@@ -62,6 +70,8 @@ class BookingStatus extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'desc' => 'Desc',
+			'active' => 'Active',
 		);
 	}
 
@@ -78,6 +88,8 @@ class BookingStatus extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

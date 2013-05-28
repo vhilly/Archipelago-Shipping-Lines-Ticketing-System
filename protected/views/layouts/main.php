@@ -41,7 +41,7 @@
                     array('label'=>'Purchase Bulk Ticket', 'url'=>'#'),
                     '---',
                     array('label'=>'TRANSACTIONS'),
-                    array('icon'=>'eye-open','label'=>'Overview', 'url'=>'#'),
+                    array('icon'=>'eye-open','label'=>'Overview', 'url'=>array('/transaction/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
@@ -57,6 +57,9 @@
             'class'=>'bootstrap.widgets.TbMenu',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
+                array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Sample Report', 'url'=>array('/report/index')),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                     array('icon'=>'cog','label'=>'SETTINGS'),
@@ -64,6 +67,14 @@
                     array('label'=>'Routes', 'url'=>array('route/')),
                     array('label'=>'Voyages', 'url'=>array('voyage/')),
                     array('label'=>'Vessels', 'url'=>array('vessel/')),
+                    '---',
+                    array('label'=>'PAYMENT'),
+                    array('label'=>'Payment Method', 'url'=>array('/paymentMethod')), 
+                    array('label'=>'Payment Status', 'url'=>array('/paymentStatus')), 
+                    '---',
+                    '---',
+                    array('label'=>'TRANSACTION'),
+                    array('label'=>'Transaction Type', 'url'=>array('/transactionType')), 
                     '---',
                     array('label'=>'RATES'),
                     array('label'=>'Passage Fare Rates', 'url'=>array('/passageFareRates')), 

@@ -1,6 +1,6 @@
 <?php
 
-class BookingStatusController extends Controller
+class TransactionTypeController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,14 +61,14 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new BookingStatus;
+$model=new TransactionType;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['BookingStatus']))
+if(isset($_POST['TransactionType']))
 {
-$model->attributes=$_POST['BookingStatus'];
+$model->attributes=$_POST['TransactionType'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -90,9 +90,9 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['BookingStatus']))
+if(isset($_POST['TransactionType']))
 {
-$model->attributes=$_POST['BookingStatus'];
+$model->attributes=$_POST['TransactionType'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -127,7 +127,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('BookingStatus');
+$dataProvider=new CActiveDataProvider('TransactionType');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
@@ -138,10 +138,10 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new BookingStatus('search');
+$model=new TransactionType('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['BookingStatus']))
-$model->attributes=$_GET['BookingStatus'];
+if(isset($_GET['TransactionType']))
+$model->attributes=$_GET['TransactionType'];
 
 $this->render('admin',array(
 'model'=>$model,
@@ -155,7 +155,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=BookingStatus::model()->findByPk($id);
+$model=TransactionType::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -167,7 +167,7 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='booking-status-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='transaction-type-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();

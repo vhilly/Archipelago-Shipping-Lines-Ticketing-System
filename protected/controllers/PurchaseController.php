@@ -57,6 +57,20 @@
               $data = json_decode($_POST['forTransact'],1);
               $transaction = Yii::app()->db->beginTransaction();
               try{
+                   $newTransaction = new Transaction;
+                   $newTransaction->payment_method =1;
+                   $newTransaction->payment_status =1;
+                   $newTransaction->uid =1;
+                   $newTransaction->type =1;
+                   $curDate = date('Y-m-d H:i:s');
+                   $newTransaction->trans_date = $curDate;
+                   $newTransaction->input_date = $curDate;
+                   $newTransaction->ovamount =100;
+                   try{
+                     $newTransaction->save();
+                   }catch(Exception $e){
+                      throw new Exception($e);
+                   }
                 foreach($data['passenger'] as $key=>$passenger){
                    $newPassenger   = new Passenger;
                    $newTicket = new Ticket;
@@ -65,6 +79,7 @@
                    $newTicket->attributes=$data['ticket'][$key];
                    $newTicket->voyage = $purchase->voyage;
                    $newBooking->departure_date = $purchase->departureDate;
+                   $newBooking->transaction = $newTransaction->id;
                  //saving
                    if(!$newPassenger->save())
                     throw new Exception('Cannot save passanger');
