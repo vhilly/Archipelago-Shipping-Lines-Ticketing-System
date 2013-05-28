@@ -89,8 +89,8 @@ class Transaction extends CActiveRecord
 			'uid' => 'Uid',
 			'trans_date' => 'Trans Date',
 			'input_date' => 'Input Date',
-			'ovamount' => 'Ovamount',
-			'ovdiscount' => 'Ovdiscount',
+			'ovamount' => 'Overall Amount',
+			'ovdiscount' => 'Overall Discount',
 			'reference' => 'Reference',
 		);
 	}
