@@ -60,7 +60,7 @@
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                     array('icon'=>'cog','label'=>'SETTINGS'),
-                    array('label'=>'Seats', 'url'=>array('seat/')),
+                    array('label'=>'Seats', 'url'=>array('seat/admin')),
                     array('label'=>'Routes', 'url'=>array('route/')),
                     array('label'=>'Voyages', 'url'=>array('voyage/')),
                     array('label'=>'Vessels', 'url'=>array('vessel/')),

@@ -92,5 +92,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         //)
         'columns'=>$gridColumns
 ));
+
 ?>
 

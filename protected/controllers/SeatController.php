@@ -35,7 +35,7 @@ class SeatController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','editableSaver'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -173,4 +173,11 @@ class SeatController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+ public function actionEditableSaver(){
+          Yii::import('bootstrap.widgets.TbEditableSaver');
+          $es = new TbEditableSaver('Seat');
+          $es->update();
+        }
+
 }
