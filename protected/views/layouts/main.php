@@ -21,6 +21,22 @@
     ),
 )); ?>
 
+
+<?php
+  $transLink = array();
+  $types=CHtml::listData(TransactionType::model()->findAll(),'id','navigation_title');
+  if(count($types)){
+    foreach($types as $key=>$type){
+      $transLink[] =  array('label'=>$type, 'url'=>array('/purchase/index','type'=>$key));
+    }
+  }
+  
+  $transLink[] =  array('label'=>'TRANSACTIONS');
+  $transLink[] =  array('icon'=>'eye-open','label'=>'Overview', 'url'=>array('/transaction/index'));
+?>
+
+
+
 <?php $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>'',
@@ -35,14 +51,8 @@
 		'...',
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('icon'=>'align-justify','label'=>'Transaction', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Purchase Ticket', 'url'=>array('/purchase/index')),
-                    array('label'=>'Purchase Cargo Ticket', 'url'=>'#'),
-                    array('label'=>'Purchase Bulk Ticket', 'url'=>'#'),
-                    '---',
-                    array('label'=>'TRANSACTIONS'),
-                    array('icon'=>'eye-open','label'=>'Overview', 'url'=>array('/transaction/index')),
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                array('icon'=>'align-justify','label'=>'Transaction', 'url'=>'#', 'items'=>$transLink,
+                'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
                     array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),

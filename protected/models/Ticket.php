@@ -58,8 +58,8 @@ class Ticket extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'bookings' => array(self::HAS_MANY, 'Booking', 'ticket'),
-			'seatTicketMaps' => array(self::HAS_MANY, 'SeatTicketMap', 'ticket'),
+			'bookings' => array(self::HAS_ONE, 'Booking', 'ticket'),
+			'seatTicketMaps' => array(self::HAS_ONE, 'SeatTicketMap', 'ticket'),
 			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
 		);
 	}

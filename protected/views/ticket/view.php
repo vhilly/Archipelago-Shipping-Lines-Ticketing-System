@@ -16,7 +16,7 @@ $this->breadcrumbs=array(
       array('label'=>'ROUTE','value'=>$route->name),
       array('label'=>'DEPARTURE TIME','value'=>$ticket->voyage0->departure_time),
       array('label'=>'ARRIVAL TIME','value'=>$ticket->voyage0->arrival_time),
-      array('label'=>'SEAT','value'=>isset($ticket->seatTicketMaps[0]->id) ? '':'NO ASSIGNED SEAT'),
+      array('label'=>'SEAT','value'=>isset($ticket->seatTicketMaps->id) ? '':'NO ASSIGNED SEAT'),
     )
   ));
 ?>

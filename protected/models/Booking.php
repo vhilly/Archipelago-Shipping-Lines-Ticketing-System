@@ -25,6 +25,7 @@ class Booking extends CActiveRecord
         public $last_name;
         public $first_name;
         public $voyage;
+        public $transNo;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -50,7 +51,7 @@ class Booking extends CActiveRecord
 			array('passenger, ticket,status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, passenger, ticket, status, date_booked, departure_date,last_name,first_name,voyage,transaction', 'safe', 'on'=>'search'),
+			array('id, passenger, ticket, status, date_booked, departure_date,last_name, first_name, voyage, transaction, transNo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class Booking extends CActiveRecord
 			'status' => 'Status',
 			'date_booked' => 'Date Booked',
 			'departure_date' => 'Departure Date',
+			'transNo' => 'Transaction No.',
 		);
 	}
 
@@ -115,6 +117,8 @@ class Booking extends CActiveRecord
 		$criteria->compare('passenger0.first_name',$this->first_name,true);
 		$criteria->compare('passenger0.last_name',$this->last_name,true);
 		$criteria->compare('ticket0.voyage',$this->voyage,true);
+                if($this->transNo)
+		$criteria->compare('transaction',intval($this->transNo),true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -135,7 +139,7 @@ class Booking extends CActiveRecord
                             '*',
                           )
                         ),
-                        'pagination'=>array('pageSize'=>100)
+                        'pagination'=>array('pageSize'=>20)
 		));
 	}
 }

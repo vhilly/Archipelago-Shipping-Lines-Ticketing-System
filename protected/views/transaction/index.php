@@ -34,10 +34,34 @@ $gridColumns = array(
                         true),
 			'sortable'=>true,
                 ),
+                array(
+			'name' => 'payment_status',
+                        'filter'=>CHtml::listData(PaymentStatus::model()->findAll(),'id','name'),
+                        'value'=>'$data->paymentStatus->name',
+			'sortable'=>true,
+                ),
                 'ovamount',
                 'ovdiscount',
-                array('header'=>'Total Amount','value'=>''),
-                'reference',
+                array('header'=>'Total Amount','value'=>'$data->ovamount-$data->ovdiscount'),
+                 array(
+                   'header'=>'Transaction Details',
+                   'class' => 'bootstrap.widgets.TbButtonColumn',
+                   'template'=>'{viewtkt}',
+                   'buttons'=>array(
+                     'viewtkt' => array(
+                       'label'=>'view',
+                       'icon'=>'plus',
+                       'url'=>'Yii::app()->controller->createUrl("transaction/view", array("id"=>$data->id))',
+                       'options'=>array(
+                            'ajax'=>array(
+                                'type'=>'POST',
+                                'url'=>"js:$(this).attr('href')",
+                                'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); }'
+                            ),
+                        ),
+                     ),
+                    ),
+                  ),
 );
   $this->widget('bootstrap.widgets.TbGridView', array(
 	'type' => 'striped bordered',

@@ -64,7 +64,10 @@ $gridColumns = array(
 
 			),
 		),
-                 array('name'=>'transaction','value'=>'$data->transaction'),
+                 array(
+                   'name'=>'transNo',
+                   'sortable'=>true,
+                   'value'=>'str_pad($data->transaction,11,"0",STR_PAD_LEFT)'),
                  array(
                    'header'=>'Ticket Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',
