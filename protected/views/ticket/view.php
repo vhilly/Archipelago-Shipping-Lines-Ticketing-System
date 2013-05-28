@@ -4,7 +4,6 @@ $this->breadcrumbs=array(
 	$ticket->id,
 );
 ?>
- <h3>DEPARTURE : <?=$ticket->bookings[0]->departure_date?></h3>
 <?php
   $route = Route::model()->findByPk($ticket->voyage0->route);
   $this->widget('bootstrap.widgets.TbEditableDetailView', array(

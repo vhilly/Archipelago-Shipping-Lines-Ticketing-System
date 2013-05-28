@@ -127,10 +127,16 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Transaction');
-$this->render('index',array(
-'dataProvider'=>$dataProvider,
-));
+
+		$model=new Transaction('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Transaction'])){
+			$model->attributes=$_GET['Transaction']; 
+               }
+		$this->render('index',array(
+			'model'=>$model,
+		));
+
 }
 
 /**

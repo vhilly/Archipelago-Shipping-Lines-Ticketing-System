@@ -54,7 +54,7 @@ public function actionView($id)
         {
         $this->renderPartial('view',array(
             'ticket'=>$this->loadModel($id),
-        ), false, true);
+        ), false, false);
     }
     else
     {
