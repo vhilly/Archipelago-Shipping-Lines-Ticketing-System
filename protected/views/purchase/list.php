@@ -19,8 +19,8 @@
     'template'=>"{items}\n{pager}",
     'columns'=>array(
         array('name'=>'name', 'header'=>'Name'),
-        array('name'=>'vessel', 'header'=>'Vessel'),
-        array('name'=>'route', 'header'=>'Route'),
+        array('value'=>'$data->vessel0->name', 'header'=>'Vessel'),
+        array('value'=>'$data->route0->name', 'header'=>'Route'),
         array('name'=>'departure_time', 'header'=>'Departure Time'),
         array('name'=>'arrival_time', 'header'=>'Arrival Time'),
     ),

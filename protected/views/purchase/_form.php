@@ -48,7 +48,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php echo $form->hiddenField($purchase, 'hash'); ?>
   <?php echo $form->hiddenField($purchase, 'ticketList'); ?>
   <?php echo $form->hiddenField($purchase, 'passengerList'); ?>
-  <?php echo $form->textField($purchase, 'cargoList'); ?>
 
 
     <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
@@ -59,7 +58,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions' => array('class'=>'bootstrap-widget-table '.$hidden.' midBox well-small pull-right')
     ));?>
 
-        <?php $dataProvider=PassageFareRates::model()->findAll(); ?>
         <?php $this->renderPartial('list'); ?>
 
     <?php $this->endWidget();?>
