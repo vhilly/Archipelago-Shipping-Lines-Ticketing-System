@@ -29,11 +29,12 @@
       $purchase->addRequiredField('departureDate');
       //setup passenger
       $purchase->setPassenger($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger);
-
+      $purchase->setCargo($purchaseType->cargo);
       $purchase->transaction_type = $purchaseType->id;
       $purchase->payment_method = 1;
       $purchase->payment_status = 1;
       $passengers=array();
+      $cargo=new Cargo;
       $fares=null;
       $tickets=array();
       $purchase->passengerTotal=$purchase->passengerMin;
@@ -58,13 +59,21 @@
                 $tickets[]= new Ticket;
               }
             }
+            if($purchase->cargo){
+              $cargo=new Cargo;
+            }
           }
           if($purchase->step==2){
-              $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
-              $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
+              if($purchase->passenger){
+                $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
+                $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
+              }
+              if($purchase->cargo){
+                $cargo->attributes =$_POST['Cargo'];
+              }
           }
 
-          if($purchase->step==3){
+          if($purchase->step==3 && ($purchase->passenger || $purchase->cargo)){
             $purchaseToken = isset($_SESSION['purchase_token']) ? $_SESSION['purchase_token']: '';
             if($purchase->hash == $purchaseToken){
               $ovamount = 0;
@@ -105,12 +114,27 @@
                     if(!$newBooking->save())  
                       throw new Exception('Cannot save Booking');
                      //update overall amount
-                      $ovamount += $newTicket->price;
+                     // $ovamount += $newTicket->price;
                   }
                 }
-                $newTransaction->ovamount =$ovamount;
-                if(!$newTransaction->save())
-                  throw new Exception('Cannot save Booking');
+                if($purchase->cargo){
+                  $newCargoBooking = new BookingCargo;
+                  $newCargoBooking->departure_date = $purchase->departureDate;
+                  $newCargoBooking->transaction = $newTransaction->id;
+                  $cargo->attributes =$_POST['Cargo'];
+                  $cargo->voyage = $purchase->voyage;
+                  if(!$cargo->save())  
+                      throw new Exception('Cannot save Cargo');
+                  $newCargoBooking->status = 2;
+                  $newCargoBooking->cargo = $cargo->id;
+                 if(!$newCargoBooking->save())  
+                   throw new Exception('Cannot save Booking');
+
+
+               }
+               // $newTransaction->ovamount =$ovamount;
+               // if(!$newTransaction->save())
+                 // throw new Exception('Cannot save Booking');
                 $transaction->commit();
               }catch(Exception $e){
                 $transaction->rollback();
@@ -133,7 +157,7 @@
         $purchase->hash=$token;
 
       }
-      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets));
+      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo));
     }
 
   }

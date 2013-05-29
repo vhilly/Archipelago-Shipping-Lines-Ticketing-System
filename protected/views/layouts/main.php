@@ -42,6 +42,7 @@
     'brand'=>'',
     'brandUrl'=>'#',
     'collapse'=>true, // requires bootstrap-responsive.css
+    'fluid'=>true,
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -56,6 +57,7 @@
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
                     array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),
+                    array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
 
@@ -97,7 +99,7 @@
 )); ?>
 
 
-<div class="container" id="page">
+<div class="container-fluid" id="page">
 
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(

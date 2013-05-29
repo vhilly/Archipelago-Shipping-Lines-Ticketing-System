@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Tickets'=>array('index'),
+	'Booking Cargos'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-array('label'=>'List Ticket','url'=>array('index')),
-array('label'=>'Create Ticket','url'=>array('create')),
+array('label'=>'List BookingCargo','url'=>array('index')),
+array('label'=>'Create BookingCargo','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-form').toggle();
 return false;
 });
 $('.search-form form').submit(function(){
-$.fn.yiiGridView.update('ticket-grid', {
+$.fn.yiiGridView.update('booking-cargo-grid', {
 data: $(this).serialize()
 });
 return false;
@@ -23,7 +23,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Tickets</h1>
+<h1>Manage Booking Cargos</h1>
 
 <p>
 	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
@@ -39,13 +39,16 @@ return false;
 </div><!-- search-form -->
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-'id'=>'ticket-grid',
+'id'=>'booking-cargo-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'voyage',
-		'rate',
+		'transaction',
+		'cargo',
+		'status',
+		'date_booked',
+		'departure_date',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
 ),

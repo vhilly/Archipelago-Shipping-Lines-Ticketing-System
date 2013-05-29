@@ -1,13 +1,9 @@
 <?php
-  $this->breadcrumbs=array(
-    'Booked Tickets',
-  );
-
+$this->breadcrumbs=array(
+	'Booked Cargos',
+);
 ?>
-
-
 <?php
-
 $gridColumns = array(
                 array(
 			'name' => 'date_booked',
@@ -20,14 +16,6 @@ $gridColumns = array(
                          'attribute'=>'date_booked'), 
                         true),
 			'sortable'=>true,
-                ),
-                array(
-                  'name'=>'first_name',
-                  'value'=>'$data->passenger0->first_name',
-                ),
-                array(
-                  'name'=>'last_name',
-                  'value'=>'$data->passenger0->last_name',
                 ),
 		array(
 			'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -43,11 +31,21 @@ $gridColumns = array(
 			'sortable'=>true,
 			'editable' => array(
                                 'viewformat'  => 'MM  d, yyyy',
-				'url' => $this->createUrl('booking/editableSaver'),
+				'url' => $this->createUrl('bookingCargo/editableSaver'),
 				'placement' => 'right',
 				'inputclass' => 'span3'
 			)
 		),
+                 array(
+                   'name'=>'shipper',
+                   'sortable'=>true,
+                   'value'=>'$data->cargo0->shipper',
+                 ),
+                 array(
+                   'name'=>'company',
+                   'sortable'=>true,
+                   'value'=>'$data->cargo0->company',
+                 ),
 		array(
 			'class' => 'bootstrap.widgets.TbEditableColumn',
 			'name' => 'status',
@@ -55,7 +53,7 @@ $gridColumns = array(
 			'sortable'=>true,
 			'editable' => array(
                                 'type'      => 'select',
-				'url' => $this->createUrl('booking/editableSaver'),
+				'url' => $this->createUrl('bookingCargo/editableSaver'),
                                 'attribute' => 'dropDown',
                                  'source'    => CHtml::listData(BookingStatus::model()->findAll(),'id','name'),
 				'placement' => 'right',
@@ -66,16 +64,17 @@ $gridColumns = array(
                  array(
                    'name'=>'transNo',
                    'sortable'=>true,
-                   'value'=>'str_pad($data->transaction,11,"0",STR_PAD_LEFT)'),
+                   'value'=>'str_pad($data->transaction,11,"0",STR_PAD_LEFT)'
+                 ),
                  array(
-                   'header'=>'Ticket Details',
+                   'header'=>'Cargo Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',
                    'template'=>'{viewtkt}',
                    'buttons'=>array(
                      'viewtkt' => array(
                        'label'=>'view',
                        'icon'=>'plus',
-                       'url'=>'Yii::app()->controller->createUrl("ticket/view", array("id"=>$data->ticket))',
+                       'url'=>'Yii::app()->controller->createUrl("ticket/view", array("id"=>$data->cargo))',
                        'options'=>array(
                             'ajax'=>array(
                                 'type'=>'POST',
@@ -89,9 +88,9 @@ $gridColumns = array(
 );
   $this->widget('bootstrap.widgets.TbGridView', array(
 	'type' => 'striped bordered',
+        'htmlOptions'=>array('class'=>'span12'),
 	'dataProvider' => $model->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span5'),
         'filter'=>$model,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {
@@ -106,4 +105,4 @@ $gridColumns = array(
 
 ?>
 
-<?php echo $this->renderPartial('ticketModal'); ?>
+<?php #echo $this->renderPartial('ticketModal'); ?>

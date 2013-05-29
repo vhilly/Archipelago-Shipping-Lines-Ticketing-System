@@ -67,6 +67,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider' => $model->search(),
 	'template' => "{items},{pager}",
+        'htmlOptions'=>array('class'=>'span5'),
         'filter'=>$model,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {

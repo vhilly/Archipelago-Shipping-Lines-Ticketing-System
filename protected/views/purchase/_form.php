@@ -9,11 +9,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
  
   <?php echo $form->errorSummary($purchase); ?>
+  <?php echo $form->errorSummary($cargo); ?>
   <?php echo $form->hiddenField($purchase, 'step'); ?>
   <?php echo $form->hiddenField($purchase, 'hash'); ?>
   <?php echo $form->hiddenField($purchase, 'ticketList'); ?>
   <?php echo $form->hiddenField($purchase, 'passengerList'); ?>
-
+  <?php echo $form->textField($purchase, 'cargoList'); ?>
 
 
 
@@ -40,7 +41,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <div style="<?=$purchase->step==2? '':'display:none'?>">
     <fieldset>
       <legend>STEP 2</legend>
-      <?php if(count($passengers) && count($fares)):?>
+      <?php if($purchase->passenger):?>
+        <h3>PASSENGER DETAILS</h3>
         <table>
           <?php foreach($passengers as $key=>$passenger):?>
           <tr>
@@ -81,11 +83,30 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
             </td>
             <td>
-              <?php echo $form->dropDownListRow($tickets[$key],"[$key]price",CHtml::listData($fares,'price','type'),array('class'=>'span2')); ?>
+              <?php echo $form->dropDownListRow($tickets[$key],"[$key]rate",CHtml::listData($fares,'id','type'),array('class'=>'span2')); ?>
             </td>
           </tr>
           <?php endforeach;?>
         </table>
+      <?php endif;?>
+      <?php if($purchase->cargo):?>
+
+        <h3>CARGO DETAILS</h3>
+	<?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span3','maxlength'=>100)); ?>
+
+	<?php echo $form->textFieldRow($cargo,'company',array('class'=>'span3','maxlength'=>100)); ?>
+
+	<?php echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
+
+	<?php echo $form->textFieldRow($cargo,'address',array('class'=>'span3','maxlength'=>255)); ?>
+
+        <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','class'),array('class'=>'span2')); ?>
+
+	<?php echo $form->textFieldRow($cargo,'arcticle_no',array('class'=>'span2','maxlength'=>100)); ?>
+	<?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span3','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($cargo,'length',array('class'=>'span2','maxlength'=>100)); ?>
+
       <?php endif;?>
     </fieldset>
   </div>

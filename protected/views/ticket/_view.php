@@ -8,8 +8,8 @@
 	<?php echo CHtml::encode($data->voyage); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
-	<?php echo CHtml::encode($data->price); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('rate')); ?>:</b>
+	<?php echo CHtml::encode($data->rate); ?>
 	<br />
 
 

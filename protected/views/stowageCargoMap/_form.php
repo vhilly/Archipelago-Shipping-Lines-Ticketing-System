@@ -1,5 +1,5 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'ticket-form',
+	'id'=>'stowage-cargo-map-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -7,9 +7,9 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'voyage',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldRow($model,'cargo',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'rate',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldRow($model,'stowage',array('class'=>'span5')); ?>
 
 <div class="form-actions">
 	<?php $this->widget('bootstrap.widgets.TbButton', array(

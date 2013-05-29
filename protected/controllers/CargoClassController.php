@@ -1,6 +1,6 @@
 <?php
 
-class TicketController extends Controller
+class CargoClassController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -50,18 +50,9 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-if( Yii::app()->request->isAjaxRequest )
-        {
-        $this->renderPartial('view',array(
-            'ticket'=>$this->loadModel($id),
-        ), false, false);
-    }
-    else
-    {
-        $this->render('view',array(
-            'ticket'=>$this->loadModel($id),
-        ));
-    }
+$this->render('view',array(
+'model'=>$this->loadModel($id),
+));
 }
 
 /**
@@ -70,14 +61,14 @@ if( Yii::app()->request->isAjaxRequest )
 */
 public function actionCreate()
 {
-$model=new Ticket;
+$model=new CargoClass;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Ticket']))
+if(isset($_POST['CargoClass']))
 {
-$model->attributes=$_POST['Ticket'];
+$model->attributes=$_POST['CargoClass'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -99,9 +90,9 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Ticket']))
+if(isset($_POST['CargoClass']))
 {
-$model->attributes=$_POST['Ticket'];
+$model->attributes=$_POST['CargoClass'];
 if($model->save())
 $this->redirect(array('view','id'=>$model->id));
 }
@@ -136,7 +127,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Ticket');
+$dataProvider=new CActiveDataProvider('CargoClass');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
@@ -147,10 +138,10 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new Ticket('search');
+$model=new CargoClass('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['Ticket']))
-$model->attributes=$_GET['Ticket'];
+if(isset($_GET['CargoClass']))
+$model->attributes=$_GET['CargoClass'];
 
 $this->render('admin',array(
 'model'=>$model,
@@ -164,7 +155,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=Ticket::model()->findByPk($id);
+$model=CargoClass::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -176,7 +167,7 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='ticket-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='cargo-class-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();

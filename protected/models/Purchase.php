@@ -3,10 +3,10 @@
   class Purchase extends CFormModel{
 
     public $passenger=false;
+    public $cargo=false;
     public $passengerMin=1;
     public $passengerTotal;
     public $passengerMax=100;
-    public $cargo;
     public $voyage;
     public $departureDate;
     public $class;
@@ -14,6 +14,7 @@
     public $step;
     public $ticketList;
     public $passengerList;
+    public $cargoList;
     public $payment_method;
     public $payment_status;
     public $transaction_type;
@@ -35,7 +36,6 @@
         'voyage' => 'Voyage',
         'departureDate' => 'Departure Date',
         'class' => 'Class',
-        'cargo' => 'Cargo',
       );
     }
     public function rules(){
@@ -45,7 +45,7 @@
         array('voyage,class', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class', 'length', 'max'=>3),
         array('hash', 'length', 'max'=>32),
-        array('passengerList,ticketList', 'length', 'max'=>9000),
+        array('passengerList,ticketList,cargoList', 'length', 'max'=>9000),
       );
     }
 
@@ -59,6 +59,10 @@
        $this->passengerMin =0;
        $this->passengerMin =0;
      }
-
+   }
+   public function setCargo($required='Y'){
+     if($required=='Y'){
+       $this->cargo=true;
+     }
    }
   }

@@ -1,5 +1,5 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'ticket-form',
+	'id'=>'booking-cargo-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -7,9 +7,15 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'voyage',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldRow($model,'transaction',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'rate',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldRow($model,'cargo',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'date_booked',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'departure_date',array('class'=>'span5')); ?>
 
 <div class="form-actions">
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
