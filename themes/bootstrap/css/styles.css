@@ -1,5 +1,6 @@
 #page {
     padding-top: 60px;
+		min-width:1000px;
 }
 
 .navbar .brand {
@@ -28,4 +29,16 @@
     margin-bottom: 0px;
     color: rgb(119, 119, 119);
 }
-
+.boxs {
+	border:1px solid red;
+}
+.midBox {
+	width:800px;
+}
+.hidden {
+	display:none;
+}
+.tbcenter table th,
+.tbcenter table td {
+	text-align:center;
+}

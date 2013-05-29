@@ -7690,3 +7690,68 @@ in /var/www/arc/index.php (13)
 2013/05/29 17:40:32 [warning] [application] Failed to set unsafe attribute "cargoClass" of "BookingCargo".
 in /var/www/arc/protected/controllers/BookingCargoController.php (133)
 in /var/www/arc/index.php (13)
+2013/05/29 18:24:11 [error] [exception.CException] exception 'CException' with message 'PurchaseController contains improperly nested widget tags in its view "/var/www/newArc/protected/views/purchase/_form.php". A TbActiveForm widget does not have an endWidget() call.' in /var/www/yii/framework/web/CBaseController.php:101
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(869): CBaseController->renderFile('/var/www/newArc...', Array, true)
+#1 /var/www/newArc/protected/views/purchase/index.php(2): CController->renderPartial('_form', Array)
+#2 /var/www/yii/framework/web/CBaseController.php(126): require('/var/www/newArc...')
+#3 /var/www/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/newArc...', Array, true)
+#4 /var/www/yii/framework/web/CController.php(869): CBaseController->renderFile('/var/www/newArc...', Array, true)
+#5 /var/www/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#6 /var/www/newArc/protected/controllers/PurchaseController.php(160): CController->render('index', Array)
+#7 [internal function]: PurchaseController->actionIndex('1')
+#8 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(PurchaseController), Array)
+#9 /var/www/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(PurchaseController), Object(ReflectionMethod), Array)
+#10 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#14 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#15 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#17 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#19 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('purchase/index')
+#20 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#21 /var/www/newArc/index.php(13): CApplication->run()
+#22 {main}
+REQUEST_URI=/newArc/index.php?r=purchase/index&type=1
+HTTP_REFERER=https://172.31.1.16/newArc/index.php?r=purchase/index&type=2
+---
+2013/05/29 18:27:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /var/www/newArc/protected/controllers/TicketController.php:169
+Stack trace:
+#0 /var/www/newArc/protected/controllers/TicketController.php(56): TicketController->loadModel('')
+#1 [internal function]: TicketController->actionView('')
+#2 /var/www/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TicketController), Array)
+#3 /var/www/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TicketController), Object(ReflectionMethod), Array)
+#4 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#11 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#13 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('ticket/view')
+#14 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#15 /var/www/newArc/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/newArc/?r=ticket/view&id=
+HTTP_REFERER=https://172.31.1.16/newArc/index.php?r=site/index
+---
+2013/05/29 18:27:43 [warning] [application] Failed to set unsafe attribute "step" of "Purchase".
+in /var/www/newArc/protected/controllers/PurchaseController.php (45)
+in /var/www/newArc/index.php (13)
+2013/05/29 18:28:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "/view".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('/view')
+#1 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /var/www/newArc/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/newArc/?r=/view&id=
+HTTP_REFERER=https://172.31.1.16/newArc/index.php?r=site/index
+---
+2013/05/29 18:28:46 [warning] [application] Failed to set unsafe attribute "step" of "Purchase".
+in /var/www/newArc/protected/controllers/PurchaseController.php (45)
+in /var/www/newArc/index.php (13)

@@ -1,9 +1,43 @@
+<?php
+
+$active = 'btn-primary';
+$ac = array('btn-inverse','btn-inverse','btn-inverse','btn-inverse');
+$hidden = 'hidden';
+switch($purchase->step){
+        case 1: $hidden='';$ac = array('btn-success','btn-inverse','btn-inverse','btn-inverse');break;
+        case 2: $ac = array('btn-primary','btn-success','btn-inverse','btn-inverse');break;
+        case 3: $ac = array('btn-primary','btn-primary','btn-success','btn-inverse');break;
+        case 4: $ac = array('btn-primary','btn-primary','btn-primary','btn-success');break;
+        default: break;
+
+}
+
+
+
+
+
+$this->widget('bootstrap.widgets.TbButtonGroup', array(
+'buttons'=>array(
+array('label'=>'1. Ticket Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[0])),
+array('label'=>'2. Passenger Details', 'url'=>'#','htmlOptions'=>array('disabled'=>true, 'class'=>$ac[1])),
+array('label'=>'3. Payment Method', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[2])),
+array('label'=>'4. Transaction Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[3]))
+),
+'htmlOptions'=>array('class'=>'steps'),'size'=>'large'
+));
+
+
+?>
+
+
+
 
 
 <?php /** @var BootActiveForm $form */
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'verticalForm',
      'type'=>'vertical',
+    'htmlOptions'=>array('class'=>'well-small'),
 )); ?>
 
 
@@ -17,6 +51,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php echo $form->textField($purchase, 'cargoList'); ?>
 
 
+    <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
+    'title' => 'VOYAGE LIST',
+    'headerIcon' => 'icon-th-list',
+    // when displaying a table, if we include bootstra-widget-table class
+    // the table will be 0-padding to the box
+    'htmlOptions' => array('class'=>'bootstrap-widget-table '.$hidden.' midBox well-small pull-right')
+    ));?>
+
+        <?php $dataProvider=PassageFareRates::model()->findAll(); ?>
+        <?php $this->renderPartial('list'); ?>
+
+    <?php $this->endWidget();?>
 
   <div style="<?=$purchase->step==1? '':'display:none'?>">
     <fieldset>
