@@ -60,6 +60,9 @@
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
+                array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index'), 'items'=>array(
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
 
             ),
         ),

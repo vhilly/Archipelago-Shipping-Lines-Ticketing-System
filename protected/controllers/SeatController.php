@@ -127,16 +127,11 @@ class SeatController extends Controller
 	 */
 	public function actionIndex()
 	{
+	  $this->layout = 'seat-side';
           $seatList= Seat::model()->findAll();
-          $seatMap= SeatTicketMap::model()->findAll();
- 
-          $bookedSeats = Booking::model()->findAll(
-             array(
-               'condition'=>'departure_date=:dd',
-               'params'=>array(':dd'=>date('Y-m-d')),
-             )
-          );
-          $this->render('index',array('seatList'=>$seatList,'seatMap'=>$seatMap,'bookedSeats'=>$bookedSeats));
+          $sql = "SELECT s.id,s.name,b.status FROM booking b,seat_ticket_map st,seat s WHERE b.departure_date=CURDATE() AND b.ticket = st.ticket AND s.id=st.seat";
+          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
+          $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats));
 	}
 
 	/**
