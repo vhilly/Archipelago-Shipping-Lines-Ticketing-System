@@ -35,8 +35,10 @@
       $purchase->payment_status = 1;
       $passengers=array();
       $cargo=new Cargo;
+      $payment=new Payment;
       $fares=null;
       $tickets=array();
+      $seatings=array();
       $purchase->passengerTotal=$purchase->passengerMin;
       $purchase->step = isset($_POST['Purchase']['step']) ? $_POST['Purchase']['step'] : '1';
 
@@ -55,8 +57,9 @@
                 throw new CHttpException('','Setup Passenger Fare Rate First! (under admin/settings/Passage Fare Rates)');
               
               for($count = 0;$count < $purchase->passengerTotal;$count++){
-                $passengers[]= new Passenger;
-                $tickets[]= new Ticket;
+                $passengers[]=new Passenger;
+                $tickets[]=new Ticket;
+                $seatings[]=new SeatTicketMap;
               }
             }
             if($purchase->cargo){
@@ -67,6 +70,9 @@
               if($purchase->passenger){
                 $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
                 $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
+                $purchase->seatingList    = isset($_POST['SeatTicketMap']) ?  json_encode($_POST['SeatTicketMap']) : '';
+                $prices = array_map(function ($ar) {return $ar['price'];},$_POST['Ticket']);
+                $payment->totalAmount = array_sum($prices);
               }
               if($purchase->cargo){
                 $cargo->attributes =$_POST['Cargo'];
@@ -93,13 +99,16 @@
                 if($purchase->passenger){
                   $passengersList = json_decode($purchase->passengerList,1);
                   $ticketsList = json_decode($purchase->ticketList,1);
+                  $seatingList = json_decode($purchase->seatingList,1);
                   foreach($passengersList as $key=>$passenger){
 
                     $newPassenger   = new Passenger;
                     $newTicket = new Ticket;
                     $newBooking = new Booking;
+                    $newSeatMap = new SeatTicketMap;
                     $newPassenger->attributes=$passenger;
                     $newTicket->attributes=$ticketsList[$key];
+                    $newSeatMap->attributes=$seatingList[$key];
                     $newTicket->voyage = $purchase->voyage;
                     $newBooking->departure_date = $purchase->departureDate;
                     $newBooking->transaction = $newTransaction->id;
@@ -108,13 +117,16 @@
                       throw new Exception('Cannot save passanger');
                     if(!$newTicket->save())
                       throw new Exception('Cannot save ticket');
+                    $newSeatMap->ticket = $newTicket->id;
                     $newBooking->ticket = $newTicket->id;
                     $newBooking->passenger = $newPassenger->id;
                     $newBooking->status = 2;
                     if(!$newBooking->save())  
                       throw new Exception('Cannot save Booking');
+                    if(!$newSeatMap->save())  
+                      throw new Exception('Cannot save Seating');
                      //update overall amount
-                     // $ovamount += $newTicket->price;
+                      $ovamount += $newTicket->price;
                   }
                 }
                 if($purchase->cargo){
@@ -132,9 +144,9 @@
 
 
                }
-               // $newTransaction->ovamount =$ovamount;
-               // if(!$newTransaction->save())
-                 // throw new Exception('Cannot save Booking');
+                $newTransaction->ovamount =$ovamount;
+                if(!$newTransaction->save())
+                  throw new Exception('Cannot save Booking');
                 $transaction->commit();
               }catch(Exception $e){
                 $transaction->rollback();
@@ -157,7 +169,7 @@
         $purchase->hash=$token;
 
       }
-      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo));
+      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo,'payment'=>$payment,'seatings'=>$seatings));
     }
 
   }

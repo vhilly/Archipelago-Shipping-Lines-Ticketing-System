@@ -1,5 +1,4 @@
 <?php
-
 $active = 'btn-primary';
 $ac = array('btn-inverse','btn-inverse','btn-inverse','btn-inverse');
 $hidden = 'hidden';
@@ -13,14 +12,14 @@ switch($purchase->step){
 }
 
 
-
-
+if($purchase->passenger)$step2details[] = 'Passenger';
+if($purchase->cargo) $step2details[] = 'Cargo';
 
 $this->widget('bootstrap.widgets.TbButtonGroup', array(
 'buttons'=>array(
 array('label'=>'1. Ticket Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[0])),
-array('label'=>'2. Passenger Details', 'url'=>'#','htmlOptions'=>array('disabled'=>true, 'class'=>$ac[1])),
-array('label'=>'3. Payment Method', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[2])),
+array('label'=>'2. '. implode('&',$step2details) .' Details', 'url'=>'#','htmlOptions'=>array('disabled'=>true, 'class'=>$ac[1])),
+array('label'=>'3. Payment Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[2])),
 array('label'=>'4. Transaction Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[3]))
 ),
 'htmlOptions'=>array('class'=>'steps'),'size'=>'large'
@@ -33,6 +32,8 @@ array('label'=>'4. Transaction Details', 'url'=>'#', 'htmlOptions'=>array('disab
 
 
 
+<br>
+<br>
 <?php /** @var BootActiveForm $form */
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'verticalForm',
@@ -48,6 +49,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php echo $form->hiddenField($purchase, 'hash'); ?>
   <?php echo $form->hiddenField($purchase, 'ticketList'); ?>
   <?php echo $form->hiddenField($purchase, 'passengerList'); ?>
+  <?php echo $form->hiddenField($purchase, 'seatingList'); ?>
+  <?php echo $form->hiddenField($purchase, 'class'); ?>
 
 
     <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
@@ -64,7 +67,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
   <div style="<?=$purchase->step==1? '':'display:none'?>">
     <fieldset>
-      <legend>STEP</legend>
       <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name')); ?>
       <?php echo $form->datepickerRow($purchase, 'departureDate',
         array(
@@ -84,8 +86,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
   <div style="<?=$purchase->step==2? '':'display:none'?>">
     <fieldset>
-      <legend>STEP 2</legend>
       <?php if($purchase->passenger):?>
+        <?php
+              $seats = Seat::model()->findAll(array(
+                'condition'=>'seating_class=:cl',
+                'params'=>array(':cl'=>$purchase->class),
+              ));
+        ?>
         <h3>PASSENGER DETAILS</h3>
         <table>
           <?php foreach($passengers as $key=>$passenger):?>
@@ -127,7 +134,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
             </td>
             <td>
-              <?php echo $form->dropDownListRow($tickets[$key],"[$key]rate",CHtml::listData($fares,'id','type'),array('class'=>'span2')); ?>
+              <?php echo $form->dropDownListRow($tickets[$key],"[$key]rate",CHtml::listData($fares,'id','type'),array('class'=>'span2 fare')); ?>
+            </td>
+            <td style="display:none">
+              <?php echo $form->dropDownListRow($tickets[$key],"[$key]rate",CHtml::listData($fares,'id','price'),array('id'=>'Ticket_'.$key.'_rate2price','class'=>'span2 fare-2price','disabled'=>true)); ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($tickets[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'Ticket_'.$key.'_rate2pricetext','readonly'=>true)); ?>
+            </td>
+            <td>
+              <?php echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
             </td>
           </tr>
           <?php endforeach;?>
@@ -157,7 +173,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
   <div style="<?=$purchase->step==3? '':'display:none'?>">
     <fieldset>
-      <legend>STEP 3</legend>
+      <?php echo 'TOTAL AMOUNT:'.$payment->totalAmount?>
+      <?php echo $form->radioButtonListRow($payment, 'method',CHtml::listData(PaymentMethod::model()->findAll(),'id','name')); ?>
     </fieldset>
   </div>
  

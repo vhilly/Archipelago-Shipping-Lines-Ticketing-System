@@ -127,10 +127,16 @@ class SeatController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Seat');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+          $seatList= Seat::model()->findAll();
+          $seatMap= SeatTicketMap::model()->findAll();
+ 
+          $bookedSeats = Booking::model()->findAll(
+             array(
+               'condition'=>'departure_date=:dd',
+               'params'=>array(':dd'=>date('Y-m-d')),
+             )
+          );
+          $this->render('index',array('seatList'=>$seatList,'seatMap'=>$seatMap,'bookedSeats'=>$bookedSeats));
 	}
 
 	/**

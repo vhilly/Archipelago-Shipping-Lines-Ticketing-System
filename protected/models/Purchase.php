@@ -14,6 +14,7 @@
     public $step;
     public $ticketList;
     public $passengerList;
+    public $seatingList;
     public $cargoList;
     public $payment_method;
     public $payment_status;
@@ -45,7 +46,7 @@
         array('voyage,class', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class', 'length', 'max'=>3),
         array('hash', 'length', 'max'=>32),
-        array('passengerList,ticketList,cargoList', 'length', 'max'=>9000),
+        array('passengerList,ticketList,cargoList,seatingList', 'length', 'max'=>9000),
       );
     }
 

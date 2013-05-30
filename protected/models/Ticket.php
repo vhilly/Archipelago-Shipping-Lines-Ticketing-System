@@ -16,6 +16,7 @@
  */
 class Ticket extends CActiveRecord
 {
+        public $price;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -44,6 +45,7 @@ class Ticket extends CActiveRecord
 		return array(
 			array('voyage, rate', 'required'),
 			array('voyage, rate', 'numerical', 'integerOnly'=>true),
+			array('price', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, voyage, rate', 'safe', 'on'=>'search'),
@@ -59,7 +61,7 @@ class Ticket extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'bookings' => array(self::HAS_MANY, 'Booking', 'ticket'),
-			'seatTicketMaps' => array(self::HAS_MANY, 'SeatTicketMap', 'ticket'),
+			'seatTicketMaps' => array(self::HAS_ONE, 'SeatTicketMap', 'ticket'),
 			'rate0' => array(self::BELONGS_TO, 'PassageFareRates', 'rate'),
 			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
 		);
