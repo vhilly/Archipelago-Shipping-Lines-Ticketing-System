@@ -143,7 +143,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
               <?php echo $form->textFieldRow($tickets[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'Ticket_'.$key.'_rate2pricetext','readonly'=>true)); ?>
             </td>
             <td>
-              <?php echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
+			  <?php echo $form->textFieldRow($seatings[$key],"[$key]seat",array('class'=>'span1 seat smodal', 'id'=>'Ticket_'.$key.'_seat','readonly'=>true)); ?>
+              <?php //echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
             </td>
           </tr>
           <?php endforeach;?>
@@ -182,3 +183,25 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next')); ?>
  </div>
 <?php $this->endWidget(); ?>
+
+
+<script>
+	$('.smodal').bind('click', function (event){
+		var scl = $('#Purchase_class').val();
+		$.ajax({
+			type: 'POST',
+			url: '<?php echo Yii::app()->baseUrl;?>?r=seat/map&class='+scl+'&id='+this.id,
+			success: function (data){
+							$('#ticketModal .modal-body div').html(data);
+							$('#ticketModal').modal();
+				},
+			error: function (xht){
+					alert(this.url);
+				}
+			
+		});
+	});
+</script>
+
+
+<?php echo $this->renderPartial('modal');?>

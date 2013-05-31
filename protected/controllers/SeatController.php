@@ -27,7 +27,7 @@ class SeatController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','map'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -125,6 +125,19 @@ class SeatController extends Controller
 	/**
 	 * Lists all models.
 	 */
+	 
+	public function actionMap()
+	{
+	$sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s WHERE b.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat";
+	$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
+		$apr = Array();
+		foreach($bookedSeats as $bs){
+			$apr[] = $bs['name'];
+		}	
+		$pres = Array();
+		$this->render('map',array('apr'=>$apr,'pres'=>$pres));
+	}
+	
 	public function actionIndex()
 	{
 	  $this->layout = 'seat-side';
