@@ -14,27 +14,22 @@
       border:1px solid #555;
       padding:15px;
     }
-		#seat_list td:hover {
-      background:#f68938;
-    }
-    #seatBox {
-    }
-    .reserved, #seat_list td.pre_assign:hover {
+    .reserved{
       background:#F89406;
     }
-    .canceled, #seat_list td.pre_assign:hover {
+    .canceled{
       background:#B94A48;
     }
-    .checkedin, #seat_list td.pre_assign:hover {
+    .checkedin{
       background: #468847;
     }
-    .paid, #seat_list td.pre_assign:hover {
+    .paid {
       background: #3A87AD;
     }
-    .available, #seat_list td.pre_assign:hover {
+    .available {
       background: #f6f6f6;
     }
-
+   
 </style>
 
 
@@ -49,22 +44,21 @@
 
   $booked =array();
   foreach($bookedSeats as $bs){
-    $booked[$bs['id']] = $bs['status'];
+    $booked[$bs['id']] = array('bid'=>$bs['bookid'],'status'=>$bs['status']);
   }
 
-  echo $this->seatMapAjaxLink('test',1);
-
   foreach($seatList as $key=>$seat){
-    $class = isset($booked[$seat->id]) ? $booked[$seat->id]:0;
+   $link = isset($booked[$seat->id]) ?  "<td class='seatMap ".$statusColor[$booked[$seat->id]['status']]."' id=".$booked[$seat->id]['bid'].">$seat->name</td>" :"<td class='available'>$seat->name</td>";
+
     switch($seat->seating_class){
       case 1:
-        $businessClass[$seat->id]="<td class=$statusColor[$class]>$seat->name</td>";
+        $businessClass[$seat->id]=$link;
         break;
       case 2:
-        $premiumClass[$seat->id]="<td class=$statusColor[$class]>$seat->name</td>";
+        $premiumClass[$seat->id]=$link;
         break;
       case 3:
-        $economyClass[$seat->id]="<td class=$statusColor[$class]>$seat->name</td>";
+        $economyClass[$seat->id]=$link;
         break;
     }
   }
@@ -72,11 +66,7 @@
 ?>
 
     <?php
-      
-      $limit = 30;
-
-
-      $counter = 1;$btd=array();$btr='';
+      $limit = 30; $counter = 1;$btd=array();$btr='';
       foreach($businessClass as $bc){
         $btd[]=$bc;     
         if($counter % $limit ==0){
@@ -145,12 +135,11 @@
   <?php $this->endWidget();?>
 
 
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'ticketModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bookingModal')); ?>
   <div class="modal-header">
-    <h4>Ticket Details</h4>
   </div>
   <div class="modal-body">
-    <p>Ticket Details</p>
+    <p>;p</p>
   </div>
   <div class="modal-footer">
 
@@ -161,4 +150,8 @@
     )); ?>
   </div>
 <?php $this->endWidget(); ?>
-
+<script>
+jQuery(function($) {
+  jQuery('body').on('click','.seatMap',function(){jQuery.ajax({'type':'POST','success':function(data){ $("#bookingModal .modal-body p").html(data); $("#bookingModal").modal();  },'url':'/arc/index.php?r=booking/view&id='+this.id,'cache':false,'data':jQuery(this).parents("form").serialize()});return false;});
+});
+</script>
