@@ -142,7 +142,7 @@ class SeatController extends Controller
 	{
 	  $this->layout = 'seat-side';
           $seatList= Seat::model()->findAll();
-          $sql = "SELECT s.id,s.name,b.status FROM booking b,seat_ticket_map st,seat s WHERE b.departure_date=CURDATE() AND b.ticket = st.ticket AND s.id=st.seat";
+          $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,seat s WHERE b.departure_date=CURDATE() AND b.ticket = st.ticket AND s.id=st.seat";
           $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
           $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats));
 	}
@@ -195,7 +195,7 @@ class SeatController extends Controller
     }
 
   public function seatMapAjaxLink($name,$id){
-   return CHtml::ajaxLink($name,array('booking/view','id'=>$id),
+    return CHtml::ajaxLink($name,array('booking/view','id'=>$id),
                        array('type'=>'POST','success'=>'function(data){ $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal();  }')
                       ); 
   }
