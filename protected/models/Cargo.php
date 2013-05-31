@@ -10,7 +10,7 @@
  * @property string $destination
  * @property string $address
  * @property integer $cargo_class
- * @property string $arcticle_no
+ * @property string $article_no
  * @property string $article_desc
  * @property integer $weight
  * @property integer $length
@@ -52,12 +52,12 @@ class Cargo extends CActiveRecord
 		return array(
 			array('cargo_class, voyage', 'required'),
 			array('cargo_class, weight, length, voyage', 'numerical', 'integerOnly'=>true),
-			array('shipper, company, destination, arcticle_no, contact', 'length', 'max'=>100),
+			array('shipper, company, destination, article_no, contact', 'length', 'max'=>100),
 			array('address', 'length', 'max'=>255),
 			array('article_desc', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, shipper, company, destination, address, cargo_class, arcticle_no, article_desc, weight, length, contact, voyage', 'safe', 'on'=>'search'),
+			array('id, shipper, company, destination, address, cargo_class, article_no, article_desc, weight, length, contact, voyage', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,7 +87,7 @@ class Cargo extends CActiveRecord
 			'destination' => 'Destination',
 			'address' => 'Address',
 			'cargo_class' => 'Cargo Class',
-			'arcticle_no' => 'Arcticle No',
+			'article_no' => 'Article No',
 			'article_desc' => 'Article Desc',
 			'weight' => 'Weight',
 			'length' => 'Length',
@@ -113,7 +113,7 @@ class Cargo extends CActiveRecord
 		$criteria->compare('destination',$this->destination,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('cargo_class',$this->cargo_class);
-		$criteria->compare('arcticle_no',$this->arcticle_no,true);
+		$criteria->compare('article_no',$this->article_no,true);
 		$criteria->compare('article_desc',$this->article_desc,true);
 		$criteria->compare('weight',$this->weight);
 		$criteria->compare('length',$this->length);

@@ -56,7 +56,7 @@ $gridColumns = array(
                             'ajax'=>array(
                                 'type'=>'POST',
                                 'url'=>"js:$(this).attr('href')",
-                                'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); }'
+                                'success'=>'function(data) { $("#transModal .modal-body p").html(data); $("#transModal").modal(); }'
                             ),
                         ),
                      ),
@@ -80,4 +80,4 @@ $gridColumns = array(
         'columns'=>$gridColumns
 ));
 ?>
-
+<?php $this->renderPartial('transModal')?>

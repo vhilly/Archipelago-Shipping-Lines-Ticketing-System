@@ -56,20 +56,29 @@ public function actionView($id)
   $Tickets = array();
   $transType = TransactionType::model()->findByPk($trans->type);
   if($transType->cargo =='Y'){
-    $Cargos = BookingCargo::model()->findAll(array(
-                'condition'=>'transaction=:tn',
-                'params'=>array(':tn'=>$trans->id),
-              ));
+    $sql = "SELECT c.id,c.shipper,c.company,c.contact,c.cargo_class,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c WHERE b.transaction={$trans->id} AND b.cargo=c.id";
+    $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
   }
   if($transType->passenger =='Y'){
-    $sql = "SELECT t.id tktno,p.first_name,p.last_name,v.name voyage,r.price,rt.name route FROM booking b,passenger p,
-           ticket t,passage_fare_rates r,voyage v,route rt  WHERE b.transaction={$trans->id} 
-           AND b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id  AND t.voyage=v.id AND v.route=rt.id";
+    $sql = "SELECT t.id tktno,p.first_name,p.last_name,r.type,c.name class, r.price FROM booking b,passenger p,
+           ticket t,passage_fare_rates r,seating_class c WHERE b.transaction={$trans->id} 
+           AND b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id AND r.class = c.id";
     $Tickets = Yii::app()->db->createCommand($sql)->queryAll();
   }
-  $this->render('view',array(
-      'trans'=>$trans,'Cargos'=>$Cargos,'Tickets'=>$Tickets
-  ));
+
+   if( Yii::app()->request->isAjaxRequest )
+   {
+      $this->renderPartial('view',array(
+         'trans'=>$trans,'Cargos'=>$Cargos,'Tickets'=>$Tickets
+        ), false, false);
+    }
+    else
+    {
+      $this->render('view',array(
+        'trans'=>$trans,'Cargos'=>$Cargos,'Tickets'=>$Tickets
+      ));
+    }
+
 }
 
 /**
@@ -196,4 +205,9 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+
+  public function getTN($id){
+    return str_pad($id,11,'0',STR_PAD_LEFT);
+  }
 }
+
