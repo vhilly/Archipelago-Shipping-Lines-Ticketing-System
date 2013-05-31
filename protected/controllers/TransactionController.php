@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
+'actions'=>array(''),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update'),
+'actions'=>array('create','update','view','index'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,9 +50,26 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+  
+  $trans = $this->loadModel($id);
+  $Cargos = array();
+  $Tickets = array();
+  $transType = TransactionType::model()->findByPk($trans->type);
+  if($transType->cargo =='Y'){
+    $Cargos = BookingCargo::model()->findAll(array(
+                'condition'=>'transaction=:tn',
+                'params'=>array(':tn'=>$trans->id),
+              ));
+  }
+  if($transType->passenger =='Y'){
+    $sql = "SELECT t.id tktno,p.first_name,p.last_name,v.name voyage,r.price,rt.name route FROM booking b,passenger p,
+           ticket t,passage_fare_rates r,voyage v,route rt  WHERE b.transaction={$trans->id} 
+           AND b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id  AND t.voyage=v.id AND v.route=rt.id";
+    $Tickets = Yii::app()->db->createCommand($sql)->queryAll();
+  }
+  $this->render('view',array(
+      'trans'=>$trans,'Cargos'=>$Cargos,'Tickets'=>$Tickets
+  ));
 }
 
 /**

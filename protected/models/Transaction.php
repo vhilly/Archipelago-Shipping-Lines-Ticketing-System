@@ -87,7 +87,7 @@ class Transaction extends CActiveRecord
 			'payment_method' => 'Payment Method',
 			'payment_status' => 'Payment Status',
 			'uid' => 'Uid',
-			'trans_date' => 'Trans Date',
+			'trans_date' => 'Transaction Date',
 			'input_date' => 'Input Date',
 			'ovamount' => 'Overall Amount',
 			'ovdiscount' => 'Overall Discount',
