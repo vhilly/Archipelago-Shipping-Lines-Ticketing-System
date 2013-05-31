@@ -2,6 +2,7 @@
 
 // uncomment the following to define a path alias
 //Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -10,7 +11,7 @@ return array(
 	'name'=>'Archipelago',
 
 	// preloading 'log' component
-	'preload'=>array('log','bootstrap'),
+	'preload'=>array('log','bootstrap','chartjs'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -81,6 +82,7 @@ return array(
 			),
 		),
 		*/
+	'chartjs' => array('class' => 'chartjs.components.ChartJs'),
        'bootstrap' => array(
 	    'class' => 'ext.bootstrap.components.Bootstrap',
 	    'responsiveCss' => true,

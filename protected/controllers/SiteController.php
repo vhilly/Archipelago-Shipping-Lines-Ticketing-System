@@ -60,8 +60,9 @@ class SiteController extends Controller
 			$this->layout = 'main';
 			$this->render('index');
 		}else{
+			$booked = Booking::model()->findAll();
+                        $this->render('home',array('booked'=>$booked));
 			$this->layout = 'column3';
-			$this->render('home');
 		}
 	}
 
