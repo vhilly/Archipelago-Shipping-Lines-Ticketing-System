@@ -44,17 +44,17 @@ class BookingController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
+        public function actionView($id){
+          if( Yii::app()->request->isAjaxRequest ){
+            $this->renderPartial('view',array(
+              'booking'=>$this->loadModel($id),
+            ), false, false);
+          }else{
+            $this->render('view',array(
+            'booking'=>$this->loadModel($id),
+          ));
+         }
+        }
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.

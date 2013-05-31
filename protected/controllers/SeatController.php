@@ -188,10 +188,15 @@ class SeatController extends Controller
 		}
 	}
 
- public function actionEditableSaver(){
-          Yii::import('bootstrap.widgets.TbEditableSaver');
-          $es = new TbEditableSaver('Seat');
-          $es->update();
-        }
+  public function actionEditableSaver(){
+    Yii::import('bootstrap.widgets.TbEditableSaver');
+      $es = new TbEditableSaver('Seat');
+      $es->update();
+    }
 
+  public function seatMapAjaxLink($name,$id){
+   return CHtml::ajaxLink($name,array('booking/view','id'=>$id),
+                       array('type'=>'POST','success'=>'function(data){ $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal();  }')
+                      ); 
+  }
 }

@@ -52,15 +52,7 @@
     $booked[$bs['id']] = $bs['status'];
   }
 
-echo CHtml::ajaxLink('All',
-    array(
-        'url'=>array('/user/delete'),
-        'type'=>'POST',
-        'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); '
-    )
-);
-
-
+  echo $this->seatMapAjaxLink('test',1);
 
   foreach($seatList as $key=>$seat){
     $class = isset($booked[$seat->id]) ? $booked[$seat->id]:0;
