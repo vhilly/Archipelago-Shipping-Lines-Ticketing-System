@@ -7947,3 +7947,445 @@ in C:\xampp\htdocs\archi\index.php (13)
 2013/05/31 06:10:47 [warning] [application] Failed to set unsafe attribute "step" of "Purchase".
 in C:\xampp\htdocs\archi\protected\controllers\PurchaseController.php (47)
 in C:\xampp\htdocs\archi\index.php (13)
+2013/05/31 18:14:19 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:20 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:20 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:21 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:21 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:22 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:23 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:23 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:23 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:23 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:24 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:36 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:14:36 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:49 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:49 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:50 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:50 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:50 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:15:50 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:16:05 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:16:20 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:16:21 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:16:21 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:16:21 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:39 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:40 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:40 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:40 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:41 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:41 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:20:41 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:21:38 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:21:38 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
+2013/05/31 18:21:39 [error] [exception.CException] exception 'CException' with message 'Alias "chartjs.components.ChartJs" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /var/www/yii/framework/YiiBase.php:316
+Stack trace:
+#0 /var/www/yii/framework/YiiBase.php(196): YiiBase::import('chartjs.compone...', true)
+#1 /var/www/yii/framework/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /var/www/yii/framework/base/CModule.php(523): CModule->getComponent('chartjs')
+#3 /var/www/yii/framework/base/CApplication.php(152): CModule->preloadComponents()
+#4 /var/www/yii/framework/YiiBase.php(125): CApplication->__construct('/var/www/arc/pr...')
+#5 /var/www/yii/framework/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/var/www/arc/pr...')
+#6 /var/www/arc/index.php(13): YiiBase::createWebApplication('/var/www/arc/pr...')
+#7 {main}
+REQUEST_URI=/arc/index.php?r=site/index
+HTTP_REFERER=http://localhost/arc/index.php?r=booking/view&id=1
+---
