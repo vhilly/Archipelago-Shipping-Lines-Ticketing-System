@@ -1,40 +1,90 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<?php
+/* @var $this CargoController */
+/* @var $model Cargo */
+/* @var $form CActiveForm */
+?>
+
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'cargo-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'shipper',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'shipper'); ?>
+		<?php echo $form->textField($model,'shipper',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'shipper'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'company',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'company'); ?>
+		<?php echo $form->textField($model,'company',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'company'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'destination',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'destination'); ?>
+		<?php echo $form->textField($model,'destination',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'destination'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'address',array('class'=>'span5','maxlength'=>255)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'address'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'cargo_class',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'cargo_class'); ?>
+		<?php echo $form->textField($model,'cargo_class'); ?>
+		<?php echo $form->error($model,'cargo_class'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'arcticle_no',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'article_no'); ?>
+		<?php echo $form->textField($model,'article_no',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'article_no'); ?>
+	</div>
 
-	<?php echo $form->textAreaRow($model,'article_desc',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'article_desc'); ?>
+		<?php echo $form->textArea($model,'article_desc',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'article_desc'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'weight',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'weight'); ?>
+		<?php echo $form->textField($model,'weight'); ?>
+		<?php echo $form->error($model,'weight'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'length',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'length'); ?>
+		<?php echo $form->textField($model,'length'); ?>
+		<?php echo $form->error($model,'length'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'contact',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'contact'); ?>
+		<?php echo $form->textField($model,'contact',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'contact'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'voyage',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'voyage'); ?>
+		<?php echo $form->textField($model,'voyage'); ?>
+		<?php echo $form->error($model,'voyage'); ?>
+	</div>
 
-<div class="form-actions">
-	<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
-		)); ?>
-</div>
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
 
 <?php $this->endWidget(); ?>
+
+</div><!-- form -->

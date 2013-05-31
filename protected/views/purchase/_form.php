@@ -163,7 +163,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
         <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','class'),array('class'=>'span2')); ?>
 
-	<?php echo $form->textFieldRow($cargo,'arcticle_no',array('class'=>'span2','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($cargo,'article_no',array('class'=>'span2','maxlength'=>100)); ?>
 	<?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($cargo,'length',array('class'=>'span2','maxlength'=>100)); ?>

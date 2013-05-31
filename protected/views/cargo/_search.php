@@ -1,38 +1,80 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<?php
+/* @var $this CargoController */
+/* @var $model Cargo */
+/* @var $form CActiveForm */
+?>
+
+<div class="wide form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-		<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'id'); ?>
+		<?php echo $form->textField($model,'id'); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'shipper',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'shipper'); ?>
+		<?php echo $form->textField($model,'shipper',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'company',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'company'); ?>
+		<?php echo $form->textField($model,'company',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'destination',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'destination'); ?>
+		<?php echo $form->textField($model,'destination',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'address',array('class'=>'span5','maxlength'=>255)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'address'); ?>
+		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'cargo_class',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'cargo_class'); ?>
+		<?php echo $form->textField($model,'cargo_class'); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'arcticle_no',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'article_no'); ?>
+		<?php echo $form->textField($model,'article_no',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-		<?php echo $form->textAreaRow($model,'article_desc',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'article_desc'); ?>
+		<?php echo $form->textArea($model,'article_desc',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'weight',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'weight'); ?>
+		<?php echo $form->textField($model,'weight'); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'length',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'length'); ?>
+		<?php echo $form->textField($model,'length'); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'contact',array('class'=>'span5','maxlength'=>100)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'contact'); ?>
+		<?php echo $form->textField($model,'contact',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-		<?php echo $form->textFieldRow($model,'voyage',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'voyage'); ?>
+		<?php echo $form->textField($model,'voyage'); ?>
+	</div>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType' => 'submit',
-			'type'=>'primary',
-			'label'=>'Search',
-		)); ?>
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
+
+</div><!-- search-form -->
