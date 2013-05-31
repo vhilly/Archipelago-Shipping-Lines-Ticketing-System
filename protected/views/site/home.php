@@ -9,7 +9,7 @@ $this->pageTitle=Yii::app()->name;
 )); ?>
 <?php
  $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
-    'title' => 'Seats',
+    'title' => 'Booking Status',
     'headerIcon' => 'icon-th-list',
     'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
   ));

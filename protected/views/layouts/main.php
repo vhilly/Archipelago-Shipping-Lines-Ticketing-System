@@ -73,7 +73,7 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Sample Report', 'url'=>array('/report/index')),
+                    array('label'=>'Daily Revenue Report', 'url'=>array('/report/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
