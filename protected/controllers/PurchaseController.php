@@ -31,18 +31,13 @@
       $purchase->setPassenger($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger);
       $purchase->setCargo($purchaseType->cargo);
       $purchase->transaction_type = $purchaseType->id;
-      $purchase->payment_method = 1;
-      $purchase->payment_status = 1;
       $passengers=array();
       $cargo=new Cargo;
-      $payment=new Payment;
       $fares=null;
       $tickets=array();
       $seatings=array();
       $purchase->passengerTotal=$purchase->passengerMin;
       $purchase->step = isset($_POST['Purchase']['step']) ? $_POST['Purchase']['step'] : '1';
-
-
       if(isset($_POST['Purchase'])){
         $purchase->attributes=$_POST['Purchase'];
         if($purchase->validate()){
@@ -67,12 +62,13 @@
             }
           }
           if($purchase->step==2){
+              $purchase->payment_method = 1;
               if($purchase->passenger){
                 $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
                 $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
                 $purchase->seatingList    = isset($_POST['SeatTicketMap']) ?  json_encode($_POST['SeatTicketMap']) : '';
                 $prices = array_map(function ($ar) {return $ar['price'];},$_POST['Ticket']);
-                $payment->totalAmount = array_sum($prices);
+                $purchase->payment_total = array_sum($prices);
               }
               if($purchase->cargo){
                 $cargo->attributes =$_POST['Cargo'];
@@ -82,7 +78,6 @@
           if($purchase->step==3 && ($purchase->passenger || $purchase->cargo)){
             $purchaseToken = isset($_SESSION['purchase_token']) ? $_SESSION['purchase_token']: '';
             if($purchase->hash == $purchaseToken){
-              $ovamount = 0;
               $transaction = Yii::app()->db->beginTransaction();
               try{
                 $newTransaction = new Transaction;
@@ -93,7 +88,7 @@
                 $curDate = date('Y-m-d H:i:s');
                 $newTransaction->trans_date = $curDate;
                 $newTransaction->input_date = $curDate;
-                $newTransaction->ovamount =$ovamount;
+                $newTransaction->ovamount =$purchase->payment_total;
                 if(!$newTransaction->save())
                   throw new Exception('Cannot save transaction');
                 if($purchase->passenger){
@@ -120,13 +115,12 @@
                     $newSeatMap->ticket = $newTicket->id;
                     $newBooking->ticket = $newTicket->id;
                     $newBooking->passenger = $newPassenger->id;
-                    $newBooking->status = 2;
+                    $newBooking->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
                     if(!$newBooking->save())  
                       throw new Exception('Cannot save Booking');
                     if(!$newSeatMap->save())  
                       throw new Exception('Cannot save Seating');
                      //update overall amount
-                      $ovamount += $newTicket->price;
                   }
                 }
                 if($purchase->cargo){
@@ -144,10 +138,8 @@
 
 
                }
-                $newTransaction->ovamount =$ovamount;
-                if(!$newTransaction->save())
-                  throw new Exception('Cannot save Booking');
                 $transaction->commit();
+		$this->redirect(array('transaction/view','id'=>$newTransaction->id));
               }catch(Exception $e){
                 $transaction->rollback();
               throw new CHttpException(400,$e);
@@ -169,7 +161,7 @@
         $purchase->hash=$token;
 
       }
-      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo,'payment'=>$payment,'seatings'=>$seatings));
+      $this->render('index',array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo,'seatings'=>$seatings));
     }
 
   }

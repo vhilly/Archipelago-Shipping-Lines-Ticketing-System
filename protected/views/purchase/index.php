@@ -1,5 +1,5 @@
 
-<?php echo $this->renderPartial('_form', array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo,'payment'=>$payment,'seatings'=>$seatings)); ?>
+<?php echo $this->renderPartial('_form', array('purchase'=>$purchase,'passengers'=>$passengers,'fares'=>$fares,'tickets'=>$tickets,'cargo'=>$cargo,'seatings'=>$seatings)); ?>
 <?php
   Yii::app()->clientScript->registerScript('prices', 
    "

@@ -8,6 +8,7 @@
       return array(
         'totalAmount' => 'Total Amount',
         'method' => 'Choose Payment Method',
+        'status' => 'Payment Status',
       );
     }
     public function rules(){

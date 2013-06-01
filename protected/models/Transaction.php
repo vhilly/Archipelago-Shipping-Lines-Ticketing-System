@@ -82,7 +82,7 @@ class Transaction extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Transaction No.',
 			'type' => 'Type',
 			'payment_method' => 'Payment Method',
 			'payment_status' => 'Payment Status',

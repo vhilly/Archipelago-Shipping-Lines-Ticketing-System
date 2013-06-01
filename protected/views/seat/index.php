@@ -66,7 +66,7 @@
 ?>
 
     <?php
-      $limit = 30; $counter = 1;$btd=array();$btr='';
+      $limit = 20; $counter = 1;$btd=array();$btr='';
       foreach($businessClass as $bc){
         $btd[]=$bc;     
         if($counter % $limit ==0){
@@ -105,7 +105,7 @@
     'headerIcon' => 'icon-th-list',
     'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
   ));?>
-  <table border=1>
+  <table border=1 id=seats>
    <?=$btr?>
   </table>
 
@@ -116,7 +116,7 @@
     'headerIcon' => 'icon-th-list',
     'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
   ));?>
-  <table border=1>
+  <table border=1 id=seats>
    <?=$ptr?>
   </table>
 
@@ -128,7 +128,7 @@
     'headerIcon' => 'icon-th-list',
     'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
   ));?>
-  <table border=1>
+  <table border=1 id=seats>
    <?=$etr?>
   </table>
 
@@ -150,8 +150,21 @@
     )); ?>
   </div>
 <?php $this->endWidget(); ?>
+
+<div id=test>
+  fsfsfd
+</div>
 <script>
-jQuery(function($) {
-  jQuery('body').on('click','.seatMap',function(){jQuery.ajax({'type':'POST','success':function(data){ $("#bookingModal .modal-body p").html(data); $("#bookingModal").modal();  },'url':'/arc/index.php?r=booking/view&id='+this.id,'cache':false,'data':jQuery(this).parents("form").serialize()});return false;});
-});
+
+ $('.seatMap').click(
+   function(){
+      $('#bookingForm').toggle();
+      $('#Booking_id').val(this.id);
+      $('#selectedSeat').html($(this).text());
+   }
+ );
+
+//jQuery(function($) {
+//  jQuery('body').on('click','.seatMap',function(){jQuery.ajax({'type':'POST','success':function(data){ $("#bookingModal .modal-body p").html(data); $("#bookingModal").modal();  },'url':'/arc/index.php?r=booking/view&id='+this.id,'cache':false,'data':jQuery(this).parents("form").serialize()});return false;});
+//});
 </script>

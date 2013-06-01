@@ -29,8 +29,24 @@
            'label'=>'Canceled',
          )); ?>          
 
+
+         <div id=bookingForm style=display:none>
+        <h1 id=selectedSeat></h1>
+        <?php $model = new Booking?>
+        <?php  $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+		'id'=>'booking',
+	        'action'=>Yii::app()->createUrl('seat/index'),
+	        'method'=>'get',
+		'type'=>'vertical',
+	)); ?>
+         <?php echo $form->hiddenField($model, 'id'); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Make Seat Available', 'htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
+        <?php $this->endWidget(); ?>
+ 
+         </div>
         </div><!-- sidebar -->
     </div>
 </div>
-<?php $this->endContent(); ?>
 
+
+<?php $this->endContent(); ?>

@@ -48,7 +48,7 @@ class BookingController extends Controller
           if( Yii::app()->request->isAjaxRequest ){
             $this->renderPartial('view',array(
               'booking'=>$this->loadModel($id),
-            ), false, false);
+            ), false,false);
           }else{
             $this->render('view',array(
             'booking'=>$this->loadModel($id),
@@ -97,9 +97,9 @@ class BookingController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
+		$this->renderPartial('update',array(
 			'model'=>$model,
-		));
+		),false,true);
 	}
 
 	/**

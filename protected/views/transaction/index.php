@@ -40,6 +40,11 @@ $gridColumns = array(
                         'value'=>'$data->paymentStatus->name',
 			'sortable'=>true,
                 ),
+                array(
+			'name' => 'id',
+			'sortable'=>true,
+			'value'=>' str_pad($data->id,11,"0",STR_PAD_LEFT)',
+                ),
                 'ovamount',
                 'ovdiscount',
                 array('header'=>'Total Amount','value'=>'$data->ovamount-$data->ovdiscount'),

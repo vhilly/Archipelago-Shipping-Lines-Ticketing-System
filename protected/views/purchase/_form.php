@@ -50,7 +50,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php echo $form->hiddenField($purchase, 'ticketList'); ?>
   <?php echo $form->hiddenField($purchase, 'passengerList'); ?>
   <?php echo $form->hiddenField($purchase, 'seatingList'); ?>
-  <?php echo $form->hiddenField($purchase, 'class'); ?>
+  <?php echo $form->hiddenField($purchase, 'payment_total'); ?>
 
 
     <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
@@ -74,8 +74,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
           'options'=>array( 'format' => 'yyyy-mm-dd')
         )); 
       ?>
-
+      <?php if(!$purchase->cargo):?>
       <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>
+      <?php endif;?>
       <?php 
         if($purchase->passenger)
         echo $form->textFieldRow($purchase, 'passengerTotal', array('class'=>'span1'));
@@ -157,7 +158,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 	<?php echo $form->textFieldRow($cargo,'company',array('class'=>'span3','maxlength'=>100)); ?>
 
-	<?php echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
+	<?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
 
 	<?php echo $form->textFieldRow($cargo,'address',array('class'=>'span3','maxlength'=>255)); ?>
 
@@ -173,12 +174,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   </div>
 
   <div style="<?=$purchase->step==3? '':'display:none'?>">
+      <?php echo 'TOTAL AMOUNT: P'.$purchase->payment_total?><br><br>
     <fieldset>
-      <?php echo 'TOTAL AMOUNT:'.$payment->totalAmount?>
-      <?php echo $form->radioButtonListRow($payment, 'method',CHtml::listData(PaymentMethod::model()->findAll(),'id','name')); ?>
+      <?php echo $form->radioButtonListRow($purchase, 'payment_method',CHtml::listData(PaymentMethod::model()->findAll(),'id','name')); ?>
+      <?php echo $form->dropDownListRow($purchase, 'payment_status',CHtml::listData(PaymentStatus::model()->findAll(),'id','name')); ?>
     </fieldset>
   </div>
  
+  <div style="<?=$purchase->step==3? '':'display:none'?>">
+  </div>
     <div class="form-actions"> 
   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next')); ?>
  </div>
