@@ -128,14 +128,20 @@ class SeatController extends Controller
 	 
 	public function actionMap()
 	{
-	$sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s WHERE b.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat";
-	$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
+		$list= Seat::model()->findAll();
+		$sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s WHERE b.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat";
+		$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
 		$apr = Array();
+		$pl = Array();
 		foreach($bookedSeats as $bs){
 			$apr[] = $bs['name'];
-		}	
+		}
+		foreach($list as $bl){
+			$pl[$bl['name']] = $bl['id'];
+		}
+		}
 		$pres = Array();
-		$this->render('map',array('apr'=>$apr,'pres'=>$pres));
+		$this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=$pl));
 	}
 	
 	public function actionIndex()
