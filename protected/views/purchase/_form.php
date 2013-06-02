@@ -144,8 +144,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
               <?php echo $form->textFieldRow($tickets[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'Ticket_'.$key.'_rate2pricetext','readonly'=>true)); ?>
             </td>
             <td>
-			  <?php echo $form->textFieldRow($seatings[$key],"[$key]seat",array('class'=>'span1 seat smodal', 'id'=>'Ticket_'.$key.'_seat','readonly'=>true)); ?>
-              <?php //echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
+			  <?php echo $form->textFieldRow($seatings[$key],"[$key]seat",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_seat','readonly'=>true)); ?>
+              <?php echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
             </td>
           </tr>
           <?php endforeach;?>
