@@ -139,9 +139,8 @@ class SeatController extends Controller
 		foreach($list as $bl){
 			$pl[$bl['name']] = $bl['id'];
 		}
-		}
 		$pres = Array();
-		$this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=$pl));
+		$this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl));
 	}
 	
 	public function actionIndex()

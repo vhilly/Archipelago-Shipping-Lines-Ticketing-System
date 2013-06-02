@@ -73,7 +73,7 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Daily Revenue Report', 'url'=>array('/report/index')),
+                    array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
@@ -103,8 +103,22 @@
 
 
 <div class="container-fluid" id="page">
-
-
+  <center>
+<?php
+  if(Yii::app()->user->hasFlash("success"))
+   $type='success';
+  if(Yii::app()->user->hasFlash("error"))
+   $type='error';
+  $this->widget('bootstrap.widgets.TbAlert', array(
+    'block'=>true, // display a larger alert block?
+    'fade'=>true, // use transitions?
+    'closeText'=>'x', // close link text - if set to false, no close link is displayed
+    'alerts'=>array( // configurations per alert type
+	    $type=>array('block'=>true, 'fade'=>true, 'closeText'=>'x'), // success, info, warning, error or danger
+    ),
+  ));
+?>
+  </center>
 	<?php echo $content; ?>
 
 	<div class="clear"></div>
