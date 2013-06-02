@@ -69,7 +69,9 @@ $skp = Array('45D','45E','45F','45G','44A','44B','44C');
                                                          $clk = "";
                                                  }else{
                                                    $cls = "";
-                                                         $clk = "onclick=\"get('$b$a','$ids')\"";
+                                                   $as = "$b$a";
+                                                   $sId = $id[$as];
+                                                         $clk = "onclick=\"get('$b$a','$ids','$sId')\"";
                                                  }
                                                 if(!in_array($ts,$skp)){
                                                  if($b==44 && ($a>="A" OR $a<="G")){
@@ -79,7 +81,9 @@ $skp = Array('45D','45E','45F','45G','44A','44B','44C');
                                                          case "F": $c="C";break;
                                                          case "G": $c="D";break;
                                                         }
-							$clk = $clk!="" ? "onclick=\"get('$b$c','$ids')\"" : "";
+                                                        $as = "$b$c";
+                                                        $sId = $id[$as];
+							$clk = $clk!="" ? "onclick=\"get('$b$c','$ids','$sId')\"" : "";
                                             $body .= "<td class=\"$cls\" $clk >$b$c</td>";
                                                  }else{
                                             $body .= "<td class=\"$cls\" $clk >$b$a</td>";
@@ -101,9 +105,10 @@ $skp = Array('45D','45E','45F','45G','44A','44B','44C');
 
 </center>
 <script>
-	function get(seat,ids){
+	function get(seat,ids,no){
 		if(ids!=""){	
 			$('#'+ids).val(seat);
+			$('#Ticket'+ids).val(no);
 			$('a[data-dismiss="modal"]').click();
 		}
 	}
