@@ -135,27 +135,40 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 * Lists all models.
 */
 public function actionIndex()
-{/*
-$dataProvider=new CActiveDataProvider('Ticket');
-$this->render('index',array(
-'dataProvider'=>$dataProvider,
-));*/
+{
+$model=new Report; 
+$model->addRequiredField(array('voyage'));
+if(isset($_POST['Report'])){
+  $model->attributes=$_POST['Report'];
+ 
+  if($model->validate()){
 
-$ticketView = array();
-$sql = "SELECT t.id tktno,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
-	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat
+    $ticketView = array();
+    $sql = "SELECT t.id tktno,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
         FROM booking b,passenger p,ticket t,passage_fare_rates r,seating_class c,
-	voyage v, route rt
+	voyage v, route rt,seat_ticket_map stm,seat s
         WHERE b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id AND r.class=c.id AND b.status != 4
-	AND v.id=t.voyage AND rt.id=v.route
-	ORDER BY tktno";
+	AND v.id=t.voyage AND rt.id=v.route AND s.id=stm.seat AND t.id=stm.ticket 
+	AND t.voyage ={$model->voyage} ";
 
-$ticketView = Yii::app()->db->createCommand($sql)->queryAll();
-$this->render('index',array('ticketView'=>$ticketView,));
-$this->layout = 'column3';
+    if($model->departure_date) $sql .=" AND b.departure_date='{$model->departure_date}'";
+    if($model->tktNo) $sql .=" AND t.id='{$model->tktNo}'";
+
+    $sql .=" ORDER BY tktno";
+//die($sql);
+    $ticketView = Yii::app()->db->createCommand($sql)->queryAll();
+    $this->render('index',array('ticketView'=>$ticketView,'model'=>$model,'is_empty'=>0));
+  }
+  else{
+    $this->render('index',array('is_empty'=>1,'model'=>$model));
+  }
+}
+else{
+    $this->render('index',array('is_empty'=>1,'model'=>$model));
+  }
 
 }
-
 /**
 * Manages all models.
 */
