@@ -135,11 +135,25 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 * Lists all models.
 */
 public function actionIndex()
-{
+{/*
 $dataProvider=new CActiveDataProvider('Ticket');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
-));
+));*/
+
+$ticketView = array();
+$sql = "SELECT t.id tktno,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat
+        FROM booking b,passenger p,ticket t,passage_fare_rates r,seating_class c,
+	voyage v, route rt
+        WHERE b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id AND r.class=c.id AND b.status != 4
+	AND v.id=t.voyage AND rt.id=v.route
+	ORDER BY tktno";
+
+$ticketView = Yii::app()->db->createCommand($sql)->queryAll();
+$this->render('index',array('ticketView'=>$ticketView,));
+$this->layout = 'column3';
+
 }
 
 /**
