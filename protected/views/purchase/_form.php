@@ -145,6 +145,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </td>
             <td>
 			  <?php echo $form->textFieldRow($seatings[$key],"[$key]seat",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_seat','readonly'=>true)); ?>
+	    </td>
+	    <td style="display:none">
               <?php echo $form->dropDownListRow($seatings[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2')); ?>
             </td>
           </tr>
