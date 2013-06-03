@@ -63,6 +63,10 @@
                 array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
+		array('icon'=>'book','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                '...',
+
 
             ),
         ),
