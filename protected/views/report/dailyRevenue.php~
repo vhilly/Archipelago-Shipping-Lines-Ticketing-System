@@ -1,0 +1,70 @@
+
+<pre>
+  <center>
+    <h2>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h2>
+
+    <h6>7/F Mapfre Asian Corporate Center Acacia Ave.,<br>
+      Madrigal Business Park, Ayala Alabang, Muntinlupa City<br>
+      Tel No.:(02) 775-0441 Fax No.:807-5670
+    </h6>
+
+    <h1>DAILY REVENUE REPORT NO.:__</h1>
+
+    <h3 >VESSEL:_____________ &thinsp; &ensp; &#09; &emsp; &nbsp; DATE:______________</h3></h3>
+    <h3 >ROUTE:_____________</h3>
+  </center>
+</pre>
+<?php
+
+?>
+
+<?
+  $perVoyage=array();
+  $perVoyageRev=array();
+  if($dR){
+    foreach($dR as $r){
+      $perVoyage[$r['sclassid']][$r['voyeid']] = $r['amount'];
+    }
+  }
+
+
+?>
+<pre>
+<?php
+  print_r($perVoyage);
+?>
+</pre>
+<table border=1>
+  <tr>
+    <th rowspan=2>REVENUE</th>
+    <th colspan=<?=count($voy)?>><center>VOYAGE</center></th>
+    <th rowspan=2>TOTAL</th>
+  </tr>
+  <tr>
+  <?php foreach($voy as $v):?>
+    <th><?=$v->name?></th>
+  <?php endforeach;?>
+  </tr>
+  <?php foreach($sc as $s):?>
+  <?php $total = 0;?>
+  <tr>
+    <td><?=$s->name?></td>
+    <?php foreach($voy as $v):?>
+    <td>
+      <?php if(isset($perVoyage[$s->id][$v->id])):?>
+      <?php 
+        $amnt = $perVoyage[$s->id][$v->id];
+        echo $amnt;
+        $total += $amnt;
+      ?>
+    <?php endif;?>
+    </td>
+    <?php endforeach;?>
+    <td><?=$total?></td>
+  </tr>
+<?php
+  print_r($perVoyageRev);
+?>
+<?php endforeach;?>
+  <td>TOTAL REVENUE</td>
+</table>

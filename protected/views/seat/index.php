@@ -32,6 +32,8 @@
    
 </style>
 
+  <?php $this->renderPartial('_availabilityForm',array('model'=>$model),false,false)?>
+  <?php if(!$is_empty):?>
 
 <?php
 
@@ -168,3 +170,4 @@
 //  jQuery('body').on('click','.seatMap',function(){jQuery.ajax({'type':'POST','success':function(data){ $("#bookingModal .modal-body p").html(data); $("#bookingModal").modal();  },'url':'/arc/index.php?r=booking/view&id='+this.id,'cache':false,'data':jQuery(this).parents("form").serialize()});return false;});
 //});
 </script>
+  <?php endif;?>
