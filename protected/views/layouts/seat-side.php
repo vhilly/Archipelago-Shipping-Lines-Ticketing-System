@@ -13,7 +13,7 @@
            'label'=>'Available',
          )); ?>          
 	 <?php $this->widget('bootstrap.widgets.TbLabel', array(
-           'type'=>'inverse', // 'success', 'warning', 'important', 'info' or 'inverse'
+           'type'=>'warning', // 'success', 'warning', 'important', 'info' or 'inverse'
            'label'=>'Reserved',
          )); ?>          
 	 <?php $this->widget('bootstrap.widgets.TbLabel', array(
