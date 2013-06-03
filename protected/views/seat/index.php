@@ -152,10 +152,6 @@
     )); ?>
   </div>
 <?php $this->endWidget(); ?>
-
-<div id=test>
-  fsfsfd
-</div>
 <script>
 
  $('.seatMap').click(

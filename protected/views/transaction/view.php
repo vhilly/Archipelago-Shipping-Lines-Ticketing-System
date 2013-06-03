@@ -5,9 +5,11 @@
 
   
 ?>
-
-    <table class="table" >
+    <table width=1000 border=1>
       <thead>
+        <tr bgcolor=#F68938>
+         <th colspan=8><center>TRANSACTION DETAILS</center></th>
+        </tr>
         <tr>
          <th>TRANSACTION NO.</th>
          <th>INPUT DATE</th>
@@ -35,8 +37,12 @@
   <?php
     if(count($Tickets)):
   ?>
-  <table class="table">
+  <br>
+  <table width=1000 border=1>
       <thead>
+        <tr bgcolor=#F68938>
+         <th colspan=8><center>TICKETS PURCHASED</center></th>
+        </tr>
         <tr>
          <th>TICKET NO.</th>
          <th>FIRST NAME</th>
@@ -63,17 +69,23 @@
   <?php
     if(count($Cargos)):
   ?>
-  <table class="table">
+  <br>
+  <table width=1000 border=1>
       <thead>
-        <tr class="odd">
+        <tr bgcolor=#F68938>
+         <th colspan=10><center>CARGO</center></th>
+        </tr>
+        <tr>
          <th>CARGO NO.</th>
          <th>SHIPPER</th>
          <th>COMPANY</th>
          <th>CONTACT</th>
+         <th>CLASS</th>
          <th>ARTICLE NO.</th>
          <th>ARTICLE DESCRIPTION</th>
          <th>WEIGHT</th>
          <th>LENGTH</th>
+         <th>AMOUNT</th>
         </tr>
       </thead>
       <tbody>
@@ -83,10 +95,12 @@
 	     <td><?=$cargo['shipper']?></td>
 	     <td><?=$cargo['company']?></td>
 	     <td><?=$cargo['contact']?></td>
+	     <td><?=$cargo['class']?></td>
 	     <td><?=$cargo['article_no']?></td>
 	     <td><?=$cargo['article_desc']?></td>
 	     <td><?=$cargo['weight']?></td>
 	     <td><?=$cargo['length']?></td>
+	     <td><?=$cargo['amount']?></td>
 	   </tr>
 	 <?php endforeach;?>
      </tbody>

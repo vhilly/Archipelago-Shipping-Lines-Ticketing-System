@@ -16,10 +16,12 @@
     public $passengerList;
     public $seatingList;
     public $cargoList;
+    public $cargoPrice;
     public $payment_method;
     public $payment_status;
     public $payment_total;
     public $transaction_type;
+    public $trNo;
     
     
 
@@ -38,15 +40,16 @@
         'voyage' => 'Voyage',
         'departureDate' => 'Departure Date',
         'class' => 'Class',
+        'cargoPrice' => 'Price',
       );
     }
     public function rules(){
       return array(
         array($this->_requiredFields,'required'),
         array('passengerTotal', 'numerical','min'=>$this->passengerMin,'max'=>$this->passengerMax),
-        array('voyage,class,payment_total,payment_method,payment_status', 'numerical', 'integerOnly'=>true),
+        array('voyage,class,payment_total,payment_method,payment_status,trNo', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class', 'length', 'max'=>3),
-        array('hash', 'length', 'max'=>32),
+        array('hash,cargoPrice', 'length', 'max'=>32),
         array('passengerList,ticketList,cargoList,seatingList', 'length', 'max'=>9000),
       );
     }

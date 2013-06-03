@@ -72,6 +72,7 @@
               }
               if($purchase->cargo){
                 $cargo->attributes =$_POST['Cargo'];
+                $purchase->payment_total += $purchase->cargoPrice;
               }
           }
 
@@ -107,6 +108,7 @@
                     $newTicket->voyage = $purchase->voyage;
                     $newBooking->departure_date = $purchase->departureDate;
                     $newBooking->transaction = $newTransaction->id;
+                    $purchase->trNo = $newTransaction->id;
                     //saving
                     if(!$newPassenger->save())
                       throw new Exception('Cannot save passanger');
@@ -139,7 +141,8 @@
 
                }
                 $transaction->commit();
-		$this->redirect(array('transaction/view','id'=>$newTransaction->id));
+                Yii::app()->user->setFlash('success', 'Transaction Complete!');
+		//$this->redirect(array('transaction/view','id'=>$newTransaction->id));
               }catch(Exception $e){
                 $transaction->rollback();
               throw new CHttpException(400,$e);

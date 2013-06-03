@@ -51,6 +51,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
   <?php echo $form->hiddenField($purchase, 'passengerList'); ?>
   <?php echo $form->hiddenField($purchase, 'seatingList'); ?>
   <?php echo $form->hiddenField($purchase, 'payment_total'); ?>
+  <?php echo $form->hiddenField($purchase, 'trNo'); ?>
 
 
     <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
@@ -74,7 +75,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
           'options'=>array( 'format' => 'yyyy-mm-dd')
         )); 
       ?>
-      <?php if(!$purchase->cargo):?>
+      <?php if($purchase->cargo):?>
+      <?php echo $form->hiddenField($purchase, 'class'); ?>
+      <?php else:?>
       <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>
       <?php endif;?>
       <?php 
@@ -165,6 +168,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	<?php echo $form->textFieldRow($cargo,'address',array('class'=>'span3','maxlength'=>255)); ?>
 
         <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','class'),array('class'=>'span2')); ?>
+        <div style="display:none"> <?php echo $form->dropDownListRow($cargo,'price',CHtml::listData(CargoClass::model()->findAll(),'id','proposed_tariff'),array('class'=>'span2','disabled'=>true)); ?></div>
+        <?php echo $form->textFieldRow($purchase,'cargoPrice',array('readonly'=>true)); ?>
 
 	<?php echo $form->textFieldRow($cargo,'article_no',array('class'=>'span2','maxlength'=>100)); ?>
 	<?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span3','maxlength'=>100)); ?>
@@ -185,29 +190,31 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
  
   <div style="<?=$purchase->step==3? '':'display:none'?>">
   </div>
-    <div class="form-actions"> 
-  <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next')); ?>
- </div>
-<?php $this->endWidget(); ?>
 
-
-<script>
-	$('.smodal').bind('click', function (event){
-		var scl = $('#Purchase_class').val();
-		$.ajax({
-			type: 'POST',
-			url: '<?php echo Yii::app()->baseUrl;?>?r=seat/map&class='+scl+'&id='+this.id,
+  <?php if($purchase->step==4):?>
+   <div id="transDetails">
+   <div>
+    <script>
+       $.ajax({
+			type: 'GET',
+			url: '<?php echo Yii::app()->baseUrl;?>?r=transaction/view&id='+'<?=$purchase->trNo?>',
 			success: function (data){
-							$('#ticketModal .modal-body div').html(data);
-							$('#ticketModal').modal();
+							$('#transDetails').html(data);
 				},
 			error: function (xht){
 					alert(this.url);
 				}
 			
-		});
-	});
-</script>
+          });
+    </script>
+  <?php endif?>
+
+   <?php if($purchase->step!=4):?>
+    <div class="form-actions"> 
+     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next')); ?>
+   </div>
+   <?php endif;?>
+
+<?php $this->endWidget(); ?>
 
 
-<?php echo $this->renderPartial('modal');?>
