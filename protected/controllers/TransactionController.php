@@ -50,13 +50,13 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-  
+  $this->layout = 'none';
   $trans = $this->loadModel($id);
   $Cargos = array();
   $Tickets = array();
   $transType = TransactionType::model()->findByPk($trans->type);
   if($transType->cargo =='Y'){
-    $sql = "SELECT c.id,c.shipper,c.company,c.contact,c.cargo_class,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c WHERE b.transaction={$trans->id} AND b.cargo=c.id";
+    $sql = "SELECT c.id,c.shipper,c.company,c.contact,cl.class,cl.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_class cl WHERE b.transaction={$trans->id} AND b.cargo=c.id AND cl.id=c.cargo_class";
     $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
   }
   if($transType->passenger =='Y'){
