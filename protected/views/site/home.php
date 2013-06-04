@@ -1,63 +1,60 @@
 <?php
-/* @var $this SiteController */
-
-$this->pageTitle=Yii::app()->name;
-?>
-
-<?php $this->beginWidget('bootstrap.widgets.TbHeroUnit',array(
-   # 'heading'=>'Welcome to '.CHtml::encode(Yii::app()->name),
-)); ?>
-<?php
-  $total = 0;
-  $total = array_map(function ($ar) {return $ar['count'];},$booked);
-  $total = array_sum($total);
-  $percentage = 0;
-    $chartValues = array();
-    if($total){
-      $percentage = 100/$total;
+  $labels = array();
+  $datasets = array();
+  $data = array();
+  $data2 = array();
+  $perStatus = array();
+  $perVoyage = array();
+  $capacity = array();
+  foreach($booked as $b){
+    $perVoyage[$b['voyid']][$b['status']] =$b['count'];
+  }
+  foreach($voy as $v){
+    $labels[]= $v->name;
+    $capacity[]=264;
+    foreach($bs as $s){
+     if(!isset($perVoyage[$v->id][$s->id]))
+      $data[$s->id][] = 0;
+    else
+      $data[$s->id][] = $perVoyage[$v->id][$s->id];
     }
-    foreach($booked as $book){
-      //$chartValues[] = array('value'=>$book['count']*$percentage,'label'=>number_format($book['count']*$percentage,2).'% '.$book['name'],'color'=>$book['color']);
-      $chartValues[] = array('value'=>$book['count']*$percentage,'label'=>$book['count'].' - '.$book['name'],'color'=>$book['color']);
-    }
+  }
+  
+   $dataSets[] =   array(
+                        "fillColor" => "#699",
+                        "strokeColor" => "rgba(220,220,220,1)",
+                        "data" => $capacity,
+                    );
+  $legend = '';
+  foreach($bs as $s){
+   $legend .= "<b style=\"color:$s->color\">$s->name</b><br>";
+   $dataSets[] =   array(
+                        "fillColor" => $s->color,
+                        "strokeColor" => "rgba(220,220,220,1)",
+                        "data" => $data[$s->id],
+                    );
+  }
+  
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Capacity/Actual',
       'headerIcon' => 'icon-th-list',
       'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
     ));
-    $percentage = 100/$seatCount;
-    $chartValues2 = array(array('value'=>$seatCount*$percentage,'label'=>$seatCount.' - Capacity','color'=>'#353839'),array('value'=>$total*$percentage,'label'=>$total.' - Actual','color'=>'#9e1316'));
-    $this->widget(
-      'chartjs.widgets.ChDoughnut',
-        array(
-          'width' => 400,
-          'height' => 200,
-          'htmlOptions' => array(),
-          'drawLabels' => true,
-          'datasets' =>$chartValues2,
-        )
-    );
+  echo "<div style='background:#444;width:110px;padding:5px;margin:5px 0 5px 20px'><b style='color:#699'>Actual</b><br>$legend</div>";
+  $this->widget(
+            'chartjs.widgets.ChBars', 
+            array(
+                'width' => 800,
+                'height' => 400,
+                'htmlOptions' => array(),
+                'labels' => $labels,
+                'datasets' => $dataSets,
+                'options' => array()
+            )
+        ); 
 
-    $this->endWidget();
 
-    $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
-      'title' => 'Booking Status',
-      'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
-    ));
 
-    $this->widget(
-      'chartjs.widgets.ChDoughnut',
-        array(
-          'width' => 400,
-          'height' => 200,
-          'htmlOptions' => array(),
-          'drawLabels' => true,
-          'datasets' =>$chartValues,
-        )
-    );
-
-    $this->endWidget(); 
 ?>
-<div class="clearfix"></div>
 <?php $this->endWidget(); ?>
+<div class="clearfix"></div>
