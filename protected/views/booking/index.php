@@ -8,6 +8,8 @@
 
 <?php
 
+$vl = CHtml::listData(Voyage::model()->findAll(),'id','name');
+$bsl = CHtml::listData(BookingStatus::model()->findAll(),'id','name');
 $gridColumns = array(
                 array(
 			'name' => 'date_booked',
@@ -29,29 +31,17 @@ $gridColumns = array(
                   'name'=>'last_name',
                   'value'=>'$data->passenger0->last_name',
                 ),
-		array(
-			'class' => 'bootstrap.widgets.TbEditableColumn',
-			'name' => 'departure_date',
-                        'filter'=>$this->widget('bootstrap.widgets.TbDatePicker', array(
-                          'model'=>$model,
-                          'options'=>array('format'=>'yyyy-mm-dd'),
-                          'htmlOptions' => array(
-                            'id' => 'Booking_departure_date'
-                          ),
-                         'attribute'=>'departure_date'), 
-                        true),
-			'sortable'=>true,
-			'editable' => array(
-                                'viewformat'  => 'MM  d, yyyy',
-				'url' => $this->createUrl('booking/editableSaver'),
-				'placement' => 'right',
-				'inputclass' => 'span3'
-			)
-		),
+                array(
+	          'class' => 'bootstrap.widgets.TbEditableColumn',
+                  'name'=>'voyage',
+                  'value'=>'$data->ticket0->voyage0->name',
+                  'filter'=>$vl,
+	          'sortable'=>true,
+                ),
 		array(
 			'class' => 'bootstrap.widgets.TbEditableColumn',
 			'name' => 'status',
-                        'filter'=>CHtml::listData(BookingStatus::model()->findAll(),'id','name'),
+                        'filter'=>$bsl,
 			'sortable'=>true,
 			'editable' => array(
                                 'type'      => 'select',

@@ -60,11 +60,11 @@ class SiteController extends Controller
 			$this->layout = 'main';
 			$this->render('index');
 		}else{
-                        $sql = "SELECT t.voyage voyid,s.id status,count(*) count FROM booking b,booking_status s,ticket t WHERE b.status = s.id AND b.departure_date = CURDATE() AND s.active='Y' AND b.ticket=t.id GROUP BY b.status,t.voyage";
+                        $sql = "SELECT voy.id voyid,s.id status,count(*) count FROM booking b,booking_status s,ticket t,voyage voy WHERE b.status = s.id AND voy.departure_date = CURDATE() AND s.active='Y' AND b.ticket=t.id AND t.voyage=voy.id GROUP BY b.status,t.voyage";
                         $seatCount = Seat::Model()->count("active='Y'");
 	                $booked = Yii::app()->db->createCommand($sql)->queryAll();
                         $bs = BookingStatus::model()->findAll();
-                        $voy = Voyage::model()->findAll();
+                        $voy = Voyage::model()->findAll(array('condition'=>'departure_date=CURDATE()'));
                         $this->render('home',array('booked'=>$booked,'seatCount'=>$seatCount,'bs'=>$bs,'voy'=>$voy));
 			$this->layout = 'column3';
 		}

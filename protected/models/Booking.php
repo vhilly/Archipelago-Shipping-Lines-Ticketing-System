@@ -47,11 +47,11 @@ class Booking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('passenger, ticket, status,  departure_date', 'required'),
+			array('passenger, ticket, status', 'required'),
 			array('passenger, ticket,status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, passenger, ticket, status, date_booked, departure_date,last_name, first_name, voyage, transaction, transNo', 'safe', 'on'=>'search'),
+			array('id, passenger, ticket, status, date_booked,last_name, first_name, voyage, transaction, transNo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,7 +81,6 @@ class Booking extends CActiveRecord
 			'ticket' => 'Ticket',
 			'status' => 'Status',
 			'date_booked' => 'Date Booked',
-			'departure_date' => 'Departure Date',
 			'transNo' => 'Transaction No.',
 		);
 	}
@@ -112,7 +111,6 @@ class Booking extends CActiveRecord
 		$criteria->compare('ticket',$this->ticket);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('date_booked',$this->date_booked,true);
-		$criteria->compare('departure_date',$this->departure_date,true);
 		$criteria->compare('transaction',$this->transaction,true);
 		$criteria->compare('passenger0.first_name',$this->first_name,true);
 		$criteria->compare('passenger0.last_name',$this->last_name,true);

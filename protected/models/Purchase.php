@@ -8,7 +8,6 @@
     public $passengerTotal;
     public $passengerMax=100;
     public $voyage;
-    public $departureDate;
     public $class;
     public $hash;
     public $step;
@@ -38,7 +37,6 @@
       return array(
         'passengerTotal' => 'Number of Passengers',
         'voyage' => 'Voyage',
-        'departureDate' => 'Departure Date',
         'class' => 'Class',
         'cargoPrice' => 'Price',
       );

@@ -62,19 +62,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions' => array('class'=>'bootstrap-widget-table '.$hidden.' midBox well-small pull-right')
     ));?>
 
-        <?php $this->renderPartial('list'); ?>
+        <?php $this->renderPartial('voyageList'); ?>
 
     <?php $this->endWidget();?>
 
   <div style="<?=$purchase->step==1? '':'display:none'?>">
     <fieldset>
-      <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name')); ?>
-      <?php echo $form->datepickerRow($purchase, 'departureDate',
-        array(
-          'prepend'=>'<i class="icon-calendar"></i>',
-          'options'=>array( 'format' => 'yyyy-mm-dd')
-        )); 
-      ?>
+      <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name')); ?>
       <?php if($purchase->cargo):?>
       <?php echo $form->hiddenField($purchase, 'class'); ?>
       <?php else:?>

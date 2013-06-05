@@ -44,7 +44,7 @@ class Voyage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, vessel, route, departure_time, arrival_time', 'required'),
+			array('name, vessel, route, departure_time, arrival_time,departure_date', 'required'),
 			array('vessel, route', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
@@ -77,6 +77,7 @@ class Voyage extends CActiveRecord
 			'name' => 'Name',
 			'vessel' => 'Vessel',
 			'route' => 'Route',
+			'departure_date' => 'Departure Date',
 			'departure_time' => 'Departure Time',
 			'arrival_time' => 'Arrival Time',
 		);
@@ -98,6 +99,7 @@ class Voyage extends CActiveRecord
 		$criteria->compare('vessel',$this->vessel);
 		$criteria->compare('route',$this->route);
 		$criteria->compare('departure_time',$this->departure_time,true);
+		$criteria->compare('departure_date',$this->departure_date,true);
 		$criteria->compare('arrival_time',$this->arrival_time,true);
 
 		return new CActiveDataProvider($this, array(

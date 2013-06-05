@@ -129,7 +129,7 @@ class SeatController extends Controller
 	public function actionMap()
 	{
 		$list= Seat::model()->findAll();
-		$sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s WHERE b.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat";
+		$sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s,voyage v,ticket t WHERE v.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat AND b.ticket=t.id AND t.voyage=v.id";
 		$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
 		$apr = Array();
 		$pl = Array();
@@ -153,7 +153,7 @@ class SeatController extends Controller
             if($model->validate()){
               $booking = new Booking;
               $seatList= Seat::model()->findAll();
-              $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,ticket t,seat s WHERE b.departure_date='{$model->departure_date}' AND b.ticket = st.ticket AND s.id=st.seat AND b.ticket = t.id AND t.voyage ={$model->voyage}";
+              $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,ticket t,seat s,voyage v WHERE v.departure_date='{$model->departure_date}' AND b.ticket = st.ticket AND s.id=st.seat AND b.ticket = t.id AND t.voyage = v.id AND v.id =  {$model->voyage}";
               $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
               $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
             }else{

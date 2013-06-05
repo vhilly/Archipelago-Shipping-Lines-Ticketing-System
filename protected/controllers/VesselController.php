@@ -69,6 +69,8 @@ class VesselController extends Controller
 		if(isset($_POST['Vessel']))
 		{
 			$model->attributes=$_POST['Vessel'];
+                        $blocked_seats = isset($_POST['Vessel']['blocked_seats']) ? implode(',',$_POST['Vessel']['blocked_seats']) : '';
+                        $model->blocked_seats = $blocked_seats;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -86,13 +88,15 @@ class VesselController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+                $model->blocked_seats = explode(',',$model->blocked_seats);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Vessel']))
 		{
 			$model->attributes=$_POST['Vessel'];
+                        $blocked_seats = isset($_POST['Vessel']['blocked_seats']) ? implode(',',$_POST['Vessel']['blocked_seats']) : '';
+                        $model->blocked_seats = $blocked_seats;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

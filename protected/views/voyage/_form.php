@@ -12,6 +12,8 @@
 
        <?php echo $form->dropDownListRow($model, 'route',CHtml::listData(Route::model()->findAll(),'id','name'),array('class'=>'span2.5')); ?>
 
+        <?php echo $form->datePickerRow($model, 'departure_date', array('append'=>'<i class="icon-calendar" style="cursor:pointer"></i>','class'=>'span2','options'=>array( 'format' => 'yyyy-mm-dd')));?>
+
         <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>
 
         <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>

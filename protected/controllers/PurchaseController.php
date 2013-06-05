@@ -26,7 +26,7 @@
       $requiredFields=array();
       $purchase=new Purchase;
       //add required field
-      $purchase->addRequiredField('departureDate');
+      $purchase->addRequiredField('voyage');
       //setup passenger
       $purchase->setPassenger($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger);
       $purchase->setCargo($purchaseType->cargo);
@@ -106,7 +106,6 @@
                     $newTicket->attributes=$ticketsList[$key];
                     $newSeatMap->attributes=$seatingList[$key];
                     $newTicket->voyage = $purchase->voyage;
-                    $newBooking->departure_date = $purchase->departureDate;
                     $newBooking->transaction = $newTransaction->id;
                     $purchase->trNo = $newTransaction->id;
                     //saving

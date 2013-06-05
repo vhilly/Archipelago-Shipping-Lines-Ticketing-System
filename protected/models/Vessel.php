@@ -71,6 +71,7 @@ class Vessel extends CActiveRecord
 			'name' => 'Name',
 			'desc' => 'Desc',
 			'passenger_limit' => 'Passenger Limit',
+			'blocked_seats' => 'Blocked Seats',
 		);
 	}
 
