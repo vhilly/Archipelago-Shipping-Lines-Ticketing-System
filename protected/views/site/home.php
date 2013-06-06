@@ -1,3 +1,5 @@
+
+<?php if($booked):?>
 <?php
   $labels = array();
   $datasets = array();
@@ -57,4 +59,14 @@
 
 ?>
 <?php $this->endWidget(); ?>
+<?php else:?>
+<?php
+    $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
+      'title' => 'Capacity/Actual',
+      'headerIcon' => 'icon-th-list',
+      'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+    ));
+?>
+<?php $this->endWidget(); ?>
+<?php endif;?>
 <div class="clearfix"></div>

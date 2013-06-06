@@ -147,13 +147,13 @@ class SeatController extends Controller
 	{
 	  $this->layout = 'seat-side';
           $model=new Report;
-          $model->addRequiredField(array('departure_date','voyage'));
+          $model->addRequiredField(array('voyage'));
           if(isset($_POST['Report'])){
             $model->attributes=$_POST['Report'];
             if($model->validate()){
               $booking = new Booking;
               $seatList= Seat::model()->findAll();
-              $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,ticket t,seat s,voyage v WHERE v.departure_date='{$model->departure_date}' AND b.ticket = st.ticket AND s.id=st.seat AND b.ticket = t.id AND t.voyage = v.id AND v.id =  {$model->voyage}";
+              $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,ticket t,seat s WHERE b.ticket = st.ticket AND s.id=st.seat AND b.ticket = t.id AND t.voyage  ={$model->voyage}";
               $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
               $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
             }else{
