@@ -22,7 +22,7 @@
       $purchaseType = TransactionType::model()->findByPk($type);
       if(!$purchaseType)
         throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
- 
+
       $requiredFields=array();
       $purchase=new Purchase;
       //add required field
@@ -41,7 +41,7 @@
       if(isset($_POST['Purchase'])){
         $purchase->attributes=$_POST['Purchase'];
         if($purchase->validate()){
- 
+
           if($purchase->step == 1){
             if($purchase->passenger){
               $fares = PassageFareRates::model()->findAll(array(
@@ -50,7 +50,7 @@
               ));
               if(!$fares)
                 throw new CHttpException('','Setup Passenger Fare Rate First! (under admin/settings/Passage Fare Rates)');
-              
+
               for($count = 0;$count < $purchase->passengerTotal;$count++){
                 $passengers[]=new Passenger;
                 $tickets[]=new Ticket;
@@ -62,18 +62,18 @@
             }
           }
           if($purchase->step==2){
-              $purchase->payment_method = 1;
-              if($purchase->passenger){
-                $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
-                $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
-                $purchase->seatingList    = isset($_POST['SeatTicketMap']) ?  json_encode($_POST['SeatTicketMap']) : '';
-                $prices = array_map(function ($ar) {return $ar['price'];},$_POST['Ticket']);
-                $purchase->payment_total = array_sum($prices);
-              }
-              if($purchase->cargo){
-                $cargo->attributes =$_POST['Cargo'];
-                $purchase->payment_total += $purchase->cargoPrice;
-              }
+            $purchase->payment_method = 1;
+            if($purchase->passenger){
+              $purchase->passengerList = isset($_POST['Passenger']) ?  json_encode($_POST['Passenger']) : '';
+              $purchase->ticketList    = isset($_POST['Ticket']) ?  json_encode($_POST['Ticket']) : '';
+              $purchase->seatingList    = isset($_POST['SeatTicketMap']) ?  json_encode($_POST['SeatTicketMap']) : '';
+              $prices = array_map(function ($ar) {return $ar['price'];},$_POST['Ticket']);
+              $purchase->payment_total = array_sum($prices);
+            }
+            if($purchase->cargo){
+              $cargo->attributes =$_POST['Cargo'];
+              $purchase->payment_total += $purchase->cargoPrice;
+            }
           }
 
           if($purchase->step==3 && ($purchase->passenger || $purchase->cargo)){
@@ -117,11 +117,11 @@
                     $newBooking->ticket = $newTicket->id;
                     $newBooking->passenger = $newPassenger->id;
                     $newBooking->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
-                    if(!$newBooking->save())  
+                    if(!$newBooking->save())
                       throw new Exception('Cannot save Booking');
-                    if(!$newSeatMap->save())  
+                    if(!$newSeatMap->save())
                       throw new Exception('Cannot save Seating');
-                     //update overall amount
+                    //update overall amount
                   }
                 }
                 if($purchase->cargo){
@@ -130,21 +130,21 @@
                   $newCargoBooking->transaction = $newTransaction->id;
                   $cargo->attributes =$_POST['Cargo'];
                   $cargo->voyage = $purchase->voyage;
-                  if(!$cargo->save())  
-                      throw new Exception('Cannot save Cargo');
+                  if(!$cargo->save())
+                    throw new Exception('Cannot save Cargo');
                   $newCargoBooking->status = 2;
                   $newCargoBooking->cargo = $cargo->id;
-                 if(!$newCargoBooking->save())  
-                   throw new Exception('Cannot save Booking');
+                  if(!$newCargoBooking->save())
+                    throw new Exception('Cannot save Booking');
 
 
-               }
+                }
                 $transaction->commit();
                 Yii::app()->user->setFlash('success', 'Transaction Complete!');
-		//$this->redirect(array('transaction/view','id'=>$newTransaction->id));
+                //$this->redirect(array('transaction/view','id'=>$newTransaction->id));
               }catch(Exception $e){
                 $transaction->rollback();
-              throw new CHttpException(400,$e);
+                throw new CHttpException(400,$e);
                 $this->refresh();
               }
               unset($_SESSION['purchase_token']);
