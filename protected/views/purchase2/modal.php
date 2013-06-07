@@ -22,4 +22,4 @@
       'htmlOptions'=>array('data-dismiss'=>'modal','class'=>'modalcss'),
     )); ?>             
   </div>                    
-<?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>    

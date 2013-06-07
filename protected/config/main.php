@@ -82,6 +82,7 @@ return array(
 			),
 		),
 		*/
+
 	'chartjs' => array('class' => 'chartjs.components.ChartJs'),
        'bootstrap' => array(
 	    'class' => 'ext.bootstrap.components.Bootstrap',
@@ -100,6 +101,8 @@ return array(
 			'username' => 'root',
 			'password' => 'mysqladmin',
 			'charset' => 'utf8',
+      'enableParamLogging'=>true,
+      'enableProfiling'=>true,
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -112,7 +115,11 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
+        array(
+          'class'=>'CProfileLogRoute',
+
+        ),
+        // uncomment the following to show log messages on web pages
 				/*
 				array(
 					'class'=>'CWebLogRoute',

@@ -137,7 +137,6 @@
     public function actionIndex()
     {
       $model=new Report;
-      $model->addRequiredField(array('voyage'));
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
 
@@ -150,7 +149,8 @@
 	voyage v, route rt,seat_ticket_map stm,seat s
         WHERE b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id AND r.class=c.id AND b.status != 4
 	AND v.id=t.voyage AND rt.id=v.route AND s.id=stm.seat AND t.id=stm.ticket 
-	AND t.voyage = v.id AND v.id ={$model->voyage} ";
+	AND t.voyage = v.id ";
+          if($model->voyage) $sql .=" AND v.id='{$model->voyage}'";
           if($model->departure_date) $sql .=" AND v.departure_date='{$model->departure_date}'";
           if($model->tktNo) $sql .=" AND t.id='{$model->tktNo}'";
 

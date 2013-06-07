@@ -42,3 +42,6 @@
 .tbcenter table td {
 	text-align:center;
 }
+.container {
+    width:1200px;
+}

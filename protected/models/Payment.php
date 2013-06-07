@@ -1,9 +1,9 @@
 <?php
 
   class Payment extends CFormModel{
-   public $method;
-   public $totalAmount;
-   public $status;
+    public $method;
+    public $totalAmount;
+    public $status;
     public function attributeLabels(){
       return array(
         'totalAmount' => 'Total Amount',

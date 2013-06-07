@@ -40,7 +40,7 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Capacity/Actual',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+      'htmlOptions' => array('class'=>'bootstrap-widget-table span3')
     ));
   echo "<div style='background:#444;width:110px;padding:5px;margin:5px 0 5px 20px'><b style='color:#699'>Actual</b><br>$legend</div>";
   $this->widget(
@@ -64,7 +64,7 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Capacity/Actual',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+      'htmlOptions' => array('class'=>'bootstrap-widget-table span3')
     ));
 ?>
 <?php $this->endWidget(); ?>
