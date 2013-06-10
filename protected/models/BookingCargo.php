@@ -27,6 +27,8 @@ class BookingCargo extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return BookingCargo the static model class
 	 */
+        public $shipper;
+        public $company;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -52,7 +54,7 @@ class BookingCargo extends CActiveRecord
 			array('transaction, voyage, rate, cargo, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction, voyage, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
+			array('id, transaction,shipper,company voyage, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +90,8 @@ class BookingCargo extends CActiveRecord
 			'cargo' => 'Cargo',
 			'status' => 'Status',
 			'date_booked' => 'Date Booked',
+			'shipper' => 'Shipper',
+			'company' => 'Company',
 		);
 	}
 
@@ -101,6 +105,12 @@ class BookingCargo extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+      $criteria->with=array(
+        'cargo0'=>array(
+          'together'=>false,
+          'select'=>false
+        ),
+      );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('transaction',$this->transaction);
@@ -109,9 +119,24 @@ class BookingCargo extends CActiveRecord
 		$criteria->compare('cargo',$this->cargo);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('date_booked',$this->date_booked,true);
+		$criteria->compare('cargo0.shipper',$this->shipper,true);
+		$criteria->compare('cargo0.company',$this->company,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+        'sort'=>array(
+          'attributes'=>array(
+            'company'=>array(
+              'asc'=>'cargo0.company',
+              'desc'=>'cargo0.company DESC'
+            ),
+            'shipper'=>array(
+              'asc'=>'cargo0.shipper',
+              'desc'=>'cargo0.shipper DESC'
+            ),
+            '*',
+          )
+        ),
 		));
 	}
 }

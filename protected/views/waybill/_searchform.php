@@ -1,7 +1,7 @@
 <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 'id'=>'inlineForm',
 'type'=>'inline',
-'htmlOptions'=>array('class'=>'well'),
+'htmlOptions'=>array('class'=>'well span10'),
 )); ?>
 
   <p class="help-block">Fields with <span class="required">*</span> are required.</p>
@@ -14,7 +14,7 @@
  );
  ?>
  <?php echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'),array('empty'=>''))?>
- <?php echo $form->textFieldRow($model,'tktNo',array('class'=>'span7')); ?>
+ <?php echo $form->textFieldRow($model,'wbNo',array('class'=>'span2')); ?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search Ticket/s')); ?>
  <?php $this->endWidget(); ?>

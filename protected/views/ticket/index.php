@@ -15,11 +15,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     //  'title' => 'Ticket No. '.str_pad($tktView['tktno'],11,'0',STR_PAD_LEFT),
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'bootstrap-widget-table','style'=>'background:#1d7cbf')
+      'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
     ));
     ?>
 
-    <table class="table">
+    <table class="table span10" >
       <tr style="background:#eeeeff"><th width=15%>First Name :</th><td></td><td></td><td></td><td width=25%><?=$tktView['first_name']?></td>
         <th>Voyage :</th><td></td><td></td><td></td><td><?=$tktView['voy']?></td></tr>
       <tr><th>Last Name :</th><td></td><td></td><td></td><td><?=$tktView['last_name']?></td>

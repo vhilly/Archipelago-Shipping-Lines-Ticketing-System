@@ -20,8 +20,8 @@
 
     <table class="table span10">
       <tr class="odd">
-        <td colspan=4>BILL OF LADING NO : </td>
-        <td colspan=4>BOOKING NO : </td>
+        <td colspan=4>BILL OF LADING NO : <?=$wbView['wbNo'] ? $wbView['wbNo'] : 'N/A'?></td>
+        <td colspan=4>BOOKING NO : <?=$wbView['bkNo'] ? $wbView['bkNo'] : 'N/A'?></td>
       </tr>
       <tr class="even">
         <td colspan=4>Shipper/Consignee : <?=$wbView['shipper'] ? $wbView['shipper'] : 'N/A'?></td>

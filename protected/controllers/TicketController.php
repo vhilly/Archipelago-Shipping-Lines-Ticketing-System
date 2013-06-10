@@ -143,14 +143,14 @@
         if($model->validate()){
 
           $ticketView = array();
-          $sql = "SELECT p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+          $sql = "SELECT b.tkt_no tktNo,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
 	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
         FROM booking b,passenger p,passage_fare_rates r,seating_class c,
 	voyage v, route rt,seat s
         WHERE b.passenger=p.id AND b.rate=r.id AND b.seat=s.id AND r.class=c.id ";
           if($model->voyage) $sql .=" AND v.id='{$model->voyage}'";
           if($model->departure_date) $sql .=" AND v.departure_date='{$model->departure_date}'";
-          //if($model->tktNo) $sql .=" AND t.id='{$model->tktNo}'";
+          if($model->tktNo) $sql .=" AND b.tkt_no='{$model->tktNo}'";
 
          // $sql .=" ORDER BY tktno";
           $ticketView = Yii::app()->db->createCommand($sql)->queryAll();

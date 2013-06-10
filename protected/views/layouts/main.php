@@ -56,11 +56,14 @@
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),
+                    array('label'=>'Booked Ticket', 'url'=>array('/booking/index')),
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index'), 'items'=>array(
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
+                array('icon'=>'book','label'=>'Passenger', 'url'=>array('/seat/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
 		array('icon'=>'book','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
