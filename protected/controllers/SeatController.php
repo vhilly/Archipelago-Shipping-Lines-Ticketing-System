@@ -129,7 +129,7 @@
     public function actionMap()
     {
       $list= Seat::model()->findAll();
-      $sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s,voyage v,ticket t WHERE v.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat AND b.ticket=t.id AND t.voyage=v.id";
+      $sql = "SELECT s.name FROM booking b, seat s  WHERE s.id=b.seat";
       $bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
       $apr = Array();
       $pl = Array();

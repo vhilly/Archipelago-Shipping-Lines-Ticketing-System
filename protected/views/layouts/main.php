@@ -66,6 +66,9 @@
 		array('icon'=>'book','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 '...',
+		array('icon'=>'book','label'=>'Bill of Lading', 'url'=>array('/waybill/index'), 'items'=>array(
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                '...',
 
 
             ),
