@@ -2120,3 +2120,21 @@ Stack trace:
 REQUEST_URI=/arch/index.php?r=ticket/index
 HTTP_REFERER=http://localhost/arch/index.php?r=ticket/index
 ---
+2013/06/10 18:34:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "prin".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('prin')
+#1 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /var/www/arch/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/arch/index.php?r=prin
+---
+2013/06/10 18:42:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index3".' in /var/www/yii/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/yii/framework/web/CController.php(270): CController->missingAction('index3')
+#1 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index3')
+#2 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/index3')
+#3 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /var/www/arch/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/arch/index.php?r=site/index3
+---
