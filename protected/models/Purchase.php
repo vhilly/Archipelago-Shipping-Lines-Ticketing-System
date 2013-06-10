@@ -5,8 +5,9 @@
     public $passenger=false;
     public $cargo=false;
     public $passengerModels = array();
-    public $seatTicketMapModels = array();
-    public $ticketModels = array();
+    public $seatModels = array();
+    public $fareModels = array();
+    public $cargoFareModels = array();
     public $cargoModel=array();
     public $passengerMin=1;
     public $passengerTotal;
@@ -14,7 +15,8 @@
     public $voyage;
     public $class;
     public $current_step =1;
-    public $ticketList;
+    public $fareList;
+    public $cargoFareList;
     public $passengerList;
     public $seatingList;
     public $cargoList;
@@ -25,15 +27,19 @@
     public $transaction_type;
     public $transaction_no;
     public $fares =array();
+    public $route;
+    public $cargoFares =array();
     private $_requiredFields = '';
     private $_fields = array();
 
 
     public function addRequiredField($field = ''){
-      if($field){
+      if(is_array($field))
+        $this->_fields = $field;      
+      else
         $this->_fields[] = $field;
-        $this->_requiredFields = implode(',',$this->_fields);
-      }
+
+        $this->_requiredFields .= implode(',',$this->_fields);
     }
 
 
@@ -47,12 +53,12 @@
     }
     public function rules(){
       return array(
-        array($this->_requiredFields,'required'),
+        array($this->_requiredFields.',voyage','required'),
         array('passengerTotal', 'numerical','min'=>$this->passengerMin,'max'=>$this->passengerMax),
         array('voyage,class,cargoPrice,payment_total,payment_method,payment_status,transaction_no', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class,current_step', 'length', 'max'=>3),
         array('cargoPrice', 'length', 'max'=>32),
-        array('passengerList,ticketList,cargoList,seatingList', 'length', 'max'=>9000),
+        array('passengerList,cargoFareList,fareList,cargoList,seatingList', 'length', 'max'=>9000),
       );
     }
     public function setPassenger($required='Y',$limit='1',$max='100',$free=0){

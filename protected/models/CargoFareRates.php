@@ -1,23 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "seating_class".
+ * This is the model class for table "cargo_fare_rates".
  *
- * The followings are the available columns in table 'seating_class':
+ * The followings are the available columns in table 'cargo_fare_rates':
  * @property integer $id
- * @property string $name
- * @property string $desc
+ * @property integer $route
+ * @property integer $class
+ * @property integer $lane_meter_rate
+ * @property string $proposed_tariff
+ * @property string $as_of
+ * @property string $active
  *
  * The followings are the available model relations:
- * @property PassageFareRates[] $passageFareRates
- * @property Seat[] $seats
+ * @property BookingCargo[] $bookingCargos
+ * @property CargoClass $class0
+ * @property Route $route0
  */
-class SeatingClass extends CActiveRecord
+class CargoFareRates extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeatingClass the static model class
+	 * @return CargoFareRates the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +34,7 @@ class SeatingClass extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seating_class';
+		return 'cargo_fare_rates';
 	}
 
 	/**
@@ -40,12 +45,13 @@ class SeatingClass extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>100),
-			array('desc', 'safe'),
+			array('', 'required'),
+			array('route,id, class, lane_meter_rate', 'numerical', 'integerOnly'=>true),
+			array('proposed_tariff', 'length', 'max'=>9),
+			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, desc', 'safe', 'on'=>'search'),
+			array('id, route, class, lane_meter_rate, proposed_tariff, as_of, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,8 +63,9 @@ class SeatingClass extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'passageFareRates' => array(self::HAS_MANY, 'PassageFareRates', 'class'),
-			'seats' => array(self::HAS_MANY, 'Seat', 'seating_class'),
+			'bookingCargos' => array(self::HAS_MANY, 'BookingCargo', 'rate'),
+			'class0' => array(self::BELONGS_TO, 'CargoClass', 'class'),
+			'route0' => array(self::BELONGS_TO, 'Route', 'route'),
 		);
 	}
 
@@ -69,8 +76,12 @@ class SeatingClass extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'desc' => 'Desc',
+			'route' => 'Route',
+			'class' => 'Class',
+			'lane_meter_rate' => 'Lane Meter Rate',
+			'proposed_tariff' => 'Proposed Tariff',
+			'as_of' => 'As Of',
+			'active' => 'Active',
 		);
 	}
 
@@ -86,8 +97,12 @@ class SeatingClass extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('route',$this->route);
+		$criteria->compare('class',$this->class);
+		$criteria->compare('lane_meter_rate',$this->lane_meter_rate);
+		$criteria->compare('proposed_tariff',$this->proposed_tariff,true);
+		$criteria->compare('as_of',$this->as_of,true);
+		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

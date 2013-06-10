@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.22, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: archipelago
 -- ------------------------------------------------------
--- Server version	5.5.31-0ubuntu0.13.04.1
+-- Server version	5.5.22-0ubuntu1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,20 +26,24 @@ CREATE TABLE `booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `transaction` int(11) NOT NULL,
   `passenger` int(11) NOT NULL,
-  `ticket` int(11) NOT NULL,
+  `voyage` int(11) NOT NULL,
+  `seat` int(11) DEFAULT NULL,
   `status` tinyint(4) NOT NULL,
   `date_booked` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rate` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `passenger` (`passenger`),
-  KEY `ticket` (`ticket`),
-  KEY `ticket_2` (`ticket`),
   KEY `status` (`status`),
   KEY `transaction` (`transaction`),
+  KEY `voyage` (`voyage`),
+  KEY `seat` (`seat`),
+  KEY `rate` (`rate`),
   CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`passenger`) REFERENCES `passenger` (`id`),
-  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`ticket`) REFERENCES `ticket` (`id`),
   CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`status`) REFERENCES `booking_status` (`id`),
-  CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`transaction`) REFERENCES `transaction` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`transaction`) REFERENCES `transaction` (`id`),
+  CONSTRAINT `booking_ibfk_5` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`),
+  CONSTRAINT `booking_ibfk_6` FOREIGN KEY (`seat`) REFERENCES `seat` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +52,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (3,3,3,3,2,'2013-06-07 15:07:39'),(7,6,7,7,2,'2013-06-07 15:27:15'),(11,10,11,11,2,'2013-06-07 16:21:03'),(12,11,12,12,2,'2013-06-07 16:21:58');
+INSERT INTO `booking` VALUES (1,26,13,1,1,3,'2013-06-08 08:19:29',4),(2,27,14,1,190,2,'2013-06-08 08:21:10',9),(3,29,16,1,2,2,'2013-06-08 08:58:04',1),(4,31,17,1,18,2,'2013-06-08 16:31:33',7),(5,32,18,1,175,2,'2013-06-08 16:33:32',9),(6,33,19,1,160,2,'2013-06-08 16:34:39',9),(7,34,20,1,191,2,'2013-06-08 16:35:38',12),(16,43,29,1,4,2,'2013-06-08 17:46:35',4),(17,44,30,1,3,2,'2013-06-10 05:07:15',1),(29,56,42,1,176,1,'2013-06-10 05:35:18',12),(30,57,43,1,NULL,2,'2013-06-10 08:18:31',3),(31,57,44,1,NULL,2,'2013-06-10 08:18:31',12),(32,58,45,1,NULL,2,'2013-06-10 08:23:56',6),(33,58,46,1,NULL,2,'2013-06-10 08:23:56',12);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,6 +66,8 @@ DROP TABLE IF EXISTS `booking_cargo`;
 CREATE TABLE `booking_cargo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `transaction` int(11) NOT NULL,
+  `voyage` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
   `cargo` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `date_booked` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -72,10 +78,14 @@ CREATE TABLE `booking_cargo` (
   KEY `transaction_2` (`transaction`),
   KEY `cargo` (`cargo`),
   KEY `status_2` (`status`),
+  KEY `voyage` (`voyage`),
+  KEY `rate` (`rate`),
   CONSTRAINT `booking_cargo_ibfk_1` FOREIGN KEY (`transaction`) REFERENCES `transaction` (`id`),
   CONSTRAINT `booking_cargo_ibfk_2` FOREIGN KEY (`cargo`) REFERENCES `cargo` (`id`),
-  CONSTRAINT `booking_cargo_ibfk_3` FOREIGN KEY (`status`) REFERENCES `booking_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `booking_cargo_ibfk_3` FOREIGN KEY (`status`) REFERENCES `booking_status` (`id`),
+  CONSTRAINT `booking_cargo_ibfk_4` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`),
+  CONSTRAINT `booking_cargo_ibfk_5` FOREIGN KEY (`rate`) REFERENCES `cargo_fare_rates` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +94,7 @@ CREATE TABLE `booking_cargo` (
 
 LOCK TABLES `booking_cargo` WRITE;
 /*!40000 ALTER TABLE `booking_cargo` DISABLE KEYS */;
-INSERT INTO `booking_cargo` VALUES (1,10,5,2,'2013-06-07 16:21:03');
+INSERT INTO `booking_cargo` VALUES (2,56,1,2,5,2,'2013-06-10 05:35:18'),(3,57,1,1,6,2,'2013-06-10 08:18:31'),(4,58,1,2,7,2,'2013-06-10 08:23:56');
 /*!40000 ALTER TABLE `booking_cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,20 +138,17 @@ CREATE TABLE `cargo` (
   `company` varchar(100) DEFAULT NULL,
   `destination` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `cargo_class` int(11) NOT NULL,
+  `cargo_class` tinyint(4) NOT NULL,
   `article_no` varchar(100) DEFAULT NULL,
   `article_desc` tinytext,
   `weight` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL,
   `contact` varchar(100) DEFAULT NULL,
-  `voyage` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cargo_class` (`cargo_class`),
-  KEY `voyage` (`voyage`),
   KEY `cargo_class_2` (`cargo_class`),
-  CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`cargo_class`) REFERENCES `cargo_class` (`id`),
-  CONSTRAINT `cargo_ibfk_2` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`cargo_class`) REFERENCES `cargo_class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +157,7 @@ CREATE TABLE `cargo` (
 
 LOCK TABLES `cargo` WRITE;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` VALUES (5,'','',NULL,'',2,'','',NULL,NULL,NULL,4);
+INSERT INTO `cargo` VALUES (5,'','',NULL,'',2,'','',NULL,NULL,NULL),(6,'','',NULL,'',1,'','',NULL,NULL,NULL),(7,'','',NULL,'',1,'','',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,16 +169,14 @@ DROP TABLE IF EXISTS `cargo_class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cargo_class` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `class` varchar(100) NOT NULL,
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
   `desc` tinytext NOT NULL,
   `lane_meter` int(11) NOT NULL,
-  `lane_meter_rate` int(11) NOT NULL,
-  `proposed_tariff` decimal(20,2) NOT NULL,
   `as_of` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active` char(1) NOT NULL DEFAULT 'Y',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,8 +185,42 @@ CREATE TABLE `cargo_class` (
 
 LOCK TABLES `cargo_class` WRITE;
 /*!40000 ALTER TABLE `cargo_class` DISABLE KEYS */;
-INSERT INTO `cargo_class` VALUES (1,'Tricycle,Motorcycle','Below 3.9',2,14,672.00,'2013-05-29 03:25:07','Y'),(2,'Multicab, Owner Type Jeep','3.9',4,14,1344.00,'2013-05-29 09:40:17','Y');
+INSERT INTO `cargo_class` VALUES (1,'Tricycle','desc',12,'2013-06-08 10:21:12','Y'),(2,'Bus','desc',14,'2013-06-08 13:19:14','Y'),(3,'jeep','test',12,'2013-06-08 17:04:35','Y');
 /*!40000 ALTER TABLE `cargo_class` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cargo_fare_rates`
+--
+
+DROP TABLE IF EXISTS `cargo_fare_rates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cargo_fare_rates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `route` int(11) NOT NULL,
+  `class` tinyint(4) NOT NULL,
+  `lane_meter_rate` int(11) NOT NULL,
+  `proposed_tariff` decimal(20,2) NOT NULL DEFAULT '0.00',
+  `as_of` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active` char(1) NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (`id`),
+  KEY `class` (`class`),
+  KEY `route` (`route`),
+  KEY `route_2` (`route`),
+  CONSTRAINT `cargo_fare_rates_ibfk_1` FOREIGN KEY (`route`) REFERENCES `route` (`id`),
+  CONSTRAINT `cargo_fare_rates_ibfk_2` FOREIGN KEY (`class`) REFERENCES `cargo_class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cargo_fare_rates`
+--
+
+LOCK TABLES `cargo_fare_rates` WRITE;
+/*!40000 ALTER TABLE `cargo_fare_rates` DISABLE KEYS */;
+INSERT INTO `cargo_fare_rates` VALUES (1,1,1,13,200.00,'2013-06-08 10:43:52','Y'),(2,1,2,14,100.00,'2013-06-08 13:20:47','Y'),(3,1,1,11,0.00,'2013-06-08 17:05:46','Y');
+/*!40000 ALTER TABLE `cargo_fare_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -195,13 +234,17 @@ CREATE TABLE `passage_fare_rates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `proposed` varchar(100) NOT NULL,
+  `route` int(11) NOT NULL,
   `class` tinyint(4) NOT NULL,
   `price` decimal(20,2) NOT NULL DEFAULT '0.00',
   `as_of` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active` char(1) NOT NULL DEFAULT 'Y',
   PRIMARY KEY (`id`),
   KEY `class` (`class`),
-  CONSTRAINT `passage_fare_rates_ibfk_1` FOREIGN KEY (`class`) REFERENCES `seating_class` (`id`)
+  KEY `route` (`route`),
+  KEY `route_2` (`route`),
+  CONSTRAINT `passage_fare_rates_ibfk_1` FOREIGN KEY (`class`) REFERENCES `seating_class` (`id`),
+  CONSTRAINT `passage_fare_rates_ibfk_2` FOREIGN KEY (`route`) REFERENCES `route` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,7 +254,7 @@ CREATE TABLE `passage_fare_rates` (
 
 LOCK TABLES `passage_fare_rates` WRITE;
 /*!40000 ALTER TABLE `passage_fare_rates` DISABLE KEYS */;
-INSERT INTO `passage_fare_rates` VALUES (1,'Full Fare','',1,300.00,'0000-00-00 00:00:00','Y'),(2,'Full Fare','',2,180.00,'0000-00-00 00:00:00','Y'),(3,'Full Fare','',3,120.00,'0000-00-00 00:00:00','Y'),(4,'Student','',1,240.00,'0000-00-00 00:00:00','Y'),(5,'Student','',2,144.00,'0000-00-00 00:00:00','Y'),(6,'Student','',3,96.00,'0000-00-00 00:00:00','Y'),(7,'Senior','',1,240.00,'0000-00-00 00:00:00','Y'),(8,'Senior','',2,144.00,'0000-00-00 00:00:00','Y'),(9,'Senior','',3,96.00,'0000-00-00 00:00:00','Y'),(10,'Children','Ages 7 and below',1,150.00,'0000-00-00 00:00:00','Y'),(11,'Children','Ages 7 and below',2,90.00,'0000-00-00 00:00:00','Y'),(12,'Children','Ages 7 and below',3,60.00,'0000-00-00 00:00:00','Y');
+INSERT INTO `passage_fare_rates` VALUES (1,'Full Fare','',1,1,300.00,'0000-00-00 00:00:00','Y'),(2,'Full Fare','',1,2,180.00,'0000-00-00 00:00:00','Y'),(3,'Full Fare','',1,3,120.00,'0000-00-00 00:00:00','Y'),(4,'Student','',1,1,240.00,'0000-00-00 00:00:00','Y'),(5,'Student','',1,2,144.00,'0000-00-00 00:00:00','Y'),(6,'Student','',1,3,96.00,'0000-00-00 00:00:00','Y'),(7,'Senior','',1,1,240.00,'0000-00-00 00:00:00','Y'),(8,'Senior','',1,2,144.00,'0000-00-00 00:00:00','Y'),(9,'Senior','',1,3,96.00,'0000-00-00 00:00:00','Y'),(10,'Children','Ages 7 and below',1,1,150.00,'0000-00-00 00:00:00','Y'),(11,'Children','Ages 7 and below',1,2,90.00,'0000-00-00 00:00:00','Y'),(12,'Children','Ages 7 and below',1,3,60.00,'0000-00-00 00:00:00','Y');
 /*!40000 ALTER TABLE `passage_fare_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +279,7 @@ CREATE TABLE `passenger` (
   `address` varchar(255) DEFAULT NULL,
   `birth_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +288,7 @@ CREATE TABLE `passenger` (
 
 LOCK TABLES `passenger` WRITE;
 /*!40000 ALTER TABLE `passenger` DISABLE KEYS */;
-INSERT INTO `passenger` VALUES (3,'v','Santiago',NULL,NULL,'','','',NULL,'','','0000-00-00'),(7,'','',NULL,NULL,'','','',NULL,'','','2013-06-07'),(11,'','',NULL,NULL,'','','',NULL,'','','0000-00-00'),(12,'vhilly','santiago',NULL,NULL,'','','',NULL,'','','0000-00-00');
+INSERT INTO `passenger` VALUES (1,'Vhilly','Santiago',NULL,NULL,'Madlangbayan','','M',NULL,'Filipino','','2013-06-01'),(2,'jo','',NULL,NULL,'','','F',NULL,'','','2013-06-05'),(3,'fsdf','fsdfsdf',NULL,NULL,'sdfsdf','','',NULL,'','','2013-06-08'),(4,'','',NULL,NULL,'','','',NULL,'','','2013-06-08'),(13,'','',NULL,NULL,'','','',NULL,'','','2013-06-08'),(14,'','',NULL,NULL,'','','',NULL,'','','2013-06-06'),(16,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(17,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(18,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(19,'','',NULL,NULL,'','','',NULL,'','','2013-06-10'),(20,'','',NULL,NULL,'','','',NULL,'','','2013-06-11'),(29,'Vhilly','Santiago',NULL,NULL,'Madlangbayan','','M',NULL,'Filipino','','2013-06-10'),(30,'','',NULL,NULL,'','','',NULL,'','','2013-06-09'),(42,'Angela','Santiago',NULL,NULL,'Madlangbayan','','F',NULL,'Filipino','','2013-06-09'),(43,'dfssaf','sdfsd',NULL,NULL,'','','F',NULL,'','','2013-06-05'),(44,'fsdfsdf','fsd',NULL,NULL,'','','F',NULL,'','','2013-06-10'),(45,'sfsdf','v',NULL,NULL,'','','F',NULL,'','','2013-06-01'),(46,'sdfdsf','sdfsdf',NULL,NULL,'sdfsdf','','F',NULL,'','','2013-06-10');
 /*!40000 ALTER TABLE `passenger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +480,7 @@ CREATE TABLE `seat_ticket_map` (
   KEY `ticket` (`ticket`),
   CONSTRAINT `seat_ticket_map_ibfk_1` FOREIGN KEY (`seat`) REFERENCES `seat` (`id`),
   CONSTRAINT `seat_ticket_map_ibfk_2` FOREIGN KEY (`ticket`) REFERENCES `ticket` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,7 +489,6 @@ CREATE TABLE `seat_ticket_map` (
 
 LOCK TABLES `seat_ticket_map` WRITE;
 /*!40000 ALTER TABLE `seat_ticket_map` DISABLE KEYS */;
-INSERT INTO `seat_ticket_map` VALUES (1,21,3),(5,176,7),(9,190,11),(10,27,12);
 /*!40000 ALTER TABLE `seat_ticket_map` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -577,7 +619,7 @@ CREATE TABLE `ticket` (
   KEY `rate` (`rate`),
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`),
   CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`rate`) REFERENCES `passage_fare_rates` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -586,7 +628,6 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (3,4,4),(7,4,6),(11,4,6),(12,4,4);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -617,7 +658,7 @@ CREATE TABLE `transaction` (
   CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`payment_method`) REFERENCES `payment_method` (`id`),
   CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`payment_status`) REFERENCES `payment_status` (`id`),
   CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`uid`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -626,7 +667,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (3,1,1,1,1,'2013-06-07 23:07:39','2013-06-07 15:07:39',240,0,NULL),(6,1,1,1,1,'2013-06-07 23:27:15','2013-06-07 15:27:15',96,0,NULL),(10,2,1,1,1,'2013-06-08 00:21:03','2013-06-07 16:21:03',1440,0,NULL),(11,1,1,1,1,'2013-06-08 00:21:58','2013-06-07 16:21:58',240,0,NULL);
+INSERT INTO `transaction` VALUES (12,1,1,1,1,'2013-06-07 23:51:56','2013-06-08 06:51:56',150,0,NULL),(13,1,1,2,1,'2013-06-07 23:55:54','2013-06-08 06:55:54',390,0,NULL),(16,1,1,1,1,'2013-06-08 00:14:08','2013-06-08 07:14:08',300,0,NULL),(17,1,1,1,1,'2013-06-08 00:15:13','2013-06-08 07:15:13',0,0,NULL),(26,1,1,1,1,'2013-06-08 01:19:29','2013-06-08 08:19:29',240,0,NULL),(27,1,1,1,1,'2013-06-08 01:21:10','2013-06-08 08:21:10',96,0,NULL),(29,1,1,1,1,'2013-06-08 01:58:04','2013-06-08 08:58:04',300,0,NULL),(31,1,1,1,1,'2013-06-08 09:31:33','2013-06-08 16:31:33',240,0,NULL),(32,2,1,1,1,'2013-06-08 09:33:32','2013-06-08 16:33:32',296,0,NULL),(33,2,1,1,1,'2013-06-08 09:34:39','2013-06-08 16:34:39',296,0,NULL),(34,2,1,1,1,'2013-06-08 09:35:38','2013-06-08 16:35:38',260,0,NULL),(43,1,1,1,1,'2013-06-08 10:46:35','2013-06-08 17:46:35',240,0,NULL),(44,1,1,1,1,'2013-06-09 22:07:15','2013-06-10 05:07:15',300,0,NULL),(56,2,1,1,1,'2013-06-09 22:35:18','2013-06-10 05:35:18',160,0,NULL),(57,2,1,1,1,'2013-06-10 01:18:31','2013-06-10 08:18:31',380,0,NULL),(58,2,1,1,1,'2013-06-10 01:23:56','2013-06-10 08:23:56',256,0,NULL);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -696,7 +737,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','9a24eff8c15a6a141ece27eb6947da0f','2013-05-22 05:15:20','2013-06-07 12:50:23',1,1),(2,'demo','fe01ce2a7fbac8fafaed7c982a04e229','demo@example.com','099f825543f7850cc038b90aaff39fac','2013-05-22 05:15:20','2013-05-24 02:42:32',0,1);
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','9a24eff8c15a6a141ece27eb6947da0f','2013-05-22 05:15:20','2013-06-09 11:04:28',1,1),(2,'demo','fe01ce2a7fbac8fafaed7c982a04e229','demo@example.com','099f825543f7850cc038b90aaff39fac','2013-05-22 05:15:20','2013-05-24 02:42:32',0,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -756,7 +797,7 @@ CREATE TABLE `voyage` (
 
 LOCK TABLES `voyage` WRITE;
 /*!40000 ALTER TABLE `voyage` DISABLE KEYS */;
-INSERT INTO `voyage` VALUES (1,'ARC-VOY1',1,1,'06:00:00','12:00:00','2013-06-05'),(2,'VOY2',1,1,'05:45:00','02:45:00','2013-06-04'),(3,'VOY3',2,1,'08:30:00','01:30:00','2013-06-05'),(4,'VOY4',1,1,'10:45:00','10:45:00','2013-06-09');
+INSERT INTO `voyage` VALUES (1,'ARC-VOY1',1,1,'06:00:00','12:00:00','2013-06-10'),(2,'VOY2',1,1,'05:45:00','02:45:00','2013-06-04'),(3,'VOY3',2,1,'08:30:00','01:30:00','2013-06-05'),(4,'VOY4',1,1,'10:45:00','10:45:00','2013-06-30');
 /*!40000 ALTER TABLE `voyage` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -769,4 +810,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-08  0:40:00
+-- Dump completed on 2013-06-10  1:34:26

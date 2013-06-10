@@ -10,21 +10,23 @@
            var price2rateId = '#'+$(this).attr('id')+'2price';
            var priceText = price2rateId +'text';
            var newPrice = $(this).val();
-
            $(price2rateId).val(newPrice);
-
            var price = $(price2rateId+'>option:selected').text();
            $(priceText).val(price);
          });
          //var price = $('#Ticket_0_rate2price>option:selected').text();
          //$('.price').val(price);
-         $('#Cargo_0_cargo_class').change(function(){
-           $('#Cargo_0_price').val($(this).val());
-           $('#Cargo_0_cargoPrice').val($('#Cargo_0_price>option:selected').text());
+         $('.cargoFare').change(function(){
+           var cprice2rateId = '#'+$(this).attr('id')+'2price';
+           var cpfare2classId = '#'+$(this).attr('id')+'2class';
+		   var cpriceText = cprice2rateId +'text';
+		   var cnewPrice = $(this).val();
+		   $(cprice2rateId).val(cnewPrice);
+		   $(cpfare2classId).val($(this).val());
+           var cprice = $(cprice2rateId+'>option:selected').text();
+           $(cpriceText).val(cprice);
          });
 
-           $('#Cargo_0_price').val($('#Cargo_0_cargo_class').val());
-           $('#Cargo_0_cargoPrice').val($('#Cargo_0_price>option:selected').text());
     "
   );
 ?>

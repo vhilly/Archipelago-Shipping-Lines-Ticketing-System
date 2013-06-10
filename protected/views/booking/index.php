@@ -10,6 +10,7 @@
 
   $vl = CHtml::listData(Voyage::model()->findAll(),'id','name');
   $bsl = CHtml::listData(BookingStatus::model()->findAll(),'id','name');
+  $voy = CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name');
   $gridColumns = array(
     array(
       'name' => 'date_booked',
@@ -31,12 +32,13 @@
       'name'=>'last_name',
       'value'=>'$data->passenger0->last_name',
     ),
-    array(
-      'class' => 'bootstrap.widgets.TbEditableColumn',
-      'name'=>'voyage',
-      'value'=>'$data->ticket0->voyage0->name',
-      'filter'=>$vl,
+    array('name' => 'voyage',
+      'filter'=>$voy,
       'sortable'=>true,
+      'value' => '$data->voyage0->name',
+    ),
+    array('header' => 'Vessel',
+      'value' => '$data->voyage0->vessel0->name',
     ),
     array(
       'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -65,7 +67,7 @@
         'viewtkt' => array(
           'label'=>'view',
           'icon'=>'plus',
-          'url'=>'Yii::app()->controller->createUrl("ticket/view", array("id"=>$data->ticket))',
+          'url'=>'Yii::app()->controller->createUrl("booking/view", array("id"=>$data->id))',
           'options'=>array(
             'ajax'=>array(
               'type'=>'POST',

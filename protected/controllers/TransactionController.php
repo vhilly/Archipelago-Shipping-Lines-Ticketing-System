@@ -56,13 +56,12 @@
       $Tickets = array();
       $transType = TransactionType::model()->findByPk($trans->type);
       if($transType->cargo =='Y'){
-        $sql = "SELECT c.id,c.shipper,c.company,c.contact,cl.class,cl.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_class cl WHERE b.transaction={$trans->id} AND b.cargo=c.id AND cl.id=c.cargo_class";
+        $sql = "SELECT c.id,c.shipper,c.company,c.contact,cl.name class,cr.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_fare_rates cr,cargo_class cl WHERE b.transaction = {$trans->id} AND b.cargo=c.id AND cr.id=b.rate  AND cl.id=cr.class";
         $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
       }
       if($transType->passenger =='Y'){
-        $sql = "SELECT t.id tktno,p.first_name,p.last_name,r.type,c.name class, r.price FROM booking b,passenger p,
-           ticket t,passage_fare_rates r,seating_class c WHERE b.transaction={$trans->id} 
-           AND b.passenger=p.id AND b.ticket=t.id AND t.rate=r.id AND r.class = c.id";
+        $sql = "SELECT p.first_name,p.last_name,r.type,c.name class, r.price FROM booking b,passenger p,passage_fare_rates r,seating_class c WHERE b.transaction={$trans->id} 
+           AND b.passenger=p.id AND b.rate=r.id AND r.class = c.id";
         $Tickets = Yii::app()->db->createCommand($sql)->queryAll();
       }
 

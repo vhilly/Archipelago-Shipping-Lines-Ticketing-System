@@ -13,7 +13,7 @@
   <?php foreach($ticketView as $tktView):
 
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
-      'title' => 'Ticket No. '.str_pad($tktView['tktno'],11,'0',STR_PAD_LEFT),
+    //  'title' => 'Ticket No. '.str_pad($tktView['tktno'],11,'0',STR_PAD_LEFT),
       'headerIcon' => 'icon-th-list',
       'htmlOptions' => array('class'=>'bootstrap-widget-table','style'=>'background:#1d7cbf')
     ));

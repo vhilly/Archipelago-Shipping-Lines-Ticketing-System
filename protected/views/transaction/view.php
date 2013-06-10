@@ -26,8 +26,8 @@
          <td><?=$this->getTn($trans->id)?></td>
          <td><?=$trans->trans_date?></td>
          <td><?=$trans->input_date?></td>
-         <td><?=$trans->paymentMethod->name?></td>
          <td><?=$trans->paymentStatus->name?></td>
+         <td><?=$trans->paymentMethod->name?></td>
          <td><?=$trans->ovamount?></td>
          <td><?=$trans->ovdiscount?></td>
          <td><?=$trans->reference?></td>
@@ -44,7 +44,6 @@
          <th colspan=8><center>TICKETS PURCHASED</center></th>
         </tr>
         <tr>
-         <th>TICKET NO.</th>
          <th>FIRST NAME</th>
          <th>LAST NAME</th>
          <th>CLASS</th>
@@ -55,7 +54,6 @@
       <tbody>
 	 <?php foreach($Tickets as $ticket):?>
            <tr class="odd">
-            <td><?=$this->getTN($ticket['tktno'])?></td>
             <td><?=$ticket['first_name']?></td>
             <td><?=$ticket['last_name']?></td>
             <td><?=$ticket['class']?></td>

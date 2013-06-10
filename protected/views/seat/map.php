@@ -94,7 +94,7 @@
 	function get(seat,ids,no){
 		if(ids!=""){	
 			$('#'+ids).val(seat);
-			$('#SeatTicketMap'+ids).val(no);
+			$('#Seat'+ids).val(no);
 			$('a[data-dismiss="modal"]').click();
 		}
 	}

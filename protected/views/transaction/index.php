@@ -35,6 +35,16 @@ $gridColumns = array(
 			'sortable'=>true,
                 ),
                 array(
+                        'header'=>'Voyage',
+                        'value'=>'',
+                ),
+                array(
+			'name' => 'payment_method',
+                        'filter'=>CHtml::listData(PaymentMethod::model()->findAll(),'id','name'),
+                        'value'=>'$data->paymentMethod->name',
+			'sortable'=>true,
+                ),
+                array(
 			'name' => 'payment_status',
                         'filter'=>CHtml::listData(PaymentStatus::model()->findAll(),'id','name'),
                         'value'=>'$data->paymentStatus->name',

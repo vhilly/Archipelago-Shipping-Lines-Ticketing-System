@@ -32,7 +32,6 @@
 
   $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'verticalForm',
-    'type'=>'vertical',
     'htmlOptions'=>array('class'=>'well-small'),
   ));
 ?>
@@ -126,19 +125,19 @@
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
             </td>
             <td>
-              <?php echo $form->dropDownListRow($purchase->ticketModels[$key],"[$key]rate",CHtml::listData($purchase->fares,'id','type'),array('class'=>'span2 fare','empty'=>'')); ?>
+              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type'),array('class'=>'span2 fare','empty'=>'')); ?>
             </td>
             <td style="display:none">
-              <?php echo $form->dropDownListRow($purchase->ticketModels[$key],"[$key]rate",CHtml::listData($purchase->fares,'id','price'),array('id'=>'Ticket_'.$key.'_rate2price','class'=>'span2 fare-2price','disabled'=>true)); ?>
+              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>
             </td>
             <td>
-              <?php echo $form->textFieldRow($purchase->ticketModels[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'Ticket_'.$key.'_rate2pricetext','readonly'=>true)); ?>
+              <?php echo $form->textFieldRow($purchase->fareModels[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'PassageFareRates_'.$key.'_id2pricetext','readonly'=>true,'empty'=>'')); ?>
             </td>
             <td>
-              <?php echo $form->textFieldRow($purchase->seatTicketMapModels[$key],"[$key]seat",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_seat','readonly'=>true)); ?>
+              <?php echo $form->textFieldRow($purchase->seatModels[$key],"[$key]id",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_id','readonly'=>true)); ?>
             </td>
             <td style="display:none">
-              <?php echo $form->dropDownListRow($purchase->seatTicketMapModels[$key],"[$key]seat",CHtml::listData($seats,'id','name'),array('class'=>'span2','empty'=>'')); ?>
+              <?php echo $form->dropDownListRow($purchase->seatModels[$key],"[$key]id",CHtml::listData($seats,'id','name'),array('class'=>'span2','empty'=>'')); ?>
             </td>
           </tr>
         <?php endforeach;?>
@@ -156,14 +155,18 @@
 
     <?php echo $form->textFieldRow($cargo,"[$key]address",array('class'=>'span3','maxlength'=>255)); ?>
 
-    <?php echo $form->dropDownListRow($cargo,"[$key]cargo_class",CHtml::listData(CargoClass::model()->findAll(),'id','class'),array('class'=>'span2','empty'=>'')); ?>
-    <div style="display: none"> <?php echo $form->dropDownListRow($cargo,"[$key]price",CHtml::listData(CargoClass::model()->findAll(),'id','proposed_tariff'),array('class'=>'span2','disabled'=>true,'empty'=>'')); ?></div>
-    <?php echo $form->textFieldRow($cargo,"[$key]cargoPrice",array('readonly'=>true)); ?>
-
+    <?php echo $form->dropDownListRow($purchase->cargoFareModels[$key],"[$key]id",$purchase->cargoFares,array('class'=>'span2 cargoFare','empty'=>'')); ?>
+    <div style="display:none">
+    <?php echo $form->dropDownListRow($purchase->cargoFareModels[$key],"[$key]id",CHtml::listData(CargoFareRates::model()->findAll(array('condition'=>'route=:rt','params'=>array(':rt'=>$purchase->route))),'id','proposed_tariff'),array('id'=>'CargoFareRates_'.$key.'_id2price','class'=>'span2 cargoFare','empty'=>'','readonly'=>true)); ?>
+    </div>
+    <?php echo $form->textFieldRow($purchase->cargoFareModels[$key],"[$key]proposed_tariff",array('id'=>'CargoFareRates_'.$key.'_id2pricetext','class'=>'span2 cargoFare','empty'=>'','readonly'=>true)); ?>
     <?php echo $form->textFieldRow($cargo,"[$key]article_no",array('class'=>'span2','maxlength'=>100)); ?>
     <?php echo $form->textAreaRow($cargo,"[$key]article_desc",array('class'=>'span3','maxlength'=>100)); ?>
     <?php echo $form->textFieldRow($cargo,"[$key]weight",array('class'=>'span2','maxlength'=>100)); ?>
     <?php echo $form->textFieldRow($cargo,"[$key]length",array('class'=>'span2','maxlength'=>100)); ?>
+    <div style="">
+    <?php echo $form->dropDownListRow($cargo,"[$key]cargo_class",CHtml::listData(CargoFareRates::model()->findAll(array('condition'=>'route=:rt','params'=>array(':rt'=>$purchase->route))),'id','class'),array('id'=>'CargoFareRates_'.$key.'_id2class','readonly'=>true,'empty'=>'')); ?>
+    </div>
 
     <?php endforeach;?>
 

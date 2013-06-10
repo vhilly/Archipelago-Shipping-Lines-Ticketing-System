@@ -47,27 +47,11 @@
         ),
       );
     }
-    /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
-     */
     public function actionIndex()
     {
-      // renders the view file 'protected/views/site/index.php'
-      // using the default layout 'protected/views/layouts/main.php'
-
-      if(Yii::app()->user->isGuest){
+      
         $this->layout = 'main';
         $this->render('index');
-      }else{
-        $sql = "SELECT voy.id voyid,s.id status,count(*) count FROM booking b,booking_status s,ticket t,voyage voy WHERE b.status = s.id AND voy.departure_date = CURDATE() AND s.active='Y' AND b.ticket=t.id AND t.voyage=voy.id GROUP BY b.status,t.voyage";
-        $seatCount = Seat::Model()->count("active='Y'");
-        $booked = Yii::app()->db->createCommand($sql)->queryAll();
-        $bs = BookingStatus::model()->findAll();
-        $voy = Voyage::model()->findAll(array('condition'=>'departure_date=CURDATE()'));
-        $this->render('home',array('booked'=>$booked,'seatCount'=>$seatCount,'bs'=>$bs,'voy'=>$voy));
-        $this->layout = 'column3';
-      }
     }
 
     /**
@@ -84,35 +68,6 @@
       }
     }
 
-    /**
-     * Displays the contact page
-     */
-    public function actionContact()
-    {
-      $model=new ContactForm;
-      if(isset($_POST['ContactForm']))
-      {
-        $model->attributes=$_POST['ContactForm'];
-        if($model->validate())
-        {
-          $name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-          $subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-          $headers="From: $name <{$model->email}>\r\n".
-            "Reply-To: {$model->email}\r\n".
-            "MIME-Version: 1.0\r\n".
-            "Content-type: text/plain; charset=UTF-8";
-
-          mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-          Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-          $this->refresh();
-        }
-      }
-      $this->render('contact',array('model'=>$model));
-    }
-
-    /**
-     * Displays the login page
-     */
     public function actionLogin()
     {
       $model=new LoginForm;
