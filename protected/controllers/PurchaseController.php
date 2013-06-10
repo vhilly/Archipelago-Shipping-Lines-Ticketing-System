@@ -18,6 +18,16 @@
       );
     }
 
+    public function numberGenerator($name){
+      $count = file_get_contents("$name.txt");
+      $count = trim($count);
+      $count = $count + 1;
+      $fl = fopen("$name.txt","w+");
+      fwrite($fl,$count);
+      fclose($fl);
+      return $count;
+    }
+
     public function actionIndex($type){
 
       if(isset($_POST['Purchase']) && $_SESSION['nonce'] == $_POST['nonce']){
@@ -168,7 +178,7 @@
 
 
               if(count($passengerList)){
-
+		$bookCounter = $this->numberGenerator('book');
                 foreach($passengerList as $key=>$passenger){
                   $newPassenger   = new Passenger;
                   $newBooking = new Booking;
@@ -182,6 +192,9 @@
                   if(!$newPassenger->save())
                     throw new Exception('Cannot save passanger');
                   //booking
+		  $counter = $this->numberGenerator('count');
+		  $newBooking->tkt_no = str_pad($counter,10,'0',STR_PAD_LEFT);
+		  $newBooking->booking_no = str_pad($bookCounter,10,'0',STR_PAD_LEFT);
                   $newBooking->transaction = $newTransaction->id;
                   $newBooking->passenger = $newPassenger->id;
                   $newBooking->seat = $newSeat->id;
@@ -193,12 +206,16 @@
                 }
               }
               if(count($cargoList)){
+		$bookingCounter = $this->numberGenerator('book');
                 foreach($cargoList as $key2=>$c){
                   $cargo = new Cargo;
                   $cargoFare = new CargoFareRates;
                   $cargo->attributes = $c;
                   $cargoFare->attributes = $cargoFareList[$key2];
                   $newCargoBooking = new BookingCargo;
+		  $lading = $this->numberGenerator('lading');
+		  $newCargoBooking->lading_no = str_pad($lading,10,'0',STR_PAD_LEFT);
+		  $newCargoBooking->booking_no = str_pad($bookingCounter,10,'0',STR_PAD_LEFT);
                   $newCargoBooking->transaction = $newTransaction->id;
                   $newCargoBooking->voyage = $purchase->voyage;
                   $newCargoBooking->rate = $cargoFare->id;
