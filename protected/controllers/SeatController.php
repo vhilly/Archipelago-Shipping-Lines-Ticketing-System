@@ -128,6 +128,7 @@
 
     public function actionMap()
     {
+	//comment
       $list= Seat::model()->findAll();
       $sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat";
       $bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
