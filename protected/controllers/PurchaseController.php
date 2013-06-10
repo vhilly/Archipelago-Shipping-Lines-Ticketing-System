@@ -206,12 +206,16 @@
                 }
               }
               if(count($cargoList)){
+		$bookingCounter = $this->numberGenerator('book');
                 foreach($cargoList as $key2=>$c){
                   $cargo = new Cargo;
                   $cargoFare = new CargoFareRates;
                   $cargo->attributes = $c;
                   $cargoFare->attributes = $cargoFareList[$key2];
                   $newCargoBooking = new BookingCargo;
+		  $lading = $this->numberGenerator('lading');
+		  $newCargoBooking->lading_no = str_pad($lading,10,'0',STR_PAD_LEFT);
+		  $newCargoBooking->booking_no = str_pad($bookingCounter,10,'0',STR_PAD_LEFT);
                   $newCargoBooking->transaction = $newTransaction->id;
                   $newCargoBooking->voyage = $purchase->voyage;
                   $newCargoBooking->rate = $cargoFare->id;
