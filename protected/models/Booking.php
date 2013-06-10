@@ -50,7 +50,7 @@ class Booking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('transaction, passenger, voyage, status,rate', 'required'),
+			array('transaction, passenger, tkt_no, booking_no, voyage, status,rate', 'required'),
 			array('transaction, passenger, voyage, seat, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -82,6 +82,8 @@ class Booking extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'tkt_no' => 'Ticket Number',
+			'booking_no' => 'Booking Number',
 			'transaction' => 'Transaction',
 			'passenger' => 'Passenger',
 			'voyage' => 'Voyage',
