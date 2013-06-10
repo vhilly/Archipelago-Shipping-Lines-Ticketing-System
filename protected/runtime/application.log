@@ -2032,3 +2032,91 @@ in /var/www/arc/index.php (13)
 2013/06/10 17:05:25 [warning] [application] Failed to set unsafe attribute "company" of "BookingCargo".
 in /var/www/arc/protected/controllers/BookingCargoController.php (133)
 in /var/www/arc/index.php (13)
+2013/06/10 18:09:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'b.tkt_no' in 'field list'. The SQL statement executed was: SELECT b.tkt_no tktNo,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
+        FROM booking b,passenger p,passage_fare_rates r,seating_class c,
+	voyage v, route rt,seat s
+        WHERE b.passenger=p.id AND b.rate=r.id AND b.seat=s.id AND r.class=c.id .
+in /var/www/arch/protected/controllers/TicketController.php (156)
+in /var/www/arch/index.php (13)
+2013/06/10 18:09:07 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'b.tkt_no' in 'field list'. The SQL statement executed was: SELECT b.tkt_no tktNo,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
+        FROM booking b,passenger p,passage_fare_rates r,seating_class c,
+	voyage v, route rt,seat s
+        WHERE b.passenger=p.id AND b.rate=r.id AND b.seat=s.id AND r.class=c.id ' in /var/www/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /var/www/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /var/www/arch/protected/controllers/TicketController.php(156): CDbCommand->queryAll()
+#2 /var/www/yii/framework/web/actions/CInlineAction.php(49): TicketController->actionIndex()
+#3 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#10 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#12 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('ticket/index')
+#13 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /var/www/arch/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/arch/index.php?r=ticket/index
+HTTP_REFERER=http://localhost/arch/index.php?r=ticket/index
+---
+2013/06/10 18:09:21 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'bc.booking_no' in 'field list'. The SQL statement executed was: SELECT bc.booking_no bkNo,bc.lading_no wbNo,c.shipper,c.company,c.destination,c.address,cc.name class,c.article_no,c.article_desc,c.weight,c.length,c.contact, ves.name vname, r.from loading ,r.to discharge, cf.lane_meter_rate rate,cf.proposed_tariff fcharge FROM booking_cargo bc,cargo c,voyage v,cargo_fare_rates cf,cargo_class cc,vessel ves,route r  WHERE bc.cargo=c.id AND bc.voyage=v.id AND bc.rate=cf.id  AND c.cargo_class=cc.id AND v.vessel=ves.id AND v.route=r.id.
+in /var/www/arch/protected/controllers/WaybillController.php (152)
+in /var/www/arch/index.php (13)
+2013/06/10 18:09:21 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'bc.booking_no' in 'field list'. The SQL statement executed was: SELECT bc.booking_no bkNo,bc.lading_no wbNo,c.shipper,c.company,c.destination,c.address,cc.name class,c.article_no,c.article_desc,c.weight,c.length,c.contact, ves.name vname, r.from loading ,r.to discharge, cf.lane_meter_rate rate,cf.proposed_tariff fcharge FROM booking_cargo bc,cargo c,voyage v,cargo_fare_rates cf,cargo_class cc,vessel ves,route r  WHERE bc.cargo=c.id AND bc.voyage=v.id AND bc.rate=cf.id  AND c.cargo_class=cc.id AND v.vessel=ves.id AND v.route=r.id' in /var/www/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /var/www/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /var/www/arch/protected/controllers/WaybillController.php(152): CDbCommand->queryAll()
+#2 /var/www/yii/framework/web/actions/CInlineAction.php(49): WaybillController->actionIndex()
+#3 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#10 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#12 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('waybill/index')
+#13 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /var/www/arch/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/arch/index.php?r=waybill/index
+HTTP_REFERER=http://localhost/arch/index.php?r=waybill/index
+---
+2013/06/10 18:09:30 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'b.tkt_no' in 'field list'. The SQL statement executed was: SELECT b.tkt_no tktNo,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
+        FROM booking b,passenger p,passage_fare_rates r,seating_class c,
+	voyage v, route rt,seat s
+        WHERE b.passenger=p.id AND b.rate=r.id AND b.seat=s.id AND r.class=c.id .
+in /var/www/arch/protected/controllers/TicketController.php (156)
+in /var/www/arch/index.php (13)
+2013/06/10 18:09:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'b.tkt_no' in 'field list'. The SQL statement executed was: SELECT b.tkt_no tktNo,p.first_name,p.last_name,r.type,c.name class, r.price,b.status,
+	v.name voy,rt.name rou,v.departure_time vdt,v.arrival_time vat,s.name sea
+        FROM booking b,passenger p,passage_fare_rates r,seating_class c,
+	voyage v, route rt,seat s
+        WHERE b.passenger=p.id AND b.rate=r.id AND b.seat=s.id AND r.class=c.id ' in /var/www/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /var/www/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /var/www/arch/protected/controllers/TicketController.php(156): CDbCommand->queryAll()
+#2 /var/www/yii/framework/web/actions/CInlineAction.php(49): TicketController->actionIndex()
+#3 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#10 /var/www/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#12 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('ticket/index')
+#13 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /var/www/arch/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/arch/index.php?r=ticket/index
+HTTP_REFERER=http://localhost/arch/index.php?r=ticket/index
+---
