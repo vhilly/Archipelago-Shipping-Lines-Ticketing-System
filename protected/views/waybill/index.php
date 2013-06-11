@@ -65,7 +65,7 @@
     <?php
     $this->endWidget();
 
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Print','htmlOptions'=>array('class'=>'pull-right')));
+    $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('print/index',array('type'=>'waybill')), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'pull-right' )));
 
     echo "<br><br><br>";
 

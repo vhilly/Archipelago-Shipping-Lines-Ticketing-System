@@ -67,7 +67,7 @@ class Passenger extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'bookings' => array(self::HAS_MANY, 'Booking', 'passenger'),
+			'bookings' => array(self::HAS_ONE, 'Booking', 'passenger'),
 		);
 	}
 

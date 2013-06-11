@@ -48,6 +48,7 @@ $gridColumns = array(
                 ),
                 array(
 			'name' => 'id',
+                        'header'=>'Transaction No.',
 			'sortable'=>true,
 			'value'=>' str_pad($data->id,11,"0",STR_PAD_LEFT)',
                 ),

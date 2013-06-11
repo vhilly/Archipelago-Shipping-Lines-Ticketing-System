@@ -45,7 +45,7 @@ CREATE TABLE `booking` (
   CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`transaction`) REFERENCES `transaction` (`id`),
   CONSTRAINT `booking_ibfk_5` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`),
   CONSTRAINT `booking_ibfk_6` FOREIGN KEY (`seat`) REFERENCES `seat` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,6 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'','',26,13,1,1,3,'2013-06-08 08:19:29',4),(2,'','',27,14,1,190,2,'2013-06-08 08:21:10',9),(3,'','',29,16,1,2,2,'2013-06-08 08:58:04',1),(4,'','',31,17,1,18,2,'2013-06-08 16:31:33',7),(5,'','',32,18,1,175,2,'2013-06-08 16:33:32',9),(6,'','',33,19,1,160,2,'2013-06-08 16:34:39',9),(7,'','',34,20,1,191,2,'2013-06-08 16:35:38',12),(16,'','',43,29,1,4,2,'2013-06-08 17:46:35',4),(17,'','',44,30,1,3,2,'2013-06-10 05:07:15',1),(29,'','',56,42,1,176,1,'2013-06-10 05:35:18',12),(30,'','',57,43,1,NULL,2,'2013-06-10 08:18:31',3),(31,'','',57,44,1,NULL,2,'2013-06-10 08:18:31',12),(32,'','',58,45,1,NULL,2,'2013-06-10 08:23:56',6),(33,'','',58,46,1,NULL,2,'2013-06-10 08:23:56',12),(34,'0000000011','0000000005',60,47,1,161,2,'2013-06-10 08:19:47',6),(35,'0000000012','0000000007',61,48,1,205,2,'2013-06-10 08:28:46',3);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +88,7 @@ CREATE TABLE `booking_cargo` (
   CONSTRAINT `booking_cargo_ibfk_3` FOREIGN KEY (`status`) REFERENCES `booking_status` (`id`),
   CONSTRAINT `booking_cargo_ibfk_4` FOREIGN KEY (`voyage`) REFERENCES `voyage` (`id`),
   CONSTRAINT `booking_cargo_ibfk_5` FOREIGN KEY (`rate`) REFERENCES `cargo_fare_rates` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +97,6 @@ CREATE TABLE `booking_cargo` (
 
 LOCK TABLES `booking_cargo` WRITE;
 /*!40000 ALTER TABLE `booking_cargo` DISABLE KEYS */;
-INSERT INTO `booking_cargo` VALUES (2,'','',56,1,2,5,2,'2013-06-10 05:35:18'),(3,'','',57,1,1,6,2,'2013-06-10 08:18:31'),(4,'','',58,1,2,7,2,'2013-06-10 08:23:56'),(5,'0000000002','0000000006',60,1,1,8,2,'2013-06-10 08:19:47'),(6,'0000000003','0000000008',61,1,2,9,2,'2013-06-10 08:28:46');
 /*!40000 ALTER TABLE `booking_cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +150,7 @@ CREATE TABLE `cargo` (
   KEY `cargo_class` (`cargo_class`),
   KEY `cargo_class_2` (`cargo_class`),
   CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`cargo_class`) REFERENCES `cargo_class` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +159,6 @@ CREATE TABLE `cargo` (
 
 LOCK TABLES `cargo` WRITE;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` VALUES (5,'','',NULL,'',2,'','',NULL,NULL,NULL),(6,'','',NULL,'',1,'','',NULL,NULL,NULL),(7,'','',NULL,'',1,'','',NULL,NULL,NULL),(8,'Shipper','company',NULL,'address',1,'123','fdsfdsf',12,143,NULL),(9,'Shipper','company',NULL,'makati',2,'123','desdc',11,12,NULL);
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +280,7 @@ CREATE TABLE `passenger` (
   `address` varchar(255) DEFAULT NULL,
   `birth_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +289,6 @@ CREATE TABLE `passenger` (
 
 LOCK TABLES `passenger` WRITE;
 /*!40000 ALTER TABLE `passenger` DISABLE KEYS */;
-INSERT INTO `passenger` VALUES (1,'Vhilly','Santiago',NULL,NULL,'Madlangbayan','','M',NULL,'Filipino','','2013-06-01'),(2,'jo','',NULL,NULL,'','','F',NULL,'','','2013-06-05'),(3,'fsdf','fsdfsdf',NULL,NULL,'sdfsdf','','',NULL,'','','2013-06-08'),(4,'','',NULL,NULL,'','','',NULL,'','','2013-06-08'),(13,'','',NULL,NULL,'','','',NULL,'','','2013-06-08'),(14,'','',NULL,NULL,'','','',NULL,'','','2013-06-06'),(16,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(17,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(18,'','',NULL,NULL,'','','',NULL,'','','2013-06-01'),(19,'','',NULL,NULL,'','','',NULL,'','','2013-06-10'),(20,'','',NULL,NULL,'','','',NULL,'','','2013-06-11'),(29,'Vhilly','Santiago',NULL,NULL,'Madlangbayan','','M',NULL,'Filipino','','2013-06-10'),(30,'','',NULL,NULL,'','','',NULL,'','','2013-06-09'),(42,'Angela','Santiago',NULL,NULL,'Madlangbayan','','F',NULL,'Filipino','','2013-06-09'),(43,'dfssaf','sdfsd',NULL,NULL,'','','F',NULL,'','','2013-06-05'),(44,'fsdfsdf','fsd',NULL,NULL,'','','F',NULL,'','','2013-06-10'),(45,'sfsdf','v',NULL,NULL,'','','F',NULL,'','','2013-06-01'),(46,'sdfdsf','sdfsdf',NULL,NULL,'sdfsdf','','F',NULL,'','','2013-06-10'),(47,'test','last',NULL,NULL,'Madlangbayan','','M',NULL,'Filipino','Makati City','2013-06-11'),(48,'test','test',NULL,NULL,'Madlangbayan','','',NULL,'Filipino','Makati City','2013-06-10');
 /*!40000 ALTER TABLE `passenger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -662,7 +658,7 @@ CREATE TABLE `transaction` (
   CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`payment_method`) REFERENCES `payment_method` (`id`),
   CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`payment_status`) REFERENCES `payment_status` (`id`),
   CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`uid`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -671,7 +667,6 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (12,1,1,1,1,'2013-06-07 23:51:56','2013-06-08 06:51:56',150,0,NULL),(13,1,1,2,1,'2013-06-07 23:55:54','2013-06-08 06:55:54',390,0,NULL),(16,1,1,1,1,'2013-06-08 00:14:08','2013-06-08 07:14:08',300,0,NULL),(17,1,1,1,1,'2013-06-08 00:15:13','2013-06-08 07:15:13',0,0,NULL),(26,1,1,1,1,'2013-06-08 01:19:29','2013-06-08 08:19:29',240,0,NULL),(27,1,1,1,1,'2013-06-08 01:21:10','2013-06-08 08:21:10',96,0,NULL),(29,1,1,1,1,'2013-06-08 01:58:04','2013-06-08 08:58:04',300,0,NULL),(31,1,1,1,1,'2013-06-08 09:31:33','2013-06-08 16:31:33',240,0,NULL),(32,2,1,1,1,'2013-06-08 09:33:32','2013-06-08 16:33:32',296,0,NULL),(33,2,1,1,1,'2013-06-08 09:34:39','2013-06-08 16:34:39',296,0,NULL),(34,2,1,1,1,'2013-06-08 09:35:38','2013-06-08 16:35:38',260,0,NULL),(43,1,1,1,1,'2013-06-08 10:46:35','2013-06-08 17:46:35',240,0,NULL),(44,1,1,1,1,'2013-06-09 22:07:15','2013-06-10 05:07:15',300,0,NULL),(56,2,1,1,1,'2013-06-09 22:35:18','2013-06-10 05:35:18',160,0,NULL),(57,2,1,1,1,'2013-06-10 01:18:31','2013-06-10 08:18:31',380,0,NULL),(58,2,1,1,1,'2013-06-10 01:23:56','2013-06-10 08:23:56',256,0,NULL),(60,2,1,1,1,'2013-06-10 16:19:47','2013-06-10 08:19:47',296,0,NULL),(61,2,1,1,1,'2013-06-10 16:28:46','2013-06-10 08:28:46',220,0,NULL);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -741,7 +736,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','9a24eff8c15a6a141ece27eb6947da0f','2013-05-22 05:15:20','2013-06-10 09:58:44',1,1),(2,'demo','fe01ce2a7fbac8fafaed7c982a04e229','demo@example.com','099f825543f7850cc038b90aaff39fac','2013-05-22 05:15:20','2013-05-24 02:42:32',0,1);
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','9a24eff8c15a6a141ece27eb6947da0f','2013-05-22 05:15:20','2013-06-11 07:34:43',1,1),(2,'demo','fe01ce2a7fbac8fafaed7c982a04e229','demo@example.com','099f825543f7850cc038b90aaff39fac','2013-05-22 05:15:20','2013-05-24 02:42:32',0,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -814,4 +809,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-10 18:10:36
+-- Dump completed on 2013-06-11 16:18:44

@@ -24,6 +24,8 @@
         true),
       'sortable'=>true,
     ),
+    array('name' => 'booking_no'),
+    array('name' => 'tkt_no'),
     array(
       'name'=>'first_name',
       'value'=>'$data->passenger0->first_name',

@@ -16,5 +16,5 @@
  <?php echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'),array('empty'=>''))?>
  <?php echo $form->textFieldRow($model,'wbNo',array('class'=>'span2')); ?>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search Ticket/s')); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Search Waybill/s')); ?>
  <?php $this->endWidget(); ?>

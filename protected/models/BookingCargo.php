@@ -54,7 +54,7 @@ class BookingCargo extends CActiveRecord
 			array('transaction, voyage, rate, cargo, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction,shipper,company voyage, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
+			array('id, transaction,shipper,company voyage,booking_no,lading_no, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,8 +82,8 @@ class BookingCargo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'lading_no' => 'Lading Number',
-			'booking_no' => 'Booking Number',
+			'lading_no' => 'Lading No.',
+			'booking_no' => 'Booking No.',
 			'transaction' => 'Transaction',
 			'voyage' => 'Voyage',
 			'rate' => 'Rate',
@@ -116,6 +116,8 @@ class BookingCargo extends CActiveRecord
 		$criteria->compare('transaction',$this->transaction);
 		$criteria->compare('voyage',$this->voyage);
 		$criteria->compare('rate',$this->rate);
+		$criteria->compare('lading_no',$this->lading_no);
+		$criteria->compare('booking_no',$this->booking_no);
 		$criteria->compare('cargo',$this->cargo);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('date_booked',$this->date_booked,true);

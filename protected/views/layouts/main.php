@@ -52,7 +52,7 @@
 		'...',
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('icon'=>'align-justify','label'=>'Transaction', 'url'=>'#', 'items'=>$transLink,
+                array('icon'=>'credit-card','label'=>'Transaction', 'url'=>'#', 'items'=>$transLink,
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
@@ -63,13 +63,13 @@
                 array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('icon'=>'book','label'=>'Passenger', 'url'=>array('/seat/index'), 'items'=>array(
+                array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-		array('icon'=>'book','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
+		array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 '...',
-		array('icon'=>'book','label'=>'Bill of Lading', 'url'=>array('/waybill/index'), 'items'=>array(
+		array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 '...',
 

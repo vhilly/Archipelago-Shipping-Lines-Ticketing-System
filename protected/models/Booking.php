@@ -54,7 +54,7 @@ class Booking extends CActiveRecord
 			array('transaction, passenger, voyage, seat, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction, passenger, voyage,first_name,last_name, seat, status, date_booked', 'safe', 'on'=>'search'),
+			array('id, transaction, passenger,tkt_no, voyage,first_name,last_name, seat, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,8 +82,8 @@ class Booking extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'tkt_no' => 'Ticket Number',
-			'booking_no' => 'Booking Number',
+			'tkt_no' => 'Ticket No.',
+			'booking_no' => 'Booking No.',
 			'transaction' => 'Transaction',
 			'passenger' => 'Passenger',
 			'voyage' => 'Voyage',
@@ -113,6 +113,8 @@ class Booking extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('transaction',$this->transaction);
+		$criteria->compare('booking_no',$this->booking_no);
+		$criteria->compare('tkt_no',$this->tkt_no);
 		$criteria->compare('passenger',$this->passenger);
 		$criteria->compare('voyage',$this->voyage);
 		$criteria->compare('seat',$this->seat);

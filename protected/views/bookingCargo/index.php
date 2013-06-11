@@ -17,9 +17,10 @@ $gridColumns = array(
                         true),
 			'sortable'=>true,
                 ),
+                 'booking_no',
+                 'lading_no',
                  array(
                    'name'=>'shipper',
-                   'sortable'=>true,
                    'value'=>'$data->cargo0->shipper',
                  ),
                  array(

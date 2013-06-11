@@ -26,8 +26,8 @@
          <td><?=$this->getTn($trans->id)?></td>
          <td><?=$trans->trans_date?></td>
          <td><?=$trans->input_date?></td>
-         <td><?=$trans->paymentStatus->name?></td>
          <td><?=$trans->paymentMethod->name?></td>
+         <td><?=$trans->paymentStatus->name?></td>
          <td><?=$trans->ovamount?></td>
          <td><?=$trans->ovdiscount?></td>
          <td><?=$trans->reference?></td>
@@ -44,6 +44,7 @@
          <th colspan=8><center>TICKETS PURCHASED</center></th>
         </tr>
         <tr>
+         <th>TICKET NO.</th>
          <th>FIRST NAME</th>
          <th>LAST NAME</th>
          <th>CLASS</th>
@@ -54,6 +55,7 @@
       <tbody>
 	 <?php foreach($Tickets as $ticket):?>
            <tr class="odd">
+            <td><?=$ticket['tkt_no']?></td>
             <td><?=$ticket['first_name']?></td>
             <td><?=$ticket['last_name']?></td>
             <td><?=$ticket['class']?></td>
@@ -74,7 +76,7 @@
          <th colspan=10><center>CARGO</center></th>
         </tr>
         <tr>
-         <th>CARGO NO.</th>
+         <th>BILL OF LADING NO.</th>
          <th>SHIPPER</th>
          <th>COMPANY</th>
          <th>CONTACT</th>
@@ -89,7 +91,7 @@
       <tbody>
 	 <?php foreach($Cargos as $cargo):?>
            <tr>
-	     <td><?=$this->getTN($cargo['id'])?></td>
+	     <td><?=$cargo['wb_no']?></td>
 	     <td><?=$cargo['shipper']?></td>
 	     <td><?=$cargo['company']?></td>
 	     <td><?=$cargo['contact']?></td>

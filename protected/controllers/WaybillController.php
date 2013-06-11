@@ -146,7 +146,7 @@
           $sql = "SELECT bc.booking_no bkNo,bc.lading_no wbNo,c.shipper,c.company,c.destination,c.address,cc.name class,c.article_no,c.article_desc,c.weight,c.length,c.contact, ves.name vname, r.from loading ,r.to discharge, cf.lane_meter_rate rate,cf.proposed_tariff fcharge FROM booking_cargo bc,cargo c,voyage v,cargo_fare_rates cf,cargo_class cc,vessel ves,route r  WHERE bc.cargo=c.id AND bc.voyage=v.id AND bc.rate=cf.id  AND c.cargo_class=cc.id AND v.vessel=ves.id AND v.route=r.id";
           if($model->voyage) $sql .=" AND v.id='{$model->voyage}'";
           if($model->departure_date) $sql .=" AND v.departure_date='{$model->departure_date}'";
-          if($model->wbNo) $sql .=" AND bc.lading_no='{$model->wbNo}'";
+          if($model->wbNo) $sql .=" AND bc.lading_no LIKE '%{$model->wbNo}'";
 
          // $sql .=" ORDER BY tktno";
           $wayBillView = Yii::app()->db->createCommand($sql)->queryAll();
