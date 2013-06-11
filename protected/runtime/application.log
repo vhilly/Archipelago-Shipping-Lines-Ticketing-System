@@ -2032,3 +2032,39 @@ in /var/www/arc/index.php (13)
 2013/06/10 17:05:25 [warning] [application] Failed to set unsafe attribute "company" of "BookingCargo".
 in /var/www/arc/protected/controllers/BookingCargoController.php (133)
 in /var/www/arc/index.php (13)
+2013/06/11 09:19:29 [error] [php] Undefined index: nonce (/var/www/arc/protected/controllers/PurchaseController.php:33)
+Stack trace:
+#0 /var/www/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /var/www/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/yii/framework/web/filters/CFilterChain.php(133): PurchaseController->runAction()
+#3 /var/www/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/yii/framework/web/filters/CInlineFilter.php(58): PurchaseController->filterAccessControl()
+#6 /var/www/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/yii/framework/web/CController.php(265): PurchaseController->runActionWithFilters()
+#9 /var/www/yii/framework/web/CWebApplication.php(282): PurchaseController->run()
+#10 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/arc/index.php(13): CWebApplication->run()
+REQUEST_URI=/arc/index.php?r=purchase/index&type=2
+in /var/www/arc/protected/controllers/PurchaseController.php (33)
+in /var/www/arc/index.php (13)
+2013/06/11 10:15:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "cargoBooking/view".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('cargoBooking/vi...')
+#1 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /var/www/arc/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/arc/index.php?r=cargoBooking/view&id=5
+HTTP_REFERER=http://localhost/arc/index.php?r=bookingCargo/index
+---
+2013/06/11 10:15:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "cargoBooking/view".' in /var/www/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('cargoBooking/vi...')
+#1 /var/www/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /var/www/arc/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/arc/index.php?r=cargoBooking/view&id=5
+HTTP_REFERER=http://localhost/arc/index.php?r=bookingCargo/index
+---

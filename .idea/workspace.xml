@@ -4,56 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/protected/controllers/PurchaseController.php" line="124" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e24fc586-e171-41dc-a940-4fd1fa7803d9" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/protected/controllers/PurchaseController.php" afterPath="$PROJECT_DIR$/protected/controllers/PurchaseController2.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/protected/views/purchase/_form.php" afterPath="$PROJECT_DIR$/protected/views/purchase2/_form.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/protected/views/purchase/index.php" afterPath="$PROJECT_DIR$/protected/views/purchase2/index.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/protected/views/purchase/modal.php" afterPath="$PROJECT_DIR$/protected/views/purchase2/modal.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/protected/views/purchase/voyageList.php" afterPath="$PROJECT_DIR$/protected/views/purchase2/voyageList.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Booking.php" afterPath="$PROJECT_DIR$/protected/models/Booking.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/BookingCargo.php" afterPath="$PROJECT_DIR$/protected/models/BookingCargo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/BookingStatus.php" afterPath="$PROJECT_DIR$/protected/models/BookingStatus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Cargo.php" afterPath="$PROJECT_DIR$/protected/models/Cargo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/CargoClass.php" afterPath="$PROJECT_DIR$/protected/models/CargoClass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/ContactForm.php" afterPath="$PROJECT_DIR$/protected/models/ContactForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/LoginForm.php" afterPath="$PROJECT_DIR$/protected/models/LoginForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/PassageFareRates.php" afterPath="$PROJECT_DIR$/protected/models/PassageFareRates.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Passenger.php" afterPath="$PROJECT_DIR$/protected/models/Passenger.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Pay.php" afterPath="$PROJECT_DIR$/protected/models/Pay.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Payment.php" afterPath="$PROJECT_DIR$/protected/models/Payment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/PaymentMethod.php" afterPath="$PROJECT_DIR$/protected/models/PaymentMethod.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/PaymentStatus.php" afterPath="$PROJECT_DIR$/protected/models/PaymentStatus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Purchase.php" afterPath="$PROJECT_DIR$/protected/models/Purchase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Report.php" afterPath="$PROJECT_DIR$/protected/models/Report.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Route.php" afterPath="$PROJECT_DIR$/protected/models/Route.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Seat.php" afterPath="$PROJECT_DIR$/protected/models/Seat.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/SeatTicketMap.php" afterPath="$PROJECT_DIR$/protected/models/SeatTicketMap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/SeatingClass.php" afterPath="$PROJECT_DIR$/protected/models/SeatingClass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Stowage.php" afterPath="$PROJECT_DIR$/protected/models/Stowage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/StowageCargoMap.php" afterPath="$PROJECT_DIR$/protected/models/StowageCargoMap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Ticket.php" afterPath="$PROJECT_DIR$/protected/models/Ticket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TicketController.php" afterPath="$PROJECT_DIR$/protected/controllers/TicketController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Transaction.php" afterPath="$PROJECT_DIR$/protected/models/Transaction.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/TransactionType.php" afterPath="$PROJECT_DIR$/protected/models/TransactionType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Vessel.php" afterPath="$PROJECT_DIR$/protected/models/Vessel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Voyage.php" afterPath="$PROJECT_DIR$/protected/models/Voyage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/booking/_form.php" afterPath="$PROJECT_DIR$/protected/views/booking/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/cargo/_form.php" afterPath="$PROJECT_DIR$/protected/views/cargo/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/purchase/_form.php" afterPath="$PROJECT_DIR$/protected/views/purchase/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/ticket/_searchform.php" afterPath="$PROJECT_DIR$/protected/views/ticket/_searchform.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/booking/_view.php" afterPath="$PROJECT_DIR$/protected/views/booking/_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/site/home.php" afterPath="$PROJECT_DIR$/protected/views/site/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/booking/index.php" afterPath="$PROJECT_DIR$/protected/views/booking/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/ticket/index.php" afterPath="$PROJECT_DIR$/protected/views/ticket/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/transaction/index.php" afterPath="$PROJECT_DIR$/protected/views/transaction/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/config/main.php" afterPath="$PROJECT_DIR$/protected/config/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/bootstrap/css/styles.css" afterPath="$PROJECT_DIR$/themes/bootstrap/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/booking/ticketModal.php" afterPath="$PROJECT_DIR$/protected/views/booking/ticketModal.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/cargo/view.php" afterPath="$PROJECT_DIR$/protected/views/cargo/view.php" />
-    </list>
+    <list default="true" id="e24fc586-e171-41dc-a940-4fd1fa7803d9" name="Default" comment="" />
     <ignored path="arc.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="e24fc586-e171-41dc-a940-4fd1fa7803d9" time="1370503695731" ignored="false" />
+    <file path="/Dummy.txt" changelist="e24fc586-e171-41dc-a940-4fd1fa7803d9" time="1370864218266" ignored="false" />
     <file path="/a.php" changelist="e24fc586-e171-41dc-a940-4fd1fa7803d9" time="1370514787456" ignored="false" />
     <file path="/index.php" changelist="e24fc586-e171-41dc-a940-4fd1fa7803d9" time="1370535705544" ignored="false" />
     <file path="/a.coffee" changelist="e24fc586-e171-41dc-a940-4fd1fa7803d9" time="1370514566863" ignored="false" />
@@ -324,28 +278,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="purchase2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="purchase" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -421,17 +353,18 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="224" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../stowage" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="239" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="239" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="233" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -505,24 +438,24 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12326574" sideWeight="0.6704289" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2230523" sideWeight="0.42663658" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12326574" sideWeight="0.6704289" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2230523" sideWeight="0.57223475" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954853" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22572039" sideWeight="0.57223475" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22572039" sideWeight="0.42663658" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954853" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -589,104 +522,54 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/models/SeatTicketMap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="15" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.018450184">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/config/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="0" selection-start="3610" selection-end="3610" vertical-scroll-proportion="-7.5102043">
-          <folding />
-        </state>
+        <state line="119" column="0" selection-start="3610" selection-end="3610" vertical-scroll-proportion="-7.5102043" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/ticket/_searchform.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="290" selection-end="464" vertical-scroll-proportion="-5.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/Purchase2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="76" selection-start="1253" selection-end="1257" vertical-scroll-proportion="0.86715865">
-          <folding />
-        </state>
+        <state line="9" column="0" selection-start="290" selection-end="464" vertical-scroll-proportion="-5.625" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="67" selection-start="883" selection-end="883" vertical-scroll-proportion="0.53505534">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/purchase2/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="33" selection-start="905" selection-end="924" vertical-scroll-proportion="0.39375">
-          <folding />
-        </state>
+        <state line="29" column="67" selection-start="883" selection-end="883" vertical-scroll-proportion="0.53505534" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/purchase/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="1423" selection-end="1423" vertical-scroll-proportion="0.7933579">
-          <folding />
-        </state>
+        <state line="43" column="0" selection-start="1423" selection-end="1423" vertical-scroll-proportion="0.7933579" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/transaction/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/PurchaseController2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="51" selection-start="2841" selection-end="2841" vertical-scroll-proportion="0.74873096">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/BookingCargo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="39" selection-start="2607" selection-end="2607" vertical-scroll-proportion="3.3333333">
-          <folding />
-        </state>
+        <state line="83" column="39" selection-start="2607" selection-end="2607" vertical-scroll-proportion="3.3333333" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Cargo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="50" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.86592865">
-          <folding />
-        </state>
+        <state line="55" column="50" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.86592865" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Purchase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="35" selection-start="1390" selection-end="1397" vertical-scroll-proportion="0.89876544">
-          <folding />
-        </state>
+        <state line="51" column="35" selection-start="1390" selection-end="1397" vertical-scroll-proportion="0.89876544" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Transaction.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="80" selection-start="1934" selection-end="1934" vertical-scroll-proportion="-0.2754491">
-          <folding />
-        </state>
+        <state line="58" column="80" selection-start="1934" selection-end="1934" vertical-scroll-proportion="-0.2754491" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/purchase/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="29" selection-start="6979" selection-end="6983" vertical-scroll-proportion="0.05352798">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#fieldset#0;n#div#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
+        <state line="159" column="29" selection-start="6979" selection-end="6983" vertical-scroll-proportion="0.05352798" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/PurchaseController.php">
@@ -698,9 +581,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Passenger.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="20" selection-start="3008" selection-end="3008" vertical-scroll-proportion="0.46107784">
-          <folding />
-        </state>
+        <state line="97" column="20" selection-start="3008" selection-end="3008" vertical-scroll-proportion="0.46107784" />
       </provider>
     </entry>
   </component>
