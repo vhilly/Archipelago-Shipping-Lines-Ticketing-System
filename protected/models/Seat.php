@@ -42,7 +42,7 @@ class Seat extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id,seating_class, name', 'required'),
+			array('seating_class, name', 'required'),
 			array('seating_class', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),

@@ -13,6 +13,7 @@
 	'id'=>'cargo-rate-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'inline',
+      'htmlOptions' => array('class'=>' well')
 )); ?>
 
 

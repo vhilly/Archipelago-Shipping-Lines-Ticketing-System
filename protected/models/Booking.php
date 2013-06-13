@@ -110,6 +110,7 @@ class Booking extends CActiveRecord
           'select'=>false
         ),
       );
+                $criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('transaction',$this->transaction);

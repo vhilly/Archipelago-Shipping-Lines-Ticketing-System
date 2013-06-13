@@ -9,9 +9,9 @@
     public $fareModels = array();
     public $cargoFareModels = array();
     public $cargoModel=array();
-    public $passengerMin=1;
+    public $passengerMin;
     public $passengerTotal;
-    public $passengerMax=100;
+    public $passengerMax;
     public $voyage;
     public $class;
     public $current_step =1;
@@ -32,7 +32,18 @@
     private $_requiredFields = '';
     private $_fields = array();
 
-
+    public function __construct($required='Y',$limit='1',$max='1',$free='0'){
+      if($required=='Y'){
+        $this->addRequiredField('passengerTotal');
+        $this->passengerMin = $limit ? $limit : '1';
+        $this->passengerMax = $max > $this->passengerMin ? $max : $this->passengerMin;
+        $this->passenger=true;
+      }else{
+        $this->passengerMin =0;
+        $this->passengerMin =0;
+      }
+      $this->passengerTotal=$this->passengerMin;
+    }
     public function addRequiredField($field = ''){
       if(is_array($field))
         $this->_fields = $field;      
@@ -52,26 +63,15 @@
       );
     }
     public function rules(){
+      $test = $this->passengerMin;
       return array(
         array($this->_requiredFields.',voyage','required'),
-        array('passengerTotal', 'numerical','min'=>$this->passengerMin,'max'=>$this->passengerMax),
+        array('passengerTotal', 'numerical','min'=>$test,'max'=>$this->passengerMax),
         array('voyage,class,cargoPrice,payment_total,payment_method,payment_status,transaction_no', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class,current_step', 'length', 'max'=>3),
         array('cargoPrice', 'length', 'max'=>32),
         array('passengerList,cargoFareList,fareList,cargoList,seatingList', 'length', 'max'=>9000),
       );
-    }
-    public function setPassenger($required='Y',$limit='1',$max='100',$free=0){
-      if($required=='Y'){
-        $this->addRequiredField('passengerTotal');
-        $this->passengerMin = $limit ? $limit : '1';
-        $this->passengerMax = $max > $this->passengerMin ? $max : $this->passengerMin;
-        $this->passenger=true;
-      }else{
-        $this->passengerMin =0;
-        $this->passengerMin =0;
-      }
-      $this->passengerTotal=$this->passengerMin;
     }
     public function setCargo($required='Y'){
       if($required=='Y'){

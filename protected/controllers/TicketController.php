@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete'),
+          'actions'=>array('admin','delete','setup'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -178,6 +178,42 @@
         'model'=>$model,
       ));
     }
+  public function actionSetup(){
+   $fares = new PassageFareRates('type,class,route,price,active');
+   $fareTypes = new PassageFareTypes;
+
+   $faresTable = new PassageFareRates('search');
+   $faresTable->unsetAttributes();  // clear any default values
+   if(isset($_GET['PassageFareRates'])){
+     $faresTable->attributes=$_GET['PassageFareRates'];
+   }
+
+   $fareTypesTable = new PassageFareTypes('search');
+   $fareTypesTable->unsetAttributes();  // clear any default values
+   if(isset($_GET['PassageFareTypes'])){
+     $fareTypesTable->attributes=$_GET['PassageFareTypes'];
+   }
+
+   if(isset($_POST['PassageFareRates'])){
+     $fares->attributes=$_POST['PassageFareRates'];
+     if($fares->save())
+          $this->redirect(array('setup'));
+   }
+
+   if(isset($_POST['PassageFareTypes'])){
+     $fareTypes->attributes=$_POST['PassageFareTypes'];
+     if($fareTypes->save())
+          $this->redirect(array('setup'));
+   }
+   $this->render('setup',array(
+     'fare'=>$fares,
+     'faresTable'=>$faresTable,
+     'fareTypes'=>$fareTypes,
+     'fareTypesTable'=>$fareTypesTable,
+   ));
+  }
+
+/**
 
     /**
      * Returns the data model based on the primary key given in the GET variable.

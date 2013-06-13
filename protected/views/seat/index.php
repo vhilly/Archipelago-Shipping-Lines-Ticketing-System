@@ -13,21 +13,7 @@
     #seat_list td {
       border:1px solid #555;
       padding:15px;
-    }
-    .reserved{
-      background:#F89406;
-    }
-    .canceled{
-      background:#B94A48;
-    }
-    .checkedin{
-      background: #468847;
-    }
-    .paid {
-      background: #3A87AD;
-    }
-    .available {
-      background: #f6f6f6;
+      font-weight:bold;
     }
    
 </style>
@@ -46,11 +32,11 @@
 
   $booked =array();
   foreach($bookedSeats as $bs){
-    $booked[$bs['id']] = array('bid'=>$bs['bookid'],'status'=>$bs['status']);
+    $booked[$bs['id']] = array('bid'=>$bs['bookid'],'statusColor'=>$bs['color']);
   }
 
   foreach($seatList as $key=>$seat){
-   $link = isset($booked[$seat->id]) ?  "<td class='seatMap ".$statusColor[$booked[$seat->id]['status']]."' id=".$booked[$seat->id]['bid'].">$seat->name</td>" :"<td class='available'>$seat->name</td>";
+   $link = isset($booked[$seat->id]) ?  "<td  class='seatMap' bgcolor= ".$booked[$seat->id]['statusColor']." id=".$booked[$seat->id]['bid'].">$seat->name</td>" :"<td>$seat->name</td>";
 
     switch($seat->seating_class){
       case 1:
@@ -105,9 +91,9 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Business Class',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
   ));?>
-  <table border=1 id=seats>
+  <table id=seat_list>
    <?=$btr?>
   </table>
 
@@ -116,9 +102,9 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Premium Class',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
   ));?>
-  <table border=1 id=seats>
+  <table border=1 id=seat_list>
    <?=$ptr?>
   </table>
 
@@ -128,9 +114,9 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Economy',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span12')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
   ));?>
-  <table border=1 id=seats>
+  <table border=1 id=seat_list>
    <?=$etr?>
   </table>
 
@@ -140,8 +126,18 @@
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bookingModal')); ?>
   <div class="modal-header">
   </div>
-  <div class="modal-body">
-    <p>;p</p>
+  <div class="modal-body" align=center>
+    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+      'id'=>'inlineForm',
+      'type'=>'inline',
+      'htmlOptions'=>array('class'=>'well'),
+     )); ?>
+    <?php echo $form->hiddenField($booking,'id')?>
+    <p style="font-family:arial;color:red;font-size:40px;"></p>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Make Seat Available','htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
+ 
+   <?php $this->endWidget(); ?>
+  
   </div>
   <div class="modal-footer">
 
@@ -156,6 +152,8 @@
 
  $('.seatMap').click(
    function(){
+      $('#bookingModal .modal-body p').html($(this).text());
+      $('#bookingModal').modal();
       $('#bookingForm').toggle();
       $('#Booking_id').val(this.id);
       $('#selectedSeat').html($(this).text());

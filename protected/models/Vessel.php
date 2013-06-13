@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'vessel':
  * @property integer $id
  * @property string $name
- * @property string $desc
+ * @property string $description
  * @property integer $passenger_limit
  * @property string $blocked_seats
  *
@@ -41,13 +41,13 @@ class Vessel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, desc, passenger_limit, blocked_seats', 'required'),
+			array('name, description, passenger_limit', 'required'),
 			array('passenger_limit', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('blocked_seats', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, desc, passenger_limit, blocked_seats', 'safe', 'on'=>'search'),
+			array('id, name, description, passenger_limit, blocked_seats', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +71,7 @@ class Vessel extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'desc' => 'Desc',
+			'description' => 'Desc',
 			'passenger_limit' => 'Passenger Limit',
 			'blocked_seats' => 'Blocked Seats',
 		);
@@ -90,7 +90,7 @@ class Vessel extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('passenger_limit',$this->passenger_limit);
 		$criteria->compare('blocked_seats',$this->blocked_seats,true);
 

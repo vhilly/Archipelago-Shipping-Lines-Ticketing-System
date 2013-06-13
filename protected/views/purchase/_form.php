@@ -125,7 +125,7 @@
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
             </td>
             <td>
-              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type'),array('class'=>'span2 fare','empty'=>'')); ?>
+              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type0.name'),array('class'=>'span2 fare','empty'=>'')); ?>
             </td>
             <td style="display:none">
               <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>

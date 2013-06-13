@@ -105,6 +105,7 @@ class BookingCargo extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+                $criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
       $criteria->with=array(
         'cargo0'=>array(
           'together'=>false,

@@ -1,31 +1,31 @@
 <?php
 
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
-      'title' => 'Cargo Class',
+      'title' => 'Fare Types',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span12')
+      'htmlOptions' => array('class'=>' span12')
     ));
 
 ?>
-<div id=cargoClass class=span12>
+
+<div id=fareTypeClass class=span12>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'cargo-class-form',
+	'id'=>'fareType-rate-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'inline',
+      'htmlOptions' => array('class'=>' well')
 )); ?>
 
 
-<?php echo $form->errorSummary($class); ?>
-	<?php echo $form->textFieldRow($class,'name',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->textAreaRow($class,'desc',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->textFieldRow($class,'lane_meter',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->radioButtonListRow($class,'active',array('Y'=>'Yes','N'=>'No')); ?>
-
+<?php echo $form->errorSummary($fareTypes); ?>
+        <?php echo $form->textFieldRow($fareTypes,'name');?>
+        <?php echo $form->textFieldRow($fareTypes,'proposed');?>
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
-			'label'=>$class->isNewRecord ? 'Create' : 'Save',
+			'label'=>$fareTypes->isNewRecord ? 'Add' : 'Save',
 		)); ?>
+
 
 <?php $this->endWidget(); ?>
 </div>
@@ -33,23 +33,15 @@
 <div class=clearfix></div>
 <?php
 $gridColumns = array(
-           array(
-             'name'=>'name',
-           ),
-           array(
-             'name'=>'desc',
-           ),
-           array(
-             'name'=>'lane_meter',
-           ),
-            
+            'name',
+            'proposed',
 );
   $this->widget('bootstrap.widgets.TbGridView', array(
 	'type' => 'striped bordered',
-	'dataProvider'=> $classTable->search(),
+	'dataProvider'=> $fareTypesTable->search(),
 	'template' => "{items},{pager}",
         'htmlOptions'=>array('class'=>'span12'),
-        'filter'=>$classTable,
+        'filter'=>$fareTypesTable,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {
           jQuery('#Transaction_trans_date').datepicker({'format':'yyyy-mm-dd','language':'en','weekStart':0});
@@ -63,4 +55,3 @@ $gridColumns = array(
 ?>
 
 <?php $this->endWidget(); ?>
-

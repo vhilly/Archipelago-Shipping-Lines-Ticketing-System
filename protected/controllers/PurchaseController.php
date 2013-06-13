@@ -31,8 +31,8 @@
     public function actionIndex($type){
 
       if(isset($_POST['Purchase']) && $_SESSION['nonce'] == $_POST['nonce']){
-
-        $purchaseFrm=new Purchase;
+        $purchaseType=$_SESSION['PurchaseType'];
+        $purchaseFrm=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,"1");
         $purchaseFrm->attributes=$_POST['Purchase'];
 
         if($purchaseFrm->validate()){
@@ -73,7 +73,7 @@
                 for($count = 0;$count < $purchase->passengerTotal;$count++){
                   $purchase->passengerModels[] = new Passenger;
                   $purchase->seatModels[] = new Seat;
-                  $purchase->fareModels[] = new PassageFareRates;
+                  $purchase->fareModels[] = new PassageFareRates('id,price');
                 }
               }
             }
@@ -107,7 +107,7 @@
 
               foreach($passengerList as $key=>$p){
                 $pass = new Passenger;
-                $fare = new PassageFareRates;
+                $fare = new PassageFareRates('id','price');
                 $seat = new Seat;
 
 
@@ -121,6 +121,8 @@
                 if(!$pass->validate())
                  $purchase->current_step =2;
 
+                if(!$fare->validate())
+                 $purchase->current_step =2;
                // if(!$seat->validate())
                  // $purchase->current_step =2;
 
@@ -201,6 +203,8 @@
                   $newBooking->voyage = $purchase->voyage;
                   $newBooking->rate = $newFare->id;
                   $newBooking->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
+//print_r($newBooking->attributes);
+//die();
                   if(!$newBooking->save())
                     throw new Exception('Cannot save Booking');
                 }
@@ -254,12 +258,12 @@
         if(!$purchaseType)
           throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 
-        $purchase=new Purchase;
+        $purchase=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,"1");
         $purchase->current_step=1;
-        $purchase->setPassenger($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger);
         $purchase->setCargo($purchaseType->cargo);
         $purchase->transaction_type = $purchaseType->id;
         $_SESSION['Purchase'] = $purchase;
+        $_SESSION['PurchaseType'] = $purchaseType;
 
       }
       unset($_SESSION['nonce']);

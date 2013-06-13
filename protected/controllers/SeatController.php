@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver'),
+          'actions'=>array('admin','delete','editableSaver','setup'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -146,15 +146,21 @@
 
     public function actionIndex()
     {
-      $this->layout = 'seat-side';
       $model=new Report;
       $model->addRequiredField(array('voyage'));
+      if(isset($_POST['Booking'])){
+        $booking =  Booking::model()->findByPk($_POST['Booking']['id']);
+        $booking->seat =NULL;
+        $booking->status =4;
+        $booking->save();
+        $_POST['Report']['voyage']=$booking->voyage;
+      }
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
         if($model->validate()){
           $booking = new Booking;
           $seatList= Seat::model()->findAll();
-          $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat s WHERE s.id=b.seat AND b.voyage  ={$model->voyage}";
+          $sql = "SELECT s.id,bs.color, b.id bookid,s.name FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$model->voyage} AND b.status=bs.id";
           $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
           $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
         }else{
@@ -192,6 +198,45 @@
         throw new CHttpException(404,'The requested page does not exist.');
       return $model;
     }
+
+  public function actionSetup(){
+   $seat = new Seat;
+   $seatClass = new SeatingClass;
+
+   $seatsTable=new Seat('search');
+   $seatClassTable=new SeatingClass('search');
+
+   $seatsTable->unsetAttributes();  // clear any default values
+   $seatClassTable->unsetAttributes();  // clear any default values
+
+   if(isset($_GET['Seat'])){
+     $seatsTable->attributes=$_GET['Seat'];
+   }
+
+
+   if(isset($_GET['SeatingClass'])){
+     $seatClassTable->attributes=$_GET['SeatingClass'];
+   }
+
+   if(isset($_POST['Seat'])){
+     $seat->attributes=$_POST['Seat'];
+     if($seat->save())
+          $this->redirect(array('setup'));
+   }
+
+   if(isset($_POST['SeatingClass'])){
+     $seatClass->attributes=$_POST['SeatingClass'];
+     if($seatClass->save())
+        $this->redirect(array('setup'));
+   }
+
+   $this->render('setup',array(
+     'seatClass'=>$seatClass,
+     'seatClassTable'=>$seatClassTable,
+     'seat'=>$seat,
+     'seatsTable'=>$seatsTable,
+   ));
+  }
 
     /**
      * Performs the AJAX validation.

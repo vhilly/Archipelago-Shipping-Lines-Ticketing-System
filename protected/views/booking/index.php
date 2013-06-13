@@ -43,19 +43,20 @@
       'value' => '$data->voyage0->vessel0->name',
     ),
     array(
-      'class' => 'bootstrap.widgets.TbEditableColumn',
+ //     'class' => 'bootstrap.widgets.TbEditableColumn',
       'name' => 'status',
+      'value'=>'$data->status0->name',
       'filter'=>$bsl,
       'sortable'=>true,
-      'editable' => array(
+   /*   'editable' => array(
         'type'      => 'select',
         'url' => $this->createUrl('booking/editableSaver'),
         'attribute' => 'dropDown',
         'source'    => CHtml::listData(BookingStatus::model()->findAll(),'id','name'),
         'placement' => 'right',
         'inputclass' => 'span2'
-
       ),
+*/
     ),
     array(
       'name'=>'transNo',

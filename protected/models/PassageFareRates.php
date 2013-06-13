@@ -5,8 +5,7 @@
  *
  * The followings are the available columns in table 'passage_fare_rates':
  * @property integer $id
- * @property string $type
- * @property string $proposed
+ * @property integer $type
  * @property integer $route
  * @property integer $class
  * @property string $price
@@ -14,12 +13,13 @@
  * @property string $active
  *
  * The followings are the available model relations:
- * @property Route $route0
  * @property SeatingClass $class0
+ * @property Route $route0
  * @property Ticket[] $tickets
  */
 class PassageFareRates extends CActiveRecord
 {
+    private $_requiredFields = '';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -37,6 +37,9 @@ class PassageFareRates extends CActiveRecord
 	{
 		return 'passage_fare_rates';
 	}
+    public function __construct($requiredFields=''){
+      $this->_requiredFields = $requiredFields;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -46,14 +49,13 @@ class PassageFareRates extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, proposed, route, class, as_of', 'required'),
-			array('route,id, class', 'numerical', 'integerOnly'=>true),
-			array('type, proposed', 'length', 'max'=>100),
+			array($this->_requiredFields, 'required'),
+			array('type, route, class', 'numerical', 'integerOnly'=>true),
 			array('price', 'length', 'max'=>20),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, proposed, route, class, price, as_of, active', 'safe', 'on'=>'search'),
+			array('id, type, route, class, price, as_of, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,8 +67,9 @@ class PassageFareRates extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'route0' => array(self::BELONGS_TO, 'Route', 'route'),
 			'class0' => array(self::BELONGS_TO, 'SeatingClass', 'class'),
+			'route0' => array(self::BELONGS_TO, 'Route', 'route'),
+			'type0' => array(self::BELONGS_TO, 'PassageFareTypes', 'type'),
 			'tickets' => array(self::HAS_MANY, 'Ticket', 'rate'),
 		);
 	}
@@ -79,7 +82,6 @@ class PassageFareRates extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'type' => 'Type',
-			'proposed' => 'Proposed',
 			'route' => 'Route',
 			'class' => 'Class',
 			'price' => 'Price',
@@ -100,8 +102,7 @@ class PassageFareRates extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('type',$this->type,true);
-		$criteria->compare('proposed',$this->proposed,true);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('route',$this->route);
 		$criteria->compare('class',$this->class);
 		$criteria->compare('price',$this->price,true);

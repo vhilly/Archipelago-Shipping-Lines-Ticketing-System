@@ -24,6 +24,7 @@
 
 <?php
   $transLink = array();
+  $types = array();
   $types=CHtml::listData(TransactionType::model()->findAll(),'id','navigation_title');
   if(count($types)){
     foreach($types as $key=>$type){
@@ -88,18 +89,16 @@
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                     array('icon'=>'cog','label'=>'SETTINGS'),
-                    array('label'=>'Seats', 'url'=>array('seat/admin')),
-                    array('label'=>'Routes', 'url'=>array('route/')),
-                    array('label'=>'Voyages', 'url'=>array('voyage/')),
-                    array('label'=>'Vessels', 'url'=>array('vessel/')),
+                    array('label'=>'Seat', 'url'=>array('seat/setup')),
                     '---',
-                    array('label'=>'PAYMENT'),
-                    array('label'=>'Payment Method', 'url'=>array('/paymentMethod')), 
-                    array('label'=>'Payment Status', 'url'=>array('/paymentStatus')), 
+                    array('label'=>'Vessel', 'url'=>array('vessel/setup')),
                     '---',
+                    array('label'=>'Voyage', 'url'=>array('voyage/setup')),
+                    '---',
+                    array('label'=>'Cargo', 'url'=>array('cargo/setup')),
                     '---',
                     array('label'=>'TRANSACTION'),
-                    array('label'=>'Transaction Type', 'url'=>array('/transactionType')), 
+                    array('label'=>'Transaction Type', 'url'=>array('/transactionType/setup')), 
                     '---',
                     array('label'=>'RATES'),
                     array('label'=>'Passage Fare Rates', 'url'=>array('/passageFareRates')), 
@@ -115,16 +114,17 @@
 <div class="container-fluid" id="page">
   <center>
 <?php
+  $msgType='';
   if(Yii::app()->user->hasFlash("success"))
-   $type='success';
+   $msgType='success';
   if(Yii::app()->user->hasFlash("error"))
-   $type='error';
+   $msgType='error';
   $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>true, // display a larger alert block?
     'fade'=>true, // use transitions?
     'closeText'=>'x', // close link text - if set to false, no close link is displayed
     'alerts'=>array( // configurations per alert type
-	    $type=>array('block'=>true, 'fade'=>true, 'closeText'=>'x'), // success, info, warning, error or danger
+	    $msgType=>array('block'=>true, 'fade'=>true, 'closeText'=>'x'), // success, info, warning, error or danger
     ),
   ));
 ?>

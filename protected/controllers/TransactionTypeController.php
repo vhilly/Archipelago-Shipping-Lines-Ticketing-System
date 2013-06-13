@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete'),
+          'actions'=>array('admin','delete','setup'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -148,7 +148,26 @@
       ));
     }
 
-    /**
+
+  public function actionSetup(){
+   $transType = new TransactionType;
+   $transTypesTable=new TransactionType('search');
+   $transTypesTable->unsetAttributes();  // clear any default values
+   if(isset($_GET['TransactionType'])){
+     $transTypesTable->attributes=$_GET['TransactionType'];
+   }
+
+   if(isset($_POST['TransactionType'])){
+     $transType->attributes=$_POST['TransactionType'];
+     if($transType->save())
+          $this->redirect(array('setup'));
+   }
+   $this->render('setup',array(
+     'transType'=>$transType,
+     'transTypesTable'=>$transTypesTable,
+   ));
+ }
+     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer the ID of the model to be loaded

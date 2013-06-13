@@ -1,23 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "seating_class".
+ * This is the model class for table "passage_fare_types".
  *
- * The followings are the available columns in table 'seating_class':
+ * The followings are the available columns in table 'passage_fare_types':
  * @property integer $id
  * @property string $name
- * @property string $description
- *
- * The followings are the available model relations:
- * @property PassageFareRates[] $passageFareRates
- * @property Seat[] $seats
+ * @property string $proposed
  */
-class SeatingClass extends CActiveRecord
+class PassageFareTypes extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeatingClass the static model class
+	 * @return PassageFareTypes the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +25,7 @@ class SeatingClass extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seating_class';
+		return 'passage_fare_types';
 	}
 
 	/**
@@ -41,11 +37,10 @@ class SeatingClass extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name', 'length', 'max'=>100),
-			array('description', 'safe'),
+			array('name, proposed', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description', 'safe', 'on'=>'search'),
+			array('id, name, proposed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,8 +52,6 @@ class SeatingClass extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'passageFareRates' => array(self::HAS_MANY, 'PassageFareRates', 'class'),
-			'seats' => array(self::HAS_MANY, 'Seat', 'seating_class'),
 		);
 	}
 
@@ -70,7 +63,7 @@ class SeatingClass extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'description' => 'Desc',
+			'proposed' => 'Proposed',
 		);
 	}
 
@@ -87,7 +80,7 @@ class SeatingClass extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('proposed',$this->proposed,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

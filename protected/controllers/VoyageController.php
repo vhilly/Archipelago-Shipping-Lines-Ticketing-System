@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete'),
+          'actions'=>array('admin','delete','setup'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -147,6 +147,25 @@
         'model'=>$model,
       ));
     }
+  public function actionSetup(){
+   $voyage = new Voyage;
+   $voyagesTable=new Voyage('search');
+   $voyagesTable->unsetAttributes();  // clear any default values
+   if(isset($_GET['Voyage'])){
+     $voyagesTable->attributes=$_GET['Voyage'];
+   }
+
+   if(isset($_POST['Voyage'])){
+     $voyage->attributes=$_POST['Voyage'];
+     
+     if($voyage->save())
+          $this->redirect(array('setup'));
+   }
+   $this->render('setup',array(
+     'voyage'=>$voyage,
+     'voyagesTable'=>$voyagesTable,
+   ));
+  }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.

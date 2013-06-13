@@ -1,219 +1,208 @@
 <?php
+  $active = 'btn-primary';
+  $ac = array('btn-inverse','btn-inverse','btn-inverse','btn-inverse');
+  $hidden = 'hidden';
+  switch($purchase->current_step){
+    case 1: $hidden='';$ac = array('btn-success','btn-inverse','btn-inverse','btn-inverse');break;
+    case 2: $ac = array('btn-primary','btn-success','btn-inverse','btn-inverse');break;
+    case 3: $ac = array('btn-primary','btn-primary','btn-success','btn-inverse');break;
+    case 4: $ac = array('btn-primary','btn-primary','btn-primary','btn-success');break;
+    default: break;
 
-  class SeatController extends Controller
-  {
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout='//layouts/column2';
-
-    /**
-     * @return array action filters
-     */
-    public function filters()
-    {
-      return array(
-        'accessControl', // perform access control for CRUD operations
-      );
-    }
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules()
-    {
-      return array(
-        array('allow',  // allow all users to perform 'index' and 'view' actions
-          'actions'=>array('index','view','map'),
-          'users'=>array('*'),
-        ),
-        array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update'),
-          'users'=>array('@'),
-        ),
-        array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver'),
-          'users'=>array('admin'),
-        ),
-        array('deny',  // deny all users
-          'users'=>array('*'),
-        ),
-      );
-    }
-
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-      $this->render('view',array(
-        'model'=>$this->loadModel($id),
-      ));
-    }
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
-    {
-      $model=new Seat;
-
-      // Uncomment the following line if AJAX validation is needed
-      // $this->performAjaxValidation($model);
-
-      if(isset($_POST['Seat']))
-      {
-        $model->attributes=$_POST['Seat'];
-        if($model->save())
-          $this->redirect(array('view','id'=>$model->id));
-      }
-
-      $this->render('create',array(
-        'model'=>$model,
-      ));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
-    {
-      $model=$this->loadModel($id);
-
-      // Uncomment the following line if AJAX validation is needed
-      // $this->performAjaxValidation($model);
-
-      if(isset($_POST['Seat']))
-      {
-        $model->attributes=$_POST['Seat'];
-        if($model->save())
-          $this->redirect(array('view','id'=>$model->id));
-      }
-
-      $this->render('update',array(
-        'model'=>$model,
-      ));
-    }
-
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-      if(Yii::app()->request->isPostRequest)
-      {
-        // we only allow deletion via POST request
-        $this->loadModel($id)->delete();
-
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if(!isset($_GET['ajax']))
-          $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-      }
-      else
-        throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Lists all models.
-     */
-
-    public function actionMap()
-    {
-      $list= Seat::model()->findAll();
-      $sql = "SELECT s.name FROM booking b, seat_ticket_map st, seat s,voyage v,ticket t WHERE v.departure_date=CURDATE() AND b.ticket=st.ticket AND s.id=st.seat AND b.ticket=t.id AND t.voyage=v.id";
-      $bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
-      $apr = Array();
-      $pl = Array();
-      foreach($bookedSeats as $bs){
-        $apr[] = $bs['name'];
-      }
-      foreach($list as $bl){
-        $pl[$bl['name']] = $bl['id'];
-      }
-      $pres = Array();
-      $this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl));
-    }
-
-    public function actionIndex()
-    {
-      $this->layout = 'seat-side';
-      $model=new Report;
-      $model->addRequiredField(array('voyage'));
-      if(isset($_POST['Report'])){
-        $model->attributes=$_POST['Report'];
-        if($model->validate()){
-          $booking = new Booking;
-          $seatList= Seat::model()->findAll();
-          $sql = "SELECT s.id, b.id bookid,s.name,b.status FROM booking b,seat_ticket_map st,ticket t,seat s WHERE b.ticket = st.ticket AND s.id=st.seat AND b.ticket = t.id AND t.voyage  ={$model->voyage}";
-          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
-          $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
-        }else{
-          $this->render('index',array('is_empty'=>1,'model'=>$model));
-        }
-      }else{
-        $this->render('index',array('is_empty'=>1,'model'=>$model));
-      }
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-      $model=new Seat('search');
-      $model->unsetAttributes();  // clear any default values
-      if(isset($_GET['Seat']))
-        $model->attributes=$_GET['Seat'];
-
-      $this->render('admin',array(
-        'model'=>$model,
-      ));
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
-     */
-    public function loadModel($id)
-    {
-      $model=Seat::model()->findByPk($id);
-      if($model===null)
-        throw new CHttpException(404,'The requested page does not exist.');
-      return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-      if(isset($_POST['ajax']) && $_POST['ajax']==='seat-form')
-      {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-      }
-    }
-
-    public function actionEditableSaver(){
-      Yii::import('bootstrap.widgets.TbEditableSaver');
-      $es = new TbEditableSaver('Seat');
-      $es->update();
-    }
-
-    public function seatMapAjaxLink($name,$id){
-      return CHtml::ajaxLink($name,array('booking/view','id'=>$id),
-        array('type'=>'POST','success'=>'function(data){ $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal();  }')
-      );
-    }
   }
+
+
+
+
+  $this->widget('bootstrap.widgets.TbButtonGroup', array(
+    'buttons'=>array(
+      array('label'=>'1. Ticket Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[0])),
+      array('label'=>'2.  Details', 'url'=>'#','htmlOptions'=>array('disabled'=>true, 'class'=>$ac[1])),
+      array('label'=>'3. Payment Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[2])),
+      array('label'=>'4. Transaction Details', 'url'=>'#', 'htmlOptions'=>array('disabled'=>true, 'class'=>$ac[3]))
+    ),
+    'htmlOptions'=>array('class'=>'steps'),'size'=>'large'
+  ));
+
+
+?>
+
+<?php
+
+
+  $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'=>'verticalForm',
+    'htmlOptions'=>array('class'=>'well-small'),
+  ));
+?>
+<?php echo $form->errorSummary($purchase); ?>
+<?php if(isset($passenger)):?>
+  <?php echo $form->errorSummary($passenger); ?>
+<?php endif;?>
+<?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
+  'title' => 'VOYAGE LIST',
+  'headerIcon' => 'icon-th-list',
+  // when displaying a table, if we include bootstra-widget-table class
+  // the table will be 0-padding to the box
+  'htmlOptions' => array('class'=>'bootstrap-widget-table '.$hidden.' midBox well-small pull-right')
+));?>
+<?php $_SESSION['nonce'] = $nonce = md5('salt'.microtime()); ?>
+<input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
+<?php $this->renderPartial('voyageList'); ?>
+
+<?php $this->endWidget();?>
+
+<div style="<?=$purchase->current_step==1? '':'display:none'?>">
+  <fieldset>
+    <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name')); ?>
+    <?php if($purchase->cargo):?>
+      <?php echo $form->hiddenField($purchase, 'class'); ?>
+    <?php else:?>
+      <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>
+    <?php endif;?>
+    <?php
+      if($purchase->passenger)
+        echo $form->textFieldRow($purchase, 'passengerTotal', array('class'=>'span1'));
+    ?>
+  </fieldset>
+</div>
+
+<div style="<?=$purchase->current_step==2? '':'display:none'?>">
+  <fieldset>
+    <?php if($purchase->passenger):?>
+      <?php
+      $seats = Seat::model()->findAll(array(
+        'condition'=>'seating_class=:cl',
+        'params'=>array(':cl'=>$purchase->class),
+      ));
+      ?>
+      <h3>PASSENGER DETAILS</h3>
+      <table>
+        <?php foreach($purchase->passengerModels as $key=>$passenger):?>
+          <tr>
+            <td>
+              <?php echo $form->textFieldRow($passenger, "[$key]first_name", array('class'=>'span2')); ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($passenger, "[$key]last_name", array('class'=>'span2')); ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($passenger, "[$key]middle_name", array('class'=>'span2')); ?>
+            </td>
+            <td>
+              <?php echo $form->datepickerRow($passenger, "[$key]birth_date",
+                array('prepend'=>'<i class="icon-calendar"></i>',
+                      'options'=>array('format'=>'yyyy-mm-dd'),
+                )
+              );
+              ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($passenger, "[$key]prefix", array('class'=>'span1')); ?>
+            </td>
+            <td>
+              <?php echo $form->radioButtonListRow($passenger, "[$key]gender", array('M'=>'M','F'=>'F')); ?>
+            </td>
+            <td>
+              <?php echo $form->labelEx($passenger, 'nationality', array('M'=>'M','F'=>'F')); ?>
+              <?php
+                $this->widget('bootstrap.widgets.TbTypeahead', array(
+                  'model'=>$passenger,
+                  'attribute'=>"[$key]nationality",
+                  'options'=>array(
+                    'name'=>"[$key]nationality",
+                    'source'=>array(
+                      'Filipino','Chinese','American'
+                    ),
+                    'items'=>4,
+                    'matcher'=>"js:function(item) {
+                  return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+               }",
+                  )));
+              ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
+            </td>
+            <td>
+              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type'),array('class'=>'span2 fare','empty'=>'')); ?>
+            </td>
+            <td style="display:none">
+              <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($purchase->fareModels[$key],"[$key]price",array('class'=>'span2 price', 'id'=>'PassageFareRates_'.$key.'_id2pricetext','readonly'=>true,'empty'=>'')); ?>
+            </td>
+            <td>
+              <?php echo $form->textFieldRow($purchase->seatModels[$key],"[$key]id",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_id','readonly'=>true)); ?>
+            </td>
+            <td style="">
+              <?php echo $form->dropDownListRow($purchase->seatModels[$key],"[$key]id",CHtml::listData($seats,'id','name'),array('class'=>'span2','empty'=>'')); ?>
+            </td>
+          </tr>
+        <?php endforeach;?>
+      </table>
+    <?php endif;?>
+    <?php if($purchase->cargo):?>
+
+    <?php foreach($purchase->cargoModel as $key=>$cargo):?>
+
+    <?php echo $form->textFieldRow($cargo,"[$key]shipper",array('class'=>'span3','maxlength'=>100)); ?>
+
+    <?php echo $form->textFieldRow($cargo,"[$key]company",array('class'=>'span3','maxlength'=>100)); ?>
+
+    <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
+
+    <?php echo $form->textFieldRow($cargo,"[$key]address",array('class'=>'span3','maxlength'=>255)); ?>
+
+    <?php echo $form->dropDownListRow($purchase->cargoFareModels[$key],"[$key]id",$purchase->cargoFares,array('class'=>'span2 cargoFare','empty'=>'')); ?>
+    <div style="display:none">
+    <?php echo $form->dropDownListRow($purchase->cargoFareModels[$key],"[$key]id",CHtml::listData(CargoFareRates::model()->findAll(array('condition'=>'route=:rt','params'=>array(':rt'=>$purchase->route))),'id','proposed_tariff'),array('id'=>'CargoFareRates_'.$key.'_id2price','class'=>'span2 cargoFare','empty'=>'','readonly'=>true)); ?>
+    </div>
+    <?php echo $form->textFieldRow($purchase->cargoFareModels[$key],"[$key]proposed_tariff",array('id'=>'CargoFareRates_'.$key.'_id2pricetext','class'=>'span2 cargoFare','empty'=>'','readonly'=>true)); ?>
+    <?php echo $form->textFieldRow($cargo,"[$key]article_no",array('class'=>'span2','maxlength'=>100)); ?>
+    <?php echo $form->textAreaRow($cargo,"[$key]article_desc",array('class'=>'span3','maxlength'=>100)); ?>
+    <?php echo $form->textFieldRow($cargo,"[$key]weight",array('class'=>'span2','maxlength'=>100)); ?>
+    <?php echo $form->textFieldRow($cargo,"[$key]length",array('class'=>'span2','maxlength'=>100)); ?>
+    <div style="">
+    <?php echo $form->dropDownListRow($cargo,"[$key]cargo_class",CHtml::listData(CargoFareRates::model()->findAll(array('condition'=>'route=:rt','params'=>array(':rt'=>$purchase->route))),'id','class'),array('id'=>'CargoFareRates_'.$key.'_id2class','readonly'=>true,'empty'=>'')); ?>
+    </div>
+
+    <?php endforeach;?>
+
+    <?php endif;?>
+
+  </fieldset>
+</div>
+<div style="<?=$purchase->current_step==3? '':'display:none'?>">
+  <?php echo 'TOTAL AMOUNT: P'.$purchase->payment_total?><br><br>
+  <fieldset>
+    <?php echo $form->radioButtonListRow($purchase, 'payment_method',CHtml::listData(PaymentMethod::model()->findAll(),'id','name')); ?>
+    <?php echo $form->dropDownListRow($purchase, 'payment_status',CHtml::listData(PaymentStatus::model()->findAll(),'id','name')); ?>
+  </fieldset>
+</div>
+<?php if($purchase->current_step==4):?>
+<div id="transDetails">
+  <div>
+    <script>
+      $.ajax({
+        type: 'GET',
+        url: '<?php echo Yii::app()->baseUrl;?>?r=transaction/view&id='+'<?=$purchase->transaction_no?>',
+        success: function (data){
+          $('#transDetails').html(data);
+        },
+        error: function (xht){
+          alert(this.url);
+        }
+
+      });
+    </script>
+    <?php endif?>
+<div class="form-actions">
+
+  <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Back','htmlOptions'=>array('name'=>'back','disabled'=>$purchase->current_step == 1 ? 'true':''))); ?>
+  <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next','htmlOptions'=>array('name'=>'next'))); ?>
+</div>
+<?php $this->endWidget(); ?>
+
+
