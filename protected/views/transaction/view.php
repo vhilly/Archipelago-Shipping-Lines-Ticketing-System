@@ -8,7 +8,7 @@
     <table width=1000 border=1>
       <thead>
         <tr bgcolor=#F68938>
-         <th colspan=8><center>TRANSACTION DETAILS</center></th>
+         <th colspan=9><center>TRANSACTION DETAILS</center></th>
         </tr>
         <tr>
          <th>TRANSACTION NO.</th>
@@ -19,6 +19,7 @@
          <th>TOTAL AMOUNT</th>
          <th>DISCOUNT</th>
          <th>REFERENCE</th>
+         <th>CREATED BY</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +32,7 @@
          <td><?=$trans->ovamount?></td>
          <td><?=$trans->ovdiscount?></td>
          <td><?=$trans->reference?></td>
+         <td><?=$trans->uid?></td>
         </tr>
       </tbody>
   </table>

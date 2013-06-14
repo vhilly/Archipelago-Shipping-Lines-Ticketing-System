@@ -50,7 +50,7 @@ class PassageFareRates extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array($this->_requiredFields, 'required'),
-			array('type, route, class', 'numerical', 'integerOnly'=>true),
+			array('type,id, route, class', 'numerical', 'integerOnly'=>true),
 			array('price', 'length', 'max'=>20),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
@@ -80,7 +80,7 @@ class PassageFareRates extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Rate',
 			'type' => 'Type',
 			'route' => 'Route',
 			'class' => 'Class',

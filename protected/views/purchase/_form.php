@@ -136,7 +136,7 @@
             <td>
               <?php echo $form->textFieldRow($purchase->seatModels[$key],"[$key]id",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_id','readonly'=>true)); ?>
             </td>
-            <td style="">
+            <td style="display:none">
               <?php echo $form->dropDownListRow($purchase->seatModels[$key],"[$key]id",CHtml::listData($seats,'id','name'),array('class'=>'span2','empty'=>'')); ?>
             </td>
           </tr>

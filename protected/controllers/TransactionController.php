@@ -60,8 +60,8 @@
         $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
       }
       if($transType->passenger =='Y'){
-        $sql = "SELECT b.tkt_no, p.first_name,p.last_name,r.type,c.name class, r.price FROM booking b,passenger p,passage_fare_rates r,seating_class c WHERE b.transaction={$trans->id} 
-           AND b.passenger=p.id AND b.rate=r.id AND r.class = c.id";
+        $sql = "SELECT b.tkt_no, p.first_name,p.last_name,ft.name type,c.name class, r.price FROM booking b,passenger p,passage_fare_rates r,passage_fare_types ft,seating_class c WHERE b.transaction={$trans->id} 
+           AND b.passenger=p.id AND b.rate=r.id AND r.class = c.id AND r.type = ft.id";
         $Tickets = Yii::app()->db->createCommand($sql)->queryAll();
       }
 

@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'cargo_class':
  * @property integer $id
  * @property string $name
- * @property string $desc
+ * @property string $description
  * @property integer $lane_meter
  * @property string $as_of
  * @property string $active
@@ -43,13 +43,13 @@ class CargoClass extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, desc, lane_meter', 'required'),
+			array('name, description, lane_meter', 'required'),
 			array('lane_meter', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, desc, lane_meter, as_of, active', 'safe', 'on'=>'search'),
+			array('id, name, description, lane_meter, as_of, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,7 @@ class CargoClass extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'desc' => 'Desc',
+			'description' => 'Vehicle Length,Meters',
 			'lane_meter' => 'Lane Meter',
 			'as_of' => 'As Of',
 			'active' => 'Active',
@@ -94,7 +94,7 @@ class CargoClass extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('lane_meter',$this->lane_meter);
 		$criteria->compare('as_of',$this->as_of,true);
 		$criteria->compare('active',$this->active,true);

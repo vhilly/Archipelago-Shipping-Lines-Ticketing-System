@@ -16,6 +16,7 @@
  */
 class Seat extends CActiveRecord
 {
+    private $_requiredFields = '';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -34,6 +35,9 @@ class Seat extends CActiveRecord
 		return 'seat';
 	}
 
+    public function __construct($requiredFields=''){
+      $this->_requiredFields = $requiredFields;
+    }
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -42,8 +46,8 @@ class Seat extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('seating_class, name', 'required'),
-			array('seating_class', 'numerical', 'integerOnly'=>true),
+			array($this->_requiredFields, 'required'),
+			array('seating_class,id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
@@ -72,7 +76,7 @@ class Seat extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Seat',
 			'seating_class' => 'Seating Class',
 			'name' => 'Name',
 			'active' => 'Active',

@@ -17,7 +17,7 @@
 
 <?php echo $form->errorSummary($class); ?>
 	<?php echo $form->textFieldRow($class,'name',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->textAreaRow($class,'desc',array('class'=>'span3','maxlength'=>100)); ?>
+	<?php echo $form->textAreaRow($class,'description',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($class,'lane_meter',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->radioButtonListRow($class,'active',array('Y'=>'Yes','N'=>'No')); ?>
 
@@ -37,7 +37,7 @@ $gridColumns = array(
              'name'=>'name',
            ),
            array(
-             'name'=>'desc',
+             'name'=>'description',
            ),
            array(
              'name'=>'lane_meter',

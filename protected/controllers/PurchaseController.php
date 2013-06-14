@@ -9,10 +9,22 @@
         'postOnly + delete',
       );
     }
-    public function accessRules(){
+    public function accessRules()
+    {
       return array(
-        array('allow',
+        array('allow',  // allow all users to perform 'index' and 'view' actions
+          'actions'=>array(''),
+          'users'=>array('*'),
+        ),
+        array('allow', // allow authenticated user to perform 'create' and 'update' actions
+          'actions'=>array(''),
+          'users'=>array('@'),
+        ),
+        array('allow', // allow admin user to perform 'admin' and 'delete' actions
           'actions'=>array('index'),
+          'users'=>array('admin'),
+        ),
+        array('deny',  // deny all users
           'users'=>array('*'),
         ),
       );
@@ -72,8 +84,8 @@
               if(!count($purchase->passengerModels)){
                 for($count = 0;$count < $purchase->passengerTotal;$count++){
                   $purchase->passengerModels[] = new Passenger;
-                  $purchase->seatModels[] = new Seat;
-                  $purchase->fareModels[] = new PassageFareRates('id,price');
+                  $purchase->seatModels[] = new Seat('id');
+                  $purchase->fareModels[] = new PassageFareRates('id');
                 }
               }
             }
@@ -107,8 +119,8 @@
 
               foreach($passengerList as $key=>$p){
                 $pass = new Passenger;
-                $fare = new PassageFareRates('id','price');
-                $seat = new Seat;
+                $fare = new PassageFareRates('id');
+                $seat = new Seat('id');
 
 
                 $pass->attributes = $p;
@@ -123,8 +135,9 @@
 
                 if(!$fare->validate())
                  $purchase->current_step =2;
-               // if(!$seat->validate())
-                 // $purchase->current_step =2;
+               
+                if(!$seat->validate())
+                  $purchase->current_step =2;
 
 
               }
@@ -203,8 +216,6 @@
                   $newBooking->voyage = $purchase->voyage;
                   $newBooking->rate = $newFare->id;
                   $newBooking->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
-//print_r($newBooking->attributes);
-//die();
                   if(!$newBooking->save())
                     throw new Exception('Cannot save Booking');
                 }

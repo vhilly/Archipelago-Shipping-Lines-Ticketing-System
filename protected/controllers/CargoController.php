@@ -178,12 +178,14 @@ return $model;
    }
    if(isset($_POST['CargoClass'])){
      $class->attributes=$_POST['CargoClass'];
-     $class->save();
+     if($class->save())
+          $this->redirect(array('setup'));
    }
 
    if(isset($_POST['CargoFareRates'])){
      $rates->attributes=$_POST['CargoFareRates'];
-     $rates->save();
+     if($rates->save())
+          $this->redirect(array('setup'));
    }
 
    $this->render('setup',array(
