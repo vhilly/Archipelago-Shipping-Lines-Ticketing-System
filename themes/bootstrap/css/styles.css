@@ -23,9 +23,7 @@
 .navbar .container {
 	min-width:1000px;
 }
-.navbar-fixed-top {
-	margin:0;
-}
+
 
 .footer {
      text-align: center;
@@ -55,4 +53,13 @@
 .container {
 
     width:1000px;
+}
+.alter {
+	background:#eee;
+}
+.navbar-inverse .nav > li > a:focus, .navbar-inverse .nav > li > a:hover {
+    color: #1eace1;
+}
+.reduce {
+	width:100px;
 }
