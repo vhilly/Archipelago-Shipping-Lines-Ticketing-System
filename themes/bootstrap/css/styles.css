@@ -1,6 +1,6 @@
 #page {
     padding-top: 60px;
-		min-width:1000px;
+	min-width:1000px;
 }
 
 .navbar .brand {
@@ -17,6 +17,16 @@
 .navbar .divider-vertical {
 	margin:0;
 }
+.navbar {
+	min-width:1050px;
+}
+.navbar .container {
+	min-width:1000px;
+}
+.navbar-fixed-top {
+	margin:0;
+}
+
 .footer {
      text-align: center;
      padding: 30px 0px;
@@ -33,7 +43,7 @@
 	border:1px solid red;
 }
 .midBox {
-	width:800px;
+	width:700px;
 }
 .hidden {
 	display:none;
@@ -43,5 +53,6 @@
 	text-align:center;
 }
 .container {
-    width:1200px;
+
+    width:1000px;
 }
