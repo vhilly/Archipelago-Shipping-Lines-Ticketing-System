@@ -63,3 +63,16 @@
 .reduce {
 	width:100px;
 }
+#Transaction_input_date,
+#Transaction_trans_date,
+#Transaction_payment_method ,
+#Transaction_payment_status {
+	width:110px;
+}
+#Transaction_ovamount,
+#Transaction_ovdiscount {
+	width:65px;
+}
+#Transaction_id {
+	width:90px;
+}
