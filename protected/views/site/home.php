@@ -29,7 +29,7 @@
                     );
   $legend = '';
   foreach($bs as $s){
-   $legend .= "<b style=\"color:$s->color\">$s->name</b><br>";
+   $legend .= "<b style=\"color:$s->color\">{$s->name} = {$data[$s->id][0]}</b><br>";
    $dataSets[] =   array(
                         "fillColor" => $s->color,
                         "strokeColor" => "rgba(220,220,220,1)",
@@ -42,7 +42,7 @@
       'headerIcon' => 'icon-th-list',
       'htmlOptions' => array('class'=>'bootstrap-widget-table span3')
     ));
-  echo "<div style='background:#444;width:110px;padding:5px;margin:5px 0 5px 20px'><b style='color:#699'>Actual</b><br>$legend</div>";
+  echo "<div style='background:#F2F2F2;width:110px;padding:5px;margin:5px 0 5px 20px'><b style='color:#699'>Actual = 264</b><br>$legend</div>";
   $this->widget(
             'chartjs.widgets.ChBars', 
             array(

@@ -77,7 +77,7 @@ class Voyage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Voyage',
 			'name' => 'Name',
 			'vessel' => 'Vessel',
 			'route' => 'Route',

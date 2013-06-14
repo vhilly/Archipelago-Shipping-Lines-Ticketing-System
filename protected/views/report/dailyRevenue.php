@@ -67,6 +67,6 @@
   </tr>
 <?php endforeach;?>
   <td>TOTAL REVENUE</td>
-  <td><?=implode('</td><td>',$perVoyageRev)?></td><td colspan="<?=count($voy)-count($perVoyageRev)?>"></td><td><?=array_sum($perVoyageRev)?></td>
+  <td><?=implode('</td><td>',$perVoyageRev)?></td><td colspan="<?=count($voy)-count($perVoyageRev)?>"><?=array_sum($perVoyageRev)?></td>
 </table>
   <?php endif;?>

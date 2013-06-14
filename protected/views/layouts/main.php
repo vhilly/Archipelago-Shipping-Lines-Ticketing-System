@@ -73,6 +73,9 @@
 		array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index'), 'items'=>array(
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 '...',
+		array('icon'=>'file','label'=>'Voyage Transfer', 'url'=>array('/transfer/index'), 'items'=>array(
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                '...',
 
 
             ),
