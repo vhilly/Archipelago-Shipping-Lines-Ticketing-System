@@ -3,12 +3,12 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Cargo Fare Rates',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>' span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
 
-<div id=cargoClass class=span12>
+<div id=cargoClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'cargo-rate-form',
 	'enableAjaxValidation'=>false,
@@ -62,7 +62,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $ratesTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$ratesTable,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {

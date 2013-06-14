@@ -3,12 +3,12 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Fare Types',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>' span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
 
-<div id=fareTypeClass class=span12>
+<div id=fareTypeClass >
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'fareType-rate-form',
 	'enableAjaxValidation'=>false,
@@ -40,7 +40,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $fareTypesTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$fareTypesTable,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {

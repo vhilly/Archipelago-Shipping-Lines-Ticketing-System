@@ -1,19 +1,18 @@
 <style>
-  * {
-      font-size:12px;
-			font-family:"Lucida Grande","Lucida Sans Unicode",Verdana,Arial,Helvetica,sans-serif;
-		}
+
 		table {
       border:0px solid #555;
 		  border-collapse:collapse;
+		  width:100%;
 		}
     #seat_list {
       text-align:center;
     }
     #seat_list td {
       border:1px solid #555;
-      padding:15px;
+      /*padding:10px;*/
       font-weight:bold;
+
     }
    
 </style>
@@ -91,7 +90,7 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Business Class',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table seat_avail')
   ));?>
   <table id=seat_list>
    <?=$btr?>
@@ -102,7 +101,7 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Premium Class',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table seat_avail')
   ));?>
   <table border=1 id=seat_list>
    <?=$ptr?>
@@ -114,7 +113,7 @@
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Economy',
     'headerIcon' => 'icon-th-list',
-    'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
+    'htmlOptions' => array('class'=>'bootstrap-widget-table seat_avail')
   ));?>
   <table border=1 id=seat_list>
    <?=$etr?>
@@ -134,7 +133,7 @@
      )); ?>
     <?php echo $form->hiddenField($booking,'id')?>
     <p style="font-family:arial;color:red;font-size:40px;"></p>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Make Seat Available','htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'submit', 'label'=>'Make Seat Available','htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
  
    <?php $this->endWidget(); ?>
   

@@ -4,6 +4,9 @@
     width:1000px;
     
   }
+  .modal {
+	margin-left:-502px;
+  }
 </style>
 
 

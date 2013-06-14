@@ -1,6 +1,6 @@
 #page {
     padding-top: 60px;
-		min-width:1000px;
+	min-width:1000px;
 }
 
 .navbar .brand {
@@ -17,6 +17,14 @@
 .navbar .divider-vertical {
 	margin:0;
 }
+.navbar {
+	min-width:1050px;
+}
+.navbar .container {
+	min-width:1000px;
+}
+
+
 .footer {
      text-align: center;
      padding: 30px 0px;
@@ -33,7 +41,7 @@
 	border:1px solid red;
 }
 .midBox {
-	width:800px;
+	width:700px;
 }
 .hidden {
 	display:none;
@@ -43,5 +51,78 @@
 	text-align:center;
 }
 .container {
-    width:1200px;
+
+    width:1000px;
+}
+.alter {
+	background:#eee;
+}
+.navbar-inverse .nav > li > a:focus, .navbar-inverse .nav > li > a:hover {
+    color: #1eace1;
+}
+.reduce {
+	width:100px;
+}
+#Transaction_input_date,
+#Transaction_trans_date,
+#Transaction_payment_method ,
+#Transaction_payment_status,
+#Voyage_name,
+#Voyage_departure_date,
+#Voyage_departure_time,
+#Voyage_arrival_time {
+	width:110px;
+}
+#Transaction_ovamount,
+#Transaction_ovdiscount,
+#Booking_tkt_no,
+#Booking_first_name,
+#Booking_last_name,
+#Booking_booking_no,
+#Booking_date_booked,
+#BookingCargo_shipper,
+#BookingCargo_company,
+#TransactionType_name,
+#TransactionType_cargo,
+#TransactionType_discount,
+#TransactionType_discount_percent,
+#TransactionType_free_passenger,
+#TransactionType_minimum_passenger,
+#TransactionType_maximum_passenger,
+#TransactionType_active {
+	width:65px;
+}
+#Transaction_id,
+#Booking_transNo,
+#Booking_status,
+#Booking_voyage,
+#BookingCargo_booking_no,
+#BookingCargo_lading_no,
+#BookingCargo_voyage,
+#BookingCargo_status,
+#Passenger_birth_date,
+#TransactionType_navigation_title,
+#TransactionType_passenger {
+	width:90px;
+}
+#Report_voyage,
+#Report_departure_date,
+#PassageFareRates_class,
+#PassageFareRates_type,
+#PassageFareRates_route,
+#PassageFareRates_price,
+#PassageFareRates_active,
+#Voyage_route,
+#Voyage_vessel{
+	width:150px;
+}
+.ticket_print_box {
+	width:820px;
+}
+.seat_avail {
+	width:960px;
+}
+#TransactionType_name.Transac_name,
+#TransactionType_navigation_title.Transac_name {
+	width:200px;
 }

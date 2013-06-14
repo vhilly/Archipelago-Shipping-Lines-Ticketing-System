@@ -6,20 +6,18 @@
 	<meta name="language" content="en" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-
+	
 	<?php Yii::app()->bootstrap->register(); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
+	<style>
+		* {
+			font-size:12px;
+		}
+	</style>
 </head>
 
 <body>
 
-<?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    'items'=>array(
-        array(
-            'class'=>'bootstrap.widgets.TbMenu',
-        ),
-    ),
-)); ?>
 
 
 <?php
@@ -42,8 +40,8 @@
     'type'=>'inverse', // null or 'inverse'
     'brand'=>'',
     'brandUrl'=>'#',
-    'collapse'=>true, // requires bootstrap-responsive.css
-    'fluid'=>true,
+    'collapse'=>false, // requires bootstrap-responsive.css
+    'fluid'=>false,
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -61,21 +59,17 @@
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index'), 'items'=>array(
+				array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
+                    array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),
+                    array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
+					array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index')),
+					array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index')),
+					array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
+						array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
+						),
+					),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index'), 'items'=>array(
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-		'...',
-		array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index'), 'items'=>array(
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-                '...',
-		array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index'), 'items'=>array(
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-                '...',
-		array('icon'=>'file','label'=>'Voyage Transfer', 'url'=>array('/transfer/index'), 'items'=>array(
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-                '...',
 
 
             ),
@@ -86,9 +80,7 @@
             'class'=>'bootstrap.widgets.TbMenu',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                
                 array('icon'=>'off','label'=>'Login', 'url'=>array('/user/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('icon'=>'user','label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                     array('icon'=>'cog','label'=>'SETTINGS'),
@@ -114,7 +106,7 @@
 )); ?>
 
 
-<div class="container-fluid" id="page">
+<div class="container" id="page">
   <center>
 <?php
   $msgType='';
