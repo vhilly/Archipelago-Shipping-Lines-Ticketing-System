@@ -15,11 +15,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     //  'title' => 'Ticket No. '.str_pad($tktView['tktno'],11,'0',STR_PAD_LEFT),
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'bootstrap-widget-table span10')
+      'htmlOptions' => array('class'=>'bootstrap-widget-table span10 ticket_print_box')
     ));
     ?>
 
-    <table class="table span10" >
+    <table class="table" >
       <tr style="background:#eeeeff"><th width=15%>First Name :</th><td></td><td></td><td></td><td width=25%><?=$tktView['first_name']?></td>
         <th>Voyage :</th><td></td><td></td><td></td><td><?=$tktView['voy']?></td></tr>
       <tr><th>Last Name :</th><td></td><td></td><td></td><td><?=$tktView['last_name']?></td>
@@ -31,15 +31,14 @@
       <tr style="background:#eeeeff"><th>Price :</th><td></td><td></td><td></td><td><?=$tktView['price']?></td>
         <th>Arrival Time :</th><td></td><td></td><td></td><td><?=$tktView['vat']?></td></tr>
     </table>
-
-    <br><br>
+   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'submit','icon'=>'print', 'label'=>'Print','htmlOptions'=>array('class'=>'ticket_print_box')));?>
 
     <?php
     $this->endWidget();
 
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Print','htmlOptions'=>array('class'=>'pull-right')));
+    
 
-    echo "<br><br><br>";
+
 
   endforeach; ?>
 

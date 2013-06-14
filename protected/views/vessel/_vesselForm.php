@@ -3,11 +3,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Vessel',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
-<div id=vesselClass class=span12>
+<div id=vesselClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'vessel-form',
 	'enableAjaxValidation'=>false,
@@ -55,7 +55,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $vesselsTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$vesselsTable,
         'columns'=>$gridColumns
 ));

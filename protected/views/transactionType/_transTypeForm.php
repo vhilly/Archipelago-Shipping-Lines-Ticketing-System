@@ -3,11 +3,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Transaction Type',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
-<div id=transTypeClass class=span12>
+<div id=transTypeClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'transType-form',
 	'enableAjaxValidation'=>false,
@@ -16,8 +16,8 @@
 
 
         <?php echo $form->errorSummary($transType); ?>
-	<?php echo $form->textFieldRow($transType,'name',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->textFieldRow($transType,'navigation_title',array('class'=>'span3','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($transType,'name',array('class'=>'Transac_name','maxlength'=>100)); ?>
+	<?php echo $form->textFieldRow($transType,'navigation_title',array('class'=>'Transac_name','maxlength'=>100)); ?>
 	<?php echo $form->radioButtonListRow($transType,'passenger',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 	<?php echo $form->radioButtonListRow($transType,'cargo',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 	<?php echo $form->textFieldRow($transType,'discount',array('class'=>'span3','maxlength'=>100)); ?>
@@ -57,7 +57,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $transTypesTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$transTypesTable,
         'columns'=>$gridColumns
 ));

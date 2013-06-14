@@ -6,12 +6,12 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Ticket Fare Rates',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>' span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
 
-<div id=fareClass class=span12>
+<div id=fareClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'fare-rate-form',
 	'enableAjaxValidation'=>false,
@@ -21,10 +21,14 @@
 
 
 <?php echo $form->errorSummary($fare); ?>
-	<?php echo $form->dropDownListRow($fare,'class',$clss,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
-	<?php echo $form->dropDownListRow($fare,'type',$tp,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
-	<?php echo $form->dropDownListRow($fare,'route',$rt,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
-        <?php echo $form->textFieldRow($fare,'price',array('class'=>'span1'));?>
+	<p>
+	  <?php echo $form->dropDownListRow($fare,'class',$clss,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
+	  <?php echo $form->dropDownListRow($fare,'type',$tp,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
+	</p>
+	<p>
+	  <?php echo $form->dropDownListRow($fare,'route',$rt,array('empty'=>'','class'=>'span2','maxlength'=>100)); ?>
+      <?php echo $form->textFieldRow($fare,'price',array('class'=>'span1'));?>
+	</p>
 	<?php echo $form->radioButtonListRow($fare,'active',$yesNo); ?>
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
@@ -49,7 +53,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $faresTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$faresTable,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {

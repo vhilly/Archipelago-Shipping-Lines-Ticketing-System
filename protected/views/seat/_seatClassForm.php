@@ -3,11 +3,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Seating Class',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
-<div id=seatClass class=span12>
+<div id=seatClass >
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'seat-class-form',
 	'enableAjaxValidation'=>false,
@@ -43,7 +43,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $seatClassTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$seatClassTable,
         'columns'=>$gridColumns
 ));

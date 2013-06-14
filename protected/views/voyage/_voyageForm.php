@@ -4,7 +4,7 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Voyage',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span10')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
@@ -60,7 +60,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $voyagesTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span10'),
+        'htmlOptions'=>array('class'=>'span10 fields'),
         'filter'=>$voyagesTable,
         'columns'=>$gridColumns
 ));

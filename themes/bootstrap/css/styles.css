@@ -66,13 +66,63 @@
 #Transaction_input_date,
 #Transaction_trans_date,
 #Transaction_payment_method ,
-#Transaction_payment_status {
+#Transaction_payment_status,
+#Voyage_name,
+#Voyage_departure_date,
+#Voyage_departure_time,
+#Voyage_arrival_time {
 	width:110px;
 }
 #Transaction_ovamount,
-#Transaction_ovdiscount {
+#Transaction_ovdiscount,
+#Booking_tkt_no,
+#Booking_first_name,
+#Booking_last_name,
+#Booking_booking_no,
+#Booking_date_booked,
+#BookingCargo_shipper,
+#BookingCargo_company,
+#TransactionType_name,
+#TransactionType_cargo,
+#TransactionType_discount,
+#TransactionType_discount_percent,
+#TransactionType_free_passenger,
+#TransactionType_minimum_passenger,
+#TransactionType_maximum_passenger,
+#TransactionType_active {
 	width:65px;
 }
-#Transaction_id {
+#Transaction_id,
+#Booking_transNo,
+#Booking_status,
+#Booking_voyage,
+#BookingCargo_booking_no,
+#BookingCargo_lading_no,
+#BookingCargo_voyage,
+#BookingCargo_status,
+#Passenger_birth_date,
+#TransactionType_navigation_title,
+#TransactionType_passenger {
 	width:90px;
+}
+#Report_voyage,
+#Report_departure_date,
+#PassageFareRates_class,
+#PassageFareRates_type,
+#PassageFareRates_route,
+#PassageFareRates_price,
+#PassageFareRates_active,
+#Voyage_route,
+#Voyage_vessel{
+	width:150px;
+}
+.ticket_print_box {
+	width:820px;
+}
+.seat_avail {
+	width:960px;
+}
+#TransactionType_name.Transac_name,
+#TransactionType_navigation_title.Transac_name {
+	width:200px;
 }
