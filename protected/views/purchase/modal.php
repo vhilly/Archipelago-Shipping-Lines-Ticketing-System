@@ -5,6 +5,9 @@
 #ticketModal {
 	width:850px;
 }
+.modal {
+	margin-left:-430px;
+}
 </style>
 
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'ticketModal')); ?>

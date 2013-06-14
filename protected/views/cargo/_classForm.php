@@ -3,11 +3,11 @@
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Cargo Class',
       'headerIcon' => 'icon-th-list',
-      'htmlOptions' => array('class'=>'span12')
+      'htmlOptions' => array('class'=>'seat_avail')
     ));
 
 ?>
-<div id=cargoClass class=span12>
+<div id=cargoClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'cargo-class-form',
 	'enableAjaxValidation'=>false,
@@ -48,7 +48,7 @@ $gridColumns = array(
 	'type' => 'striped bordered',
 	'dataProvider'=> $classTable->search(),
 	'template' => "{items},{pager}",
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>''),
         'filter'=>$classTable,
      //   'ajaxUpdate'=>false,
         'afterAjaxUpdate'=>"function() {
