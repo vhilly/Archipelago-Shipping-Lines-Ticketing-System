@@ -81,7 +81,7 @@ class Passenger extends CActiveRecord
 			'first_name' => 'First Name',
 			'last_name' => 'Last Name',
 			'email' => 'Email',
-			'contact' => 'Contact',
+			'contact' => 'Contact No.',
 			'middle_name' => 'Middle Name',
 			'prefix' => 'Prefix',
 			'gender' => 'Gender',

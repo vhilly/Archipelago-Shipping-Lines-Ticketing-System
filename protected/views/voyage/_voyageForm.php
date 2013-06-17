@@ -1,6 +1,6 @@
 <?php
-    $ves = Vessel::model()->findAll();
-    $rt = Route::model()->findAll();
+    $ves = CHtml::listData(Vessel::model()->findAll(),'id','name');
+    $rt = CHtml::listData(Route::model()->findAll(),'id','name');
     $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
       'title' => 'Voyage',
       'headerIcon' => 'icon-th-list',
@@ -18,8 +18,8 @@
 
         <?php echo $form->errorSummary($voyage); ?>
 	<?php echo $form->textFieldRow($voyage,'name',array('class'=>'span2','maxlength'=>100)); ?>
-	<?php echo $form->dropDownListRow($voyage,'vessel',CHtml::listData($ves,'id','name'),array('class'=>'span2','maxlength'=>100)); ?>
-	<?php echo $form->dropDownListRow($voyage,'route',CHtml::listData($rt,'id','name'),array('class'=>'span2','maxlength'=>100)); ?>
+	<?php echo $form->dropDownListRow($voyage,'vessel',$ves,array('class'=>'span2','maxlength'=>100)); ?>
+	<?php echo $form->dropDownListRow($voyage,'route',$rt,array('class'=>'span2','maxlength'=>100)); ?>
         <?php echo $form->datePickerRow($voyage, 'departure_date', array('append'=>'<i class="icon-calendar" style="cursor:pointer"></i>','class'=>'span2','options'=>array( 'format' => 'yyyy-mm-dd')));?>
         <?php echo $form->timepickerRow($voyage, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>
         <?php echo $form->timepickerRow($voyage, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2'));?>
@@ -41,9 +41,13 @@ $gridColumns = array(
            ),
            array(
              'name'=>'vessel',
+             'filter'=>$ves,
+             'value'=>'$data->vessel0->name',
            ),
            array(
              'name'=>'route',
+             'filter'=>$rt,
+             'value'=>'$data->route0->name',
            ),
            array(
              'name'=>'departure_date',

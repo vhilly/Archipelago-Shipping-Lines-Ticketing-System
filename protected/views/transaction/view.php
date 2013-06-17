@@ -46,6 +46,7 @@
          <th colspan=8><center>TICKETS PURCHASED</center></th>
         </tr>
         <tr>
+         <th>BOOKING NO.</th>
          <th>TICKET NO.</th>
          <th>FIRST NAME</th>
          <th>LAST NAME</th>
@@ -57,6 +58,7 @@
       <tbody>
 	 <?php foreach($Tickets as $ticket):?>
            <tr class="odd">
+            <td><?=$ticket['booking_no']?></td>
             <td><?=$ticket['tkt_no']?></td>
             <td><?=$ticket['first_name']?></td>
             <td><?=$ticket['last_name']?></td>

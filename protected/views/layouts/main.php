@@ -55,15 +55,20 @@
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Booked Ticket', 'url'=>array('/booking/index')),
+                    array('label'=>'Check-In', 'url'=>array('/booking/checkin')),
+                    array('label'=>'Booked Tickets', 'url'=>array('/booking/index')),
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
+                array('icon'=>'print','label'=>'Print', 'url'=>'#', 'items'=>array(
+                    array('icon'=>'calendar','label'=>'Boarding Pass', 'url'=>array('/booking/bpass')),
+	            array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index')),
+		    array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index')),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-				array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
+		    array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
+                    array('icon'=>'book','label'=>'Booking Transfer', 'url'=>array('/booking/transfer')),
                     array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),
                     array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
-					array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index')),
-					array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index')),
 					array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
 						array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
 						),
@@ -114,6 +119,8 @@
    $msgType='success';
   if(Yii::app()->user->hasFlash("error"))
    $msgType='error';
+  if(Yii::app()->user->hasFlash("info"))
+   $msgType='info';
   $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>true, // display a larger alert block?
     'fade'=>true, // use transitions?

@@ -153,7 +153,7 @@
    function(){
       $('#bookingModal .modal-body p').html($(this).text());
       $('#bookingModal').modal();
-      $('#bookingForm').toggle();
+    //  $('#bookingForm').toggle();
       $('#Booking_id').val(this.id);
       $('#selectedSeat').html($(this).text());
    }

@@ -23,7 +23,7 @@
       return array(
         array($this->_requiredFields,'required'),
         array('departure_date, voyage, vessel, tktNo', 'safe', 'on'=>'search'),
-        array('departure_date,voyage', 'length', 'max'=>100),
+        array('departure_date,voyage,vessel', 'length', 'max'=>100),
         array('tktNo,wbNo', 'length', 'max'=>100),
       );
     }
