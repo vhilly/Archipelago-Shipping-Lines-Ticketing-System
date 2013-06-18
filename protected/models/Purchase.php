@@ -9,9 +9,11 @@
     public $fareModels = array();
     public $cargoFareModels = array();
     public $cargoModel=array();
+    public $discount;
     public $passengerMin;
     public $passengerTotal;
     public $passengerMax;
+    public $bundledPassenger;
     public $voyage;
     public $class;
     public $current_step =1;
@@ -31,12 +33,15 @@
     public $cargoFares =array();
     private $_requiredFields = '';
     private $_fields = array();
+    
+
 
     public function __construct($required='Y',$limit='1',$max='1',$free='0'){
       if($required=='Y'){
         $this->addRequiredField('passengerTotal');
         $this->passengerMin = $limit ? $limit : '1';
         $this->passengerMax = $max > $this->passengerMin ? $max : $this->passengerMin;
+        $this->bundledPassenger = $free;
         $this->passenger=true;
       }else{
         $this->passengerMin =0;
@@ -67,7 +72,7 @@
       return array(
         array($this->_requiredFields.',voyage','required'),
         array('passengerTotal', 'numerical','min'=>$test,'max'=>$this->passengerMax),
-        array('voyage,class,cargoPrice,payment_total,payment_method,payment_status,transaction_no', 'numerical', 'integerOnly'=>true),
+        array('voyage,discount,class,cargoPrice,payment_total,payment_method,payment_status,transaction_no', 'numerical', 'integerOnly'=>true),
         array('passengerTotal,voyage,class,current_step', 'length', 'max'=>3),
         array('cargoPrice', 'length', 'max'=>32),
         array('passengerList,cargoFareList,fareList,cargoList,seatingList', 'length', 'max'=>9000),

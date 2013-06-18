@@ -44,7 +44,7 @@
 
       if(isset($_POST['Purchase']) && $_SESSION['nonce'] == $_POST['nonce']){
         $purchaseType=$_SESSION['PurchaseType'];
-        $purchaseFrm=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,"1");
+        $purchaseFrm=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,$purchaseType->bundled_passenger);
         $purchaseFrm->attributes=$_POST['Purchase'];
 
         if($purchaseFrm->validate()){
@@ -112,11 +112,14 @@
             $cargoList = isset($_POST['Cargo']) ? $_POST['Cargo'] : array();
             $cargoAmnt =0;
             $fareAmnt =0;
+            $bundledFare = new PassageFareRates;
             if(count($passengerList)){
+              $discount = 0;
               $purchase->passengerModels=array();
               $purchase->seatModels=array();
               $purchase->fareModels=array();
-
+              if($purchase->bundledPassenger)
+                $bundledFare = PassageFareRates::model()->findByAttributes(array('route'=>$purchase->route,'class'=>$purchase->class,'type'=>$purchaseType->bundled_passenger_rate));
               foreach($passengerList as $key=>$p){
                 $pass = new Passenger;
                 $fare = new PassageFareRates('id');
@@ -124,7 +127,11 @@
 
 
                 $pass->attributes = $p;
-                $fare->attributes = $fareList[$key];
+                if((!$purchase->bundledPassenger && $purchase->bundledPassenger < $key) || !$purchase->bundledPassenger){
+                  $fare->attributes = $fareList[$key];
+                }else{
+                  $discount += $bundledFare->price;$fare->id =$bundledFare->id;$fare->price =$bundledFare->price;
+                }
                 $seat->attributes = $seatList[$key];
                 $purchase->passengerModels[]=$pass;
                 $purchase->fareModels[]=$fare;
@@ -141,6 +148,7 @@
 
 
               }
+              $purchase->discount += $discount;
               $prices = array_map(function ($ar) {return $ar['price'];},$fareList);
               $fareAmnt += array_sum($prices);
             }
@@ -187,6 +195,7 @@
               $newTransaction->trans_date = $curDate;
               $newTransaction->input_date = $curDate;
               $newTransaction->ovamount =$purchase->payment_total;
+              $newTransaction->ovdiscount =$purchase->discount;
 
               if(!$newTransaction->save())
                 throw new Exception('Cannot save transaction');
@@ -269,7 +278,7 @@
         if(!$purchaseType)
           throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 
-        $purchase=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,"1");
+        $purchase=new Purchase($purchaseType->passenger,$purchaseType->minimum_passenger,$purchaseType->maximum_passenger,$purchaseType->bundled_passenger);
         $purchase->current_step=1;
         $purchase->setCargo($purchaseType->cargo);
         $purchase->transaction_type = $purchaseType->id;

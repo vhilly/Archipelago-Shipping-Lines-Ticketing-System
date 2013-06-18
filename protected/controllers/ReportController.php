@@ -18,7 +18,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('index','admin','create','edit','update','dailyRevenue'),
+          'actions'=>array('index','admin','create','edit','update','dailyRevenue','inspector'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -48,5 +48,16 @@
       }else{
         $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
       }
+    }
+    public function actionInspector(){
+      $model=new Report;
+      $voyage=new Voyage;
+      $result ='';
+      if(isset($_POST['Report'])){
+        $model->attributes=$_POST['Report'];
+        $voyage = Voyage::model()->findByPk($model->voyage);
+        $result = Booking::model()->findAllByAttributes(array('voyage'=>$voyage->id));
+      }
+      $this->render('inspector',array('model'=>$model,'result'=>$result,'voyage'=>$voyage));
     }
   }

@@ -60,18 +60,20 @@
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'print','label'=>'Print', 'url'=>'#', 'items'=>array(
-                    array('icon'=>'calendar','label'=>'Boarding Pass', 'url'=>array('/booking/bpass')),
 	            array('icon'=>'barcode','label'=>'Tickets', 'url'=>array('/ticket/index')),
+                    array('icon'=>'file','label'=>'Boarding Pass', 'url'=>array('/booking/bpass')),
 		    array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/waybill/index')),
+		    array('icon'=>'file','label'=>'Manifest', 'url'=>array('/booking/manifest')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
 		    array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
                     array('icon'=>'book','label'=>'Booking Transfer', 'url'=>array('/booking/transfer')),
                     array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),
                     array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
-					array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
-						array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
-						),
+		      array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
+		        array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
+		        array('label'=>"Inspector`s Report", 'url'=>array('/report/inspector')),
+	              ),
 					),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',

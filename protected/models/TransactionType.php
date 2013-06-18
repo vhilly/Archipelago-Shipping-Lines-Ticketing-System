@@ -50,13 +50,13 @@ class TransactionType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, navigation_title', 'required'),
-			array('discount_percent, free_passenger, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo', 'numerical', 'integerOnly'=>true),
+			array('discount_percent, bundled_passenger,bundled_passenger_rate, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo', 'numerical', 'integerOnly'=>true),
 			array('discount', 'numerical'),
 			array('name, navigation_title', 'length', 'max'=>100),
 			array('passenger, cargo, active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, navigation_title, passenger, cargo, discount, discount_percent, free_passenger, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo, active', 'safe', 'on'=>'search'),
+			array('id, name, navigation_title, passenger, cargo, discount, discount_percent, bundled_passenger, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,7 +85,8 @@ class TransactionType extends CActiveRecord
 			'cargo' => 'Cargo',
 			'discount' => 'Discount',
 			'discount_percent' => 'Discount Percent',
-			'free_passenger' => 'Free Passenger',
+			'bundled_passenger' => 'Bundled Passenger',
+			'bundled_passenger_rate' => 'Bundled Passenger Rate',
 			'minimum_passenger' => 'Minimum Passenger',
 			'maximum_passenger' => 'Maximum Passenger',
 			'free_cargo' => 'Free Cargo',
@@ -112,7 +113,8 @@ class TransactionType extends CActiveRecord
 		$criteria->compare('cargo',$this->cargo,true);
 		$criteria->compare('discount',$this->discount);
 		$criteria->compare('discount_percent',$this->discount_percent);
-		$criteria->compare('free_passenger',$this->free_passenger);
+		$criteria->compare('bundled_passenger',$this->bundled_passenger);
+		$criteria->compare('bundled_passenger_rate',$this->bundled_passenger_rate);
 		$criteria->compare('minimum_passenger',$this->minimum_passenger);
 		$criteria->compare('maximum_passenger',$this->maximum_passenger);
 		$criteria->compare('free_cargo',$this->free_cargo);

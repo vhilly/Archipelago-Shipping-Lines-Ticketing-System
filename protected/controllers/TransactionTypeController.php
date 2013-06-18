@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','setup'),
+          'actions'=>array('admin','delete','setup','editableSaver'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -191,5 +191,10 @@
         echo CActiveForm::validate($model);
         Yii::app()->end();
       }
+    }
+    public function actionEditableSaver(){
+      Yii::import('bootstrap.widgets.TbEditableSaver');
+      $es = new TbEditableSaver('TransactionType');
+      $es->update();
     }
   }
