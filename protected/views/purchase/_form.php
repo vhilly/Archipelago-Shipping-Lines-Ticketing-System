@@ -155,6 +155,7 @@
     <?php foreach($purchase->cargoModel as $key=>$cargo):?>
 
     <?php echo $form->textFieldRow($purchase->stowage[$key],"[$key]id",array('class'=>'span3 stmodal','maxlength'=>100,'readonly'=>true)); ?>
+
     <?php echo $form->textFieldRow($cargo,"[$key]shipper",array('class'=>'span3','maxlength'=>100)); ?>
 
     <?php echo $form->textFieldRow($cargo,"[$key]company",array('class'=>'span3','maxlength'=>100)); ?>
