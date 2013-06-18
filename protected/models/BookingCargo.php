@@ -51,10 +51,10 @@ class BookingCargo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('transaction, lading_no, booking_no, voyage, rate, cargo, status', 'required'),
-			array('transaction, voyage, rate, cargo, status', 'numerical', 'integerOnly'=>true),
+			array('transaction, voyage, rate, cargo, status','stowage', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction,shipper,company voyage,booking_no,lading_no, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
+			array('id,stowage,transaction,shipper,company voyage,booking_no,lading_no, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +82,7 @@ class BookingCargo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'stowage' => 'Stowage',
 			'lading_no' => 'Lading No.',
 			'booking_no' => 'Booking No.',
 			'transaction' => 'Transaction',
