@@ -1,5 +1,5 @@
 <style>
-	.sBox {
+	.sbox {
 		border:1px solid black;
 		margin:3px;
 		float:left;
@@ -18,7 +18,7 @@
 		width:196px;
 		height:40px;
 	}
-	.sBox:hover {
+	.sbox:hover {
 		background:#3fc;
 	}
 	.active {
@@ -30,6 +30,7 @@
 <center>
 <div style="width:800px;overflow:auto;padding:5px;">
 <?php
+	$ids = isset($_GET['class']) ? $_GET['class']: "stmodal";
 	$box = Array(9,7,6,4,7,8);
 	$bus = Array(23,24,25,26);
 	$right = Array(8,9,16,27,34,35);
@@ -49,7 +50,7 @@
 				$type = "car";
 			}
 			$act = (in_array($cnt,$active)) ? "active" : "";
-			echo "<div class=\"sbox $type $act\">$cnt</div>";
+			echo "<div class=\"sbox $type $act\" onclick=\"get('$cnt','$ids')\">$cnt</div>";
 			$cnt++;
 		}
 		echo "</div><div style=clear:both></div>";
@@ -59,6 +60,16 @@
 ?>
 </div>
 </center>
+
+<script>
+        function get(seat,ids,no){
+                if(ids!=""){    
+                        $('.'+ids).val(seat);
+                        $('a[data-dismiss="modal"]').click();
+                }
+        }
+</script>
+
 <?php
 die();
 ?>

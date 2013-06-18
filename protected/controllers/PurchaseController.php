@@ -100,6 +100,7 @@
               $purchase->cargoFares = $cargoFares;
               if(!count($purchase->cargoModel)){
                 $purchase->cargoModel[] = new Cargo;
+                $purchase->stowage[] = new Stowage();
                 $purchase->cargoFareModels[] = new CargoFareRates;
               }
             }
@@ -107,6 +108,7 @@
           if($purchase->current_step ==3){
             $passengerList = isset($_POST['Passenger']) ? $_POST['Passenger'] : array();
             $seatList = isset($_POST['Seat']) ? $_POST['Seat'] : array();
+            $stowageList = isset($_POST['Stowage']) ? $_POST['Stowage'] : array();
             $fareList = isset($_POST['PassageFareRates']) ? $_POST['PassageFareRates'] : array();
             $cargoFareList = isset($_POST['CargoFareRates']) ? $_POST['CargoFareRates'] : array();
             $cargoList = isset($_POST['Cargo']) ? $_POST['Cargo'] : array();
@@ -145,13 +147,17 @@
               $fareAmnt += array_sum($prices);
             }
             if(count($cargoList)){
+              $purchase->stowage=array();
               $purchase->cargoModel=array();
               $purchase->cargoFareModels=array();
               foreach($cargoList as $key2=>$c){
                 $cargoFare = new CargoFareRates;
                 $cargo = new Cargo;
+                $stowage = new Stowage;
+                $stowage->attributes = $stowageList[$key2];
                 $cargoFare->attributes = $cargoFareList[$key2];
                 $cargo->attributes = $c;
+                $purchase->stowage[] = $stowage;
                 $purchase->cargoModel[] = $cargo;
                 $purchase->cargoFareModels[] = $cargoFare;
                 if(!$cargoFare->validate())
@@ -172,6 +178,7 @@
             $passengerList = isset($_POST['Passenger']) ? $_POST['Passenger'] : array();
             $fareList = isset($_POST['PassageFareRates']) ? $_POST['PassageFareRates'] : array();
             $seatList = isset($_POST['Seat']) ? $_POST['Seat'] : array();
+            $stowageList = isset($_POST['Stowage']) ? $_POST['Stowage'] : array();
             $cargoList = isset($_POST['Cargo']) ? $_POST['Cargo'] : array();
             $cargoFareList = isset($_POST['CargoFareRates']) ? $_POST['CargoFareRates'] : array();
 
@@ -225,7 +232,9 @@
                 foreach($cargoList as $key2=>$c){
                   $cargo = new Cargo;
                   $cargoFare = new CargoFareRates;
+                  $newStowage = new Stowage;
                   $cargo->attributes = $c;
+                  $newStowage->attributes=$stowageList[$key2];
                   $cargoFare->attributes = $cargoFareList[$key2];
                   $newCargoBooking = new BookingCargo;
 		  $lading = $this->numberGenerator('lading');
@@ -233,6 +242,7 @@
 		  $newCargoBooking->booking_no = str_pad($bookingCounter,10,'0',STR_PAD_LEFT);
                   $newCargoBooking->transaction = $newTransaction->id;
                   $newCargoBooking->voyage = $purchase->voyage;
+                  $newCargoBooking->stowage = $newStowage->id;
                   $newCargoBooking->rate = $cargoFare->id;
                   $newCargoBooking->status = $purchase->payment_status == 1? 2 : 1;
                   if(!$cargo->save())

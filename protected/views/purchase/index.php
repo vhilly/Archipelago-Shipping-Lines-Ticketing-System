@@ -37,6 +37,7 @@
       type: 'POST',
       url: '<?php echo Yii::app()->baseUrl;?>?r=seat/map&class='+scl+'&id='+this.id,
       success: function (data){
+        $('#ticketModal .modal-header h2').html('Seat Map');
         $('#ticketModal .modal-body div').html(data);
         $('#ticketModal').modal();
       },
@@ -46,5 +47,23 @@
 
     });
   });
+
+  $('.stmodal').bind('click', function (event){
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo Yii::app()->baseUrl;?>?r=bookingCargo/map&class=stmodal',
+      success: function (data){
+        $('#ticketModal .modal-header h2').html('Stowage');
+        $('#ticketModal .modal-body div').html(data);
+        $('#ticketModal').modal();
+      },
+      error: function (xht){
+        alert(this.url);
+      }
+
+    });
+  });
+
+
 </script>
 <?php echo $this->renderPartial('modal');?>

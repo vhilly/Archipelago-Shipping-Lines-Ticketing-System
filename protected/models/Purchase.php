@@ -6,6 +6,7 @@
     public $cargo=false;
     public $passengerModels = array();
     public $seatModels = array();
+    public $stowage = array();
     public $fareModels = array();
     public $cargoFareModels = array();
     public $cargoModel=array();
