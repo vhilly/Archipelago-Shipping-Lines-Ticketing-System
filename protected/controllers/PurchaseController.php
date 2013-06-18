@@ -112,9 +112,9 @@
             $cargoList = isset($_POST['Cargo']) ? $_POST['Cargo'] : array();
             $cargoAmnt =0;
             $fareAmnt =0;
+            $discount = 0;
             $bundledFare = new PassageFareRates;
             if(count($passengerList)){
-              $discount = 0;
               $purchase->passengerModels=array();
               $purchase->seatModels=array();
               $purchase->fareModels=array();
@@ -127,10 +127,10 @@
 
 
                 $pass->attributes = $p;
-                if((!$purchase->bundledPassenger && $purchase->bundledPassenger < $key) || !$purchase->bundledPassenger){
-                  $fare->attributes = $fareList[$key];
-                }else{
+                if($purchase->bundledPassenger &&  $key < $purchase->bundledPassenger){
                   $discount += $bundledFare->price;$fare->id =$bundledFare->id;$fare->price =$bundledFare->price;
+                }else{
+                  $fare->attributes = $fareList[$key];
                 }
                 $seat->attributes = $seatList[$key];
                 $purchase->passengerModels[]=$pass;
@@ -148,7 +148,7 @@
 
 
               }
-              $purchase->discount += $discount;
+                
               $prices = array_map(function ($ar) {return $ar['price'];},$fareList);
               $fareAmnt += array_sum($prices);
             }
@@ -173,6 +173,7 @@
 
             }
 
+            $purchase->discount = $discount;
             $purchase->payment_total = $fareAmnt+$cargoAmnt;
             $purchase->payment_method = 1;//default is cash
           }

@@ -8,7 +8,7 @@
     <table width=1000 border=1>
       <thead>
         <tr bgcolor=#F68938>
-         <th colspan=9><center>TRANSACTION DETAILS</center></th>
+         <th colspan=10><center>TRANSACTION DETAILS</center></th>
         </tr>
         <tr>
          <th>TRANSACTION NO.</th>
@@ -16,8 +16,9 @@
          <th>TRANSACTION DATE</th>
          <th>PAYMENT METHOD</th>
          <th>PAYMENT STATUS</th>
-         <th>TOTAL AMOUNT</th>
+         <th>OVERALL AMOUNT</th>
          <th>DISCOUNT</th>
+         <th>TOTAL AMOUNT</th>
          <th>REFERENCE</th>
          <th>CREATED BY</th>
         </tr>
@@ -31,6 +32,7 @@
          <td><?=$trans->paymentStatus->name?></td>
          <td><?=$trans->ovamount?></td>
          <td><?=$trans->ovdiscount?></td>
+         <td><?=$trans->ovamount - $trans->ovdiscount?></td>
          <td><?=$trans->reference?></td>
          <td><?=$trans->uid?></td>
         </tr>

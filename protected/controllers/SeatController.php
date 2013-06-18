@@ -126,11 +126,11 @@
      * Lists all models.
      */
 
-    public function actionMap()
+    public function actionMap($voyage=null)
     {
 	//comment
       $list= Seat::model()->findAll();
-      $sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat";
+      $sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat AND b.voyage='{$voyage}'";
       $bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
       $apr = Array();
       $pl = Array();
