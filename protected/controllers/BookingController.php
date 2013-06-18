@@ -225,7 +225,7 @@
                Yii::app()->user->setFlash('success', 'Check-In Successful!');
              }
            }
-         }else{
+         }elseif(isset($forCheckin->passenger) && $forCheckin->status == 3){
                Yii::app()->user->setFlash('info', 'Already Checked In!');
          }
        }

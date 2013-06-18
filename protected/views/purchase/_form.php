@@ -128,17 +128,16 @@
                   ),'htmlOptions'=>array('class'=>'span2'),));
               ?>
             </td>
-		
-            <td colspan=2>
+            <td colspan=2  <?php if(($purchase->bundledPassenger && !$purchase->bundledPassenger < $key) || $purchase->bundledPassenger){echo "style=display:none"; }?>>
               <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span4')); ?>
             </td>
-            <td>
+            <td <?php if(($purchase->bundledPassenger && !$purchase->bundledPassenger < $key) || $purchase->bundledPassenger){echo "style=display:none"; }?>>
               <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type0.name'),array('class'=>'reduce fare','empty'=>'')); ?>
             </td>
             <td style="display:none">
               <?php echo $form->dropDownListRow($purchase->fareModels[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>
             </td>
-            <td>
+            <td <?php if(($purchase->bundledPassenger && !$purchase->bundledPassenger < $key) || $purchase->bundledPassenger){echo "style=display:none"; }?>>
               <?php echo $form->textFieldRow($purchase->fareModels[$key],"[$key]price",array('class'=>'span1 price', 'id'=>'PassageFareRates_'.$key.'_id2pricetext','readonly'=>true,'empty'=>'')); ?>
             </td>
             <td>
