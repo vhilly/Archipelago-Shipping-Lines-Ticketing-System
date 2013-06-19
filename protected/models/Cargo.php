@@ -48,7 +48,7 @@ class Cargo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cargo_class', 'required'),
+			array('cargo_class,plate_num', 'required'),
 			array('cargo_class, weight, length', 'numerical', 'integerOnly'=>true),
 			array('shipper, company, destination, article_no, contact', 'length', 'max'=>100),
 			array('address', 'length', 'max'=>255),
@@ -79,6 +79,7 @@ class Cargo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'plate_num' => 'Plate Number',
 			'shipper' => 'Shipper',
 			'company' => 'Company',
 			'destination' => 'Destination',

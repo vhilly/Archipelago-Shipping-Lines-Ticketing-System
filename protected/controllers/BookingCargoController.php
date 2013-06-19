@@ -102,13 +102,15 @@
       ));
     }
     public function actionMap(){
-      $sql = "SELECT s.stowage FROM booking_cargo s";
+      $sql = "SELECT s.stowage, c.plate_num FROM booking_cargo s, cargo c WHERE s.cargo=c.id";
       $bookedStowage = Yii::app()->db->createCommand($sql)->queryAll();
 	$active = Array();
+	$plate = Array();
 	foreach($bookedStowage as $bst){
 		$active[] = $bst['stowage'];
+		$plate[$bst['stowage']]= $bst['plate_num'];
 	}
-	$this->render('stowage',array('active'=>$active));	
+	$this->render('stowage',array('active'=>$active,'plate'=>$plate));	
     }
 
     /**

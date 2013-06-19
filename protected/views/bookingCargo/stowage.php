@@ -54,7 +54,8 @@
 			}
 			$act = (in_array($cnt,$active)) ? "active" : "";
 			$clk = ($act!="active") ? "onclick=\"get('$cnt','$ids')\"" : "";
-			echo "<div class=\"sbox $type $act\" $clk>$cnt</div>";
+			$dis = ($act=="active") ?  $plate[$cnt]: $cnt;
+			echo "<div class=\"sbox $type $act\" $clk>$dis</div>";
 			$cnt++;
 		}
 		echo "</div><div style=clear:both></div>";
