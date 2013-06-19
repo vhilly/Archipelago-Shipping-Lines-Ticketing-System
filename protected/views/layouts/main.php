@@ -72,7 +72,7 @@
                     array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
 		      array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
 		        array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
-		        array('label'=>"Inspector`s Report", 'url'=>array('/report/inspector')),
+		        array('label'=>"Inspection Report", 'url'=>array('/report/inspection')),
 	              ),
 					),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),

@@ -49,13 +49,18 @@
     }
     public function actionIndex()
     {
+                $model=new Booking('search');
+                $model->unsetAttributes();  // clear any default values
+                if(isset($_GET['Booking'])){
+                  $model->attributes=$_GET['Booking'];
+                }
 		if(Yii::app()->user->isGuest){
 			$this->layout = 'main';
 			$this->render('index');
 		}else{
                         $sql = "SELECT v.id voyid,b.status, s.name,s.color,count(*) count FROM booking b,booking_status s,voyage v WHERE b.status = s.id AND v.departure_date = CURDATE() AND s.active='Y' AND b.voyage=v.id GROUP BY b.status ";
 	                $booked = Yii::app()->db->createCommand($sql)->queryAll();
-                        $this->render('home',array('booked'=>$booked,'voy'=>Voyage::model()->findAll(array('condition'=>'departure_date = CURDATE()')),'bs'=>BookingStatus::model()->findAll()));
+                        $this->render('home',array('booked'=>$booked,'model'=>$model,'voy'=>Voyage::model()->findAll(array('condition'=>'departure_date = CURDATE()')),'bs'=>BookingStatus::model()->findAll()));
 			$this->layout = 'column3';
 		}
     }

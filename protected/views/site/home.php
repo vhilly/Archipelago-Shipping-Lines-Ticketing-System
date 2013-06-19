@@ -69,4 +69,8 @@
 ?>
 <?php $this->endWidget(); ?>
 <?php endif;?>
+
+<?php
+?>
+
 <div class="clearfix"></div>

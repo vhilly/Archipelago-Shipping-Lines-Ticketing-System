@@ -29,32 +29,16 @@
         </tr>
         <tr class=border_bottom>
           <th>PASSENGERS</th>
-          <th>Series Number Valid</th>
           <th>Paying</th>
           <th>Pass</th>
           <th>Total</th>
         </tr>
+        <?php foreach ($result as $r):?>
         <tr>
-          <th>Premium</th>
-          <th><u>_</u>to<u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
+          <th><?=$r['name']?></th>
+          <th><?=$r['count']?></th>
         </tr>
-        <tr>
-          <th>Economy</th>
-          <th><u>_</u>to<u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
-        </tr>
-        <tr>
-          <th>Transfer</th>
-          <th><u>_</u>to<u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
-          <th><u>_</u></th>
-        </tr>
+        <?php endforeach;?>
         <tr>
           <th colspan=3>Others _____________</th>
           <th colspan=3>Driver/Conductors _____________________</th>

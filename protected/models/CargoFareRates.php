@@ -75,7 +75,7 @@ class CargoFareRates extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Class',
 			'route' => 'Route',
 			'class' => 'Class',
 			'lane_meter_rate' => 'Lane Meter Rate',

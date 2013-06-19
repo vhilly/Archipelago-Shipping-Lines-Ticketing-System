@@ -35,7 +35,7 @@
     var scl = $('#Purchase_class').val();
     $.ajax({
       type: 'POST',
-      url: '<?php echo Yii::app()->baseUrl;?>?r=seat/map&class='+scl+'&id='+this.id,
+      url: '<?php echo Yii::app()->baseUrl;?>?r=seat/map&class='+scl+'&id='+this.id+'&voyage=<?php echo $purchase->voyage?>',
       success: function (data){
         $('#ticketModal .modal-header h2').html('Seat Map');
         $('#ticketModal .modal-body div').html(data);
