@@ -24,6 +24,9 @@
 	.active {
 		background:#3ac;
 	}
+	.sbox.active:hover {
+		background:#3ac;
+	}
 
 
 </style>
@@ -50,7 +53,8 @@
 				$type = "car";
 			}
 			$act = (in_array($cnt,$active)) ? "active" : "";
-			echo "<div class=\"sbox $type $act\" onclick=\"get('$cnt','$ids')\">$cnt</div>";
+			$clk = ($act!="active") ? "onclick=\"get('$cnt','$ids')\"" : "";
+			echo "<div class=\"sbox $type $act\" $clk>$cnt</div>";
 			$cnt++;
 		}
 		echo "</div><div style=clear:both></div>";
