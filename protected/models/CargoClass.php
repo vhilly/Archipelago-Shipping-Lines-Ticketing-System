@@ -44,7 +44,7 @@ class CargoClass extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, description, lane_meter', 'required'),
-			array('lane_meter', 'numerical', 'integerOnly'=>true),
+			array('lane_meter,bundled_passenger', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().

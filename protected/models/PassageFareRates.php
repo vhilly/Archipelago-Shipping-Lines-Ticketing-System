@@ -19,7 +19,7 @@
  */
 class PassageFareRates extends CActiveRecord
 {
-    private $_requiredFields = '';
+        private $_requiredFields = '';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -37,7 +37,7 @@ class PassageFareRates extends CActiveRecord
 	{
 		return 'passage_fare_rates';
 	}
-    public function __construct($requiredFields=''){
+    public function makeRequired($requiredFields=''){
       $this->_requiredFields = $requiredFields;
     }
 

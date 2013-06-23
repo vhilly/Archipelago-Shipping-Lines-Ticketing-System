@@ -22,6 +22,7 @@
  */
 class Passenger extends CActiveRecord
 {
+        private $_requiredFields = '';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -40,6 +41,9 @@ class Passenger extends CActiveRecord
 		return 'passenger';
 	}
 
+    public function makeRequired($requiredFields=''){
+      $this->_requiredFields = $requiredFields;
+    }
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -48,7 +52,7 @@ class Passenger extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('birth_date', 'required'),
+			array($this->_requiredFields.',birth_date', 'required'),
 			array('first_name, last_name, email, contact, middle_name, nationality', 'length', 'max'=>100),
 			array('prefix', 'length', 'max'=>5),
 			array('gender, civil_status', 'length', 'max'=>1),

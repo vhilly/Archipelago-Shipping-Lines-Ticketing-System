@@ -179,7 +179,8 @@
       ));
     }
   public function actionSetup(){
-   $fares = new PassageFareRates('type,class,route,price,active');
+   $fares = new PassageFareRates();
+   $fares->makeRequired('active,class,type,route');
    $fareTypes = new PassageFareTypes;
 
    $faresTable = new PassageFareRates('search');

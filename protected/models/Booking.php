@@ -29,6 +29,9 @@ class Booking extends CActiveRecord
     public $last_name;
     public $first_name;
     public $transNo;
+    public $r_cnt;//reserved
+    public $c_cnt;//checkedin
+    public $b_cnt;//boarded
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -90,6 +93,9 @@ class Booking extends CActiveRecord
 			'seat' => 'Seat',
 			'status' => 'Status',
 			'rate' => 'Rate',
+                        'r_cnt'=>'Reserved',
+                        'b_cnt'=>'Boarded',
+                        'c_cnt'=>'Checked In',
 			'date_booked' => 'Date Booked',
 		);
 	}
@@ -110,7 +116,6 @@ class Booking extends CActiveRecord
           'select'=>false
         ),
       );
-                $criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('transaction',$this->transaction);

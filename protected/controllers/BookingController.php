@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkin'),
+          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','checkInForm','relational'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -189,47 +189,48 @@
        $this->render('transfer',array('model'=>$model,'forTransfer'=>$forTransfer));
     }
 
-    public function actionCheckin()
+    public function actionCheckIn()
     {
-       $model = new Booking;
-       $passenger='';
-       $error = array();
-       if(isset($_POST['Booking'])){
-         $model->attributes = $_POST['Booking'];
-         $forCheckin = $model->findByAttributes(
-           array(),
-           $condition  = 'tkt_no = :tn',
-           $params     = array(
-             ':tn' => $model->tkt_no,
-           )
-         );
-         if(isset($forCheckin->passenger) && $forCheckin->status != 3){
-           $passenger = Passenger::model()->findByPk($forCheckin->passenger);
-           if(!$passenger->first_name)
-             $error[] = 'First Name';
-           if(!$passenger->last_name)
-             $error[] = 'Last Name';
-           if(!$passenger->address)
-             $error[] = 'Address';
-           if(!$passenger->birth_date)
-             $error[] = 'Birth Date';
-           if(!$passenger->contact)
-             $error[] = 'Contact No.';
-           
-           if(count($error))
-            Yii::app()->user->setFlash('error', 'Please complete the following details: <br>'.implode(',',$error));
+      $model=new Booking('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      if(isset($_POST['Booking'])){
+        $model->attributes=$_POST['Booking'];
+      }
+      $this->render('check-in',array(
+        'model'=>$model,
+      ));
+    }
+    public function actionCheckInForm($id=null){
+      $error=array();
+      if($id){
+        $booking = Booking::model()->findByPk($id);
+        $passenger = Passenger::model()->findByPk($booking->passenger);
+        $passenger->makeRequired('first_name,last_name,gender,address');
+        if($passenger->validate()){
+           $booking->status = 3;
+           if(!$booking->save())
+             $error[] =1;
+        }else{
+          $error = $passenger->getErrors();
+        }
+      }
 
-           if(isset($_POST['check']) && !count($error)){
-             $forCheckin->status =3;
-             if($forCheckin->save()){
-               Yii::app()->user->setFlash('success', 'Check-In Successful!');
-             }
-           }
-         }elseif(isset($forCheckin->passenger) && $forCheckin->status == 3){
-               Yii::app()->user->setFlash('info', 'Already Checked In!');
-         }
-       }
-       $this->render('checkin',array('model'=>$model,'passenger'=>$passenger,'error'=>count($error)));
+
+     // else
+     //   $booking = Booking::model()->findAll(array('condition'=>"id IN ({$ids})"));
+
+      if( Yii::app()->request->isAjaxRequest ){
+        $this->renderPartial('_formCheckIn',array(
+          'booking'=>$booking,
+          'error'=>$error,
+        ), false,false);
+      }else{
+        $this->render('_formCheckIn',array(
+          'error'=>$error,
+          'booking'=>$booking,
+        ));
+      }
     }
     public function actionTransferForm($id){
       $model=$this->loadModel($id);
@@ -277,4 +278,5 @@
       $es = new TbEditableSaver('Booking');
       $es->update();
     }
+
   }

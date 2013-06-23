@@ -7,19 +7,18 @@
  * @property integer $id
  * @property string $name
  * @property string $navigation_title
- * @property string $passenger
  * @property string $cargo
  * @property double $discount
  * @property integer $discount_percent
- * @property integer $free_passenger
+ * @property integer $bundled_passenger_rate
  * @property integer $minimum_passenger
  * @property integer $maximum_passenger
- * @property integer $free_cargo
- * @property integer $minimum_cargo
+ * @property string $terminal_fee_amnt
  * @property string $active
  *
  * The followings are the available model relations:
  * @property Transaction[] $transactions
+ * @property PassageFareRates $bundledPassengerRate
  */
 class TransactionType extends CActiveRecord
 {
@@ -49,14 +48,15 @@ class TransactionType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, navigation_title', 'required'),
-			array('discount_percent, bundled_passenger,bundled_passenger_rate, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo', 'numerical', 'integerOnly'=>true),
+			array('name, navigation_title, discount_percent', 'required'),
+			array('discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger', 'numerical', 'integerOnly'=>true),
 			array('discount', 'numerical'),
 			array('name, navigation_title', 'length', 'max'=>100),
-			array('passenger, cargo, active', 'length', 'max'=>1),
+			array('cargo, active', 'length', 'max'=>1),
+			array('terminal_fee_amnt', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, navigation_title, passenger, cargo, discount, discount_percent, bundled_passenger, minimum_passenger, maximum_passenger, free_cargo, minimum_cargo, active', 'safe', 'on'=>'search'),
+			array('id, name, navigation_title, cargo, discount, discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger, terminal_fee_amnt, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +69,7 @@ class TransactionType extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'transactions' => array(self::HAS_MANY, 'Transaction', 'type'),
+			'bundledPassengerRate' => array(self::BELONGS_TO, 'PassageFareRates', 'bundled_passenger_rate'),
 		);
 	}
 
@@ -81,16 +82,13 @@ class TransactionType extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'navigation_title' => 'Navigation Title',
-			'passenger' => 'Passenger',
 			'cargo' => 'Cargo',
 			'discount' => 'Discount',
 			'discount_percent' => 'Discount Percent',
-			'bundled_passenger' => 'Bundled Passenger',
 			'bundled_passenger_rate' => 'Bundled Passenger Rate',
 			'minimum_passenger' => 'Minimum Passenger',
 			'maximum_passenger' => 'Maximum Passenger',
-			'free_cargo' => 'Free Cargo',
-			'minimum_cargo' => 'Minimum Cargo',
+			'terminal_fee_amnt' => 'Terminal Fee Amnt',
 			'active' => 'Active',
 		);
 	}
@@ -109,16 +107,13 @@ class TransactionType extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('navigation_title',$this->navigation_title,true);
-		$criteria->compare('passenger',$this->passenger,true);
 		$criteria->compare('cargo',$this->cargo,true);
 		$criteria->compare('discount',$this->discount);
 		$criteria->compare('discount_percent',$this->discount_percent);
-		$criteria->compare('bundled_passenger',$this->bundled_passenger);
 		$criteria->compare('bundled_passenger_rate',$this->bundled_passenger_rate);
 		$criteria->compare('minimum_passenger',$this->minimum_passenger);
 		$criteria->compare('maximum_passenger',$this->maximum_passenger);
-		$criteria->compare('free_cargo',$this->free_cargo);
-		$criteria->compare('minimum_cargo',$this->minimum_cargo);
+		$criteria->compare('terminal_fee_amnt',$this->terminal_fee_amnt,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(

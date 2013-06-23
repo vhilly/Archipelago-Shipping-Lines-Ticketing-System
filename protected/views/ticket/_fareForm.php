@@ -13,7 +13,7 @@
 
 <div id=fareClass>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'fare-rate-form',
+	'id'=>'fare-rates-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'inline',
       'htmlOptions' => array('class'=>' well')

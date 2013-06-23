@@ -32,10 +32,10 @@ $gridColumns = array(
                    'name'=>'voyage',
                    'sortable'=>true,
                    'value'=>'$data->voyage0->name',
-                   'filter'=>CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name'),
+                   'filter'=>CHtml::listData(Voyage::model()->findAll(),'id','name'),
                  ),
                  array(
-                   'header'=>'Voyage',
+                   'header'=>'Vessel',
                    'sortable'=>true,
                    'value'=>'$data->voyage0->vessel0->name',
                    'filter'=>CHtml::listData(Vessel::model()->findAll(),'id','name'),
@@ -77,7 +77,7 @@ $gridColumns = array(
 );
   $this->widget('bootstrap.widgets.TbGridView', array(
 	'type' => 'striped bordered',
-        'htmlOptions'=>array('class'=>'span12'),
+        'htmlOptions'=>array('class'=>'span5'),
 	'dataProvider' => $model->search(),
 	'template' => "{items},{pager}",
         'filter'=>$model,

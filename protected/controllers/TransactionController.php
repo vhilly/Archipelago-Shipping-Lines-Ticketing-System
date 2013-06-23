@@ -59,11 +59,9 @@
         $sql = "SELECT b.lading_no wb_no,c.shipper,c.company,c.contact,cl.name class,cr.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_fare_rates cr,cargo_class cl WHERE b.transaction = {$trans->id} AND b.cargo=c.id AND cr.id=b.rate  AND cl.id=cr.class";
         $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
       }
-      if($transType->passenger =='Y'){
         $sql = "SELECT b.booking_no ,b.tkt_no, p.first_name,p.last_name,ft.name type,c.name class, r.price FROM booking b,passenger p,passage_fare_rates r,passage_fare_types ft,seating_class c WHERE b.transaction={$trans->id} 
            AND b.passenger=p.id AND b.rate=r.id AND r.class = c.id AND r.type = ft.id";
         $Tickets = Yii::app()->db->createCommand($sql)->queryAll();
-      }
 
       if( Yii::app()->request->isAjaxRequest )
       {

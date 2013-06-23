@@ -29,6 +29,9 @@ class BookingCargo extends CActiveRecord
 	 */
         public $shipper;
         public $company;
+        public $r_cnt;
+        public $b_cnt;
+        public $c_cnt;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -93,6 +96,9 @@ class BookingCargo extends CActiveRecord
 			'date_booked' => 'Date Booked',
 			'shipper' => 'Shipper',
 			'company' => 'Company',
+                        'r_cnt'=>'Reserved',
+                        'c_cnt'=>'Checked In',
+                        'b_cnt'=>'Boarded',
 		);
 	}
 
@@ -102,11 +108,8 @@ class BookingCargo extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
-                $criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
+                //$criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
       $criteria->with=array(
         'cargo0'=>array(
           'together'=>false,
