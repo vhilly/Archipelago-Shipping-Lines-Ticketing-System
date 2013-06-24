@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','checkInForm','relational','tkt','manifest'),
+          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -240,29 +240,41 @@
         'model'=>$model,
       ));
     }
-    public function actionCheckInForm(){
+    public function actionBoard()
+    {
+      $model=new Booking('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      if(isset($_POST['Booking'])){
+        $model->attributes=$_POST['Booking'];
+      }
+      $this->render('board',array(
+        'model'=>$model,
+      ));
+    }
+    public function actionCheckInBoardForm(){
       $id = isset($_POST['id']) ? $_POST['id'] : '';
-      $checkin = isset($_POST['checkin']) ? $_POST['checkin'] : '';
+      $action = isset($_POST['action']) ? $_POST['action'] : '';
       $error=array();
       if($id){
         $booking = Booking::model()->findByPk($id);
         $passenger = Passenger::model()->findByPk($booking->passenger);
         $passenger->makeRequired('first_name,last_name,gender,address');
         if($passenger->validate()){
-           if($checkin)
-             $booking->status = 2;
-           else
+           if($action==1)
              $booking->status = 3;
+           if($action==2)
+             $booking->status = 4;
            if(!$booking->save())
              $error[] =1;
         }else{
-          $error = $passenger->getErrors();
+            $error = array_values($passenger->getErrors());
         }
       }
 
 
       if( Yii::app()->request->isAjaxRequest ){
-        echo json_encode(array('error'=>count($error)));
+        echo json_encode(array('error'=>count($error) ? $error: null));
       }else{
         $this->render('_formCheckIn',array(
           'error'=>$error,

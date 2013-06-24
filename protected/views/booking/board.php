@@ -16,7 +16,9 @@
 <div class='span9'>
 <?php
   foreach($model->search()->getData() as $b){
-    $checkedIn = $b->status ==3 || $b->status ==4;
+    if($b->status<3)
+      continue 1;
+    $boarded =  $b->status ==4;
       $this->widget('bootstrap.widgets.TbEditableDetailView', array(
         'id' => 'passenger-details',
         'data' => Passenger::model()->findByPk($b->passenger),
@@ -34,21 +36,21 @@
       )
     ));
     $this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>$checkedIn ? 'Checked-in' : 'Check-In',
-	'type'=>$checkedIn ? 'info': 'success',
-        'disabled'=>$checkedIn ? true : false,
+	'label'=>$boarded ? 'Boarded' : 'Board',
+	'type'=>$boarded ? 'info': 'success',
+        'disabled'=>$boarded ? true : false,
 	'htmlOptions'=> array(
 		'class'=>'ticket_print_box btn',
-                'onclick'=>$checkedIn ? '': 'var a = this; js:bootbox.confirm("Are you sure?",
+                'onclick'=>$boarded ? '': 'var a = this; js:bootbox.confirm("Are you sure?",
 			function(confirmed){
                           if(confirmed){
-                            $.post("'.Yii::app()->controller->createUrl('booking/checkInBoardForm').'",{"id":'.$b->id.',"action" :1},
+                            $.post("'.Yii::app()->controller->createUrl('booking/checkInBoardForm').'",{"id":'.$b->id.',"action" :2},
                                function(data){
                                   if(data.error){
                                      console.log(data.error);
                                      bootbox.alert("Please fix the following errors:<br>"+data.error); 
                                   } else {
-                                     $(a).attr("disabled","disabled").removeAttr("onclick").addClass("btn-info").removeClass("btn-success").text("Checked-in");
+                                     $(a).attr("disabled","disabled").removeAttr("onclick").addClass("btn-info").removeClass("btn-success").text("Boarded");
                                   }
                                },
                              "json");

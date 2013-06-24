@@ -57,9 +57,12 @@
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Check-In', 'url'=>array('/booking/checkin')),
                     array('label'=>'Booked Passengers', 'url'=>array('/booking/index')),
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                array('icon'=>'group','label'=>'Passenger', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Check-In', 'url'=>array('/booking/checkin')),
+                    array('label'=>'Board', 'url'=>array('/booking/board')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'print','label'=>'Print', 'url'=>'#', 'items'=>array(
 	            array('icon'=>'file','label'=>'Tickets', 'url'=>array('/booking/tkt')),
