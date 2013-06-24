@@ -49,10 +49,12 @@
   <?php $this->renderPartial('_step4',array('hidden'=>$hidden,'purchase'=>$purchase)); ?>
 <?php endif;?>
 
+<?if($purchase->current_step!=4): ?>
 <div class="form-actions">
   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Back','htmlOptions'=>array('name'=>'back','disabled'=>$purchase->current_step == 1 ? 'true':''))); ?>
   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Next','htmlOptions'=>array('name'=>'next'))); ?>
 </div>
+<?php endif;?>
 <?php $this->endWidget();?>
 <?php
   Yii::app()->clientScript->registerScript('show', "

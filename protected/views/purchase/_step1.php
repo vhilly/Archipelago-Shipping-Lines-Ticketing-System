@@ -10,7 +10,7 @@
 <?php $this->endWidget();?>
 <div>
   <fieldset>
-    <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name')); ?>
+    <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY AND status =1')),'id','name')); ?>
 
     <div style="<?= $transaction_type->cargo =='Y' ?  'display:none':'' ?> ">
       <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>

@@ -41,6 +41,12 @@
       </tr>
       <tr class="<?=$alter?>">
         <td>
+          <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
+        </td>
+        <td>
+          <?php echo $form->textFieldRow($passenger, "[$key]contact", array('class'=>'span2')); ?>
+        </td>
+        <td>
           <?php echo $form->labelEx($passenger, 'nationality', array('M'=>'M','F'=>'F')); ?>
           <?php
             $this->widget('bootstrap.widgets.TbTypeahead', array(
@@ -61,7 +67,7 @@
          <td>
            <?php echo $form->dropDownListRow($fares[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type0.name'),array('class'=>'reduce fare','empty'=>'')); ?>
          </td>
-         <td style=''>
+         <td style='display:none'>
            <?php echo $form->dropDownListRow($fares[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>
          </td>
          <td>

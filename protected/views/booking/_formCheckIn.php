@@ -1,7 +1,7 @@
 
 <div id=message>
 <?
-  $message = array( '0'=>array('type'=>'succes','label'=>'Check-In Successful!'), 
+  $message = array( '0'=>array('type'=>'success','label'=>'Check-In Successful!'), 
                     '1'=>array('type'=>'important','label'=>'INCOMPLETE PASSENGER DETAILS!!')  
                   );
   $message = count($error) ?  $message[1] :  $message[0];

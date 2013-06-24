@@ -48,7 +48,7 @@ class Voyage extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, vessel, route, departure_time, arrival_time, departure_date', 'required'),
-			array('vessel, route', 'numerical', 'integerOnly'=>true),
+			array('vessel,status, route', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -68,6 +68,7 @@ class Voyage extends CActiveRecord
 			'cargos' => array(self::HAS_MANY, 'Cargo', 'voyage'),
 			'vessel0' => array(self::BELONGS_TO, 'Vessel', 'vessel'),
 			'route0' => array(self::BELONGS_TO, 'Route', 'route'),
+			'status0' => array(self::BELONGS_TO, 'VoyageStatus', 'status'),
 		);
 	}
 

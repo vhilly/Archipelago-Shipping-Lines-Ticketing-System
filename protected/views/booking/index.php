@@ -39,8 +39,9 @@
       'sortable'=>true,
       'value' => '$data->voyage0->name',
     ),
-    array('header' => 'Vessel',
-      'value' => '$data->voyage0->vessel0->name',
+    array('name' => 'type',
+      'sortable'=>true,
+      'value' => '$data->type0->name',
     ),
     array(
  //     'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -58,10 +59,9 @@
       ),
 */
     ),
-    array(
-      'name'=>'transNo',
-      'sortable'=>true,
-      'value'=>'str_pad($data->transaction,11,"0",STR_PAD_LEFT)'),
+    array('header' => 'Vessel',
+      'value' => '$data->voyage0->vessel0->name',
+    ),
     array(
       'header'=>'Ticket Details',
       'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','checkInForm','relational'),
+          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','checkInForm','relational','tkt','manifest'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -57,34 +57,73 @@
     }
     public function actionBpass()
     {
-      $model=new Report;
-      if(isset($_POST['Report'])){
-        $model->attributes=$_POST['Report'];
-
-        if($model->validate()){
-          $boardingPassView = array();
-          $sql = "SELECT b.booking_no,b.tkt_no tktNo,CONCAT(p.first_name, ' ',p.last_name) as name,c.name class,
-	v.name voy,v.departure_date FROM booking b,passenger p,passage_fare_rates r,seating_class c,
-	voyage v
-        WHERE b.passenger=p.id AND b.rate=r.id  AND r.class=c.id AND b.voyage=v.id  AND b.status=3 ";
-          if($model->voyage) 
-            $sql .=" AND v.id='{$model->voyage}'";
-          if($model->departure_date) 
-            $sql .=" AND v.departure_date='{$model->departure_date}'";
-          if($model->tktNo) 
-            $sql .=" AND b.tkt_no='{$model->tktNo}'";
-         // $sql .=" ORDER BY tktno";
-          $boardingPassView = Yii::app()->db->createCommand($sql)->queryAll();
-          $this->render('bpass',array('boardingPassView'=>$boardingPassView,'model'=>$model,'is_empty'=>0));
-        }
-        else{
-          $this->render('bpass',array('is_empty'=>1,'model'=>$model));
-        }
+      $model=new Booking('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      $model->status=3;
+      if(isset($_GET['Booking'])){
+        $model->attributes=$_GET['Booking'];
       }
-      else{
-        $this->render('bpass',array('is_empty'=>1,'model'=>$model));
+      if(isset($_GET['Booking']) && $_GET['print']){
+	$mPDF1 = Yii::app()->ePdf->mpdf();
+	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
+        $mPDF1->WriteHTML($this->renderPartial('bpass',array(
+          'model'=>$model,
+          'print'=>1,
+        ),true,true));
+	$mPDF1->Output();
+      }else{
+        $this->render('bpass',array(
+          'model'=>$model,
+        ));
       }
-
+    }
+   
+    public function actionTkt()
+    {
+      $model=new Booking('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      if(isset($_GET['Booking'])){
+        $model->attributes=$_GET['Booking'];
+      }
+      if(isset($_GET['Booking']) && $_GET['print']){
+	$mPDF1 = Yii::app()->ePdf->mpdf();
+	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
+        $mPDF1->WriteHTML($this->renderPartial('tkt',array(
+          'model'=>$model,
+          'print'=>1,
+        ),true,true));
+	$mPDF1->Output();
+      }else{
+        $this->render('tkt',array(
+          'model'=>$model,
+        ));
+      }
+    }
+   
+    public function actionManifest()
+    {
+      $model=new Booking('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      $model->status=4;
+      if(isset($_GET['Booking'])){
+        $model->attributes=$_GET['Booking'];
+      }
+      if(isset($_GET['Booking']) && $_GET['print']){
+	$mPDF1 = Yii::app()->ePdf->mpdf();
+	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
+        $mPDF1->WriteHTML($this->renderPartial('mfst',array(
+          'model'=>$model,
+          'print'=>1,
+        ),true,true));
+	$mPDF1->Output();
+      }else{
+        $this->render('mfst',array(
+          'model'=>$model,
+        ));
+      }
     }
     /**
      * Creates a new model.
@@ -201,14 +240,19 @@
         'model'=>$model,
       ));
     }
-    public function actionCheckInForm($id=null){
+    public function actionCheckInForm(){
+      $id = isset($_POST['id']) ? $_POST['id'] : '';
+      $checkin = isset($_POST['checkin']) ? $_POST['checkin'] : '';
       $error=array();
       if($id){
         $booking = Booking::model()->findByPk($id);
         $passenger = Passenger::model()->findByPk($booking->passenger);
         $passenger->makeRequired('first_name,last_name,gender,address');
         if($passenger->validate()){
-           $booking->status = 3;
+           if($checkin)
+             $booking->status = 2;
+           else
+             $booking->status = 3;
            if(!$booking->save())
              $error[] =1;
         }else{
@@ -217,14 +261,8 @@
       }
 
 
-     // else
-     //   $booking = Booking::model()->findAll(array('condition'=>"id IN ({$ids})"));
-
       if( Yii::app()->request->isAjaxRequest ){
-        $this->renderPartial('_formCheckIn',array(
-          'booking'=>$booking,
-          'error'=>$error,
-        ), false,false);
+        echo json_encode(array('error'=>count($error)));
       }else{
         $this->render('_formCheckIn',array(
           'error'=>$error,

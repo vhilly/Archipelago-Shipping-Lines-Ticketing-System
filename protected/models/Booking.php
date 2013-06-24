@@ -75,6 +75,7 @@ class Booking extends CActiveRecord
 			'transaction0' => array(self::BELONGS_TO, 'Transaction', 'transaction'),
 			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
 			'rate0' => array(self::BELONGS_TO, 'PassageFareRates', 'rate'),
+			'type0' => array(self::BELONGS_TO, 'BookingType', 'type'),
 		);
 	}
 
@@ -97,6 +98,7 @@ class Booking extends CActiveRecord
                         'b_cnt'=>'Boarded',
                         'c_cnt'=>'Checked In',
 			'date_booked' => 'Date Booked',
+			'type' => 'Booking Type',
 		);
 	}
 

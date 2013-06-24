@@ -52,19 +52,18 @@
     public function actionInspection(){
       $model=new Report;
       $voyage=new Voyage;
-      $result ='';
-      $result2 ='';
+      $pass ='';
+      $cargo ='';
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
         $voyage = Voyage::model()->findByPk($model->voyage);
         //$result = Booking::model()->findAllByAttributes(array('voyage'=>$voyage->id));
         $sql = "SELECT count(b.id) count, c.name FROM booking b,passage_fare_rates r,seating_class c where b.voyage = $voyage->id  AND r.class = c.id AND  b.rate = r.id GROUP BY r.class " ;
-        $result = Yii::app()->db->createCommand($sql)->queryAll();
-        $sql2 = "SELECT count(b.id) count, c.name FROM booking b,passage_fare_rates r,seating_class c where b.voyage = $voyage->id  AND r.class = c.id AND  b.rate = r.id GROUP BY r.class " ;
-        $result2 = Yii::app()->db->createCommand($sql)->queryAll();
+        $pass = Yii::app()->db->createCommand($sql)->queryAll();
+        $cargo = BookingCargo::model()->findAll(array('condition'=>"voyage={$voyage->id}"));
        
 
       }
-      $this->render('inspection',array('model'=>$model,'result'=>$result,'voyage'=>$voyage));
+      $this->render('inspection',array('model'=>$model,'pass'=>$pass,'voyage'=>$voyage,'cargo'=>$cargo));
     }
   }

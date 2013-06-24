@@ -1,17 +1,26 @@
 <?php
-$this->breadcrumbs=array(
-	'Voyages',
-);
 
-$this->menu=array(
-	array('label'=>'Create Voyage','url'=>array('create')),
-	array('label'=>'Manage Voyage','url'=>array('admin')),
-);
+
+    $this->widget('bootstrap.widgets.TbGridView', array(
+    'type' => 'striped bordered',
+    'dataProvider' => $dataProvider,
+    'template' => "{items}",
+    'columns' => array(
+      'name',
+      array('name'=>'route','value'=>'$data->route0->name'),
+      array(
+        'class' => 'bootstrap.widgets.TbEditableColumn',
+      'header' =>'Reservation',
+      'name' => 'status',
+      'sortable'=>false,
+      'editable' => array(
+        'type'=>'select',
+        'attribute'=>'dropdown',
+        'url' => $this->createUrl('voyage/editableSaver'),
+        'source'    => CHtml::listData(VoyageStatus::model()->findAll(),'id','name'),
+        'placement' => 'right',
+        'inputclass' => 'span3'
+      )
+    )),
+    ));
 ?>
-
-<h1>Voyages</h1>
-
-<?php $this->widget('bootstrap.widgets.TbListView',array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>

@@ -34,12 +34,12 @@ $gridColumns = array(
                    'value'=>'$data->voyage0->name',
                    'filter'=>CHtml::listData(Voyage::model()->findAll(),'id','name'),
                  ),
-                 array(
-                   'header'=>'Vessel',
-                   'sortable'=>true,
-                   'value'=>'$data->voyage0->vessel0->name',
-                   'filter'=>CHtml::listData(Vessel::model()->findAll(),'id','name'),
-                 ),
+		array(
+	          'name' => 'type',
+                  'sortable'=>true,
+                  'filter'=>CHtml::listData(BookingType::model()->findAll(),'id','name'),
+                  'value'=>'$data->type0->name',
+		),
 		array(
 			'class' => 'bootstrap.widgets.TbEditableColumn',
 			'name' => 'status',
@@ -55,6 +55,12 @@ $gridColumns = array(
 
 			),
 		),
+                 array(
+                   'header'=>'Vessel',
+                   'sortable'=>true,
+                   'value'=>'$data->voyage0->vessel0->name',
+                   'filter'=>CHtml::listData(Vessel::model()->findAll(),'id','name'),
+                 ),
                  array(
                    'header'=>'Cargo Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -12,10 +12,31 @@
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>
-<?php $this->endWidget()?>
 <div class='span10'>
 <?php
   foreach($model->search()->getData() as $b){
+    $checkedIn = $b->status==3;
+    $this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>$checkedIn ? 'Checked-in' : 'Check-In',
+	'type'=>$checkedIn ? 'info': 'success',
+	'htmlOptions'=> $checkedIn ? '': array(
+		'style'=>'margin-left:3px;margin-bottom:5px;',
+                'onclick'=>'var a = this; js:bootbox.confirm("Are you sure?",
+			function(confirmed){
+                          if(confirmed){
+                            $.post("'.Yii::app()->controller->createUrl('booking/checkInForm').'",{"id":'.$b->id.'},
+                               function(data){
+                                  if(data.error){
+                                     bootbox.alert("<b>test</b>"); 
+                                  } else {
+                                     $(a).removeAttr("onclick").addClass("btn-info").removeClass("btn-success").text("Checked-in");
+                                  }
+                               },
+                             "json");
+                          }
+                        })'
+	),
+   ));
       $this->widget('bootstrap.widgets.TbEditableDetailView', array(
         'id' => 'passenger-details',
         'data' => Passenger::model()->findByPk($b->passenger),
@@ -32,34 +53,8 @@
           'email',
       )
     ));
-    if($b->status < 3){
-    $this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Check-In',
-	'type'=>'success',
-	'htmlOptions'=>array(
-		'style'=>'margin-left:3px;margin-bottom:5px;',
-                'onclick'=>'js:bootbox.confirm("Are you sure?",
-			function(confirmed){
-                          var posting = $.post("'.Yii::app()->controller->createUrl('booking/checkInForm', array('id'=>$b->id)).'");
-                          posting.done(function( data ) {
-                            var content = $( data ).find("#message");
-                            bootbox.alert(data);
-                          });
-                        })'
-	),
-   ));
-   }else{
-    $this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Check-In',
-	'type'=>'inverse',
-	'htmlOptions'=>array(
-		'style'=>'margin-left:3px;margin-bottom:5px;',
-                'disable'=>true,
-        ))
-     );
-
-   }
   }
 ?>
 </div>
 
+<?php $this->endWidget()?>

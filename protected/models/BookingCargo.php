@@ -54,10 +54,10 @@ class BookingCargo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('transaction, lading_no, booking_no, voyage, rate, cargo, status', 'required'),
-			array('transaction, voyage, rate, cargo, status, stowage', 'numerical', 'integerOnly'=>true),
+			array('transaction, voyage,type, rate, cargo, status, stowage', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id,stowage,transaction,shipper,company voyage,booking_no,lading_no, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
+			array('id,stowage,transaction,shipper,type,company voyage,booking_no,lading_no, rate, cargo, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +74,7 @@ class BookingCargo extends CActiveRecord
 			'cargo0' => array(self::BELONGS_TO, 'Cargo', 'cargo'),
 			'status0' => array(self::BELONGS_TO, 'BookingStatus', 'status'),
 			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
+			'type0' => array(self::BELONGS_TO, 'BookingType', 'type'),
 			'stowageCargoMaps' => array(self::HAS_MANY, 'StowageCargoMap', 'cargo'),
 		);
 	}
@@ -99,6 +100,7 @@ class BookingCargo extends CActiveRecord
                         'r_cnt'=>'Reserved',
                         'c_cnt'=>'Checked In',
                         'b_cnt'=>'Boarded',
+                        'type'=>'Booking Type',
 		);
 	}
 
@@ -128,6 +130,7 @@ class BookingCargo extends CActiveRecord
 		$criteria->compare('date_booked',$this->date_booked,true);
 		$criteria->compare('cargo0.shipper',$this->shipper,true);
 		$criteria->compare('cargo0.company',$this->company,true);
+		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

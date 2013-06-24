@@ -8,14 +8,17 @@
    }
   </style>
   </style>
-  <?php if($result):?>
-    <center>
-      <h4>PHILHARBOR FERRIES & REPORT SERVICES INC.</h4>
+  <?php if($pass):?>
+  <center>
+    <h2>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h2>
 
-      <h6>7/F Mapfre Asian Corporate Center Acacia Ave.,<br>
-        Madrigal Business Park, Ayala Alabang, Muntinlupa City<br>
-        Maharlika.........
-      </h6>
+    <h6>7/F Mapfre Asian Corporate Center Acacia Ave.,<br>
+      Madrigal Business Park, Ayala Alabang, Muntinlupa City<br>
+      Tel No.:(02) 775-0441 Fax No.:807-5670
+    </h6>
+    <h3 > <?=$voyage->vessel0->name?> </h3>
+  </center>
+</pre>
       <table>
         <tr>
           <th></th>
@@ -33,7 +36,7 @@
           <th>Pass</th>
           <th>Total</th>
         </tr>
-        <?php foreach ($result as $r):?>
+        <?php foreach ($pass as $r):?>
         <tr>
           <th><?=$r['name']?></th>
           <th><?=$r['count']?></th>
@@ -58,24 +61,17 @@
           <td>Freight</td>
           <td>Credit<br>(Y/N)</td>
         </tr>
+        <?php foreach($cargo as $c): ?>
         <tr class=border>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><?=$c->lading_no?></td>
+          <td><?=$c->cargo0->shipper?></td>
+          <td><?=$c->cargo0->article_desc?></td>
+          <td><?=$c->cargo0->cargoClass->name?></td>
+          <td><?=$c->cargo0->plate_num?></td>
+          <td><?=$c->rate0->proposed_tariff?></td>
           <td></td>
         </tr>
-        <tr class=border>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+       <?php endforeach;?>
         <tr>
           <th colspan=7>Stub Collectors On Duty: _______________</th>
         </tr>
