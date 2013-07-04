@@ -43,8 +43,8 @@
          <th colspan=2>Official Receipt No.:</th>
        </tr>
        <tr>
-         <th colspan=2>Name: <?=$b->first_name?></th>
-         <th colspan=2>Name: <?=$b->first_name?></th>
+         <th colspan=2>Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
+         <th colspan=2>Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
        </tr>
        <tr>
          <th colspan=2>Booking Reference: <?=$b->booking_no?></th>

@@ -49,7 +49,8 @@
 		'...',
                 array('icon'=>'home','label'=>'Home', 'url'=>array('/site/index')),
 		'...',
-                array('label'=>'Voyage', 'url'=>array('/voyage/index')),
+                array('label'=>'Voyage', 'url'=>array('/voyage/index'
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
