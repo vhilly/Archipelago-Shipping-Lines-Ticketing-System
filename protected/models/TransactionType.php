@@ -53,10 +53,9 @@ class TransactionType extends CActiveRecord
 			array('discount', 'numerical'),
 			array('name, navigation_title', 'length', 'max'=>100),
 			array('cargo, active', 'length', 'max'=>1),
-			array('terminal_fee_amnt', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, navigation_title, cargo, discount, discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger, terminal_fee_amnt, active', 'safe', 'on'=>'search'),
+			array('id, name, navigation_title, cargo, discount, discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,7 +87,6 @@ class TransactionType extends CActiveRecord
 			'bundled_passenger_rate' => 'Bundled Passenger Rate',
 			'minimum_passenger' => 'Minimum Passenger',
 			'maximum_passenger' => 'Maximum Passenger',
-			'terminal_fee_amnt' => 'Terminal Fee Amnt',
 			'active' => 'Active',
 		);
 	}
@@ -113,7 +111,6 @@ class TransactionType extends CActiveRecord
 		$criteria->compare('bundled_passenger_rate',$this->bundled_passenger_rate);
 		$criteria->compare('minimum_passenger',$this->minimum_passenger);
 		$criteria->compare('maximum_passenger',$this->maximum_passenger);
-		$criteria->compare('terminal_fee_amnt',$this->terminal_fee_amnt,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(

@@ -102,7 +102,7 @@
   $('.stmodal').bind('click', function (event){
     $.ajax({
       type: 'POST',
-      url: '<?php echo Yii::app()->baseUrl;?>?r=bookingCargo/map&class=stmodal',
+      url: '<?php echo Yii::app()->baseUrl;?>?r=bookingCargo/map&class=stmodal&voyage='+$('#Purchase_voyage').val(),
       success: function (data){
         $('#ticketModal .modal-header h2').html('Stowage');
         $('#ticketModal .modal-body div').html(data);

@@ -292,7 +292,7 @@
             $this->redirect(array('booking/transfer','booking_no'=>$model->booking_no));
           }
       }
-          
+      
       if( Yii::app()->request->isAjaxRequest )
        $this->renderPartial('_transferForm',array('model'=>$model),false,false);
       else

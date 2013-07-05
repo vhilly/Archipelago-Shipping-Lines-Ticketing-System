@@ -84,7 +84,7 @@ class Cargo extends CActiveRecord
 			'company' => 'Company',
 			'destination' => 'Destination',
 			'address' => 'Address',
-			'cargo_class' => 'Cargo Class',
+			'cargo_class' => 'Classification',
 			'article_no' => 'Article No',
 			'article_desc' => 'Article Desc',
 			'weight' => 'Weight',

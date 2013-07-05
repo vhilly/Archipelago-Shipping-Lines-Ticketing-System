@@ -49,19 +49,21 @@
 		'...',
                 array('icon'=>'home','label'=>'Home', 'url'=>array('/site/index')),
 		'...',
-                array('label'=>'Voyage', 'url'=>array('/voyage/index'
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-		'...',
                 #array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 #array('label'=>'Contact', 'url'=>array('/site/contact')),
                 array('icon'=>'credit-card','label'=>'Transaction', 'url'=>'#', 'items'=>$transLink,
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('icon'=>'book','label'=>'Booking', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Booked Passengers', 'url'=>array('/booking/index')),
+                array('label'=>'Voyage', 'url'=>array('/voyage/index'
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
+                array('icon'=>'book','label'=>'Cargo', 'url'=>'#', 'items'=>array(
                     array('label'=>'Booked Cargos', 'url'=>array('/bookingCargo/index')),
+                    array('label'=>'Check-In', 'url'=>array('/bookingCargo/checkin')),
+                    array('label'=>'Board', 'url'=>array('/bookingCargo/board')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 array('icon'=>'group','label'=>'Passenger', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Booked Passengers', 'url'=>array('/booking/index')),
                     array('label'=>'Check-In', 'url'=>array('/booking/checkin')),
                     array('label'=>'Board', 'url'=>array('/booking/board')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),

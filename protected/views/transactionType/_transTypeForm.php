@@ -19,16 +19,12 @@
         <?php echo $form->errorSummary($transType); ?>
 	<?php echo $form->textFieldRow($transType,'name',array('class'=>'Transac_name','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($transType,'navigation_title',array('class'=>'Transac_name','maxlength'=>100)); ?>
-	<?php echo $form->radioButtonListRow($transType,'passenger',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 	<?php echo $form->radioButtonListRow($transType,'cargo',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 	<?php echo $form->textFieldRow($transType,'discount',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($transType,'discount_percent',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->textFieldRow($transType,'bundled_passenger',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->radioButtonListRow($transType,'bundled_passenger_rate',$br,array('class'=>'span2','maxlength'=>4)); ?>
 	<?php echo $form->textFieldRow($transType,'minimum_passenger',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($transType,'maximum_passenger',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->hiddenField($transType,'free_cargo',array('class'=>'span3','maxlength'=>100)); ?>
-	<?php echo $form->hiddenField($transType,'minimum_cargo',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->radioButtonListRow($transType,'active',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -62,19 +58,6 @@ $gridColumns = array(
            'attribute' => 'dropDown',
            'placement' => 'right',
            'inputclass' => 'span2'
-        ),
-       ),
-       array(
-         'class' => 'bootstrap.widgets.TbEditableColumn',
-         'name' =>'passenger',
-         'filter' =>$yesNo,
-         'editable' => array(
-           'type'      => 'select',
-           'url' => $this->createUrl('transactionType/editableSaver'),
-           'attribute' => 'dropDown',
-           'placement' => 'right',
-           'inputclass' => 'span2',
-           'source' =>$yesNo,
         ),
        ),
        array(
@@ -113,16 +96,6 @@ $gridColumns = array(
        array(
          'class' => 'bootstrap.widgets.TbEditableColumn',
          'name' =>'maximum_passenger',
-         'editable' => array(
-           'type'      => 'text',
-           'url' => $this->createUrl('transactionType/editableSaver'),
-           'placement' => 'right',
-           'inputclass' => 'span2',
-        ),
-       ),
-       array(
-         'class' => 'bootstrap.widgets.TbEditableColumn',
-         'name' =>'bundled_passenger',
          'editable' => array(
            'type'      => 'text',
            'url' => $this->createUrl('transactionType/editableSaver'),
