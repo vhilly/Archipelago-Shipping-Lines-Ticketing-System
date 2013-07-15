@@ -51,7 +51,7 @@ class CargoFareRates extends CActiveRecord
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, route, class, lane_meter_rate, proposed_tariff, as_of, active', 'safe', 'on'=>'search'),
+			array('id, route, class, lane_meter_rate, proposed_tariff, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,7 +80,6 @@ class CargoFareRates extends CActiveRecord
 			'class' => 'Class',
 			'lane_meter_rate' => 'Lane Meter Rate',
 			'proposed_tariff' => 'Proposed Tariff',
-			'as_of' => 'As Of',
 			'active' => 'Active',
 		);
 	}
@@ -101,7 +100,6 @@ class CargoFareRates extends CActiveRecord
 		$criteria->compare('class',$this->class);
 		$criteria->compare('lane_meter_rate',$this->lane_meter_rate);
 		$criteria->compare('proposed_tariff',$this->proposed_tariff,true);
-		$criteria->compare('as_of',$this->as_of,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(

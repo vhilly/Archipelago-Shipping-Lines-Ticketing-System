@@ -76,6 +76,7 @@ class BookingCargo extends CActiveRecord
 			'voyage0' => array(self::BELONGS_TO, 'Voyage', 'voyage'),
 			'type0' => array(self::BELONGS_TO, 'BookingType', 'type'),
 			'stowageCargoMaps' => array(self::HAS_MANY, 'StowageCargoMap', 'cargo'),
+			'stowage0' => array(self::BELONGS_TO, 'Stowage', 'stowage'),
 		);
 	}
 

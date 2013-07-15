@@ -4,52 +4,75 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Voyage','url'=>array('index')),
-	array('label'=>'Create Voyage','url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+$('.search-form').toggle();
+return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('voyage-grid', {
-		data: $(this).serialize()
-	});
-	return false;
+$.fn.yiiGridView.update('voyage-grid', {
+data: $(this).serialize()
+});
+return false;
 });
 ");
 ?>
 
 <h1>Manage Voyages</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
+	<?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'voyage-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'name',
-		'vessel',
-		'route',
-		'departure_time',
-		'arrival_time',
+'id'=>'voyage-grid',
+'dataProvider'=>$model->search(),
+'afterAjaxUpdate'=>"function() {
+  jQuery('#Voy_departure_date').datepicker({'format':'yyyy-mm-dd','language':'en','weekStart':0});
+}",
+'filter'=>$model,
+'columns'=>array(
 		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
+                  'name'=>'vessel',
+                  'filter'=>CHtml::listData(Vessel::model()->findAll(),'id','name'),
+                   'value'=>'$data->vessel0->name',
+                ),
+		array(
+                  'name'=>'route',
+                  'filter'=>CHtml::listData(Route::model()->findAll(),'id','name'),
+                   'value'=>'$data->route0->from." - ".$data->route0->to',
+                ),
+                array(
+			'name' => 'departure_date',
+                        'filter'=>$this->widget('bootstrap.widgets.TbDatePicker', array(
+                          'model'=>$model,
+                          'options'=>array('format'=>'yyyy-mm-dd'),
+                          'htmlOptions' => array(
+                            'id' => 'Voy_departure_date'
+                          ),
+                         'attribute'=>'departure_date'), 
+                        true),
+			'sortable'=>true,
+                ),
+		/*
+		'departure_date',
+		'status',
+		*/
+array(
+'class'=>'bootstrap.widgets.TbButtonColumn',
+'template'=>'{update} {rates}',
+'buttons'=>array(            
+            'rates' => array(
+              'label'=>'Rates',
+              'url'=>'Yii::app()->createUrl("passageFareRates/rates",array("rid"=>"$data->route"))',
+            ),
+          ),
+),
+),
 )); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'plus','url'=>Yii::app()->createUrl('voyage/create'),'label'=>'Add Voyage'));

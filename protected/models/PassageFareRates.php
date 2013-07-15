@@ -55,7 +55,7 @@ class PassageFareRates extends CActiveRecord
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, route, class, price, as_of, active', 'safe', 'on'=>'search'),
+			array('id, type, route, class, price, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,7 +85,6 @@ class PassageFareRates extends CActiveRecord
 			'route' => 'Route',
 			'class' => 'Class',
 			'price' => 'Price',
-			'as_of' => 'As Of',
 			'active' => 'Active',
 		);
 	}
@@ -106,7 +105,6 @@ class PassageFareRates extends CActiveRecord
 		$criteria->compare('route',$this->route);
 		$criteria->compare('class',$this->class);
 		$criteria->compare('price',$this->price,true);
-		$criteria->compare('as_of',$this->as_of,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(

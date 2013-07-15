@@ -8,7 +8,7 @@
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'shipper',array('class'=>'input-medium span2','id'=>'shipper'));
 	echo $form->textFieldRow($model, 'company',array('class'=>'input-medium span2','id'=>'company'));
-	echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'));
+        echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status < 3')),'id','name')); //hide all closed voyages
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>

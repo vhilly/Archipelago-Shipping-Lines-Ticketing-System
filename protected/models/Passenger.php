@@ -22,6 +22,11 @@
  */
 class Passenger extends CActiveRecord
 {
+  const CS_SINGLE = 1;
+  const CS_MARRIED = 2;
+  const CS_WIDOWED = 3;
+  const CS_SEPARATED = 4;
+  const CS_DIVORCED = 5;
         private $_requiredFields = '';
 	/**
 	 * Returns the static model of the specified AR class.
@@ -52,7 +57,7 @@ class Passenger extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array($this->_requiredFields.',birth_date', 'required'),
+			array($this->_requiredFields.'first_name,last_name,middle_name,nationality,address,gender,civil_status,birth_date', 'required'),
 			array('first_name, last_name, email, middle_name, nationality', 'length', 'max'=>100),
 			array('prefix', 'length', 'max'=>5),
 			array('contact', 'numerical', 'integerOnly'=>true),
@@ -126,4 +131,15 @@ class Passenger extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+  public function getCSOptions(){
+    return array(
+                  self::CS_SINGLE => 'Single',
+                  self::CS_MARRIED => 'Married',
+                  self::CS_WIDOWED => 'Widowed',
+                  self::CS_SEPARATED => 'Separated',
+                  self::CS_DIVORCED => 'Divorced',
+                );
+  }
+
+   
 }

@@ -69,7 +69,7 @@ $gridColumns = array(
                      'viewtkt' => array(
                        'label'=>'view',
                        'icon'=>'plus',
-                       'url'=>'Yii::app()->controller->createUrl("cargoBooking/view", array("id"=>$data->cargo))',
+                       'url'=>'Yii::app()->controller->createUrl("bookingCargo/view", array("id"=>$data->cargo))',
                        'options'=>array(
                             'ajax'=>array(
                                 'type'=>'POST',
@@ -100,4 +100,4 @@ $gridColumns = array(
 
 ?>
 
-<?php #echo $this->renderPartial('ticketModal'); ?>
+<?php echo $this->renderPartial('ticketModal'); ?>

@@ -4,12 +4,8 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Voyage','url'=>array('index')),
-	array('label'=>'Manage Voyage','url'=>array('admin')),
-);
 ?>
 
-<h1>Create Voyage</h1>
+<h1>Add Voyage</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

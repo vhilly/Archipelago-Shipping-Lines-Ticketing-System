@@ -14,7 +14,7 @@ $this->breadcrumbs=array(
       array('label'=>'PRICE','value'=>$booking->rate0->price),
       array('label'=>'SEAT','value'=>isset($booking->seat) ? $booking->seat0->name :'NO ASSIGNED SEAT'),
       array('label'=>'CLASS','value'=>$booking->rate0->class0->name),
-      array('label'=>'RATE','value'=>$booking->rate0->type),
+      array('label'=>'RATE','value'=>$booking->rate0->type0->name),
       array('label'=>'VOYAGE','value'=>$booking->voyage0->name),
       array('label'=>'VESSEL','value'=>$booking->voyage0->vessel0->name),
       array('label'=>'DEPARTURE DATE','value'=>$booking->voyage0->departure_date),

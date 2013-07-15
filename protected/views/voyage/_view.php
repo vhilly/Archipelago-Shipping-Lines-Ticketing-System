@@ -1,6 +1,6 @@
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
+		<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
 	<br />
 
@@ -24,5 +24,15 @@
 	<?php echo CHtml::encode($data->arrival_time); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('departure_date')); ?>:</b>
+	<?php echo CHtml::encode($data->departure_date); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+	<?php echo CHtml::encode($data->status); ?>
+	<br />
+
+	*/ ?>
 
 </div>

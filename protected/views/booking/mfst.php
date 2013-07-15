@@ -1,4 +1,4 @@
-
+  <?php $cs = Passenger::model()->getCSOptions();?>
 
   <?php if(!isset($print)):?>
   <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -33,12 +33,14 @@
          <th><h5>DESTINATION</h5></th>
        </tr>
    <?php foreach($model->search()->getData() as $key=>$b):?>
+       <?php $birthDate = explode("-", $b->passenger0->birth_date); $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md") ? ((date("Y")-$birthDate[0])-1):(date("Y")-$birthDate[0]));
+?>
        <tr>
          <td><?=$key+1?>.</td>
          <th> <h6><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </h6></th>
          <th> <h6><?=$b->passenger0->gender?></h6></th>
-         <th> <h6><?=$b->passenger0->birth_date?></h6></th>
-         <th> <h6></h6></th>
+         <th> <h6><?=$age?></h6></th>
+         <th> <h6></h6><?=$cs[$b->passenger0->civil_status]?></th>
          <th> <h6><?=$b->passenger0->nationality?></h6></th>
          <th> <h6><?=$b->passenger0->address?> </h6></th>
          <th> <h6><?=$b->voyage0->route0->to?> </h6></th>

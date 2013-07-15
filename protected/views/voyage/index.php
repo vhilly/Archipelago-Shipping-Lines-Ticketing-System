@@ -4,7 +4,7 @@
     $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered',
     'dataProvider' => $dataProvider,
-    'template' => "{items}",
+    'template' => "{items}{pager}",
     'columns' => array(
       'name',
       array('name'=>'route','value'=>'$data->route0->name'),

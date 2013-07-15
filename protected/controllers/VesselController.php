@@ -35,7 +35,7 @@ array('allow', // allow authenticated user to perform 'create' and 'update' acti
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','setup'),
+'actions'=>array('admin','delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -69,8 +69,10 @@ $model=new Vessel;
 if(isset($_POST['Vessel']))
 {
 $model->attributes=$_POST['Vessel'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id));
+if($model->save()){
+  Yii::app()->user->setFlash('success', 'Vessel has been added!');
+  $this->redirect(array('admin'));
+}
 }
 
 $this->render('create',array(
@@ -93,8 +95,10 @@ $model=$this->loadModel($id);
 if(isset($_POST['Vessel']))
 {
 $model->attributes=$_POST['Vessel'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id));
+if($model->save()){
+  Yii::app()->user->setFlash('success', 'Vessel has been updated!');
+  $this->redirect(array('admin'));
+}
 }
 
 $this->render('update',array(
@@ -161,28 +165,6 @@ throw new CHttpException(404,'The requested page does not exist.');
 return $model;
 }
 
-  public function actionSetup(){
-   $vessel = new Vessel;
-   $vesselsTable=new Vessel('search');
-   $vesselsTable->unsetAttributes();  // clear any default values
-   if(isset($_GET['Vessel'])){
-     $vesselsTable->attributes=$_GET['Vessel'];
-   }
-
-   if(isset($_POST['Vessel'])){
-     $vessel->attributes=$_POST['Vessel'];
-     $bs = isset($vessel->attributes['blocked_seats']) ? implode(',',$vessel->attributes['blocked_seats']) : '';
-     $vessel->blocked_seats = $bs;
-     
-     if($vessel->save())
-          $this->redirect(array('setup'));
-   }
-   $this->render('setup',array(
-     'vessel'=>$vessel,
-     'vesselsTable'=>$vesselsTable,
-   ));
-  }
-
 /**
 * Performs the AJAX validation.
 * @param CModel the model to be validated
@@ -195,5 +177,4 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
-
 }

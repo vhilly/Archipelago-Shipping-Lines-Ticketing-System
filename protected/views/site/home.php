@@ -10,15 +10,18 @@ if(count($voyages)){
     echo "<h3>$voyage->name</h3>";
     $model=new CActiveDataProvider('Booking', array(
       'criteria'=>array(
+        'select'=>'SUM(IF(status IN(1,2), 1, 0)) as r_cnt,SUM(IF(status=3, 1, 0)) as c_cnt,SUM(IF(status=4, 1, 0)) as b_cnt, voyage',
         'condition'=>"voyage={$voyage->id}",
+        'group'=>'t.voyage',
       ),
       'pagination'=>array(
         'pageSize'=>20,
       ),
     ));
     $gridColumns = array(
-      'status0.name',
-      'status',
+      'r_cnt',
+      'c_cnt',
+      'b_cnt',
     );
     echo '<h5>Passenger</h5>';
     $this->widget('bootstrap.widgets.TbExtendedGridView', array(
@@ -30,12 +33,20 @@ if(count($voyages)){
         'data' => array(
           'series' => array(
             array(
-              'name' => 'Total',
-              'attribute' => 'status',
+              'name'=>'Reserved',
+              'attribute' => 'r_cnt',
+            ),
+            array(
+              'name'=>'Checked In',
+              'attribute' => 'c_cnt',
+            ),
+            array(
+              'name'=>'Boarded',
+              'attribute' => 'b_cnt',
             ),
         )),
         'config' => array(
-          'title'=>array('text'=>''),
+          'title'=>'test',
           'chart'=>array(
             'type'=>'pie',
              'width'=>600

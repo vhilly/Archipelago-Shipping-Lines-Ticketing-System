@@ -1,28 +1,17 @@
 <?php
-$this->breadcrumbs=array(
-	'Booking Cargos'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-array('label'=>'List BookingCargo','url'=>array('index')),
-array('label'=>'Create BookingCargo','url'=>array('create')),
-array('label'=>'Update BookingCargo','url'=>array('update','id'=>$model->id)),
-array('label'=>'Delete BookingCargo','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage BookingCargo','url'=>array('admin')),
-);
+  $this->widget('bootstrap.widgets.TbEditableDetailView', array(
+    'id' => 'booking-details',
+    'data' => BookingCargo::model()->findByPk($bookingCargo->id),
+    'url' => $this->createUrl('booking/editableSaver'), //common submit url for all editables
+    'attributes'=>array(
+      array('label'=>'PRICE','value'=>$bookingCargo->rate0->proposed_tariff),
+      array('label'=>'STOWAGE','value'=>isset($bookingCargo->stowage) ? $bookingCargo->stowage0->name :'NO ASSIGNED STOWAGE'),
+      array('label'=>'CLASS','value'=>$bookingCargo->cargo0->cargoClass->name),
+      array('label'=>'VOYAGE','value'=>$bookingCargo->voyage0->name),
+      array('label'=>'VESSEL','value'=>$bookingCargo->voyage0->vessel0->name),
+      array('label'=>'DEPARTURE DATE','value'=>$bookingCargo->voyage0->departure_date),
+      array('label'=>'DEPARTURE TIME','value'=>$bookingCargo->voyage0->departure_time),
+      array('label'=>'ARRIVAL TIME','value'=>$bookingCargo->voyage0->arrival_time),
+    )
+  ));
 ?>
-
-<h1>View BookingCargo #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-'data'=>$model,
-'attributes'=>array(
-		'id',
-		'transaction',
-		'cargo',
-		'status',
-		'date_booked',
-		'departure_date',
-),
-)); ?>

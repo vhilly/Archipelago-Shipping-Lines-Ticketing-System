@@ -3,21 +3,25 @@
 	'method'=>'get',
 )); ?>
 
-	<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>100)); ?>
+		<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>100)); ?>
 
-	<?php echo $form->textFieldRow($model,'vessel',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldRow($model,'vessel',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'route',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldRow($model,'route',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'departure_time',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldRow($model,'departure_time',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldRow($model,'arrival_time',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldRow($model,'arrival_time',array('class'=>'span5')); ?>
+
+		<?php echo $form->textFieldRow($model,'departure_date',array('class'=>'span5')); ?>
+
+		<?php echo $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
+			'buttonType' => 'submit',
 			'type'=>'primary',
 			'label'=>'Search',
 		)); ?>

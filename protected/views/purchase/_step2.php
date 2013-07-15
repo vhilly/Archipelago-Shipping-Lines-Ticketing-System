@@ -36,6 +36,9 @@
           <?php echo $form->textFieldRow($passenger, "[$key]prefix", array('class'=>'span1')); ?>
         </td>
         <td>
+          <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('class'=>'span2')); ?>
+        </td>
+        <td>
           <?php echo $form->radioButtonListRow($passenger, "[$key]gender", array('M'=>'M','F'=>'F')); ?>
         </td>
       </tr>
@@ -45,6 +48,9 @@
         </td>
         <td>
           <?php echo $form->textFieldRow($passenger, "[$key]contact", array('class'=>'span2')); ?>
+        </td>
+        <td>
+          <?php echo $form->textFieldRow($passenger, "[$key]email", array('class'=>'span2')); ?>
         </td>
         <td>
           <?php echo $form->labelEx($passenger, 'nationality', array('M'=>'M','F'=>'F')); ?>
@@ -64,13 +70,14 @@
               ),'htmlOptions'=>array('class'=>'span2'),));
            ?>
          </td>
-         <td>
+         <?php $display = $transaction_type->cargo=='Y' ? 'display:none' : '' ?>         
+         <td style=<?=$display?>>
            <?php echo $form->dropDownListRow($fares[$key],"[$key]id",CHtml::listData($purchase->fares,'id','type0.name'),array('class'=>'reduce fare','empty'=>'')); ?>
          </td>
          <td style='display:none'>
            <?php echo $form->dropDownListRow($fares[$key],"[$key]id",CHtml::listData($purchase->fares,'id','price'),array('id'=>'PassageFareRates_'.$key.'_id2price','class'=>'span2 fare-2price','readonly'=>true,'empty'=>'')); ?>
          </td>
-         <td>
+         <td style=<?=$display?>>
               <?php echo $form->textFieldRow($fares[$key],"[$key]price",array('class'=>'span1 price', 'id'=>'PassageFareRates_'.$key.'_id2pricetext','readonly'=>true,'empty'=>'')); ?>
          </td> 
          <td>

@@ -259,7 +259,6 @@
       if($id){
         $booking = Booking::model()->findByPk($id);
         $passenger = Passenger::model()->findByPk($booking->passenger);
-        $passenger->makeRequired('first_name,last_name,gender,address');
         if($passenger->validate()){
            if($action==1)
              $booking->status = 3;

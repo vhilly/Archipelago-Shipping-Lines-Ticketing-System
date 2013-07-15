@@ -150,9 +150,13 @@
       $model->addRequiredField(array('voyage'));
       if(isset($_POST['Booking'])){
         $booking =  Booking::model()->findByPk($_POST['Booking']['id']);
+        $seatNo = $booking->seat0->name;
         $booking->seat =NULL;
         $booking->status =4;
-        $booking->save();
+        if($booking->save())
+          Yii::app()->user->setFlash('success', "Seat No. $seatNo is now available!");
+        else
+          Yii::app()->user->setFlash('error', 'Unable to make seat available! Please contact your administrator.');
         $_POST['Report']['voyage']=$booking->voyage;
       }
       if(isset($_POST['Report'])){

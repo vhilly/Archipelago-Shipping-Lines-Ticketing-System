@@ -29,32 +29,58 @@
   <?php endif;?>
    <div style="clear:both"> </div><br>
    <?php foreach($model->search()->getData() as $b):?>
-      <table class='table'>
-       <tr>
-         <th colspan=2> <h6><?=$b->rate0->class0->name?></h6></th>
-         <th colspan=2> <h6><?=$b->rate0->class0->name?></h6></th>
+   <table>
+     <tr><td width=99%>
+      <table>
+       <tr><th class="sub-brand"></th><th class="brand"></th></tr>
+       <tr>	 
+	 <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
+         <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
        </tr>
        <tr>
-         <th colspan=2> <h6>TICKET NO.: <?=$b->tkt_no?></h6></th>
-         <th colspan=2> <h6>TICKET NO.: <?=$b->tkt_no?></h6></th>
+         <th>Vessel: <?=$b->voyage0->vessel0->name?></th> <th>Voyage No.: <?=$b->voyage0->name?></th>
+         <th>Vessel: <?=$b->voyage0->vessel0->name?></th> <th>Voyage No.: <?=$b->voyage0->name?></th>
        </tr>
        <tr>
-         <th colspan=2> <h6>Vessel Name: <?=$b->voyage0->vessel0->name?></h6></th>
-         <th colspan=2> <h6>Vessel Name: <?=$b->voyage0->vessel0->name?></h6></th>
+	 <th>Date: <?=date('Y-m-d');?></th> <th>Seat No.: <?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></th>
+	 <th>Date: <?=date('Y-m-d');?></th> <th>Seat No.: <?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></th>
+       </tr>	 
+       <tr>
+         <th colspan=2>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
+         <th colspan=2>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
        </tr>
        <tr>
-         <th colspan=2> <h6>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></h6></th>
-         <th colspan=2> <h6>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></h6></th>
+         <th colspan=2>Contact Nos.: <?=$b->passenger0->contact?></th>
+         <th colspan=2>Contact Nos.: <?=$b->passenger0->contact?></th>
        </tr>
        <tr>
-         <th colspan=2> <h6>Port of Origin: <?=$b->voyage0->route0->from?></h6></th>
-         <th colspan=2> <h6>Port of Origin: <?=$b->voyage0->route0->from?></h6></th>
+         <th colspan=2>Amount: <?=$b->rate0->price?></th>
+         <th colspan=2>Amount: <?=$b->rate0->price?></th>
        </tr>
        <tr>
-         <th colspan=2> <h6>Date/Time: <?=$b->voyage0->departure_date?> <?=$b->voyage0->departure_time?></h6></th>
-         <th colspan=2> <h6>Date/Time: <?=$b->voyage0->departure_date?> <?=$b->voyage0->departure_time?></h6></th>
+         <th colspan=2>Total: <?=$b->rate0->price?></th>
+         <th colspan=2>Total: <?=$b->rate0->price?></th>
+       </tr>
+       <tr>
+         <th colspan=2><center><h4>ACCOUNTING</h4></center></th>
+         <th colspan=2><center><h4>PASSENGER </h4></center></th>
        </tr>
       </table>
+    </td>
+    <td>
+     <table class="rotate">
+       <tr>
+        <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
+       </tr>
+       <tr>
+	<th><center><h4>INSPECTOR</h4></center></th>
+       </tr>
+     </table>	 
+    </td>
+    </tr>
+   </table>
+
+
     <?php if(!isset($print)):?>
     <?php
     $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(

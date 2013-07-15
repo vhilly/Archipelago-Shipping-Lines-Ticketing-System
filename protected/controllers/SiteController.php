@@ -49,7 +49,7 @@
     }
     public function actionIndex()
     {
-      $voyages = Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY'));
+      $voyages = Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY OR status < 3'));
 		if(Yii::app()->user->isGuest){
 			$this->layout = 'main';
 			$this->render('index');

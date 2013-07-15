@@ -35,7 +35,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver','wBill'),
+          'actions'=>array('admin','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -48,11 +48,16 @@
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id)
-    {
-      $this->render('view',array(
-        'model'=>$this->loadModel($id),
-      ));
+    public function actionView($id){
+      if( Yii::app()->request->isAjaxRequest ){
+        $this->renderPartial('view',array(
+          'bookingCargo'=>$this->loadModel($id),
+        ), false,false);
+      }else{
+        $this->render('view',array(
+          'bookingCargo'=>$this->loadModel($id),
+        ));
+      }
     }
 
     /**
@@ -101,8 +106,8 @@
         'model'=>$model,
       ));
     }
-    public function actionMap(){
-      $sql = "SELECT s.stowage, c.plate_num FROM booking_cargo s, cargo c WHERE s.cargo=c.id";
+    public function actionMap($voyage=null){
+      $sql = "SELECT s.stowage, c.plate_num FROM booking_cargo s, cargo c WHERE s.cargo=c.id AND s.voyage='{$voyage}'";
       $bookedStowage = Yii::app()->db->createCommand($sql)->queryAll();
 	$active = Array();
 	$plate = Array();
@@ -161,6 +166,55 @@
       $this->render('admin',array(
         'model'=>$model,
       ));
+    }
+    public function actionCheckIn()
+    {
+      $model=new BookingCargo('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      if(isset($_POST['BookingCargo'])){
+        $model->attributes=$_POST['BookingCargo'];
+      }
+      $this->render('check-in',array(
+        'model'=>$model,
+      ));
+    }
+    public function actionBoard()
+    {
+      $model=new BookingCargo('search');
+      $model->unsetAttributes();  // clear any default values
+      $model->voyage=0;
+      if(isset($_POST['BookingCargo'])){
+        $model->attributes=$_POST['BookingCargo'];
+      }
+      $this->render('board',array(
+        'model'=>$model,
+      ));
+    }
+    public function actionCheckInBoardForm(){
+      $id = isset($_POST['id']) ? $_POST['id'] : '';
+      $action = isset($_POST['action']) ? $_POST['action'] : '';
+      $error=array();
+      if($id){
+        $booking = BookingCargo::model()->findByPk($id);
+        $cargo = Cargo::model()->findByPk($booking->cargo);
+        if($action==1)
+          $booking->status = 3;
+        if($action==2)
+          $booking->status = 4;
+        if(!$booking->save())
+          $error[] =1;
+      }
+
+
+      if( Yii::app()->request->isAjaxRequest ){
+        echo json_encode(array('error'=>count($error) ? $error: null));
+      }else{
+        $this->render('_formCheckIn',array(
+          'error'=>$error,
+          'booking'=>$booking,
+        ));
+      }
     }
     
     public function actionWBill()

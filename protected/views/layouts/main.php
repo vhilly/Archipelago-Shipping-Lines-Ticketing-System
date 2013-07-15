@@ -35,7 +35,6 @@
 ?>
 
 
-
 <?php $this->widget('bootstrap.widgets.TbNavbar', array(
     'type'=>'inverse', // null or 'inverse'
     'brand'=>'',
@@ -101,17 +100,17 @@
                     array('icon'=>'cog','label'=>'SETTINGS'),
                     array('label'=>'Seat', 'url'=>array('seat/setup')),
                     '---',
-                    array('label'=>'Vessel', 'url'=>array('vessel/setup')),
+                    array('label'=>'Vessel', 'url'=>array('vessel/admin')),
                     '---',
-                    array('label'=>'Voyage', 'url'=>array('voyage/setup')),
+                    array('label'=>'Voyage', 'url'=>array('voyage/admin')),
                     '---',
                     array('label'=>'TRANSACTION'),
                     array('label'=>'Transaction Type', 'url'=>array('/transactionType/setup')), 
                     '---',
                     array('label'=>'RATES'),
-                    array('label'=>'Ticket', 'url'=>array('ticket/setup')), 
+                    array('label'=>'Ticket', 'url'=>array('passageFareRates/rates')), 
                     '---',
-                    array('label'=>'Cargo', 'url'=>array('cargo/setup')),
+                    array('label'=>'Cargo', 'url'=>array('cargoFareRates/rates')),
                     '---',
                     array('icon'=>'off','label'=>'Logout', 'url'=>array('/site/logout')), 
                 ),'visible'=>!Yii::app()->user->isGuest ),

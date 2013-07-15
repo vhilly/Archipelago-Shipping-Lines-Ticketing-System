@@ -49,7 +49,7 @@ class CargoClass extends CActiveRecord
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, lane_meter, as_of, active', 'safe', 'on'=>'search'),
+			array('id, name, description, lane_meter, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,7 +76,6 @@ class CargoClass extends CActiveRecord
 			'name' => 'Name',
 			'description' => 'Vehicle Length,Meters',
 			'lane_meter' => 'Lane Meter',
-			'as_of' => 'As Of',
 			'active' => 'Active',
 		);
 	}
@@ -96,7 +95,6 @@ class CargoClass extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('lane_meter',$this->lane_meter);
-		$criteria->compare('as_of',$this->as_of,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(
