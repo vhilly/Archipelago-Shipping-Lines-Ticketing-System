@@ -1,10 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-	'Voyages'=>array('index'),
-	'Create',
-);
-
-?>
 
 <h1>Add Voyage</h1>
 

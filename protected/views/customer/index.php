@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Tickets',
+	'Customers',
 );
 
 $this->menu=array(
-array('label'=>'Create Ticket','url'=>array('create')),
-array('label'=>'Manage Ticket','url'=>array('admin')),
+array('label'=>'Create Customer','url'=>array('create')),
+array('label'=>'Manage Customer','url'=>array('admin')),
 );
 ?>
 
-<h1>Tickets</h1>
+<h1>Customers</h1>
 
 <?php $this->widget('bootstrap.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

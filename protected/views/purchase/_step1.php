@@ -19,14 +19,26 @@
     </div>
 
     <div style="<?= $transaction_type->cargo !='Y' ?  'display:none':'' ?> ">
-      <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','name'),array('empty'=>'')); ?>
       <label>Freight Cost</label>
       <input type='text' readonly  id='cargo_cost' name='cargo_cost'/> 
-      <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>
-      <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100)); ?>
-      <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span2','maxlength'=>100)); ?>
-      <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
-      <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255)); ?>
+      <?php if($transaction_type->account_to =='Y') :?>
+        <?php echo $form->dropDownListRow($purchase,'account_to',CHtml::listData(Customer::model()->findAll(),'id','company' ),array('empty'=>''),array('class'=>'span2','maxlength'=>100)); ?>
+        <?php echo $form->hiddenField($cargo,'company',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
+        <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
+        <div style=display:none>
+        <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','name'),array('empty'=>'','readonly'=>true)); ?>
+        </div>
+        <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
+        <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
+        <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255,'readonly'=>true)); ?>
+      <?php else:?>
+        <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span2','maxlength'=>100)); ?>
+        <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>
+        <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','name'),array('empty'=>'')); ?>
+        <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100)); ?>
+        <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
+        <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255)); ?>
+      <?php endif;?>
       <?php echo $form->textFieldRow($cargo,'article_no',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?>

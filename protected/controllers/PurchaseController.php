@@ -21,7 +21,7 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('index','getCargoRate'),
+          'actions'=>array('index','getCargoRate','dynamicShippers','accountToForm'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -73,20 +73,22 @@
                 'params'=>array(':cl'=>$purchase->class,':rt'=> $purchase->route),
             ));
             if($transaction_type->cargo == 'Y'){
-                $c = CargoClass::model()->findByPk($cargo->cargo_class);
+                if(!$stowage->validate())
+                  $error ++;
                 if($cargo->validate()){
+                  $c = CargoClass::model()->findByPk($cargo->cargo_class);
                   $purchase->passenger_total = $c->bundled_passenger;
                   $purchase->passenger_max = $c->bundled_passenger;
+                  $bundledFare  = PassageFareRates::model()->findByAttributes(array('route'=>$purchase->route,'class'=>$purchase->class,'type'=>$transaction_type->bundled_passenger_rate));
+                  $cargoFareSql = CargoFareRates::model()->findByAttributes(array('route'=>$purchase->route,'class'=>$cargo->cargo_class));
+                  $purchase->bundled_rate = $bundledFare;
+                  $purchase->cargo_rate = $cargoFareSql->id;
+                  $purchase->cargo_cost = $_POST['cargo_cost'];
                 }else{
                   $error++;
                 };
-                $purchase->cargo_cost = $_POST['cargo_cost'];
-                $bundledFare  = PassageFareRates::model()->findByAttributes(array('route'=>$purchase->route,'class'=>$purchase->class,'type'=>$transaction_type->bundled_passenger_rate));
-                $cargoFareSql = CargoFareRates::model()->findByAttributes(array('route'=>$purchase->route,'class'=>$cargo->cargo_class));
-                $purchase->bundled_rate = $bundledFare;
-                $purchase->cargo_rate = $cargoFareSql->id;
             }
-            if(!count($passengers) || (count($passengers) != $purchase->passenger_total)){
+            if((!count($passengers) || (count($passengers) != $purchase->passenger_total)) && !$error){
               $pass_details = $this->createPassengerField($purchase->passenger_total,$passengers,$seats,$fares,$purchase->class,$purchase->bundled_rate);
               $passengers = $_SESSION['Trans']['Passenger'] = $pass_details[0];
               $seats = $_SESSION['Trans']['Seat'] = $pass_details[1];
@@ -124,10 +126,11 @@
               $tr->type = $transaction_type->id;
               $tr->payment_method = $purchase->payment_method;
               $tr->payment_status = $purchase->payment_status;
+              $tr->account_to = $purchase->account_to;
               $curDate = date('Y-m-d H:i:s');
               $tr->trans_date = $curDate;
               $tr->input_date = $curDate;
-              $tr->uid =1;
+              $tr->created_by =Yii::app()->user->name;
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
               $purchase->tr_no = $tr->id;
@@ -254,4 +257,10 @@
       } 
       return $error;
     }
+
+   public function actionAccountToForm(){
+     $company =isset($_GET['company']) ? $_GET['company'] :'';
+     $model = Customer::model()->findByPk($company);
+     $this->renderPartial('accountToForm',array('model'=>$model));
+   }
   }

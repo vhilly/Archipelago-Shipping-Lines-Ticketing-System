@@ -69,8 +69,10 @@ $model=new CargoClass;
 if(isset($_POST['CargoClass']))
 {
 $model->attributes=$_POST['CargoClass'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id));
+if($model->save()){
+  Yii::app()->user->setFlash('success', 'Cargo Class has been added!');
+  $this->redirect(array('admin'));
+}
 }
 
 $this->render('create',array(
@@ -93,8 +95,10 @@ $model=$this->loadModel($id);
 if(isset($_POST['CargoClass']))
 {
 $model->attributes=$_POST['CargoClass'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id));
+if($model->save()){
+  Yii::app()->user->setFlash('success', 'Cargo Class has been updated!');
+  $this->redirect(array('admin'));
+}
 }
 
 $this->render('update',array(

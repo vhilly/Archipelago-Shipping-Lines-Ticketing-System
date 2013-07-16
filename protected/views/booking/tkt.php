@@ -38,28 +38,28 @@
          <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
        </tr>
        <tr>
-         <th>Vessel: <?=$b->voyage0->vessel0->name?></th> <th>Voyage No.: <?=$b->voyage0->name?></th>
-         <th>Vessel: <?=$b->voyage0->vessel0->name?></th> <th>Voyage No.: <?=$b->voyage0->name?></th>
+         <th>Vessel: <u><?=$b->voyage0->vessel0->name?></u></th> <th>Voyage No.: <u><?=$b->voyage0->name?></u></th>
+         <th>Vessel: <u><?=$b->voyage0->vessel0->name?></u></th> <th>Voyage No.: <u><?=$b->voyage0->name?></u></th>
        </tr>
        <tr>
-	 <th>Date: <?=date('Y-m-d');?></th> <th>Seat No.: <?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></th>
-	 <th>Date: <?=date('Y-m-d');?></th> <th>Seat No.: <?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></th>
+	 <th>Date: <u><?=date('Y-m-d');?></u></th> <th>Seat No.: <u><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></u></th>
+	 <th>Date: <u><?=date('Y-m-d');?></u></th> <th>Seat No.: <u><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></u></th>
        </tr>	 
        <tr>
-         <th colspan=2>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
-         <th colspan=2>Passenger's Name: <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></th>
+         <th colspan=2>Passenger's Name: <u><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></u></th>
+         <th colspan=2>Passenger's Name: <u><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></u></th>
        </tr>
        <tr>
-         <th colspan=2>Contact Nos.: <?=$b->passenger0->contact?></th>
-         <th colspan=2>Contact Nos.: <?=$b->passenger0->contact?></th>
+         <th colspan=2>Contact Nos.: <u><?=$b->passenger0->contact?></u></th>
+         <th colspan=2>Contact Nos.: <u><?=$b->passenger0->contact?></u></th>
        </tr>
        <tr>
-         <th colspan=2>Amount: <?=$b->rate0->price?></th>
-         <th colspan=2>Amount: <?=$b->rate0->price?></th>
+         <th colspan=2>Amount: <u><?=$b->rate0->price?></u></th>
+         <th colspan=2>Amount: <u><?=$b->rate0->price?></u></th>
        </tr>
        <tr>
-         <th colspan=2>Total: <?=$b->rate0->price?></th>
-         <th colspan=2>Total: <?=$b->rate0->price?></th>
+         <th colspan=2>Total: <u><?=$b->rate0->price?></u></th>
+         <th colspan=2>Total: <u><?=$b->rate0->price?></u></th>
        </tr>
        <tr>
          <th colspan=2><center><h4>ACCOUNTING</h4></center></th>

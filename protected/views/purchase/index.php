@@ -111,11 +111,31 @@
       error: function (xht){
         alert(this.url);
       }
-
     });
   });
 
 
+  $('#Purchase_account_to').change(function(){
+    $('#Cargo_shipper').val('');
+    $('#Cargo_address').val('');
+    $('#Cargo_company').val('');
+    $('#Cargo_plate_num').val('');
+    $('#Cargo_cargo_class').val('');
+    $('#Cargo_cargo_class').change();
+    
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo Yii::app()->baseUrl;?>?r=purchase/accountToForm&company='+$(this).val(),
+      success: function (data){
+        $('#account .modal-body').html(data);
+        $('#account').modal();
+      },
+      error: function (xht){
+      //  alert(this.url);
+      }
+    });
+   }
+  );
 </script>
 
 <?php
@@ -135,4 +155,38 @@
     "
   );
 ?>
+
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'account')); ?>
+     
+    <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    </div>
+     
+    <div class="modal-body">
+    <p>One fine body...</p>
+    </div>
+     
+    <div class="modal-footer" id="test">
+    <p id=save class="btn btn-primary" data-dismiss="modal">Save Changes</p>
+    <script>
+        $('#save').click(function(){
+          $('#Cargo_shipper').val($('#shipper').val());
+          $('#Cargo_address').val($('#address').val());
+          $('#Cargo_company').val($('#company').val());
+          $('#Cargo_cargo_class').val($('#plate_no').val());
+          $('#Cargo_cargo_class').change();
+          $('#Cargo_plate_num').val($('#plate_no option:selected').text());
+          modal.close();
+    
+        });
+    </script>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+    'label' => 'Close',
+    'id'=>'closeBtn',
+    'url' => '#',
+    'htmlOptions' => array('data-dismiss' => 'modal'),
+    )); ?>
+    </div>
+     
+    <?php $this->endWidget(); ?>
 <?php echo $this->renderPartial('modal');?>

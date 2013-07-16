@@ -26,6 +26,7 @@
 	<?php echo $form->textFieldRow($transType,'minimum_passenger',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->textFieldRow($transType,'maximum_passenger',array('class'=>'span3','maxlength'=>100)); ?>
 	<?php echo $form->radioButtonListRow($transType,'active',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
+	<?php echo $form->radioButtonListRow($transType,'account_to',$yesNo,array('class'=>'span2','maxlength'=>4)); ?>
 
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',

@@ -1,9 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Voyages'=>array('index'),
-	'Manage',
-);
-
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -19,7 +14,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Voyages</h1>
+<h1>Voyages</h1>
 
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>

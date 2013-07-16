@@ -1,14 +1,13 @@
 <?php
-  $this->breadcrumbs=array(
-	'Transactions'=>array('index'),
-  );
 
+ $user = Yii::app()->user->getUserByName($trans->created_by);
+ $createdBy = isset($user->profile->firstname) ? $user->profile->firstname:'';
   
 ?>
     <table width=1000 border=1>
       <thead>
         <tr bgcolor=#F68938>
-         <th colspan=10><center>TRANSACTION DETAILS</center></th>
+         <th colspan=11><center>TRANSACTION DETAILS</center></th>
         </tr>
         <tr>
          <th>TRANSACTION NO.</th>
@@ -20,6 +19,7 @@
          <th>DISCOUNT</th>
          <th>TOTAL AMOUNT</th>
          <th>REFERENCE</th>
+         <th>ACCOUNT TO</th>
          <th>CREATED BY</th>
         </tr>
       </thead>
@@ -34,7 +34,8 @@
          <td><?=$trans->ovdiscount?></td>
          <td><?=$trans->ovamount - $trans->ovdiscount?></td>
          <td><?=$trans->reference?></td>
-         <td><?=$trans->uid?></td>
+         <td><?=isset($trans->accountTo->company) ? $trans->accountTo->company:'' ?></td>
+         <td><?=$createdBy?></td>
         </tr>
       </tbody>
   </table>

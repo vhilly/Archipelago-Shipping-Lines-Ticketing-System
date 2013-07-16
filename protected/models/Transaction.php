@@ -51,13 +51,13 @@ class Transaction extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, payment_method, payment_status, uid, trans_date, input_date', 'required'),
-			array('type, payment_method, payment_status, uid', 'numerical', 'integerOnly'=>true),
+			array('type, payment_method, payment_status, trans_date, input_date', 'required'),
+			array('account_to,type, payment_method, payment_status', 'numerical', 'integerOnly'=>true),
 			array('ovamount, ovdiscount', 'numerical'),
 			array('reference', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, payment_method, payment_status, uid, trans_date, input_date, ovamount, ovdiscount, reference', 'safe', 'on'=>'search'),
+			array('id, type, payment_method, payment_status, created_by, trans_date, input_date, ovamount, ovdiscount, reference', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,8 @@ class Transaction extends CActiveRecord
 			'type0' => array(self::BELONGS_TO, 'TransactionType', 'type'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethod', 'payment_method'),
 			'paymentStatus' => array(self::BELONGS_TO, 'PaymentStatus', 'payment_status'),
-			'u' => array(self::BELONGS_TO, 'Users', 'uid'),
+			'accountTo' => array(self::BELONGS_TO, 'Customer', 'account_to'),
+			//'u' => array(self::BELONGS_TO, 'Users', 'created_by'),
 		);
 	}
 
@@ -88,7 +89,7 @@ class Transaction extends CActiveRecord
 			'type' => 'Type',
 			'payment_method' => 'Payment Method',
 			'payment_status' => 'Payment Status',
-			'uid' => 'Uid',
+			'created_by' => 'Uname',
 			'trans_date' => 'Trans Date',
 			'input_date' => 'Input Date',
 			'ovamount' => 'Ovamount',
@@ -112,7 +113,7 @@ class Transaction extends CActiveRecord
 		$criteria->compare('type',$this->type);
 		$criteria->compare('payment_method',$this->payment_method);
 		$criteria->compare('payment_status',$this->payment_status);
-		$criteria->compare('uid',$this->uid);
+		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('trans_date',$this->trans_date,true);
 		$criteria->compare('input_date',$this->input_date,true);
 		$criteria->compare('ovamount',$this->ovamount);

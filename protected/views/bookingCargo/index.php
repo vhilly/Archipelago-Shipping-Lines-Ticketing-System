@@ -41,19 +41,9 @@ $gridColumns = array(
                   'value'=>'$data->type0->name',
 		),
 		array(
-			'class' => 'bootstrap.widgets.TbEditableColumn',
 			'name' => 'status',
                         'filter'=>CHtml::listData(BookingStatus::model()->findAll(),'id','name'),
-			'sortable'=>true,
-			'editable' => array(
-                                'type'      => 'select',
-				'url' => $this->createUrl('bookingCargo/editableSaver'),
-                                'attribute' => 'dropDown',
-                                 'source'    => CHtml::listData(BookingStatus::model()->findAll(),'id','name'),
-				'placement' => 'right',
-				'inputclass' => 'span2'
-
-			),
+                        'value'=>'$data->status0->name',
 		),
                  array(
                    'header'=>'Vessel',

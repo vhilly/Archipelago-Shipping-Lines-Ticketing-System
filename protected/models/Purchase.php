@@ -19,6 +19,7 @@
     public $cargo_rate;
     public $total_fares;
     public $current_step =1;
+    public $account_to;
     private $_requiredFields = '';
     private $_fields = array();
     
@@ -54,7 +55,7 @@
       return array(
         array($this->_requiredFields.',class,passenger_total,voyage','required'),
         array('passenger_total', 'numerical','min'=>$this->passenger_min,'max'=>$this->passenger_max),
-        array('voyage,route,class,payment_status,payment_total,payment_discount,payment_method', 'numerical', 'integerOnly'=>true),
+        array('account_to,voyage,route,class,payment_status,payment_total,payment_discount,payment_method', 'numerical', 'integerOnly'=>true),
         array('', 'length', 'max'=>3),
         array('cargo_cost', 'length', 'max'=>32),
         array('', 'length', 'max'=>9000),

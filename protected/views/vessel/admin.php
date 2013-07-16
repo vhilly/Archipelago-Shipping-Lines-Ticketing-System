@@ -37,6 +37,7 @@ return false;
 		'passenger_limit',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
+'template'=>'{update}',
 ),
 ),
 )); 

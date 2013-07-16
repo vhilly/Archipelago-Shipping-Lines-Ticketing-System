@@ -1,14 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Cargo Classes'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-array('label'=>'List CargoClass','url'=>array('index')),
-array('label'=>'Create CargoClass','url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 $('.search-form').toggle();
@@ -23,14 +13,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Cargo Classes</h1>
-
-<p>
-	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
+<h1>Cargo Classes</h1>
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 	<?php $this->renderPartial('_search',array(
@@ -43,14 +26,14 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id',
 		'name',
 		'description',
 		'lane_meter',
 		'bundled_passenger',
-		'active',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
+'template'=>'{update}',
 ),
 ),
 )); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'plus','url'=>Yii::app()->createUrl('cargoClass/create'),'label'=>'Add Cargo Class'));

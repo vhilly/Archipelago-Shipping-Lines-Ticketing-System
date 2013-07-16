@@ -21,6 +21,7 @@
                    
     <?php $this->widget('bootstrap.widgets.TbButton', array(
       'label'=>'Close',
+      'id'=>'stowageClose',
       'url'=>'#',      
       'htmlOptions'=>array('data-dismiss'=>'modal','class'=>'modalcss'),
     )); ?>             

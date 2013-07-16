@@ -52,7 +52,7 @@ class TransactionType extends CActiveRecord
 			array('discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger', 'numerical', 'integerOnly'=>true),
 			array('discount', 'numerical'),
 			array('name, navigation_title', 'length', 'max'=>100),
-			array('cargo, active', 'length', 'max'=>1),
+			array('cargo,account_to, active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, navigation_title, cargo, discount, discount_percent, bundled_passenger_rate, minimum_passenger, maximum_passenger, active', 'safe', 'on'=>'search'),
@@ -87,6 +87,7 @@ class TransactionType extends CActiveRecord
 			'bundled_passenger_rate' => 'Bundled Passenger Rate',
 			'minimum_passenger' => 'Minimum Passenger',
 			'maximum_passenger' => 'Maximum Passenger',
+			'account_to' => 'Account To',
 			'active' => 'Active',
 		);
 	}

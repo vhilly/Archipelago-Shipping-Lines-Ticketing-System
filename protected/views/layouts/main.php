@@ -30,6 +30,16 @@
     }
   }
   
+
+  $fees = array();
+  $fees=CHtml::listData(MiscFees::model()->findAll(),'id','name');
+  if(count($fees)){
+    $transLink[] =  array('label'=>'Misc Fees');
+    foreach($fees as $key=>$fee){
+      $transLink[] =  array('label'=>$fee, 'url'=>array('/fees/pay','type'=>$key));
+    }
+  }
+  
   $transLink[] =  array('label'=>'TRANSACTIONS');
   $transLink[] =  array('icon'=>'eye-open','label'=>'Overview', 'url'=>array('/transaction/index'));
 ?>
@@ -102,7 +112,15 @@
                     '---',
                     array('label'=>'Vessel', 'url'=>array('vessel/admin')),
                     '---',
+                    array('label'=>'Route', 'url'=>array('route/admin')),
+                    '---',
                     array('label'=>'Voyage', 'url'=>array('voyage/admin')),
+                    '---',
+                    array('label'=>'Cargo Class', 'url'=>array('cargoClass/admin')),
+                    '---',
+                    array('label'=>'Fare Types', 'url'=>array('passageFareTypes/admin')),
+                    '---',
+                    array('label'=>'Customers', 'url'=>array('customer/admin')),
                     '---',
                     array('label'=>'TRANSACTION'),
                     array('label'=>'Transaction Type', 'url'=>array('/transactionType/setup')), 
