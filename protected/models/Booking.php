@@ -153,4 +153,49 @@ class Booking extends CActiveRecord
         ),
 		));
 	}
+	public function printSearch()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+      $criteria->with=array(
+        'passenger0'=>array(
+          'together'=>false,
+          'select'=>false
+        ),
+      );
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('transaction',$this->transaction);
+		$criteria->compare('booking_no',$this->booking_no);
+		$criteria->compare('tkt_no',$this->tkt_no);
+		$criteria->compare('passenger',$this->passenger);
+		$criteria->compare('voyage',$this->voyage);
+		$criteria->compare('seat',$this->seat);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('rate',$this->rate);
+		$criteria->compare('date_booked',$this->date_booked,true);
+                $criteria->compare('passenger0.first_name',$this->first_name,true);
+                $criteria->compare('passenger0.last_name',$this->last_name,true);
+
+		$dataProvider = new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+        'sort'=>array(
+          'attributes'=>array(
+            'first_name'=>array(
+              'asc'=>'passenger0.first_name',
+              'desc'=>'passenger0.first_name DESC'
+            ),
+            'last_name'=>array(
+              'asc'=>'passenger0.last_name',
+              'desc'=>'passenger0.last_name DESC'
+            ),
+            '*',
+          )
+        ),
+		));
+          $dataProvider->setPagination(false);
+          return $dataProvider;
+	}
 }

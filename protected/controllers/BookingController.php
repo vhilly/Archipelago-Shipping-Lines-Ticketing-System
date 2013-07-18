@@ -57,7 +57,7 @@
     }
     public function actionBpass()
     {
-      $model=new Booking('search');
+      $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
       $model->status=3;
@@ -81,7 +81,7 @@
    
     public function actionTkt()
     {
-      $model=new Booking('search');
+      $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
       if(isset($_GET['Booking'])){
@@ -104,7 +104,7 @@
    
     public function actionManifest()
     {
-      $model=new Booking('search');
+      $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
       $model->status=4;
@@ -113,7 +113,7 @@
       }
       if(isset($_GET['Booking']) && $_GET['print']){
 	$mPDF1 = Yii::app()->ePdf->mpdf();
-	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
+	$mPDF1 = Yii::app()->ePdf->mpdf('', 'Legal');
         $mPDF1->WriteHTML($this->renderPartial('mfst',array(
           'model'=>$model,
           'print'=>1,
@@ -230,7 +230,7 @@
 
     public function actionCheckIn()
     {
-      $model=new Booking('search');
+      $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
       if(isset($_POST['Booking'])){
@@ -242,7 +242,7 @@
     }
     public function actionBoard()
     {
-      $model=new Booking('search');
+      $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
       if(isset($_POST['Booking'])){

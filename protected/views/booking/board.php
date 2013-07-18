@@ -15,7 +15,7 @@
 <br><br>
 <div class='span9'>
 <?php
-  foreach($model->search()->getData() as $b){
+  foreach($model->printSearch()->getData() as $b){
     if($b->status<3)
       continue 1;
     $boarded =  $b->status ==4;

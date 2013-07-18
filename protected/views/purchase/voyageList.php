@@ -9,7 +9,7 @@
 	array('label'=>'Manage Passage Fare Rates','url'=>array('admin')),
   );
 
-  $dataProvider=Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY','order'=>'departure_date'));
+  $dataProvider=Voyage::model()->findAll(array('condition'=>'status =1','order'=>'departure_date'));
   $gridDataProvider = new CArrayDataProvider($dataProvider);
 
 ?>

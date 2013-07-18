@@ -28,7 +28,7 @@
    ?>
   <?php endif;?>
    <div style="clear:both"> </div><br>
-   <?php foreach($model->search()->getData() as $b):?>
+   <?php foreach($model->printSearch()->getData() as $b):?>
    <table>
      <tr><td width=99%>
       <table>

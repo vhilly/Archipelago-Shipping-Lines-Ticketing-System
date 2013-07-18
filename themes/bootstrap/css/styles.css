@@ -126,3 +126,26 @@
 #TransactionType_navigation_title.Transac_name {
 	width:200px;
 }
+
+#div1
+{
+position: relative;
+}
+
+#div2
+{
+transform: rotate(270deg);
+transform-origin:70% -100%;
+-ms-transform: rotate(270deg); /* IE 9 */
+-ms-transform-origin:70% -200%; /* IE 9 */
+-webkit-transform: rotate(270deg); /* Safari and Chrome */
+-webkit-transform-origin:70% -200% ; /* Safari and Chrome */
+}
+
+.rotate {
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+     writing-mode: lr-tb;
+}
+
