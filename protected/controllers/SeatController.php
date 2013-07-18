@@ -35,8 +35,9 @@
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver','setup'),
-          'users'=>array('admin'),
+          'actions'=>array('admin','delete','editableSaver','setup','lock'),
+          //'users'=>array('admin'),
+          'users'=>array('@'),
         ),
         array('deny',  // deny all users
           'users'=>array('*'),
@@ -130,20 +131,38 @@
     {
 	//comment
       $list= Seat::model()->findAll();
-      $sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat AND b.voyage='{$voyage}'";
-      $bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
+      //$sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat AND b.voyage='{$voyage}'";
+      //$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
+      $bookedSeats = Booking::model()->findAll(array('condition'=>"voyage = $voyage"));
+      $lockedSeats = SeatLock::model()->findAll(array('condition'=>"voyage = {$voyage}"));
       $apr = Array();
       $pl = Array();
       foreach($bookedSeats as $bs){
-        $apr[] = $bs['name'];
+        $apr[] = $bs->seat0->name;
+      }
+      foreach($lockedSeats as $ls){
+        $apr[] = $ls->seat0->name;
       }
       foreach($list as $bl){
         $pl[$bl['name']] = $bl['id'];
       }
       $pres = Array();
-      $this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl));
+      $this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl,'voyage'=>$voyage));
     }
-
+    public function actionLock($sid,$voyage,$index){
+      $cBy = Yii::app()->user->name;
+      $sl =  SeatLock::model()->findByAttributes(array('vsid'=>$voyage.'-'.$sid));
+      if($sl)
+        die();
+      $sql = "INSERT INTO seat_lock (voyage,seat,vsid,row_index,created_by) VALUES ('{$voyage}', '{$sid}', '{$voyage}-{$sid}','{$index}','$cBy') on duplicate key update seat={$sid},vsid='{$voyage}-{$sid}'";
+      try{
+        Yii::app()->db->createCommand($sql)->query();
+        echo true;
+      }catch(Exception $e){
+        echo false;
+      }
+      
+    }
     public function actionIndex()
     {
       $model=new Report;

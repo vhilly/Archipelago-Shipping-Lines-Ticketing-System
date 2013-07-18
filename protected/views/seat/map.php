@@ -95,9 +95,27 @@
 		if(ids!=""){	
 			$('#'+ids).val(seat);
 			$('#Seat'+ids).val(no);
+                        lockSeat(no,ids);
 			$('a[data-dismiss="modal"]').click();
 		}
 	}
+        function lockSeat(id,index){
+          $.ajax({
+            type: 'POST',
+            url: '<?= Yii::app()->createUrl('seat/lock',array('voyage'=>$voyage))?>&sid='+id+'&index='+index,
+            success: function (data){
+             if(!data){
+	       $('#'+index).val('');
+	       $('#Seat'+index).val('');
+               alert('Seat not available!');
+             }
+            },
+            error: function (xht){
+              alert(this.url);
+           }
+
+          });
+       }
 </script>
 
 
