@@ -10,18 +10,17 @@ if(count($voyages)){
     echo "<h3>$voyage->name</h3>";
     $model=new CActiveDataProvider('Booking', array(
       'criteria'=>array(
-        'select'=>'SUM(IF(status IN(1,2), 1, 0)) as r_cnt,SUM(IF(status=3, 1, 0)) as c_cnt,SUM(IF(status=4, 1, 0)) as b_cnt, voyage',
+        'select'=>'status,count(id) as cnt',
         'condition'=>"voyage={$voyage->id}",
-        'group'=>'t.voyage',
+        'group'=>'t.status',
       ),
       'pagination'=>array(
         'pageSize'=>20,
       ),
     ));
     $gridColumns = array(
-      'r_cnt',
-      'c_cnt',
-      'b_cnt',
+      'status0.name',
+      'cnt',
     );
     echo '<h5>Passenger</h5>';
     $this->widget('bootstrap.widgets.TbExtendedGridView', array(
@@ -33,16 +32,8 @@ if(count($voyages)){
         'data' => array(
           'series' => array(
             array(
-              'name'=>'Reserved',
-              'attribute' => 'r_cnt',
-            ),
-            array(
-              'name'=>'Checked In',
-              'attribute' => 'c_cnt',
-            ),
-            array(
-              'name'=>'Boarded',
-              'attribute' => 'b_cnt',
+              'name'=>'Total',
+              'attribute' => 'cnt',
             ),
         )),
         'config' => array(
@@ -56,18 +47,17 @@ if(count($voyages)){
     ));
     $cmodel=new CActiveDataProvider('BookingCargo', array(
       'criteria'=>array(
-        'select'=>'SUM(IF(status IN(1,2), 1, 0)) as r_cnt,SUM(IF(status=3, 1, 0)) as c_cnt,SUM(IF(status=4, 1, 0)) as b_cnt, voyage',
+        'select'=>'status,count(id) as cnt',
         'condition'=>"voyage={$voyage->id}",
-        'group'=>'t.voyage',
+        'group'=>'t.status',
       ),
       'pagination'=>array(
         'pageSize'=>20,
       ),
     ));
     $gridColumns = array(
-      'r_cnt',
-      'c_cnt',
-      'b_cnt',
+      'status0.name',
+      'cnt',
     );
     echo '<h5>Cargo</h5>';
     $this->widget('bootstrap.widgets.TbExtendedGridView', array(
@@ -79,16 +69,8 @@ if(count($voyages)){
         'data' => array(
           'series' => array(
             array(
-              'name'=>'Reserved',
-              'attribute' => 'r_cnt',
-            ),
-            array(
-              'name'=>'Checked In',
-              'attribute' => 'c_cnt',
-            ),
-            array(
-              'name'=>'Boarded',
-              'attribute' => 'b_cnt',
+              'name'=>'Total',
+              'attribute' => 'cnt',
             ),
         )),
         'config' => array(

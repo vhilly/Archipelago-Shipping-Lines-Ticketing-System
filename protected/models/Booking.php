@@ -29,6 +29,7 @@ class Booking extends CActiveRecord
     public $last_name;
     public $first_name;
     public $transNo;
+    public $cnt;//reserved
     public $r_cnt;//reserved
     public $c_cnt;//checkedin
     public $b_cnt;//boarded
@@ -98,6 +99,7 @@ class Booking extends CActiveRecord
 			'seat' => 'Seat',
 			'status' => 'Status',
 			'rate' => 'Rate',
+                        'cnt'=>'Total',
                         'r_cnt'=>'Reserved',
                         'b_cnt'=>'Boarded',
                         'c_cnt'=>'Checked In',

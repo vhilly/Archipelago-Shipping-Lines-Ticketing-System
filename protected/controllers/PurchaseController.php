@@ -22,7 +22,8 @@
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
           'actions'=>array('index','getCargoRate','dynamicShippers','accountToForm'),
-          'users'=>array('admin'),
+          //'users'=>array('admin'),
+          'users'=>array('@'),
         ),
         array('deny',  // deny all users
           'users'=>array('*'),
@@ -188,6 +189,7 @@
 
       }else{
         unset($_SESSION['Trans']);
+        SeatLock::model()->deleteAllByAttributes(array('created_by'=>Yii::app()->user->name));
         $transaction_type = $_SESSION['Trans']['Type'] = TransactionType::model()->findByPk($type);
         $cargo = $_SESSION['Trans']['Cargo'] = new Cargo;
         $stowage = $_SESSION['Trans']['Stowage'] = new Stowage;

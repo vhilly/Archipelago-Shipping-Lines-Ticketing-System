@@ -29,6 +29,7 @@ class BookingCargo extends CActiveRecord
 	 */
         public $shipper;
         public $company;
+        public $cnt;
         public $r_cnt;
         public $b_cnt;
         public $c_cnt;
@@ -98,6 +99,7 @@ class BookingCargo extends CActiveRecord
 			'date_booked' => 'Date Booked',
 			'shipper' => 'Shipper',
 			'company' => 'Company',
+                        'cnt'=>'Total',
                         'r_cnt'=>'Reserved',
                         'c_cnt'=>'Checked In',
                         'b_cnt'=>'Boarded',
