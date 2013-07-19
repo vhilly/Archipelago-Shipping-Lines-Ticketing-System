@@ -71,11 +71,13 @@
                     array('label'=>'Check-In', 'url'=>array('/bookingCargo/checkin')),
                     array('label'=>'Board', 'url'=>array('/bookingCargo/board')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
                 array('icon'=>'group','label'=>'Passenger', 'url'=>'#', 'items'=>array(
                     array('label'=>'Booked Passengers', 'url'=>array('/booking/index')),
                     array('label'=>'Check-In', 'url'=>array('/booking/checkin')),
                     array('label'=>'Board', 'url'=>array('/booking/board')),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
                 array('icon'=>'print','label'=>'Print', 'url'=>'#', 'items'=>array(
 	            array('icon'=>'file','label'=>'Tickets', 'url'=>array('/booking/tkt')),
                     array('icon'=>'file','label'=>'Boarding Pass', 'url'=>array('/booking/bpass')),
