@@ -42,9 +42,9 @@
                 }
         }
         switch($type){
-          case 2: $cl = "PREMIUM ECONOMY";$min=10;$max=29;break;
+          case 2: $cl = "PREMIUM CLASS";$min=10;$max=29;break;
           case 1: $cl = "BUSINESS CLASS";$min=1;$max=9;break;
-          case 3: $cl = "SUNDECK";$min=30;$max=45;break;
+          case 3: $cl = "ECONOMY";$min=30;$max=45;break;
           default:
         }
 
@@ -53,7 +53,7 @@
 
 
 
-
+  echo "<b>$cl</b>";
   $body = "";
   for($a="A";$a<="G";$a++){
   	if($a=="D"){$body .= "<tr style=\"height:80px;border-left:1px solid transparent;border-right:1px solid transparent\"></tr>";}
@@ -95,7 +95,12 @@
 		if(ids!=""){	
 			$('#'+ids).val(seat);
 			$('#Seat'+ids).val(no);
-			$('a[data-dismiss="modal"]').click();
+			if(ids!='Booking_seat'){
+				$('a[data-dismiss="modal"]').click();
+			}else{
+				$('#seatValue').html(seat);
+				$('#'+ids).val(no);
+			}
 		}
 	}
 </script>

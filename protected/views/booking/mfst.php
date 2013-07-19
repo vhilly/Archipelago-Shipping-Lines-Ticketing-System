@@ -44,21 +44,21 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
        <?php if($ctr==36){$ctr=1;}?>
        <?php if($ctr==1):?>
 
-	<center style="font-size:19px;text-align:center ">Republic of the Philippines<br>
-	<b style="font-size:19px">Department of Finance<br>BUREAU OF CUSTOMS<b><br><br>
-        <b><span style="border-bottom:1px solid; font-size:22px;">PASSENGERS COASTING MANIFEST</span></b></center><br><br>
-	<div style="text-indent:30px">Complete list of all passengers taken on board the <u><?=$vessel?></u> sailing from the port of <u><?=$from?></u> on the <u><?=$day?></u> day of <u><?=$month?></u>, <u><?=$year?></u> for the port of <u><?=$to?></u><br><br></div>
+	<center style="font-size:12px;text-align:center ">Republic of the Philippines<br>
+	<b style="font-size:12px">Department of Finance<br>BUREAU OF CUSTOMS<b><br><br>
+        <b><span style="border-bottom:1px solid; font-size:14px;">PASSENGERS COASTING MANIFEST</span></b></center><br>
+	<div style="text-indent:30px;font-size:10px">Complete list of all passengers taken on board the <u><?=$vessel?></u> sailing from the port of <u><?=$from?></u> on the <u><?=$day?></u> day of <u><?=$month?></u>, <u><?=$year?></u> for the port of <u><?=$to?></u><br><br></div>
 
-      <table class='table' border=1px >
+      <table class='table table-condensed' border=1px style="font-size:12px">
        <tr>
          <th></th>
-         <th><h5>NAME OF PASSENGERS</h5></th>
-         <th><h5>SEX</h5></th>
-         <th><h5>AGE</h5></th>
-         <th><h5>CIVIL STATUS</h5></th>
-         <th><h5>NATIONALITY</h5></th>
-         <th><h5>HOME ADDRESS</h5></th>
-         <th><h5>DESTINATION</h5></th>
+         <th>NAME OF PASSENGERS</th>
+         <th>SEX</th>
+         <th>AGE</th>
+         <th>CIVIL STATUS</th>
+         <th>NATIONALITY</th>
+         <th>HOME ADDRESS</th>
+         <th>DESTINATION</th>
        </tr>
 
        <?php endif;?>
@@ -66,23 +66,23 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
 ?>
        <tr>
          <td><?=$key+1?>.</td>
-         <th> <h6><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </h6></th>
-         <th> <h6><?=$b->passenger0->gender?></h6></th>
-         <th> <h6><?=$age?></h6></th>
-         <th> <h6></h6><?=$cs[$b->passenger0->civil_status]?></th>
-         <th> <h6><?=$b->passenger0->nationality?></h6></th>
-         <th> <h6><?=$b->passenger0->address?> </h6></th>
-         <th> <h6><?=$b->voyage0->route0->to?> </h6></th>
+         <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
+         <td> <?=$b->passenger0->gender?></td>
+         <td> <?=$age?></td>
+         <td> </h6><?=$cs[$b->passenger0->civil_status]?></td>
+         <td> <?=$b->passenger0->nationality?></td>
+         <td> <?=$b->passenger0->address?> </td>
+         <td> <?=$b->voyage0->route0->to?> </td>
        </tr>
 
-       <?php if($ctr==35):?><tr><td colspan='8' style="border:1px solid white;border-top:1px">
+       <?php if($ctr==35):?><tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
 	District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________ 
 	Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
-	that all statement contained herein is true to be the best of my knowledge and belief.<br><br>
+	that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
 	<table style=";width:800px">
           <tr>
             <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-	    <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:16px;">MASTER  PATRON</span></td>
+	    <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
           </tr>
 	</table>
 	<table>
@@ -93,7 +93,7 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
 	<table style=";width:800px">
           <tr>
             <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:16px;">ADMINISTERING OFFICER</span></td>
+            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
           </tr>
         </table>
 
@@ -113,14 +113,14 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
        <?php $ctr++;?>
   <?php endforeach; ?>
 
-<tr><td colspan='8' style="border:1px solid white;border-top:1px">
+<tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
         District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________
         Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
-        that all statement contained herein is true to be the best of my knowledge and belief.<br><br>
+        that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
         <table style=";width:800px">
           <tr>
             <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:16px;">MASTER  PATRON</span></td>
+            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
           </tr>
         </table>
         <table>
@@ -131,7 +131,7 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
         <table style=";width:800px">
           <tr>
             <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:16px;">ADMINISTERING OFFICER</span></td>
+            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
           </tr>
         </table>
         

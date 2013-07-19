@@ -62,6 +62,16 @@ SEARCH BOOKING TO TRANSFER<br>
     font-weight:bold;
     cursor:pointer;
   }   
+.modal-body {
+    max-height:600px;
+}
+#transferModal {
+        width:850px;
+}
+.modal {
+        margin-left:-430px;
+}
+
 </style>
 
 
@@ -76,13 +86,6 @@ SEARCH BOOKING TO TRANSFER<br>
     <p></p>
     </div>
      
-    <div class="modal-footer">
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-    'label' => 'Close',
-    'url' => '#',
-    'htmlOptions' => array('data-dismiss' => 'modal'),
-    )); ?>
-    </div>
      
     <?php $this->endWidget(); ?>
 
@@ -92,6 +95,7 @@ SEARCH BOOKING TO TRANSFER<br>
         type: 'GET',
         url: '<?php echo Yii::app()->baseUrl;?>?r=booking/transferForm&id='+this.id,
         success: function (data){
+          $('#transferModal .modal-header h4').html('Booking Transfer');
           $('#transferModal .modal-body p').html(data);
         },
         error: function (xht){
