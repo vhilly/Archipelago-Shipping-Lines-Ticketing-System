@@ -148,4 +148,6 @@ transform-origin:70% -100%;
     -o-transform: rotate(270deg);
      writing-mode: lr-tb;
 }
-
+.navbar .nav > li > a {
+  padding:10px 5px;
+}
