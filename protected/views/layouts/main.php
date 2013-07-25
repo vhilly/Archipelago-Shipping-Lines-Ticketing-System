@@ -112,6 +112,8 @@
                     array('icon'=>'cog','label'=>'SETTINGS'),
                     array('label'=>'Seat', 'url'=>array('seat/setup')),
                     '---',
+                    array('label'=>'Seating Class', 'url'=>array('seatingClass/admin')),
+                    '---',
                     array('label'=>'Vessel', 'url'=>array('vessel/admin')),
                     '---',
                     array('label'=>'Route', 'url'=>array('route/admin')),

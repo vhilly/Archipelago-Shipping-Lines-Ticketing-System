@@ -42,10 +42,11 @@ class SeatingClass extends CActiveRecord
 		return array(
 			array('name', 'required'),
 			array('name', 'length', 'max'=>100),
+			array('active', 'length', 'max'=>1),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description', 'safe', 'on'=>'search'),
+			array('id,active, name, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +71,7 @@ class SeatingClass extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'active' => 'Active',
 			'description' => 'Desc',
 		);
 	}
@@ -87,6 +89,7 @@ class SeatingClass extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('active',$this->active,true);
 		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
