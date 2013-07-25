@@ -180,7 +180,7 @@ class Booking extends CActiveRecord
 		$criteria->compare('date_booked',$this->date_booked,true);
                 $criteria->compare('passenger0.first_name',$this->first_name,true);
                 $criteria->compare('passenger0.last_name',$this->last_name,true);
-
+                $criteria->addCondition('status != 5');
 		$dataProvider = new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
         'sort'=>array(

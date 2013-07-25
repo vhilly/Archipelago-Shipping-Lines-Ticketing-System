@@ -133,7 +133,7 @@
       $list= Seat::model()->findAll();
       //$sql = "SELECT s.name FROM booking b, seat s WHERE s.id=b.seat AND b.voyage='{$voyage}'";
       //$bookedSeats = Yii::app()->db->createCommand($sql)->queryAll();
-      $bookedSeats = Booking::model()->findAll(array('condition'=>"voyage = $voyage"));
+      $bookedSeats = Booking::model()->findAll(array('condition'=>"voyage = $voyage AND seat IS NOT NULL"));
       $lockedSeats = SeatLock::model()->findAll(array('condition'=>"voyage = {$voyage}"));
       $apr = Array();
       $pl = Array();
@@ -171,7 +171,7 @@
         $booking =  Booking::model()->findByPk($_POST['Booking']['id']);
         $seatNo = $booking->seat0->name;
         $booking->seat =NULL;
-        $booking->status =4;
+        $booking->status =5;
         if($booking->save())
           Yii::app()->user->setFlash('success', "Seat No. $seatNo is now available!");
         else

@@ -57,7 +57,7 @@ class Passenger extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array($this->_requiredFields.'first_name,last_name,middle_name,nationality,address,gender,civil_status,birth_date', 'required'),
+			array($this->_requiredFields.'first_name,last_name,gender,birth_date', 'required'),
 			array('first_name, last_name, email, middle_name, nationality', 'length', 'max'=>100),
 			array('prefix', 'length', 'max'=>5),
 			array('contact', 'numerical', 'integerOnly'=>true),

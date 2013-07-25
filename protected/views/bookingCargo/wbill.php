@@ -29,6 +29,7 @@
   <?php endif;?>
    <div style="clear:both"> </div><br>
    <?php foreach($model->search()->getData() as $b):?>
+   <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'"); ?>
     <table class="table">
       <tr class="odd">
         <td colspan=4>BILL OF LADING NO : <?=$b->lading_no?></td>
@@ -64,7 +65,7 @@
         <td><?=$b->cargo0->weight?> </td>
         <td><?=$b->cargo0->length?> </td>
         <td><?=$b->rate0->lane_meter_rate?> </td>
-        <td><?=$b->rate0->proposed_tariff?> </td>
+        <td><?=isset($orig_price->price) ? $orig_price->price : $b->rate0->proposed_tariff ?> </td>
       </tr>
    </table>
 

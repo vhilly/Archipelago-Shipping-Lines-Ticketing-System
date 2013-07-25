@@ -29,6 +29,7 @@
   <?php endif;?>
    <div style="clear:both"> </div><br>
    <?php foreach($model->printSearch()->getData() as $b):?>
+   <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'1','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'");?>
    <table>
      <tr><td width=99%>
       <table>
@@ -54,12 +55,12 @@
          <th colspan=2>Contact Nos.: <u><?=$b->passenger0->contact?></u></th>
        </tr>
        <tr>
-         <th colspan=2>Amount: <u><?=$b->rate0->price?></u></th>
-         <th colspan=2>Amount: <u><?=$b->rate0->price?></u></th>
+         <th colspan=2>Amount: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
+         <th colspan=2>Amount: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
        </tr>
        <tr>
-         <th colspan=2>Total: <u><?=$b->rate0->price?></u></th>
-         <th colspan=2>Total: <u><?=$b->rate0->price?></u></th>
+         <th colspan=2>Total: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
+         <th colspan=2>Total: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
        </tr>
        <tr>
          <th colspan=2><center><h4>ACCOUNTING</h4></center></th>

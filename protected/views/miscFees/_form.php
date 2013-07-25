@@ -13,7 +13,6 @@
 
 	<?php echo $form->textFieldRow($model,'amt',array('class'=>'span5','maxlength'=>20)); ?>
 
-	<?php echo $form->textFieldRow($model,'transaction_type',array('class'=>'span5')); ?>
 
 	<?php echo $form->textFieldRow($model,'active',array('class'=>'span5','maxlength'=>1)); ?>
 

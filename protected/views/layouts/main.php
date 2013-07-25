@@ -169,7 +169,6 @@
 	<div class="footer">
 		<p>&copy; <?php echo date('Y'); ?> Archipelago | Philippine Ferries Corporation.<p/>
 		<p>Designed by A-Team.<p/>
-		<p><?php echo Yii::powered(); ?></p>
 	</div><!-- footer -->
 
 </div><!-- page -->

@@ -16,10 +16,6 @@
 	<?php echo CHtml::encode($data->amt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('transaction_type')); ?>:</b>
-	<?php echo CHtml::encode($data->transaction_type); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('active')); ?>:</b>
 	<?php echo CHtml::encode($data->active); ?>
 	<br />

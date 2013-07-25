@@ -35,7 +35,7 @@ array('allow', // allow authenticated user to perform 'create' and 'update' acti
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','editableSaver','voyageRates'),
+'actions'=>array('admin','delete','editableSaver','voyageRates','status'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -135,6 +135,17 @@ $dataProvider=new CActiveDataProvider('Voyage');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
+}
+public function actionStatus($id){
+  $model=$this->loadModel($id);
+  if(isset($_POST['Voyage'])){
+    $model->attributes=$_POST['Voyage'];
+    if($model->save()){
+      Yii::app()->user->setFlash('success', 'Voyage Status  has been updated!');
+      $this->redirect(array('index'));
+    }
+  }
+  $this->render('_statusForm',array('model'=>$model));
 }
 
 /**

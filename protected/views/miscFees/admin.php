@@ -47,7 +47,6 @@ return false;
 		'name',
 		'description',
 		'amt',
-		'transaction_type',
 		'active',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
