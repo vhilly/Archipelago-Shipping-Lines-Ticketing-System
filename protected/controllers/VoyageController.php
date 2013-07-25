@@ -141,6 +141,10 @@ public function actionStatus($id){
   if(isset($_POST['Voyage'])){
     $model->attributes=$_POST['Voyage'];
     if($model->save()){
+      if($model->status != 1){
+        Booking::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL') ), 'status < 3 ' );
+        BookingCargo::model()->updateAll(array( 'status' => 5, 'stowage' => new CDbExpression('NULL') ), 'status < 3 ' );
+      }
       Yii::app()->user->setFlash('success', 'Voyage Status  has been updated!');
       $this->redirect(array('index'));
     }

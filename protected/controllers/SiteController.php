@@ -51,11 +51,12 @@
     {
       $voyages = Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY OR status < 3'));
 		if(Yii::app()->user->isGuest){
-			$this->layout = 'main';
+			$this->layout = 'home';
 			$this->render('index');
 		}else{
+			$this->layout = 'main';
                         $this->render('home',array('voyages'=>$voyages));
-			$this->layout = 'column3';
+			//$this->layout = 'column3';
 		}
     }
 

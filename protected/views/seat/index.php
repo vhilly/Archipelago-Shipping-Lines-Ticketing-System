@@ -49,8 +49,24 @@
         break;
     }
   }
-  
 ?>
+
+<?php
+$bok=CHtml::listData(BookingStatus::model()->findAll(),'id','name');  
+$book=BookingStatus::model()->findAll();
+?>
+
+<table>
+  <tr>
+    <td width='5%'>Available</td>
+    <td><div style='width:25px; height:12px; background-color:white; border:1px solid black'></div></td>
+
+<?php foreach($book as $bookstat): if($bookstat->name=="Canceled") continue?>
+    <td width='5%'><?=$bookstat->name?></td>
+    <td><div style='width:25px; height:12px; background-color:<?=$bookstat->color?>; border:1px solid black'></div></td>
+<?php endforeach; ?>
+  </tr>
+</table>
 
     <?php
       $limit = 20; $counter = 1;$btd=array();$btr='';
@@ -74,7 +90,7 @@
         $counter ++;
       }
       $ptr .= '<tr>'.implode('',$ptd).'</tr>';
-
+ /*
       $counter = 1;$etd=array();$etr='';
       foreach($economyClass as $ec){
         $etd[]=$ec;     
@@ -85,7 +101,7 @@
         $counter ++;
       }
       $etr .= '<tr>'.implode('',$etd).'</tr>';
-
+*/
     ?>
   <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Business Class',
@@ -110,16 +126,16 @@
   <?php $this->endWidget();?>
 
 
-  <?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
+  <?php /*$box = $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Economy',
     'headerIcon' => 'icon-th-list',
     'htmlOptions' => array('class'=>'bootstrap-widget-table seat_avail')
-  ));?>
-  <table border=1 id=seat_list>
-   <?=$etr?>
+  )); */?>
+ <!-- <table border=1 id=seat_list>
+   <?#=$etr?>
   </table>
-
-  <?php $this->endWidget();?>
+ --!>
+  <?php #$this->endWidget();?>
 
 
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bookingModal')); ?>

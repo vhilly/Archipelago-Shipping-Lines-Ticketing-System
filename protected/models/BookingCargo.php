@@ -103,7 +103,7 @@ class BookingCargo extends CActiveRecord
                         'r_cnt'=>'Reserved',
                         'c_cnt'=>'Checked In',
                         'b_cnt'=>'Boarded',
-                        'type'=>'Booking Type',
+                        'type'=>'Type',
 		);
 	}
 
@@ -151,5 +151,49 @@ class BookingCargo extends CActiveRecord
           )
         ),
 		));
+	}
+	public function printSearch()
+	{
+		$criteria=new CDbCriteria;
+                //$criteria->addCondition("date_booked BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY");
+      $criteria->with=array(
+        'cargo0'=>array(
+          'together'=>false,
+          'select'=>false
+        ),
+      );
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('transaction',$this->transaction);
+		$criteria->compare('voyage',$this->voyage);
+		$criteria->compare('rate',$this->rate);
+		$criteria->compare('lading_no',$this->lading_no);
+		$criteria->compare('booking_no',$this->booking_no);
+		$criteria->compare('cargo',$this->cargo);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('date_booked',$this->date_booked,true);
+		$criteria->compare('cargo0.shipper',$this->shipper,true);
+		$criteria->compare('cargo0.company',$this->company,true);
+		$criteria->compare('type',$this->type,true);
+                $criteria->addCondition('status != 5');
+
+		$dataProvider= new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+        'sort'=>array(
+          'attributes'=>array(
+            'company'=>array(
+              'asc'=>'cargo0.company',
+              'desc'=>'cargo0.company DESC'
+            ),
+            'shipper'=>array(
+              'asc'=>'cargo0.shipper',
+              'desc'=>'cargo0.shipper DESC'
+            ),
+            '*',
+          )
+        ),
+		));
+          $dataProvider->setPagination(false);
+          return $dataProvider;
 	}
 }

@@ -119,6 +119,12 @@
             $error += $this->validatePassengersField($passengers,$seats,$fares);           
           }
           if($purchase->current_step ==3){
+            $vs = Voyage::model()->find(array(
+              'select'=>'status',
+              'condition'=>'id=:vid',
+              'params'=>array(':vid'=>"$purchase->voyage"),)
+            );
+            $b_type = $vs->status ==1 ? 1:2;
             $transaction = Yii::app()->db->beginTransaction();
             try{
               $tr = new Transaction;
@@ -150,6 +156,7 @@
                 $nb->rate = $fares[$key]->id;
                 $nb->transaction = $tr->id;
                 $nb->passenger = $p->id;
+                $nb->type = $b_type;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
               }
@@ -168,6 +175,7 @@
                 $nc->rate = $purchase->cargo_rate;
                 $nc->cargo = $cargo->id;
                 $nc->stowage = $stowage->id;
+                $nc->type = $b_type;
                 if(!$nc->save())
                   throw new Exception('Cannot save Cargo Booking');
               }
