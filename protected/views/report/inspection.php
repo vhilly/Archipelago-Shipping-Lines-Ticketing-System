@@ -62,13 +62,14 @@
           <td>Credit<br>(Y/N)</td>
         </tr>
         <?php foreach($cargo as $c): ?>
+        <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$c->rate}"),"changed_at >= '{$c->date_booked}'");?>
         <tr class=border>
           <td><?=$c->lading_no?></td>
           <td><?=$c->cargo0->shipper?></td>
           <td><?=$c->cargo0->article_desc?></td>
           <td><?=$c->cargo0->cargoClass->name?></td>
           <td><?=$c->cargo0->plate_num?></td>
-          <td><?=$c->rate0->proposed_tariff?></td>
+          <td><?=isset($orig_price->price) ? $orig_price->price :$c->rate0->proposed_tariff?></td>
           <td></td>
         </tr>
        <?php endforeach;?>

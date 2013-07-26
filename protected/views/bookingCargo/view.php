@@ -1,10 +1,11 @@
 <?php
+  $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$bookingCargo->rate}"),"changed_at >= '{$bookingCargo->date_booked}'");
   $this->widget('bootstrap.widgets.TbEditableDetailView', array(
     'id' => 'booking-details',
-    'data' => BookingCargo::model()->findByPk($bookingCargo->id),
+    'data' =>  BookingCargo::model()->findByPk($bookingCargo->id),
     'url' => $this->createUrl('booking/editableSaver'), //common submit url for all editables
     'attributes'=>array(
-      array('label'=>'PRICE','value'=>$bookingCargo->rate0->proposed_tariff),
+      array('label'=>'PRICE','value'=> isset($orig_price->price) ? $orig_price->price : $bookingCargo->rate0->proposed_tariff ),
       array('label'=>'STOWAGE','value'=>isset($bookingCargo->stowage) ? $bookingCargo->stowage0->name :'NO ASSIGNED STOWAGE'),
       array('label'=>'CLASS','value'=>$bookingCargo->cargo0->cargoClass->name),
       array('label'=>'VOYAGE','value'=>$bookingCargo->voyage0->name),

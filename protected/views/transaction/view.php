@@ -67,7 +67,7 @@
             <td><?=$ticket['last_name']?></td>
             <td><?=$ticket['class']?></td>
             <td><?=$ticket['type']?></td>
-            <td><?=$ticket['price']?></td>
+            <td><?=$ticket['orig_price'] ? $ticket['orig_price'] : $ticket['price']?></td>
 	   </tr>
 	 <?php endforeach;?>
      </tbody>
@@ -107,7 +107,7 @@
 	     <td><?=$cargo['article_desc']?></td>
 	     <td><?=$cargo['weight']?></td>
 	     <td><?=$cargo['length']?></td>
-	     <td><?=$cargo['amount']?></td>
+            <td><?=$cargo['orig_price'] ? $cargo['orig_price'] : $cargo['amount']?></td>
 	   </tr>
 	 <?php endforeach;?>
      </tbody>

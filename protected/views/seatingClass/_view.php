@@ -12,13 +12,5 @@
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('amt')); ?>:</b>
-	<?php echo CHtml::encode($data->amt); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('active')); ?>:</b>
-	<?php echo CHtml::encode($data->active); ?>
-	<br />
-
 
 </div>

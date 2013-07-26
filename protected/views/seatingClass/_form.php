@@ -1,5 +1,5 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'misc-fees-form',
+	'id'=>'seating-class-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -11,10 +11,7 @@
 
 	<?php echo $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<?php echo $form->textFieldRow($model,'amt',array('class'=>'span5','maxlength'=>20)); ?>
-
-
-	<?php echo $form->textFieldRow($model,'active',array('class'=>'span5','maxlength'=>1)); ?>
+	<?php echo $form->radioButtonListRow($model,'active',array('Y'=>'Yes','N'=>'No')); ?>
 
 <div class="form-actions">
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -22,6 +19,7 @@
 			'type'=>'primary',
 			'label'=>$model->isNewRecord ? 'Create' : 'Save',
 		)); ?>
+  <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'danger','buttonType'=>'link','icon'=>'','url'=>Yii::app()->createUrl('seatingClass/admin'),'label'=>'Cancel'));?>
 </div>
 
 <?php $this->endWidget(); ?>

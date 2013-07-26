@@ -10,6 +10,7 @@
 
   $vl = CHtml::listData(Voyage::model()->findAll(),'id','name');
   $bsl = CHtml::listData(BookingStatus::model()->findAll(),'id','name');
+  $bt = CHtml::listData(BookingType::model()->findAll(),'id','name');
   $voy = CHtml::listData(Voyage::model()->findAll(array('condition'=>'departure_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY')),'id','name');
   $gridColumns = array(
     array(
@@ -41,6 +42,7 @@
     ),
     array('name' => 'type',
       'sortable'=>true,
+      'filter'=>$bt,
       'value' => '$data->type0->name',
     ),
     array(

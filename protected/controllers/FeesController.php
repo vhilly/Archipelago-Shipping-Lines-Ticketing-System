@@ -44,14 +44,17 @@ array('deny',  // deny all users
 );
 }
 public function actionPay($type){
-      $model=new Booking('search');
-      $model->unsetAttributes();  // clear any default values
-      $model->voyage=0;
-      if(isset($_GET['Booking'])){
-        $model->attributes=$_GET['Booking'];
-      }
   $fee = MiscFees::model()->findByPk($type);
-  $this->render('pay',array('fee'=>$fee,'model'=>$model));
+  if(isset($_GET['record'])){
+    $model = new PaidMiscFees;
+    $model->misc_fee = $fee->id;
+    $model->amt = $fee->amt;
+    if($model->save()){
+      Yii::app()->user->setFlash('success', 'Transaction Complete!');
+      $this->redirect(array('pay','type'=>$type));
+    }
+  }
+  $this->render('pay',array('fee'=>$fee,'type'=>$type));
 }
 
 /**

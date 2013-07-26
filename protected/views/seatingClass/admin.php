@@ -1,13 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Misc Fees'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-array('label'=>'List MiscFees','url'=>array('index')),
-array('label'=>'Create MiscFees','url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -15,7 +6,7 @@ $('.search-form').toggle();
 return false;
 });
 $('.search-form form').submit(function(){
-$.fn.yiiGridView.update('misc-fees-grid', {
+$.fn.yiiGridView.update('seating-class-grid', {
 data: $(this).serialize()
 });
 return false;
@@ -23,14 +14,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Misc Fees</h1>
-
-<p>
-	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
+<h1>Seating Classes</h1>
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 	<?php $this->renderPartial('_search',array(
@@ -39,17 +23,17 @@ return false;
 </div><!-- search-form -->
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-'id'=>'misc-fees-grid',
+'id'=>'seating-class-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id',
 		'name',
-		'description',
-		'amt',
 		'active',
+		'description',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
+'template'=>'{update}',
 ),
 ),
 )); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'plus','url'=>Yii::app()->createUrl('seatingClass/create'),'label'=>'Add Class'));

@@ -43,12 +43,12 @@ class PaidMiscFees extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('transaction, misc_fee, timestamp', 'required'),
-			array('transaction, misc_fee', 'numerical', 'integerOnly'=>true),
+			array(' misc_fee', 'required'),
+			array(' misc_fee', 'numerical', 'integerOnly'=>true),
 			array('amt', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction, misc_fee, amt, timestamp', 'safe', 'on'=>'search'),
+			array('id,  misc_fee, amt, timestamp', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +60,6 @@ class PaidMiscFees extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'transaction0' => array(self::BELONGS_TO, 'Transaction', 'transaction'),
 			'miscFee' => array(self::BELONGS_TO, 'PaidMiscFees', 'misc_fee'),
 			'paidMiscFees' => array(self::HAS_MANY, 'PaidMiscFees', 'misc_fee'),
 		);
@@ -73,7 +72,6 @@ class PaidMiscFees extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'transaction' => 'Transaction',
 			'misc_fee' => 'Misc Fee',
 			'amt' => 'Amt',
 			'timestamp' => 'Timestamp',
@@ -92,7 +90,6 @@ class PaidMiscFees extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('transaction',$this->transaction);
 		$criteria->compare('misc_fee',$this->misc_fee);
 		$criteria->compare('amt',$this->amt,true);
 		$criteria->compare('timestamp',$this->timestamp,true);

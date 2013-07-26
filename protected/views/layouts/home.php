@@ -142,7 +142,7 @@
 )); ?>
 
 
-<div class="container" id="page">
+<div class="fluid" id="page">
   <center>
 <?php
   $msgType='';

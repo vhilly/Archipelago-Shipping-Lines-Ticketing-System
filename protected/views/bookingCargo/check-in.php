@@ -15,7 +15,7 @@
 <br><br>
 <div class='span9'>
 <?php
-  foreach($model->search()->getData() as $b){
+  foreach($model->printSearch()->getData() as $b){
     $checkedIn = $b->status ==3 || $b->status ==4;
       $this->widget('bootstrap.widgets.TbDetailView', array(
         'id' => 'passenger-details',

@@ -1,6 +1,6 @@
 <?php
 
-class VoyageController extends Controller
+class SeatingClassController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -35,7 +35,7 @@ array('allow', // allow authenticated user to perform 'create' and 'update' acti
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','editableSaver','voyageRates','status'),
+'actions'=>array('admin','delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -61,16 +61,16 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new Voyage;
+$model=new SeatingClass;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Voyage']))
+if(isset($_POST['SeatingClass']))
 {
-$model->attributes=$_POST['Voyage'];
+$model->attributes=$_POST['SeatingClass'];
 if($model->save()){
-  Yii::app()->user->setFlash('success', 'Voyage has been added!');
+  Yii::app()->user->setFlash('success', 'Seating Class has been added!');
   $this->redirect(array('admin'));
 }
 }
@@ -92,11 +92,11 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Voyage']))
+if(isset($_POST['SeatingClass']))
 {
-$model->attributes=$_POST['Voyage'];
+$model->attributes=$_POST['SeatingClass'];
 if($model->save()){
-  Yii::app()->user->setFlash('success', 'Voyage has been updated!');
+  Yii::app()->user->setFlash('success', 'Seating Class has been updated!');
   $this->redirect(array('admin'));
 }
 }
@@ -131,25 +131,10 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Voyage');
+$dataProvider=new CActiveDataProvider('SeatingClass');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
-}
-public function actionStatus($id){
-  $model=$this->loadModel($id);
-  if(isset($_POST['Voyage'])){
-    $model->attributes=$_POST['Voyage'];
-    if($model->save()){
-      if($model->status != 1){
-        Booking::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL') ), 'status < 3 ' );
-        BookingCargo::model()->updateAll(array( 'status' => 5, 'stowage' => new CDbExpression('NULL') ), 'status < 3 ' );
-      }
-      Yii::app()->user->setFlash('success', 'Voyage Status  has been updated!');
-      $this->redirect(array('index'));
-    }
-  }
-  $this->render('_statusForm',array('model'=>$model));
 }
 
 /**
@@ -157,16 +142,15 @@ public function actionStatus($id){
 */
 public function actionAdmin()
 {
-$model=new Voyage('search');
+$model=new SeatingClass('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['Voyage']))
-$model->attributes=$_GET['Voyage'];
+if(isset($_GET['SeatingClass']))
+$model->attributes=$_GET['SeatingClass'];
 
 $this->render('admin',array(
 'model'=>$model,
 ));
 }
-
 
 /**
 * Returns the data model based on the primary key given in the GET variable.
@@ -175,7 +159,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=Voyage::model()->findByPk($id);
+$model=SeatingClass::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -187,15 +171,10 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='voyage-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='seating-class-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
-    public function actionEditableSaver(){
-      Yii::import('bootstrap.widgets.TbEditableSaver');
-      $es = new TbEditableSaver('Voyage');
-      $es->update();
-    }
 }

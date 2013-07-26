@@ -1,25 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "misc_fees".
+ * This is the model class for table "price_history".
  *
- * The followings are the available columns in table 'misc_fees':
+ * The followings are the available columns in table 'price_history':
  * @property integer $id
- * @property string $name
- * @property string $description
- * @property string $amt
- * @property integer $transaction_type
- * @property string $active
- *
- * The followings are the available model relations:
- * @property TransactionType $transactionType
+ * @property integer $category
+ * @property integer $category_id
+ * @property string $price
+ * @property string $changed_at
  */
-class MiscFees extends CActiveRecord
+class PriceHistory extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return MiscFees the static model class
+	 * @return PriceHistory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -31,7 +27,7 @@ class MiscFees extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'misc_fees';
+		return 'price_history';
 	}
 
 	/**
@@ -42,13 +38,12 @@ class MiscFees extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, description, amt', 'required'),
-			array('name', 'length', 'max'=>100),
-			array('amt', 'length', 'max'=>20),
-			array('active', 'length', 'max'=>1),
+			array('category, category_id, price, changed_at', 'required'),
+			array('category, category_id', 'numerical', 'integerOnly'=>true),
+			array('price', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, amt, active', 'safe', 'on'=>'search'),
+			array('id, category, category_id, price, changed_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,10 +65,10 @@ class MiscFees extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
-			'amt' => 'Amt',
-			'active' => 'Active',
+			'category' => 'Category',
+			'category_id' => 'Category',
+			'price' => 'Price',
+			'changed_at' => 'Changed At',
 		);
 	}
 
@@ -89,10 +84,10 @@ class MiscFees extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('amt',$this->amt,true);
-		$criteria->compare('active',$this->active,true);
+		$criteria->compare('category',$this->category);
+		$criteria->compare('category_id',$this->category_id);
+		$criteria->compare('price',$this->price,true);
+		$criteria->compare('changed_at',$this->changed_at,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

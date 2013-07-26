@@ -39,6 +39,16 @@ $tomonth = date("F",strtotime($date));
 $toyear = date("Y",strtotime($date));
 $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '________';
 ?>
+
+	<?php if(!isset($print)):?>
+	<?php
+	$this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
+	'Booking[voyage]'=>$model->voyage,
+	'print'=>1,
+	)), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
+	?><br><br>
+    	<?php endif;?>
+
    <?php $ctr=1?>
    <?php foreach($model->printSearch()->getData() as $key=>$b): ?>
        <?php if($ctr==36){$ctr=1;}?>
@@ -100,14 +110,6 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
 	</td></tr>
        </table>
 
-	<?php if(!isset($print)):?>
-	<?php
-	$this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
-	'Booking[voyage]'=>$model->voyage,
-	'print'=>1,
-	)), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
-	?><br><br>
-    	<?php endif;?>
  
        <?php endif;?>
        <?php $ctr++;?>

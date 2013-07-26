@@ -10,10 +10,10 @@
 <?php $this->endWidget();?>
 <div>
   <fieldset>
-    <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status =1')),'id','name')); ?>
+    <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3')),'id','name')); ?>
 
     <div style="<?= $transaction_type->cargo =='Y' ?  'display:none':'' ?> ">
-      <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name')); ?>
+      <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(array('condition'=>'active="Y"')),'id','name')); ?>
       <?php echo $form->textFieldRow($purchase, 'passenger_total', array('class'=>'span1'));?>
 
     </div>

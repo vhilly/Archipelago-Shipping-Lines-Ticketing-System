@@ -59,10 +59,10 @@ class Booking extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array($this->_requiredFields.'transaction, passenger, tkt_no, booking_no, voyage, status,rate', 'required'),
-			array('transaction, passenger, voyage, seat, status', 'numerical', 'integerOnly'=>true),
+			array('transaction, passenger,type, voyage, seat, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, transaction, passenger,tkt_no, voyage,first_name,last_name, seat, status, date_booked', 'safe', 'on'=>'search'),
+			array('id, transaction,type, passenger,tkt_no, voyage,first_name,last_name, seat, status, date_booked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,7 +104,7 @@ class Booking extends CActiveRecord
                         'b_cnt'=>'Boarded',
                         'c_cnt'=>'Checked In',
 			'date_booked' => 'Date Booked',
-			'type' => 'Booking Type',
+			'type' => 'Type',
 		);
 	}
 
@@ -134,6 +134,7 @@ class Booking extends CActiveRecord
 		$criteria->compare('seat',$this->seat);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('rate',$this->rate);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('date_booked',$this->date_booked,true);
                 $criteria->compare('passenger0.first_name',$this->first_name,true);
                 $criteria->compare('passenger0.last_name',$this->last_name,true);
@@ -180,7 +181,7 @@ class Booking extends CActiveRecord
 		$criteria->compare('date_booked',$this->date_booked,true);
                 $criteria->compare('passenger0.first_name',$this->first_name,true);
                 $criteria->compare('passenger0.last_name',$this->last_name,true);
-
+                $criteria->addCondition('status != 5');
 		$dataProvider = new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
         'sort'=>array(
