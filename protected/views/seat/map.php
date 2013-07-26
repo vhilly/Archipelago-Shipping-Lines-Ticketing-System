@@ -42,9 +42,9 @@
                 }
         }
         switch($type){
-          case 2: $cl = "PREMIUM CLASS";$min=10;$max=29;break;
-          case 1: $cl = "BUSINESS CLASS";$min=1;$max=9;break;
-          case 3: $cl = "ECONOMY";$min=30;$max=45;break;
+          case 1: $cl = "BUSINESS CLASS";$min=1;$max=29;break;
+          case 3: $cl = "BUSINESS CLASS";$min=1;$max=9;break;
+          case 2: $cl = "PREMIUM ECONOMY";$min=30;$max=45;break;
           default:
         }
 
