@@ -2,6 +2,18 @@
     padding-top: 60px;
 	min-width:1000px;
 }
+.homeHero {
+  background:url("../img/arc.png") no-repeat;
+  height:218px;
+  width:617px;
+}
+.arcName {
+  font-family:Verdana;
+  text-shadow: 0 2px 2px #222;
+  color:#fff;
+  font-size:50px;
+  margin-right:150px
+}
 
 .navbar .brand {
 	padding:0 10px;
