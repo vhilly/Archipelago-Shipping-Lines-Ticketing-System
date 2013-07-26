@@ -20,10 +20,10 @@
 <table>
   <tr>
     <td>SELECT VOYAGE:</td>
-    <td><?php echo $form->dropDownList($model,'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status=1','params'=>array(':id'=>$model->voyage))),'id','name'),array('class'=>'voyage seatChange'))?></td>
+    <td><?php echo $form->dropDownList($model,'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status<3','params'=>array(':id'=>$model->voyage))),'id','name'),array('class'=>'voyage seatChange'))?></td>
     <!--<td><?php echo $form->dropDownList($model,'voyage',CHtml::listData(SeatingClass::model()->findAll(),'id','name'),array('class'=>'voyage seatChange'))?></td>-->
     <td>Seat:</td>
-    <td style="padding:0"><div id="seatValue" class="well well-small" style="width:25px;font-weight:bold;background:#f68938"><?=$model->seat0->name?><div></td>
+    <td style="padding:0"><div id="seatValue" class="well well-small" style="width:25px;font-weight:bold;background:#f68938"><?=isset($model->seat0->name) ? $model->seat0->name : ''?><div></td>
     <td valign=top><?php $this->widget('bootstrap.widgets.TbButton', array(
       'buttonType'=>'submit',
       'type'=>'primary',

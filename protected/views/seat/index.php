@@ -61,7 +61,7 @@ $book=BookingStatus::model()->findAll();
     <td width='5%'>Available</td>
     <td><div style='width:25px; height:12px; background-color:white; border:1px solid black'></div></td>
 
-<?php foreach($book as $bookstat): if($bookstat->name=="Canceled") continue?>
+<?php foreach($book as $bookstat): if($bookstat->id==5) continue?>
     <td width='5%'><?=$bookstat->name?></td>
     <td><div style='width:25px; height:12px; background-color:<?=$bookstat->color?>; border:1px solid black'></div></td>
 <?php endforeach; ?>
