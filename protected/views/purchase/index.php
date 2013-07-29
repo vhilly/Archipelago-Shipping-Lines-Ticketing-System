@@ -82,6 +82,12 @@
 ");
 ?>
 <script>
+  $("input").keypress(function (evt) {
+    var charCode = evt.charCode || evt.keyCode;
+    if (charCode  == 13) { //Enter key's keycode
+      return false;
+    }
+  });
   $('.smodal').bind('click', function (event){
     var scl = $('#Purchase_class').val();
     $.ajax({

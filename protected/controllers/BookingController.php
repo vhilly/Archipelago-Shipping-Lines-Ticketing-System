@@ -59,6 +59,8 @@
     {
       $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
+      $model->first_name = isset($_GET['Booking']['first_name']) ? $_GET['Booking']['first_name'] : '';
+      $model->last_name = isset($_GET['Booking']['last_name']) ? $_GET['Booking']['last_name'] : '';
       $model->voyage=0;
       $model->status=3;
       if(isset($_GET['Booking'])){
@@ -83,6 +85,8 @@
     {
       $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
+      $model->first_name = isset($_GET['Booking']['first_name']) ? $_GET['Booking']['first_name'] : '';
+      $model->last_name = isset($_GET['Booking']['last_name']) ? $_GET['Booking']['last_name'] : '';
       $model->voyage=0;
       if(isset($_GET['Booking'])){
         $model->attributes=$_GET['Booking'];
@@ -228,6 +232,12 @@
        $this->render('transfer',array('model'=>$model,'forTransfer'=>$forTransfer));
     }
 
+    public function actionReader()
+    {
+      $this->render('reader',array(
+        'model'=>$model,
+      ));
+    }
     public function actionCheckIn()
     {
       $model=new Booking('printSearch');
@@ -235,6 +245,8 @@
       $model->voyage=0;
       if(isset($_POST['Booking'])){
         $model->attributes=$_POST['Booking'];
+        $model->first_name = isset($_POST['Booking']['first_name']) ? $_POST['Booking']['first_name'] : '';
+        $model->last_name = isset($_POST['Booking']['last_name']) ? $_POST['Booking']['last_name'] : '';
       }
       $this->render('check-in',array(
         'model'=>$model,
@@ -244,6 +256,8 @@
     {
       $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
+      $model->first_name = isset($_POST['Booking']['first_name']) ? $_POST['Booking']['first_name'] : '';
+      $model->last_name = isset($_POST['Booking']['last_name']) ? $_POST['Booking']['last_name'] : '';
       $model->voyage=0;
       if(isset($_POST['Booking'])){
         $model->attributes=$_POST['Booking'];
@@ -286,6 +300,7 @@
       
       if(isset($_POST['Booking'])){
           $model->attributes = $_POST['Booking'];
+          $model->status=1;
           if($model->save()){
             Yii::app()->user->setFlash('success', 'Booking Transfer Successful!');
             $this->redirect(array('booking/transfer','booking_no'=>$model->booking_no));

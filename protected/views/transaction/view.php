@@ -68,10 +68,26 @@
             <td><?=$ticket['class']?></td>
             <td><?=$ticket['type']?></td>
             <td><?=$ticket['orig_price'] ? $ticket['orig_price'] : $ticket['price']?></td>
+            <td>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
+              'Booking[tkt_no]'=>$ticket['tkt_no'],
+              'Booking[voyage]'=>$ticket['voyage'],
+              'print'=>1,
+              )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank')));
+            ?>
+            </td>
 	   </tr>
 	 <?php endforeach;?>
      </tbody>
    </table>
+   <br>
+   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
+     'Booking[booking_no]'=>$ticket['booking_no'],
+     'Booking[voyage]'=>$ticket['voyage'],
+     'print'=>1,
+   )), 'label'=>'Print All Ticket/s','htmlOptions'=>array('target'=>'_blank','class'=>'span2' )))
+   ?>
+   <br>
  <?php endif;?>
   <?php
     if(count($Cargos)):
@@ -112,4 +128,12 @@
 	 <?php endforeach;?>
      </tbody>
    </table>
+   <br>
+   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('bookingCargo/wBill',array(
+     'BookingCargo[transaction]'=>$trans->id,
+     'BookingCargo[voyage]'=>$cargo['voyage'],
+     'print'=>1,
+   )), 'label'=>'Print Waybill','htmlOptions'=>array('target'=>'_blank','class'=>'span2' )))
+   ?>
+   <br>
  <?php endif;?>

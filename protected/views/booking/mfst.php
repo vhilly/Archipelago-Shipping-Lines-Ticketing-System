@@ -49,7 +49,7 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
 	?><br><br>
     	<?php endif;?>
 
-   <?php $ctr=1?>
+   <?php $ctr=1; $cttr=0;?>
    <?php foreach($model->printSearch()->getData() as $key=>$b): ?>
        <?php if($ctr==36){$ctr=1;}?>
        <?php if($ctr==1):?>
@@ -112,9 +112,10 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
 
  
        <?php endif;?>
-       <?php $ctr++;?>
+       <?php $ctr++; $cttr++;?>
   <?php endforeach; ?>
 
+<?php if(($cttr % 35) == 0 || $cttr == 0): ?>
 <tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
         District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________
         Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
@@ -148,4 +149,4 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
         )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
         ?>
         <?php endif;?>
-
+<?php endif;?>

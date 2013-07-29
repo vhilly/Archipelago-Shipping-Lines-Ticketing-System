@@ -222,7 +222,6 @@
       $model=new BookingCargo('search');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
-      $model->status=3;
       if(isset($_GET['BookingCargo'])){
         $model->attributes=$_GET['BookingCargo'];
       }
