@@ -20,12 +20,13 @@
     #seatBox {
     }
     .reserve, #seat_list td.reserve:hover {
-      background:#bbb;
+      background:#f5c;
     }
     .pre_assign, #seat_list td.pre_assign:hover {
-      background:#9fc;
+      text-align:center;
+      background:#bbb;
     }
-    .reserve img {
+    .pre_assign img {
       height:15px;
     }
 
@@ -67,12 +68,12 @@
       if(!in_array($ts,$skp)){
       	if(in_array($ts,$apr)){
         	$cls = "reserve";
-		$stnum = CHtml::image(Yii::app()->theme->baseUrl."/img/lock.png");
-//		$stnum = "$b$a";
-          $clk = "";
-        }elseif(in_array($ts,$pres)){
-        	$cls = "pre_assign";
 		$stnum = "$b$a";
+          $clk = "";
+        }elseif(in_array($ts,$locked)){
+        	$cls = "pre_assign";
+		$stnum = CHtml::image(Yii::app()->theme->baseUrl."/img/lock.png");
+		//$stnum = "$b$a";
           $clk = "";
         }else{
 	  $stnum = "$b$a";
