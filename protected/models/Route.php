@@ -6,8 +6,8 @@
  * The followings are the available columns in table 'route':
  * @property integer $id
  * @property string $name
- * @property string $from
- * @property string $to
+ * @property string $from_port
+ * @property string $to_port
  * @property string $active
  *
  * The followings are the available model relations:
@@ -42,12 +42,12 @@ class Route extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, from, to', 'required'),
-			array('name, from, to', 'length', 'max'=>100),
+			array('name, from_port, to_port', 'required'),
+			array('name, from_port, to_port', 'length', 'max'=>100),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, from, to, active', 'safe', 'on'=>'search'),
+			array('id, name, from_port, to_port, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +57,7 @@ class Route extends CActiveRecord
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
+		// class name for the relations auto_portmatically generated below.
 		return array(
 			'passageFareRates' => array(self::HAS_MANY, 'PassageFareRates', 'route'),
 			'voyages' => array(self::HAS_MANY, 'Voyage', 'route'),
@@ -65,15 +65,15 @@ class Route extends CActiveRecord
 	}
 
 	/**
-	 * @return array customized attribute labels (name=>label)
+	 * @return array custo_portmized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'from' => 'From',
-			'to' => 'To',
+			'from_port' => 'From',
+			'to_port' => 'To',
 			'active' => 'Active',
 		);
 	}
@@ -84,15 +84,15 @@ class Route extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
+		// Warning: Please modify the following code to_port remove attributes that
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('from',$this->from,true);
-		$criteria->compare('to',$this->to,true);
+		$criteria->compare('from_port',$this->from_port,true);
+		$criteria->compare('to_port',$this->to_port,true);
 		$criteria->compare('active',$this->active,true);
 
 		return new CActiveDataProvider($this, array(

@@ -1,7 +1,7 @@
 <?php
 
  $user = Yii::app()->user->getUserByName($trans->created_by);
- $createdBy = isset($user->profile->firstname) ? $user->profile->firstname:'';
+ $createdBy = isset($user) ? $user->profile->firstname.' '.$user->profile->lastname:'';
   
 ?>
     <table width=1000 border=1>

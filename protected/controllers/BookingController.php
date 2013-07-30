@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest'),
+          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -67,13 +67,16 @@
         $model->attributes=$_GET['Booking'];
       }
       if(isset($_GET['Booking']) && $_GET['print']){
-	$mPDF1 = Yii::app()->ePdf->mpdf();
-	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
-        $mPDF1->WriteHTML($this->renderPartial('bpass',array(
+	//$mPDF1 = Yii::app()->ePdf->mpdf();
+	//$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
+        // $mPDF1->WriteHTML($this->renderPartial('bpass',array(
+        // 'model'=>$model,
+        // 'print'=>1,
+        //),true,true));
+        $this->renderPartial('bpass',array(
           'model'=>$model,
           'print'=>1,
-        ),true,true));
-	$mPDF1->Output();
+        ));
       }else{
         $this->render('bpass',array(
           'model'=>$model,
@@ -92,13 +95,10 @@
         $model->attributes=$_GET['Booking'];
       }
       if(isset($_GET['Booking']) && $_GET['print']){
-	$mPDF1 = Yii::app()->ePdf->mpdf();
-	$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
-        $mPDF1->WriteHTML($this->renderPartial('tkt',array(
+        $this->renderPartial('tkt',array(
           'model'=>$model,
           'print'=>1,
-        ),true,true));
-	$mPDF1->Output();
+        ));
       }else{
         $this->render('tkt',array(
           'model'=>$model,
@@ -195,6 +195,17 @@
       else
         throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
     }
+    public function actionRefund($id)
+    {
+        $booking = $this->loadModel($id);
+        $booking->status=6;
+        $refund = new RefundedTkts;
+        $refund->attributes = $booking->attributes;
+        if($booking->save()){ 
+          $refund->save();
+        }
+        $this->redirect(array('index'));
+    }
 
     /**
      * Lists all models.
@@ -234,9 +245,31 @@
 
     public function actionReader()
     {
-      $this->render('reader',array(
-        'model'=>$model,
-      ));
+      if(isset($_GET['Booking'])){
+        $pass = isset($_SESSION['checklist']) ? $_SESSION['checklist'] : Array();
+        $add = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : "";
+        array_push($pass,$add);
+        $_SESSION['checklist'] = $pass;
+        $ids = implode("','",$pass);
+      }else{
+        $pass = Array();
+        unset($_SESSION['checklist']);
+        $ids = "";
+      }
+
+      $model=new Booking;
+      if(isset($_GET['print'])){
+        $ids = isset($_GET['ids']) ? $_GET['ids'] : null;
+      }
+      if(isset($_GET['Booking']) || isset($_GET['print'])){
+        $sql = "SELECT cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_serial,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_serial IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
+        $data = Yii::app()->db->createCommand($sql);
+        $pass = $data->queryAll();
+      }
+      if(isset($_GET['print']))
+        $this->renderPartial('reader',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,));
+      else
+        $this->render('reader',array('model'=>$model,'passenger'=>$pass,'ids'=>$ids,));
     }
     public function actionCheckIn()
     {

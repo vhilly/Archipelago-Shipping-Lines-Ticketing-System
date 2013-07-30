@@ -65,13 +65,12 @@
       'value' => '$data->voyage0->vessel0->name',
     ),
     array(
-      'header'=>'Ticket Details',
       'class' => 'bootstrap.widgets.TbButtonColumn',
-      'template'=>'{viewtkt}',
+      'template'=>'{viewtkt} {refund}',
       'buttons'=>array(
         'viewtkt' => array(
           'label'=>'view',
-          'icon'=>'plus',
+          'icon'=>'eye-open',
           'url'=>'Yii::app()->controller->createUrl("booking/view", array("id"=>$data->id))',
           'options'=>array(
             'ajax'=>array(
@@ -80,6 +79,14 @@
               'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); }'
             ),
           ),
+        ),
+        'refund' => array(
+          'label'=>'refund',
+          'options'=>array(
+            'onClick'=>'return confirm("Are you sure?");'
+          ),
+          'icon'=>'minus',
+          'url'=>'Yii::app()->controller->createUrl("booking/refund", array("id"=>$data->id))',
         ),
       ),
     ),

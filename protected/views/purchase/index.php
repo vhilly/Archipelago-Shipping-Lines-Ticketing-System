@@ -39,7 +39,7 @@
 
 
 <div <?=$purchase->current_step==2 ? '' : 'style=display:none'?>>
-  <?php $this->renderPartial('_step2',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase,'transaction_type'=>$transaction_type,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares)); ?>
+  <?php $this->renderPartial('_step2',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase,'transaction_type'=>$transaction_type,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares,'serials'=>$serials)); ?>
 </div>
 <div <?=$purchase->current_step==3 ? '' : 'style=display:none'?>>
   <?php $this->renderPartial('_step3',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase)); ?>

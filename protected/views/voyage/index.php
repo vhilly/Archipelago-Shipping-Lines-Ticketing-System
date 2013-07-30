@@ -3,8 +3,8 @@
   
     $gridColumns = array(
       'name',
-      array('header'=>'From','value'=>'$data->route0->from'),
-      array('header'=>'To','value'=>'$data->route0->to'),
+      array('header'=>'From','value'=>'$data->route0->from_port'),
+      array('header'=>'To','value'=>'$data->route0->to_port'),
       'departure_date',
       'departure_time',
       'arrival_time',

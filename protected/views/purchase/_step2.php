@@ -16,6 +16,14 @@
 	    <b><?=$key+1?></b>
           </td>
           <td>
+            <?php echo $form->datepickerRow($passenger, "[$key]birth_date",
+              array('prepend'=>'<i class="icon-calendar"></i>',
+                'class'=>'reduce',
+                'options'=>array('format'=>'yyyy-mm-dd'),
+              )
+            );?>
+          </td>
+          <td>
             <?php echo $form->textFieldRow($passenger, "[$key]first_name", array('class'=>'span2')); ?>
           </td>
           <td>
@@ -24,28 +32,17 @@
           <td>
             <?php echo $form->textFieldRow($passenger, "[$key]middle_name", array('class'=>'span2')); ?>
           </td>
-          <td>
-            <?php echo $form->datepickerRow($passenger, "[$key]birth_date",
-              array('prepend'=>'<i class="icon-calendar"></i>',
-                'class'=>'reduce',
-                'options'=>array('format'=>'yyyy-mm-dd'),
-              )
-            );?>
-          </td>
-        <td>
-          <?php echo $form->textFieldRow($passenger, "[$key]prefix", array('class'=>'span1')); ?>
-        </td>
         <td>
           <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('class'=>'span2')); ?>
         </td>
         <td>
           <?php echo $form->radioButtonListRow($passenger, "[$key]gender", array('M'=>'M','F'=>'F')); ?>
         </td>
-      </tr>
-      <tr class="<?=$alter?>">
         <td>
           <?php echo $form->textFieldRow($passenger, "[$key]address", array('class'=>'span2')); ?>
         </td>
+      </tr>
+      <tr class="<?=$alter?>">
         <td>
           <?php echo $form->textFieldRow($passenger, "[$key]contact", array('class'=>'span2')); ?>
         </td>
@@ -61,7 +58,7 @@
               'options'=>array(
               'name'=>"[$key]nationality",
               'source'=>array(
-                'Filipino','Chinese','American'
+                'Filipino','Chinese','American','Japanese'
               ),
               'items'=>4,
               'matcher'=>"js:function(item) {
@@ -86,6 +83,9 @@
          </td>
          <td style="display:none">
            <?php echo $form->dropDownListRow($seats[$key],"[$key]id",CHtml::listData($seatList,'id','name'),array('class'=>'span2','empty'=>'')); ?>
+         </td>
+         <td>
+           <?php echo $form->textFieldRow($serials[$key],"[$key]tkt_serial",array('class'=>'span2')); ?>
          </td>
        </tr>
        <?php endforeach;?>

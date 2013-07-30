@@ -20,8 +20,8 @@ array('label'=>'Manage Route','url'=>array('admin')),
 'attributes'=>array(
 		'id',
 		'name',
-		'from',
-		'to',
+		'from_port',
+		'to_port',
 		'active',
 ),
 )); ?>

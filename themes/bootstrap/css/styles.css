@@ -1,3 +1,7 @@
+@font-face{
+    font-family: 'barcode';
+    src: url('IDAutomationHC39M.ttf');
+}
 #page {
     padding-top: 60px;
 	min-width:1000px;

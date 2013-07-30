@@ -74,6 +74,9 @@ return array(
 	'components'=>array(
 
 
+          'barcodegenerator' => array(
+            'class' => 'ext.barcodegenerator.BarcodeGeneratorController',
+          ),
 //...
     'ePdf' => array(
         'class'         => 'ext.yii-pdf.EYiiPdf',

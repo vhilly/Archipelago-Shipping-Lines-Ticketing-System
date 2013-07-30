@@ -32,6 +32,7 @@ return false;
 }",
 'filter'=>$model,
 'columns'=>array(
+                'name',
 		array(
                   'name'=>'vessel',
                   'filter'=>CHtml::listData(Vessel::model()->findAll(),'id','name'),
@@ -40,7 +41,7 @@ return false;
 		array(
                   'name'=>'route',
                   'filter'=>CHtml::listData(Route::model()->findAll(),'id','name'),
-                   'value'=>'$data->route0->from." - ".$data->route0->to',
+                   'value'=>'$data->route0->from_port." - ".$data->route0->to_port',
                 ),
                 array(
 			'name' => 'departure_date',

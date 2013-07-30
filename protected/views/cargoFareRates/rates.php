@@ -7,7 +7,7 @@
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array('id'=>'verticalForm')); ?>
     <table class=span6>
       <tr>
-        <th colspan=2><center><?=$route->from.'-'.$route->to?><center></th>
+        <th colspan=2><center><?=$route->from_port.'-'.$route->to_port?><center></th>
       </tr>
       <?php foreach($cc as $c):?>
       <tr>
@@ -44,8 +44,8 @@
       $dataProvider=new CActiveDataProvider('Route');
       $gridColumns = array(
         'name',
-        'from',
-        'to',
+        'from_port',
+        'to_port',
         array(
           'class'=>'bootstrap.widgets.TbButtonColumn',
           'template'=>'{rates}',

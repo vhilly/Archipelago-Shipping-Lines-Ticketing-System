@@ -9,11 +9,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('from')); ?>:</b>
-	<?php echo CHtml::encode($data->from); ?>
+	<?php echo CHtml::encode($data->from_port); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('to')); ?>:</b>
-	<?php echo CHtml::encode($data->to); ?>
+	<?php echo CHtml::encode($data->to_port); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('active')); ?>:</b>

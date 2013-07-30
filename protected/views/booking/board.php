@@ -4,7 +4,7 @@
 	'htmlOptions'=>array('class'=>'span10'),
    )); ?>
    <?php
-	echo $form->textFieldRow($model, 'tkt_no',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
+	echo $form->textFieldRow($model, 'tkt_serial',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
@@ -24,7 +24,7 @@
         'data' => Passenger::model()->findByPk($b->passenger),
         'url' => $this->createUrl('passenger/editableSaver'), //common submit url for all editables
         'attributes'=>array(
-          array('name'=>'Ticket#','value'=>$b->tkt_no),
+          array('name'=>'Ticket#','value'=>$b->tkt_serial),
           array('name'=>'Booking#','value'=>$b->booking_no),
           'first_name',
           'last_name',

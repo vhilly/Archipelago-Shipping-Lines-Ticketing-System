@@ -4,7 +4,7 @@
 	'htmlOptions'=>array('class'=>'span10'),
    )); ?>
    <?php
-	echo $form->textFieldRow($model, 'tkt_no',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
+	echo $form->textFieldRow($model, 'tkt_serial',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
@@ -22,7 +22,7 @@
         'data' => Passenger::model()->findByPk($b->passenger),
         'url' => $this->createUrl('passenger/editableSaver'), //common submit url for all editables
         'attributes'=>array(
-          array('name'=>'Ticket#','value'=>$b->tkt_no),
+          array('name'=>'Ticket#','value'=>$b->tkt_serial),
           array('name'=>'Booking#','value'=>$b->booking_no),
           'first_name',
           'last_name',
@@ -35,7 +35,7 @@
       )
     ));
     $this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>$checkedIn ? 'Checked-in' : 'Check-In',
+	'label'=>$checkedIn ? 'Checked-in' : 'Check-In and Print Boarding Pass',
 	'type'=>$checkedIn ? 'info': 'success',
         'disabled'=>$checkedIn ? true : false,
 	'htmlOptions'=> array(
@@ -50,6 +50,7 @@
                                      bootbox.alert("Please fix the following errors:<br>"+data.error); 
                                   } else {
                                      $(a).attr("disabled","disabled").removeAttr("onclick").addClass("btn-info").removeClass("btn-success").text("Checked-in");
+                                     window.open("'.Yii::app()->controller->createUrl('booking/bpass',array('Booking[tkt_serial]'=>$b->tkt_serial,'Booking[voyage]'=>$b->voyage,'print'=>'1')).'","")
                                   }
                                },
                              "json");

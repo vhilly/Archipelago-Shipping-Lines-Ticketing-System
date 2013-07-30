@@ -11,7 +11,7 @@ if(count($voyages)){
     $model=new CActiveDataProvider('Booking', array(
       'criteria'=>array(
         'select'=>'status,count(id) as cnt',
-        'condition'=>"voyage={$voyage->id}",
+        'condition'=>"voyage={$voyage->id} AND status < 5",
         'group'=>'t.status',
       ),
       'pagination'=>array(
@@ -48,7 +48,7 @@ if(count($voyages)){
     $cmodel=new CActiveDataProvider('BookingCargo', array(
       'criteria'=>array(
         'select'=>'status,count(id) as cnt',
-        'condition'=>"voyage={$voyage->id}",
+        'condition'=>"voyage={$voyage->id} AND status < 5",
         'group'=>'t.status',
       ),
       'pagination'=>array(

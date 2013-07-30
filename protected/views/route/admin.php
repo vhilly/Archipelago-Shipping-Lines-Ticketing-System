@@ -29,8 +29,8 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'name',
-		'from',
-		'to',
+		'from_port',
+		'to_port',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
 'template'=>'{update}',
