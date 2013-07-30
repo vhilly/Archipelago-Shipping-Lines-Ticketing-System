@@ -27,17 +27,16 @@
     {
       return array(
         array('allow',  // allow all users to perform 'index' and 'view' actions
-          'actions'=>array('index','view','map'),
+          'actions'=>array(''),
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update'),
+          'actions'=>array('create','delete','update','lock','index','view','map','locked','index'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver','setup','lock'),
-          //'users'=>array('admin'),
-          'users'=>array('@'),
+          'actions'=>array('admin','editableSaver','setup'),
+          'users'=>array('admin'),
         ),
         array('deny',  // deny all users
           'users'=>array('*'),
@@ -164,6 +163,36 @@
       
     }
     public function actionIndex()
+    {
+      $model=new Report;
+      $model->addRequiredField(array('voyage'));
+      if(isset($_POST['Booking'])){
+        $booking =  Booking::model()->findByPk($_POST['Booking']['id']);
+        $seatNo = $booking->seat0->name;
+        $booking->seat =NULL;
+        $booking->status =5;
+        if($booking->save())
+          Yii::app()->user->setFlash('success', "Seat No. $seatNo is now available!");
+        else
+          Yii::app()->user->setFlash('error', 'Unable to make seat available! Please contact your administrator.');
+        $_POST['Report']['voyage']=$booking->voyage;
+      }
+      if(isset($_POST['Report'])){
+        $model->attributes=$_POST['Report'];
+        if($model->validate()){
+          $booking = new Booking;
+          $seatList= Seat::model()->findAll();
+          $sql = "SELECT s.id,bs.color, b.id bookid,s.name FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$model->voyage} AND b.status=bs.id";
+          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
+          $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
+        }else{
+          $this->render('index',array('is_empty'=>1,'model'=>$model));
+        }
+      }else{
+        $this->render('index',array('is_empty'=>1,'model'=>$model));
+      }
+    }
+    public function actionLocked()
     {
       $model=new Report;
       $model->addRequiredField(array('voyage'));
