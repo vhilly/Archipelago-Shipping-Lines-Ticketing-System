@@ -8,37 +8,37 @@ div.normal {font-style:normal;}
 #ub1{
 	font-family:"Ubuntu";
 	font-style:"Bold";
-	font-size:8pt;
+	font-size:6pt;
 	
 } 
 #ub2{
 	font-family:"Ubuntu";
 	text-align:justify;
-	font-size:16pt;
+	font-size:14pt;
 }
 #ub3{
 	font-family:"Ubuntu";
-	font-size:8pt;
+	font-size:6pt;
 	text-align:justify;
 
 }
 #ub4{
 	font-family:"Ubuntu";
 	
-	font-size:18pt;
+	font-size:16pt;
 }
 #ub5{
 	font-family:"Ubuntu";
 	font-style:"italic";
-	font-size:26pt;
+	font-size:24pt;
 }
 #ub6{
 	font-family:"Times New Roman";
-	font-size:26pt;
+	font-size:24pt;
 }
 #ub7{
 	font-family:"Arial";
-	font-size:12pt;
+	font-size:10pt;
 }
 </style>
 

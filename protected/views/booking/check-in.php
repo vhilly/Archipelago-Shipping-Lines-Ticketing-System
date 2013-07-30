@@ -32,8 +32,10 @@
           'birth_date',
           'civil_status',
           'email',
+          array('name'=>'seat','value'=>$b->seat0->name),
       )
     ));
+    $this->widget('bootstrap.widgets.TbButton', array('type'=>'warning','label'=>"Change Seat",'htmlOptions'=>array('id'=>$b->id,'class'=>'tlink ticket_print_box')));
     $this->widget('bootstrap.widgets.TbButton', array(
 	'label'=>$checkedIn ? 'Checked-in' : 'Check-In and Print Boarding Pass',
 	'type'=>$checkedIn ? 'info': 'success',
@@ -64,3 +66,37 @@
 </div>
 
 <?php $this->endWidget()?>
+
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'transferModal')); ?>
+     
+    <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h4>Modal header</h4>
+    </div>
+     
+    <div class="modal-body">
+    <p></p>
+    </div>
+     
+     
+    <?php $this->endWidget(); ?>
+
+<script>
+  $('.tlink').click(function(){
+      $.ajax({
+        type: 'GET',
+        url: '<?php echo Yii::app()->baseUrl;?>?r=booking/transferForm&id='+this.id+'&ref=cIN',
+        success: function (data){
+          $('#transferModal .modal-header h4').html('Change Seat');
+          $('#transferModal .modal-body p').html(data);
+        },
+        error: function (xht){
+          alert(this.url);
+        }
+
+      });
+   // $('#transferModal .modal-body p').html('asa');
+    $('#transferModal').modal()
+  });
+</script>
+

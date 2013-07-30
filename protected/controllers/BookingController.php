@@ -266,8 +266,18 @@
         $data = Yii::app()->db->createCommand($sql);
         $pass = $data->queryAll();
       }
-      if(isset($_GET['print']))
-        $this->renderPartial('reader',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,));
+      if(isset($_GET['print'])){
+	 $mPDF1 = Yii::app()->ePdf->mpdf();
+        $mPDF1 = Yii::app()->ePdf->mpdf('',array(50.8,101.6));
+        $mPDF1->WriteHTML($this->renderPartial('reader',array(
+          'passenger'=>$pass,
+          'print'=>1,
+	  'ids'=>$ids,
+        ),true,true));
+        $mPDF1->Output();
+
+	      //$this->renderPartial('reader',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,))
+}
       else
         $this->render('reader',array('model'=>$model,'passenger'=>$pass,'ids'=>$ids,));
     }
@@ -328,22 +338,27 @@
         ));
       }
     }
-    public function actionTransferForm($id){
+    public function actionTransferForm($id,$ref=null){
       $model=$this->loadModel($id);
       
       if(isset($_POST['Booking'])){
           $model->attributes = $_POST['Booking'];
           $model->status=1;
           if($model->save()){
-            Yii::app()->user->setFlash('success', 'Booking Transfer Successful!');
-            $this->redirect(array('booking/transfer','booking_no'=>$model->booking_no));
+            if($ref=='cIN'){
+              Yii::app()->user->setFlash('success', "Seat Transfer Successful!");
+              $this->redirect(array('booking/checkin','booking_no'=>$model->booking_no));
+            }else{
+              Yii::app()->user->setFlash('success', 'Booking Transfer Successful!');
+              $this->redirect(array('booking/transfer','booking_no'=>$model->booking_no));
+            }
           }
       }
       
       if( Yii::app()->request->isAjaxRequest )
-       $this->renderPartial('_transferForm',array('model'=>$model),false,false);
+       $this->renderPartial('_transferForm',array('model'=>$model,'ref'=>$ref),false,false);
       else
-       $this->render('_transferForm',array('model'=>$model));
+       $this->render('_transferForm',array('model'=>$model,'ref'=>$ref));
     }
     /**
      * Returns the data model based on the primary key given in the GET variable.
