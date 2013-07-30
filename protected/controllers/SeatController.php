@@ -136,17 +136,18 @@
       $lockedSeats = SeatLock::model()->findAll(array('condition'=>"voyage = {$voyage}"));
       $apr = Array();
       $pl = Array();
+      $locked = Array();
       foreach($bookedSeats as $bs){
         $apr[] = $bs->seat0->name;
       }
       foreach($lockedSeats as $ls){
-        $apr[] = $ls->seat0->name;
+        $locked[] = $ls->seat0->name;
       }
       foreach($list as $bl){
         $pl[$bl['name']] = $bl['id'];
       }
       $pres = Array();
-      $this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl,'voyage'=>$voyage));
+      $this->render('map',array('apr'=>$apr,'pres'=>$pres,'id'=>$pl,'voyage'=>$voyage,'locked'=>$locked));
     }
     public function actionLock($sid,$voyage,$index){
       $cBy = Yii::app()->user->name;
@@ -171,11 +172,14 @@
         $seatNo = $booking->seat0->name;
         $booking->seat =NULL;
         $booking->status =5;
-        if($booking->save())
+        if($booking->save()){
           Yii::app()->user->setFlash('success', "Seat No. $seatNo is now available!");
-        else
+          $this->redirect(array('index'));
+        }
+        else{
           Yii::app()->user->setFlash('error', 'Unable to make seat available! Please contact your administrator.');
-        $_POST['Report']['voyage']=$booking->voyage;
+          $_POST['Report']['voyage']=$booking->voyage;
+        }
       }
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
@@ -196,30 +200,30 @@
     {
       $model=new Report;
       $model->addRequiredField(array('voyage'));
-      if(isset($_POST['Booking'])){
-        $booking =  Booking::model()->findByPk($_POST['Booking']['id']);
-        $seatNo = $booking->seat0->name;
-        $booking->seat =NULL;
-        $booking->status =5;
-        if($booking->save())
+      if(isset($_POST['SeatLock'])){
+        $sl =  SeatLock::model()->findByPk($_POST['SeatLock']['id']);
+        $seatNo = $sl->seat0->name;
+        if($sl->delete()){
           Yii::app()->user->setFlash('success', "Seat No. $seatNo is now available!");
-        else
+          $this->redirect(array('locked'));
+        }else{
           Yii::app()->user->setFlash('error', 'Unable to make seat available! Please contact your administrator.');
-        $_POST['Report']['voyage']=$booking->voyage;
+           $_POST['Report']['voyage']=$sl->voyage;
+        }
       }
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
         if($model->validate()){
-          $booking = new Booking;
+          $sl = new SeatLock;
           $seatList= Seat::model()->findAll();
-          $sql = "SELECT s.id,bs.color, b.id bookid,s.name FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$model->voyage} AND b.status=bs.id";
-          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
-          $this->render('index',array('seatList'=>$seatList,'bookedSeats'=>$bookedSeats,'booking'=>$booking,'model'=>$model,'is_empty'=>0));
+          $sql = "SELECT sl.id,s.name FROM seat s,seat_lock sl WHERE s.id=sl.seat AND sl.voyage  ={$model->voyage}";
+          $lockedSeats= Yii::app()->db->createCommand($sql)->queryAll();
+          $this->render('locked',array('seatList'=>$seatList,'sl'=>$sl,'lockedSeats'=>$lockedSeats,'model'=>$model,'is_empty'=>0));
         }else{
-          $this->render('index',array('is_empty'=>1,'model'=>$model));
+          $this->render('locked',array('is_empty'=>1,'model'=>$model));
         }
       }else{
-        $this->render('index',array('is_empty'=>1,'model'=>$model));
+        $this->render('locked',array('is_empty'=>1,'model'=>$model));
       }
     }
 

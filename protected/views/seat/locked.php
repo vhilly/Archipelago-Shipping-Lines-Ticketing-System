@@ -28,13 +28,13 @@
   $businessClass = array();
   $premiumClass  = array();
 
-  $booked =array();
-  foreach($bookedSeats as $bs){
-    $booked[$bs['id']] = array('bid'=>$bs['bookid'],'statusColor'=>$bs['color']);
+  $locked =array();
+  foreach($lockedSeats as $ls){
+    $locked[$ls['id']] = array('id'=>$ls['id']);
   }
 
   foreach($seatList as $key=>$seat){
-   $link = isset($booked[$seat->id]) ?  "<td  class='seatMap' bgcolor= ".$booked[$seat->id]['statusColor']." id=".$booked[$seat->id]['bid'].">$seat->name</td>" :"<td>$seat->name</td>";
+   $link = isset($locked[$seat->id]) ?  "<td  class='seatMap' bgcolor=red  id=".$locked[$seat->id]['id'].">$seat->name</td>" :"<td>$seat->name</td>";
 
     switch($seat->seating_class){
       case 1:
@@ -55,17 +55,6 @@ $bok=CHtml::listData(BookingStatus::model()->findAll(),'id','name');
 $book=BookingStatus::model()->findAll();
 ?>
 
-<table>
-  <tr>
-    <td width='5%'>Available</td>
-    <td><div style='width:25px; height:12px; background-color:white; border:1px solid black'></div></td>
-
-<?php foreach($book as $bookstat): if($bookstat->id==5) continue?>
-    <td width='5%'><?=$bookstat->name?></td>
-    <td><div style='width:25px; height:12px; background-color:<?=$bookstat->color?>; border:1px solid black'></div></td>
-<?php endforeach; ?>
-  </tr>
-</table>
 
     <?php
       $limit = 20; $counter = 1;$btd=array();$btr='';
@@ -146,9 +135,9 @@ $book=BookingStatus::model()->findAll();
       'type'=>'inline',
       'htmlOptions'=>array('class'=>'well'),
      )); ?>
-    <?php echo $form->hiddenField($booking,'id')?>
+    <?php echo $form->hiddenField($sl,'id')?>
     <p style="font-family:arial;color:red;font-size:40px;"></p>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'submit', 'label'=>'Make Seat Available','htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'submit', 'label'=>'Unlock Seat','htmlOptions'=>array('onclick'=>'return confirm("Are you sure?");'))); ?>
  
    <?php $this->endWidget(); ?>
   
@@ -169,7 +158,7 @@ $book=BookingStatus::model()->findAll();
       $('#bookingModal .modal-body p').html($(this).text());
       $('#bookingModal').modal();
     //  $('#bookingForm').toggle();
-      $('#Booking_id').val(this.id);
+      $('#SeatLock_id').val(this.id);
       $('#selectedSeat').html($(this).text());
    }
  );
