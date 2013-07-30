@@ -20,10 +20,13 @@
     #seatBox {
     }
     .reserve, #seat_list td.reserve:hover {
-      background:#f5c;
+      background:#bbb;
     }
     .pre_assign, #seat_list td.pre_assign:hover {
       background:#9fc;
+    }
+    .reserve img {
+      height:15px;
     }
 
 </style>
@@ -64,17 +67,21 @@
       if(!in_array($ts,$skp)){
       	if(in_array($ts,$apr)){
         	$cls = "reserve";
+		$stnum = CHtml::image(Yii::app()->theme->baseUrl."/img/lock.png");
+//		$stnum = "$b$a";
           $clk = "";
         }elseif(in_array($ts,$pres)){
         	$cls = "pre_assign";
+		$stnum = "$b$a";
           $clk = "";
         }else{
+	  $stnum = "$b$a";
           $cls = "";
           $s = "$b$a";
           $ah = $id[$s];
           $clk = "title=\"$s\" onclick=\"get('$b$a','$ids','$ah')\"";
         }
-        $body .= "<td class=\"$cls\" $clk >$b$a</td>";
+        $body .= "<td class=\"$cls\" $clk >$stnum</td>";
       }else{
         $body .= "<th style=\"\"></th>";
       }
