@@ -27,8 +27,8 @@
         </tr>
         <tr>
           <th>Departure <u><?=$voyage->departure_date?></u></th>
-          <th>From <u><?=$voyage->route0->from?></u></th>
-          <th>To <u><?=$voyage->route0->to?></u></th>
+          <th>From <u><?=$voyage->route0->from_port?></u></th>
+          <th>To <u><?=$voyage->route0->to_port?></u></th>
         </tr>
         <tr class=border_bottom>
           <th>PASSENGERS</th>

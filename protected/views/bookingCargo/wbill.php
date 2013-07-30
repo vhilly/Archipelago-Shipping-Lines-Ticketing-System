@@ -41,10 +41,10 @@
       </tr>
       <tr>
         <td rowspan=2 colspan=4>Address : <?=$b->cargo0->address?></td>
-        <td colspan=4>Port of Loading : <?=$b->voyage0->route0->from?></td>
+        <td colspan=4>Port of Loading : <?=$b->voyage0->route0->from_port?></td>
       </tr>
       <tr>
-        <td>Port of Discharge: <?=$b->voyage0->route0->to?></td>
+        <td>Port of Discharge: <?=$b->voyage0->route0->to_port?></td>
       </tr>
     </table>
    <table class="table">
