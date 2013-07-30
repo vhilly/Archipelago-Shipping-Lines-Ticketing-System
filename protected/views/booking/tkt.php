@@ -1,4 +1,18 @@
 
+  <?php if(isset($print)):?>
+  <script>
+    window.print();
+  </script>
+  <?php endif;?>
+  <style>
+    div {
+      font-size:10px;
+    }
+    .aright{
+      text-align:right;
+    }
+  </style>
+  <body>
   <?php if(!isset($print)):?>
   <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'searchForm',
@@ -7,7 +21,7 @@
 	'htmlOptions'=>array('class'=>'span10'),
    )); ?>
    <?php
-	echo $form->textFieldRow($model, 'tkt_no',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
+	echo $form->textFieldRow($model, 'tkt_serial',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
@@ -18,7 +32,7 @@
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>
    <?php $this->endWidget()?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
-     'Booking[tkt_no]'=>$model->tkt_no,
+     'Booking[tkt_serial]'=>$model->tkt_serial,
      'Booking[booking_no]'=>$model->booking_no,
      'Booking[first_name]'=>$model->first_name,
      'Booking[last_name]'=>$model->last_name,
@@ -30,65 +44,61 @@
    <div style="clear:both"> </div><br>
    <?php foreach($model->printSearch()->getData() as $b):?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'1','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'");?>
-   <table>
-     <tr><td width=99%>
-      <table>
-       <tr><th class="sub-brand"></th><th class="brand"></th></tr>
-       <tr>	 
-	 <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
-         <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
-       </tr>
-       <tr>
-         <th>Vessel: <u><?=$b->voyage0->vessel0->name?></u></th> <th>Voyage No.: <u><?=$b->voyage0->name?></u></th>
-         <th>Vessel: <u><?=$b->voyage0->vessel0->name?></u></th> <th>Voyage No.: <u><?=$b->voyage0->name?></u></th>
-       </tr>
-       <tr>
-	 <th>Date: <u><?=date('Y-m-d');?></u></th> <th>Seat No.: <u><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></u></th>
-	 <th>Date: <u><?=date('Y-m-d');?></u></th> <th>Seat No.: <u><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></u></th>
-       </tr>	 
-       <tr>
-         <th colspan=2>Passenger's Name: <u><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></u></th>
-         <th colspan=2>Passenger's Name: <u><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></u></th>
-       </tr>
-       <tr>
-         <th colspan=2>Contact Nos.: <u><?=$b->passenger0->contact?></u></th>
-         <th colspan=2>Contact Nos.: <u><?=$b->passenger0->contact?></u></th>
-       </tr>
-       <tr>
-         <th colspan=2>Amount: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
-         <th colspan=2>Amount: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
-       </tr>
-       <tr>
-         <th colspan=2>Total: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
-         <th colspan=2>Total: <u><?=isset($orig_price->price) ? $orig_price->price :$b->rate0->price?></u></th>
-       </tr>
-       <tr>
-         <th colspan=2><center><h4>ACCOUNTING</h4></center></th>
-         <th colspan=2><center><h4>PASSENGER </h4></center></th>
-       </tr>
-      </table>
-    </td>
-    <td>
-     <table class="rotate">
-       <tr>
-        <th><h5>PASSENGER TICKET NO.</h5></th> <th><h5><?=$b->tkt_no?></h5></th>
-       </tr>
-       <tr>
-	<th><center><h4>INSPECTOR</h4></center></th>
-       </tr>
-     </table>	 
-    </td>
-    </tr>
+   <?php $amt = isset($orig_price->price) ? $orig_price->price :$b->rate0->price?>
+   <?php $NS = number_format($amt / 1.12,2)?>
+   <?php $VAT = number_format($NS * 0.12 ,2)?>
+   <?php
+     $user = Yii::app()->user->getUserByName(Yii::app()->user->name);
+     $createdBy = isset($user) ? $user->profile->firstname.' '.$user->profile->lastname:'';
+   ?>
+   <?php 
+     $left_x = '';
+     $left_x1 = '145px';
+   ?>
+   <table height=140px; width=980px;>
+     <tr>
+       <td>
+   <div style="position:relative;height:140px;width:560px;">
+   <div style="position:absolute;height:140px;width:280px;left:230px;">
+     <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
+     <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('H:i A',strtotime($b->voyage0->departure_time))?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
+     <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
+     <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
+     <div style=position:absolute;top:92px;left:<?=$left_x?>>Net Sales &nbsp;<?=$NS?></div>
+     <div style=position:absolute;top:92px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
+     <div style=position:absolute;top:105px;left:<?=$left_x?>>Discount:0.00</div>
+     <div style=position:absolute;top:123px;left:<?=$left_x?>><b><?=$amt?></b></div>
+     <div style=position:absolute;top:45px;left:90px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_serial))?>'></div>
+     <div style=position:absolute;top:123px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
+   </div>
+   <div style="position:absolute;height:140px;width:280px;left:520px;">
+     <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
+     <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('H:i A',strtotime($b->voyage0->departure_time))?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
+     <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
+     <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
+     <div style=position:absolute;top:92px;left:<?=$left_x?>>Net Sales &nbsp;<?=$NS?></div>
+     <div style=position:absolute;top:92px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
+     <div style=position:absolute;top:105px;left:<?=$left_x?>>Discount:0.00</div>
+     <div style=position:absolute;top:123px;left:<?=$left_x?>><b><?=$amt?></b></div>
+     <div style=position:absolute;top:45px;left:90px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_serial))?>'></div>
+     <div style=position:absolute;top:123px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
+   <div>
+
+       </td>
+     </tr>
    </table>
-
-
     <?php if(!isset($print)):?>
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
-     'Booking[tkt_no]'=>$b->tkt_no,
-     'Booking[voyage]'=>$b->voyage,
-     'print'=>1,
-    )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
+    $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','icon'=>'print', 
+      'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' ,'onclick'=>'window.open("'.Yii::app()->createUrl('booking/tkt',array(
+        'Booking[tkt_serial]'=>$b->tkt_serial,
+        'Booking[voyage]'=>$b->voyage,
+        'print'=>1)).'");')));
     ?>
     <?php endif;?>
   <?php endforeach; ?>
+  </body>
