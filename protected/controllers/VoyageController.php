@@ -69,9 +69,12 @@ $model=new Voyage;
 if(isset($_POST['Voyage']))
 {
 $model->attributes=$_POST['Voyage'];
-if($model->save()){
+try{
+  $model->save();
   Yii::app()->user->setFlash('success', 'Voyage has been added!');
   $this->redirect(array('admin'));
+}catch (Exception $e){
+  Yii::app()->user->setFlash('error', 'Voyage name already exists!');
 }
 }
 
@@ -95,9 +98,12 @@ $model=$this->loadModel($id);
 if(isset($_POST['Voyage']))
 {
 $model->attributes=$_POST['Voyage'];
-if($model->save()){
-  Yii::app()->user->setFlash('success', 'Voyage has been updated!');
+try{
+  $model->save();
+  Yii::app()->user->setFlash('success', 'Voyage has been added!');
   $this->redirect(array('admin'));
+}catch (Exception $e){
+  Yii::app()->user->setFlash('error', 'Voyage name already exists!');
 }
 }
 
