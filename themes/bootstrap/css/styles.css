@@ -90,7 +90,9 @@
 }
 #Transaction_ovamount,
 #Transaction_ovdiscount,
+#Booking_type,
 #Booking_tkt_no,
+#Booking_tkt_serial,
 #Booking_first_name,
 #Booking_last_name,
 #Booking_booking_no,
@@ -110,7 +112,6 @@
 #Transaction_id,
 #Booking_transNo,
 #Booking_status,
-#Booking_voyage,
 #BookingCargo_booking_no,
 #BookingCargo_lading_no,
 #BookingCargo_voyage,
@@ -121,6 +122,7 @@
 	width:90px;
 }
 #Report_voyage,
+#Booking_voyage,
 #Report_departure_date,
 #PassageFareRates_class,
 #PassageFareRates_type,

@@ -1,5 +1,8 @@
 
 <style>
+* {
+  color:black;
+}
 div.italic {font-style:italic;}
 div.bl {font-style:Bold;} 
 div.condensed {font-style:condensed;}
@@ -39,6 +42,9 @@ div.normal {font-style:normal;}
 #ub7{
 	font-family:"Arial";
 	font-size:10pt;
+}
+.seats {
+  padding:5px;
 }
 </style>
 
@@ -83,7 +89,7 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
           </tr>
         <?php endforeach?>
     </table>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'ticket_print_box','width'=>'' ,
+    <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Check-In and Print Boarding Pass','type'=>'info','icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'ticket_print_box','width'=>'' ,
       'onclick'=>'window.open("'.Yii::app()->createUrl('booking/reader',array('ids'=>$ids,'print'=>1)).'");')))
     ?>
     <?php endif;?>
@@ -118,15 +124,14 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
  	<div id="ub1"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastCat Boarding Pass</b></div>
   	<div id="ub2" class="condensed"><?=$pass['first_name']?> <?=$pass['last_name']?></div>
 	<div id="ub2"><?=$pass['voyage']?></div>
-	<div id="ub3"><?=$pass['route']?></div>
-	
-         <div id="ub3" class="normal"><?=$ot?></div>         
+	<div id="ub3" style="margin-top:-5px"><?=$pass['route']?></div>
+        <div id="ub3" class="normal" style="margin-top:-10px"><?=$ot?></div>         
 	 <?php $cl=$pass['class'];
         //echo $cl;
         if($cl=='Business Class'){
         //echo "Yes!";
-        echo '<div class="bl" id="ub4"><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
-        echo ' <div id="ub5" class="italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
+        echo '<div class="bl" id="ub4" style="margin-top:-2px"><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
+        echo ' <div id="ub5" class="italic seats">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
 
         }
         else{
@@ -139,6 +144,10 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
 
         <!-- end -->
         <?php }?>
+	<div style="height:30px"></div>
         <?php endforeach?>
     <?php endif;?>
 <?php endif;?>
+<script>
+  $('#Booking_tkt_serial').focus();
+</script>

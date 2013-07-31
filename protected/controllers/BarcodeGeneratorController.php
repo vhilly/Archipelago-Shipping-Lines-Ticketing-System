@@ -63,7 +63,7 @@ class BarcodeGeneratorController extends Controller
     {
 		$inputCode = Yii::app()->request->getParam("code", "");
 		$bc = new BarcodeGenerator;
-		$bc->init('png','35',1.4);
+		$bc->init('png','35',1.2);
 		$bc->build($inputCode,1);
     }
 }

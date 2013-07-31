@@ -88,12 +88,16 @@
 		    array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
                     array('icon'=>'book','label'=>'Booking Transfer', 'url'=>array('/booking/transfer')),
                     array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),
+                    array('icon'=>'book','label'=>'Locked Seats', 'url'=>array('/seat/locked')),
                     array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
 		      array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
 		        array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
 		        array('label'=>"Inspection Report", 'url'=>array('/report/inspection')),
 	              ),
 					),
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+		'...',
+                array('label'=>'Check-In', 'url'=>array('/booking/reader'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
 

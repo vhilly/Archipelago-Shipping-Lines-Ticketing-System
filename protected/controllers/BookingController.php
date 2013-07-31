@@ -267,8 +267,23 @@
         $pass = $data->queryAll();
       }
       if(isset($_GET['print'])){
-	 $mPDF1 = Yii::app()->ePdf->mpdf();
+//        $sql = "UPDATE booking SET status=3 WHERE tkt_serial IN ('{$ids}')";
+//        $cin = Yii::app()->db->createCommand($sql);
+//	$chk = $cin->query();
+/*	$mPDF1 = Yii::app()->ePdf->mpdf('',array(50.8,101.6));
+	$mPDF1->WriteHTML($this->render('reader',array('model'=>$model,'passenger'=>$pass,'ids'=>$ids, "imageProvider"=>$arrayImage),true));
+	$content_PDF = $mPDF1->Output('',EYiiPdf::OUTPUT_TO_STRING);
+	$im = new Imagick();
+	$im->readImageBlob($content_pdf);
+	//$im->setIteratorIndex(0);
+	$im->setResolution(800,600);
+	$im->setImageFormat("jpeg");
+	header("Content-Type: image/jpeg");
+	echo $im->getImage();
+*/
+
         $mPDF1 = Yii::app()->ePdf->mpdf('',array(50.8,101.6));
+        //$mPDF1 = Yii::app()->ePdf->mpdf('',array(100.8,151.6));
         $mPDF1->WriteHTML($this->renderPartial('reader',array(
           'passenger'=>$pass,
           'print'=>1,

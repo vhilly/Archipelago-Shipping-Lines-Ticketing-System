@@ -26,127 +26,126 @@
    <?php $this->endWidget()?>
   <?php endif;?>
 
-<?php 
-$vessel = isset($model->voyage0->vessel0->name) ? $model->voyage0->vessel0->name : '________';
-$from = isset($model->voyage0->route0->from_port) ? $model->voyage0->route0->from_port : '________';
-$dept_date = isset($model->voyage0->departure_date) ? $model->voyage0->departure_date : '';
-$day = date("jS",strtotime($dept_date));
-$month = date("F",strtotime($dept_date));
-$year = date("Y",strtotime($dept_date));
-$date = date("Y/m/d");
-$today = date("jS",strtotime($date));
-$tomonth = date("F",strtotime($date));
-$toyear = date("Y",strtotime($date));
-$to = isset($model->voyage0->route0->to_port) ? $model->voyage0->route0->to_port : '________';
-?>
-
-	<?php if(!isset($print)):?>
-	<?php
-	$this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
+  <?php 
+    $vessel = isset($model->voyage0->vessel0->name) ? $model->voyage0->vessel0->name : '________';
+    $from = isset($model->voyage0->route0->from_port) ? $model->voyage0->route0->from_port : '________';
+    $dept_date = isset($model->voyage0->departure_date) ? $model->voyage0->departure_date : '';
+    $day = date("jS",strtotime($dept_date));
+    $month = date("F",strtotime($dept_date));
+    $year = date("Y",strtotime($dept_date));
+    $date = date("Y/m/d");
+    $today = date("jS",strtotime($date));
+    $tomonth = date("F",strtotime($date));
+    $toyear = date("Y",strtotime($date));
+    $to = isset($model->voyage0->route0->to_port) ? $model->voyage0->route0->to_port : '________';
+  ?>
+  <?php if(!isset($print)):?> 
+    <?php 
+      $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
 	'Booking[voyage]'=>$model->voyage,
 	'print'=>1,
 	)), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
-	?><br><br>
-    	<?php endif;?>
+    ?>
+    <br><br>
+  <?php endif;?>
+  <?php $counter=1;?>
+  <table class='table table-condensed' border=1px style="font-size:12px">
+  <?php foreach($model->printSearch()->getData() as $key=>$b): ?>
 
-   <?php $ctr=1; $cttr=0;?>
-   <?php foreach($model->printSearch()->getData() as $key=>$b): ?>
-       <?php if($ctr==36){$ctr=1;}?>
-       <?php if($ctr==1):?>
+  <?php if($counter==1):?>
 
-	<center style="font-size:12px;text-align:center ">Republic of the Philippines<br>
-	<b style="font-size:12px">Department of Finance<br>BUREAU OF CUSTOMS<b><br><br>
-        <b><span style="border-bottom:1px solid; font-size:14px;">PASSENGERS COASTING MANIFEST</span></b></center><br>
-	<div style="text-indent:30px;font-size:10px">Complete list of all passengers taken on board the <u><?=$vessel?></u> sailing from the port of <u><?=$from?></u> on the <u><?=$day?></u> day of <u><?=$month?></u>, <u><?=$year?></u> for the port of <u><?=$to?></u><br><br></div>
+      <tr>
+       <td colspan=8>
+    <center style="font-size:12px;text-align:center ">Republic of the Philippines<br>
+      <b style="font-size:12px">Department of Finance<br>BUREAU OF CUSTOMS<b><br><br>
+      <b><span style="border-bottom:1px solid; font-size:14px;">PASSENGERS COASTING MANIFEST</span></b>
+    </center><br>
+    <div style="text-indent:30px;font-size:10px">
+      Complete list of all passengers taken on board the <u><?=$vessel?></u> sailing from the port of <u><?=$from?></u> on the <u><?=$day?></u> day of <u><?=$month?></u>, 
+      <u><?=$year?></u> for the port of <u><?=$to?></u><br><br>
+    </div>
+        </td>
+      <tr>
 
-      <table class='table table-condensed' border=1px style="font-size:12px">
-       <tr>
-         <th></th>
-         <th>NAME OF PASSENGERS</th>
-         <th>SEX</th>
-         <th>AGE</th>
-         <th>CIVIL STATUS</th>
-         <th>NATIONALITY</th>
-         <th>HOME ADDRESS</th>
-         <th>DESTINATION</th>
-       </tr>
+  <?php endif;?>
 
-       <?php endif;?>
-       <?php $birthDate = explode("-", $b->passenger0->birth_date); $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md") ? ((date("Y")-$birthDate[0])-1):(date("Y")-$birthDate[0]));
-?>
-       <tr>
-         <td><?=$key+1?>.</td>
-         <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
-         <td> <?=$b->passenger0->gender?></td>
-         <td> <?=$age?></td>
-         <td> </h6><?=$cs[$b->passenger0->civil_status]?></td>
-         <td> <?=$b->passenger0->nationality?></td>
-         <td> <?=$b->passenger0->address?> </td>
-         <td> <?=$b->voyage0->route0->to_port?> </td>
-       </tr>
+  <?php if($counter==1):?>
 
-       <?php if($ctr==35):?><tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
-	District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________ 
-	Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
-	that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
-	<table style=";width:800px">
-          <tr>
-            <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-	    <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
-          </tr>
-	</table>
-	<table>
-	    <tr>
-	    <td  style='border-top:1px solid white;'>SUBSCRIBED AND SWORN TO before me this <u><?=$today?></u> day of <u><?=$tomonth?></u>, <u><?=$toyear?></u> in the city of <u><?=$from?></u>, Philippines.</td>
-	  </tr>
-        </table><br>
-	<table style=";width:800px">
-          <tr>
-            <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
-          </tr>
-        </table>
 
-	</td></tr>
-       </table>
+      <tr>
+        <th></th>
+        <th>NAME OF PASSENGERS</th>
+        <th>SEX</th>
+        <th>AGE</th>
+        <th>CIVIL STATUS</th>
+        <th>NATIONALITY</th>
+        <th>HOME ADDRESS</th>
+        <th>DESTINATION</th>
+      </tr>
 
- 
-       <?php endif;?>
-       <?php $ctr++; $cttr++;?>
-  <?php endforeach; ?>
+  <?php endif;?>
 
-<?php if(($cttr % 35) == 0 || $cttr == 0): ?>
-<tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
-        District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________
-        Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
-        that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
-        <table style=";width:800px">
-          <tr>
-            <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
-          </tr>
-        </table>
-        <table>
-            <tr>
-            <td  style='border-top:1px solid white;'>SUBSCRIBED AND SWORN TO before me this <u><?=$today?></u> day of <u><?=$tomonth?></u>, <u><?=$toyear?></u> in the city of <u><?=$from?></u>, Philippines.</td>
-          </tr>
-        </table><br>
-        <table style=";width:800px">
-          <tr>
-            <td width=75% style='border-top:1px solid white'>&nbsp;</td>
-            <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
-          </tr>
-        </table>
+       <?php $birthDate = explode("-", $b->passenger0->birth_date); $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md") ? 
+         ((date("Y")-$birthDate[0])-1):(date("Y")-$birthDate[0]));
+       ?>
+
         
-        </td></tr>
-       </table>
+      <tr>
+        <td><?=$key+1?>.
+         </td>
+        <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
+        <td> <?=$b->passenger0->gender?></td>
+        <td> <?=$age?></td>
+        <td> <?=$cs[$b->passenger0->civil_status]?></td>
+        <td> <?=$b->passenger0->nationality?></td>
+        <td> <?=$b->passenger0->address?> </td>
+        <td> <?=$b->voyage0->route0->to_port?> </td>
+      </tr>
 
-        <?php if(!isset($print)):?>
-        <?php
-        $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
+
+  <?php if($counter==35 || (count($model->printSearch()->getData()) == $key+1)):?>
+
+      <tr>
+        <td colspan='8' style="border:1px solid white;border-top:1px"><br>
+	  District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________ 
+	  Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
+	  that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
+	  <table style=";width:800px">
+            <tr>
+              <td width=75% style='border-top:1px solid white'>&nbsp;</td>
+	      <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
+            </tr>
+	  </table>
+	  <table>
+	    <tr>
+	      <td  style='border-top:1px solid white;'>
+                SUBSCRIBED AND SWORN TO before me this <u><?=$today?></u> day of <u><?=$tomonth?></u>, 
+                <u><?=$toyear?></u> in the city of <u><?=$from?></u>, Philippines.
+              </td>
+	    </tr>
+          </table>
+          <br>
+	  <table style=";width:800px">
+            <tr>
+              <td width=75% style='border-top:1px solid white'>&nbsp;</td>
+              <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
+            </tr>
+          </table>
+	</td>
+      </tr>
+     <?php $counter=0;?>
+  <?php endif;?>
+    
+
+   <?php $counter++;?>
+  <?php endforeach; ?>
+   </table>
+
+  <?php if(!isset($print)):?>
+    <?php
+      $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/manifest',array(
         'Booking[voyage]'=>$model->voyage,
         'print'=>1,
-        )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
-        ?>
-        <?php endif;?>
-<?php endif;?>
+      )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' )));
+    ?>
+  <?php endif;?>
