@@ -214,7 +214,7 @@
           $purchase = $_SESSION['Trans']['Purchase'] = new Purchase($transaction_type->id,$transaction_type->minimum_passenger,$transaction_type->maximum_passenger);
         }else{
           $purchase = new Purchase($transaction_type->id,1,5);
-          $purchase->class=3;
+          $purchase->class=2;
           $_SESSION['Trans']['Purchase'] = $purchase;
         }
       }

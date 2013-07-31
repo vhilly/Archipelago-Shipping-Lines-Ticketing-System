@@ -28,7 +28,7 @@
 
 <?php 
 $vessel = isset($model->voyage0->vessel0->name) ? $model->voyage0->vessel0->name : '________';
-$from = isset($model->voyage0->route0->from) ? $model->voyage0->route0->from : '________';
+$from = isset($model->voyage0->route0->from_port) ? $model->voyage0->route0->from_port : '________';
 $dept_date = isset($model->voyage0->departure_date) ? $model->voyage0->departure_date : '';
 $day = date("jS",strtotime($dept_date));
 $month = date("F",strtotime($dept_date));
@@ -37,7 +37,7 @@ $date = date("Y/m/d");
 $today = date("jS",strtotime($date));
 $tomonth = date("F",strtotime($date));
 $toyear = date("Y",strtotime($date));
-$to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '________';
+$to = isset($model->voyage0->route0->to_port) ? $model->voyage0->route0->to_port : '________';
 ?>
 
 	<?php if(!isset($print)):?>
@@ -82,7 +82,7 @@ $to = isset($model->voyage0->route0->to) ? $model->voyage0->route0->to : '______
          <td> </h6><?=$cs[$b->passenger0->civil_status]?></td>
          <td> <?=$b->passenger0->nationality?></td>
          <td> <?=$b->passenger0->address?> </td>
-         <td> <?=$b->voyage0->route0->to?> </td>
+         <td> <?=$b->voyage0->route0->to_port?> </td>
        </tr>
 
        <?php if($ctr==35):?><tr><td colspan='8' style="border:1px solid white;border-top:1px"><br>
