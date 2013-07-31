@@ -2,6 +2,7 @@
   <?php if(isset($print)):?>
   <script>
     window.print();
+    window.close();
   </script>
   <?php endif;?>
   <style>

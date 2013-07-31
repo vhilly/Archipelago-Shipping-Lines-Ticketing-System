@@ -11,7 +11,7 @@ div.normal {font-style:normal;}
 #ub1{
 	font-family:"Ubuntu";
 	font-style:"Bold";
-	font-size:6pt;
+	font-size:8pt;
 	
 } 
 #ub2{
@@ -41,7 +41,7 @@ div.normal {font-style:normal;}
 }
 #ub7{
 	font-family:"Arial";
-	font-size:10pt;
+	font-size:12pt;
 }
 .seats {
   padding:5px;
@@ -89,8 +89,8 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
           </tr>
         <?php endforeach?>
     </table>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Check-In and Print Boarding Pass','type'=>'info','icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'ticket_print_box','width'=>'' ,
-      'onclick'=>'window.open("'.Yii::app()->createUrl('booking/reader',array('ids'=>$ids,'print'=>1)).'");')))
+    <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Check-In and Print Boarding Pass','type'=>'info','buttonType'=>'link','url'=>Yii::app()->createUrl('/booking/reader',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'ticket_print_box','width'=>'' ,
+      'onclick'=>'window.open("'.Yii::app()->createUrl('booking/reader',array('ids'=>$ids,'print'=>1)).'");this.submit();')))
     ?>
     <?php endif;?>
 
@@ -120,32 +120,32 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
         $arv=$pass['departure_date']." ".$pass['departure_time']."-".$pass['arrival_time']; 
 	$ot=$dt." ".$da."-".$aa;
 	?>
-
  	<div id="ub1"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastCat Boarding Pass</b></div>
   	<div id="ub2" class="condensed"><?=$pass['first_name']?> <?=$pass['last_name']?></div>
 	<div id="ub2"><?=$pass['voyage']?></div>
-	<div id="ub3" style="margin-top:-5px"><?=$pass['route']?></div>
-        <div id="ub3" class="normal" style="margin-top:-10px"><?=$ot?></div>         
+	<div id="ub3" ><?=$pass['route']?></div>
+        <div id="ub3" class="normal" ><?=$ot?></div>         
 	 <?php $cl=$pass['class'];
         //echo $cl;
         if($cl=='Business Class'){
         //echo "Yes!";
-        echo '<div class="bl" id="ub4" style="margin-top:-2px"><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
+        echo '<div class="bl" id="ub4" ><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
         echo ' <div id="ub5" class="italic seats">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
 
         }
         else{
          echo '<div class="bl" id="ub7"><b>&nbsp;&nbsp;'.$cl.'</b></div>';
-        echo ' <div id="ub6">&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
+        echo ' <div id="ub6" class="seats">&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
         }
         ?>
 
 	  <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$pass['tkt_serial']?></div>
-
+        <div style="border-top:1px dashed black;width:100%"></div>
+	  <div style="height:20px"></div>
         <!-- end -->
         <?php }?>
-	<div style="height:30px"></div>
         <?php endforeach?>
+    <script>window.print();window.close();</script>
     <?php endif;?>
 <?php endif;?>
 <script>

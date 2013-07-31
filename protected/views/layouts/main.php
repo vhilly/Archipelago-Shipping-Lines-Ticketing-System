@@ -100,6 +100,10 @@
                 array('label'=>'Check-In', 'url'=>array('/booking/reader'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
+		array('label'=>'Board', 'url'=>array('/booking/boardMe'
+                ), 'visible'=>!Yii::app()->user->isGuest, ),
+                '...',
+
 
 
             ),

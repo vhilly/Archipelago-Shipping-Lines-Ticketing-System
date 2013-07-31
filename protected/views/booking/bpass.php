@@ -45,6 +45,7 @@ div.normal {font-style:normal;}
   <?php if(isset($print)):?>
   <script>
     window.print();
+    window.close();
   </script>
   <?php endif;?>
   <?php if(!isset($print)):?>
