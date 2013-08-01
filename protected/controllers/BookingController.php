@@ -116,6 +116,7 @@
         $model->attributes=$_GET['Booking'];
       }
       if(isset($_GET['Booking']) && $_GET['print']){
+/*
 	$mPDF1 = Yii::app()->ePdf->mpdf();
 	$mPDF1 = Yii::app()->ePdf->mpdf('', 'Legal');
         $mPDF1->WriteHTML($this->renderPartial('mfst',array(
@@ -123,6 +124,11 @@
           'print'=>1,
         ),true,true));
 	$mPDF1->Output();
+*/
+        $this->renderPartial('mfst',array(
+          'model'=>$model,
+          'print'=>1,
+        ));
       }else{
         $this->render('mfst',array(
           'model'=>$model,
@@ -284,6 +290,7 @@ $this->render('admin',array(
 
     public function actionReader()
     {
+      //$this->layout = 'kios';
       if(isset($_GET['Booking'])){
         $pass = isset($_SESSION['checklist']) ? $_SESSION['checklist'] : Array();
         $add = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : "";

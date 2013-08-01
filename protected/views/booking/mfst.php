@@ -1,4 +1,13 @@
 <style>
+table {
+  font-family:courier;
+}
+table {
+  border-collapse:collapse;
+}
+tr.border td, tr.border th {
+  border:1px solid black;
+}
 #Booking_voyage.enteng {
   width:350px;
 }
@@ -49,7 +58,7 @@
     <br><br>
   <?php endif;?>
   <?php $counter=1;?>
-  <table class='table table-condensed' border=1px style="font-size:12px">
+  <table class='' style="font-size:12px;width:750px">
   <?php foreach($model->printSearch()->getData() as $key=>$b): ?>
 
   <?php if($counter==1):?>
@@ -60,7 +69,7 @@
       <b style="font-size:12px">Department of Finance<br>BUREAU OF CUSTOMS<b><br><br>
       <b><span style="border-bottom:1px solid; font-size:14px;">PASSENGERS COASTING MANIFEST</span></b>
     </center><br>
-    <div style="text-indent:30px;font-size:10px">
+    <div style="text-indent:30px;font-size:12px">
       Complete list of all passengers taken on board the <u><?=$vessel?></u> sailing from the port of <u><?=$from?></u> on the <u><?=$day?></u> day of <u><?=$month?></u>, 
       <u><?=$year?></u> for the port of <u><?=$to?></u><br><br>
     </div>
@@ -72,7 +81,7 @@
   <?php if($counter==1):?>
 
 
-      <tr>
+      <tr class="border">
         <th></th>
         <th>NAME OF PASSENGERS</th>
         <th>SEX</th>
@@ -89,8 +98,7 @@
          ((date("Y")-$birthDate[0])-1):(date("Y")-$birthDate[0]));
        ?>
 
-        
-      <tr>
+      <tr class="border">
         <td><?=$key+1?>.
          </td>
         <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
@@ -102,15 +110,14 @@
         <td> <?=$b->voyage0->route0->to_port?> </td>
       </tr>
 
-
   <?php if($counter==35 || (count($model->printSearch()->getData()) == $key+1)):?>
 
       <tr>
         <td colspan='8' style="border:1px solid white;border-top:1px"><br>
-	  District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of ________________________________ 
+	  District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of <span style="border-bottom:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><!--________________________________ -->
 	  Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
 	  that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
-	  <table style=";width:800px">
+	  <table style="">
             <tr>
               <td width=75% style='border-top:1px solid white'>&nbsp;</td>
 	      <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">MASTER  PATRON</span></td>
@@ -118,14 +125,14 @@
 	  </table>
 	  <table>
 	    <tr>
-	      <td  style='border-top:1px solid white;'>
+	      <td  style='border-top:1px solid white;font-size:12px'>
                 SUBSCRIBED AND SWORN TO before me this <u><?=$today?></u> day of <u><?=$tomonth?></u>, 
                 <u><?=$toyear?></u> in the city of <u><?=$from?></u>, Philippines.
               </td>
 	    </tr>
           </table>
           <br>
-	  <table style=";width:800px">
+	  <table style="">
             <tr>
               <td width=75% style='border-top:1px solid white'>&nbsp;</td>
               <td width=200px style='border-top:1px solid black;text-align:center;padding:1px'><span style="font-size:12px;">ADMINISTERING OFFICER</span></td>
