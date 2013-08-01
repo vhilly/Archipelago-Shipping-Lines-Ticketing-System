@@ -7,6 +7,7 @@ table {
 }
 tr.border td, tr.border th {
   border:1px solid black;
+  padding:0 3px;
 }
 #Booking_voyage.enteng {
   width:350px;
@@ -83,12 +84,12 @@ tr.border td, tr.border th {
 
       <tr class="border">
         <th></th>
-        <th>NAME OF PASSENGERS</th>
+        <th width="200px">NAME OF PASSENGERS</th>
         <th>SEX</th>
         <th>AGE</th>
         <th>CIVIL STATUS</th>
         <th>NATIONALITY</th>
-        <th>HOME ADDRESS</th>
+        <th width="300px">HOME ADDRESS</th>
         <th>DESTINATION</th>
       </tr>
 
@@ -97,26 +98,24 @@ tr.border td, tr.border th {
        <?php $birthDate = explode("-", $b->passenger0->birth_date); $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md") ? 
          ((date("Y")-$birthDate[0])-1):(date("Y")-$birthDate[0]));
        ?>
-
       <tr class="border">
         <td><?=$key+1?>.
          </td>
         <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
-        <td> <?=$b->passenger0->gender?></td>
-        <td> <?=$age?></td>
-        <td> <?=$cs[$b->passenger0->civil_status]?></td>
-        <td> <?=$b->passenger0->nationality?></td>
+        <td style="text-align:center"> <?=$b->passenger0->gender?></td>
+        <td style="text-align:center"> <?=$age?></td>
+        <td style="text-align:center"> <?=$cs[$b->passenger0->civil_status]?></td>
+        <td style="text-align:center"> <?=$b->passenger0->nationality?></td>
         <td> <?=$b->passenger0->address?> </td>
-        <td> <?=$b->voyage0->route0->to_port?> </td>
+        <td style="text-align:center"> <?=$b->voyage0->route0->to_port?> </td>
       </tr>
-
   <?php if($counter==35 || (count($model->printSearch()->getData()) == $key+1)):?>
 
       <tr>
         <td colspan='8' style="border:1px solid white;border-top:1px"><br>
 	  District of <u><?=$from?></u>, Port of <u><?=$from?></u> to <u><?=$to?></u> Master/Patron of <span style="border-bottom:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><!--________________________________ -->
 	  Hereby solemnly swear (or affirm) that the foregoing is a full and complete manifest of all passengers on board the said vessel and
-	  that all statement contained herein is true to be the best of my knowledge and belief.<br><br><br><br>
+	  that all statement contained herein is true to be the best of my knowledge and belief.<br><br>
 	  <table style="">
             <tr>
               <td width=75% style='border-top:1px solid white'>&nbsp;</td>
@@ -131,6 +130,7 @@ tr.border td, tr.border th {
               </td>
 	    </tr>
           </table>
+          <br>
           <br>
 	  <table style="">
             <tr>
