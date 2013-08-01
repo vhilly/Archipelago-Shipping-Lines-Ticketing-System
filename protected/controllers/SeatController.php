@@ -216,7 +216,7 @@
         if($model->validate()){
           $sl = new SeatLock;
           $seatList= Seat::model()->findAll();
-          $sql = "SELECT sl.id,s.name FROM seat s,seat_lock sl WHERE s.id=sl.seat AND sl.voyage  ={$model->voyage}";
+          $sql = "SELECT s.id,sl.id as lid,s.name FROM seat s,seat_lock sl WHERE s.id=sl.seat AND sl.voyage  ={$model->voyage}";
           $lockedSeats= Yii::app()->db->createCommand($sql)->queryAll();
           $this->render('locked',array('seatList'=>$seatList,'sl'=>$sl,'lockedSeats'=>$lockedSeats,'model'=>$model,'is_empty'=>0));
         }else{

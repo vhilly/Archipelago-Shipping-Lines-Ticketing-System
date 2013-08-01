@@ -97,10 +97,10 @@
 					),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-                array('label'=>'Check-In', 'url'=>array('/booking/reader'
+                array('icon'=>'file','label'=>'Check-In', 'url'=>array('/booking/reader'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-		array('label'=>'Board', 'url'=>array('/booking/boardMe'
+		array('label'=>'Board', 'url'=>array('/booking/quickBoard'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
                 '...',
 

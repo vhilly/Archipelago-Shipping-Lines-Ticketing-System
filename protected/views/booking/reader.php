@@ -1,8 +1,5 @@
 
 <style>
-* {
-  color:black;
-}
 div.italic {font-style:italic;}
 div.bl {font-style:Bold;} 
 div.condensed {font-style:condensed;}
@@ -58,7 +55,7 @@ div.normal {font-style:normal;}
 )); ?>
 <?php
 echo $form->textFieldRow($model, 'tkt_serial',
-array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
+array('class'=>'input-large','id'=>'tkt_serial','prepend'=>'<i class="icon-search"></i>'));
 ?>
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
 <br>
@@ -149,5 +146,5 @@ array('class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
     <?php endif;?>
 <?php endif;?>
 <script>
-  $('#Booking_tkt_serial').focus();
+  $('#tkt_serial').focus();
 </script>

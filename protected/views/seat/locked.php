@@ -30,7 +30,7 @@
 
   $locked =array();
   foreach($lockedSeats as $ls){
-    $locked[$ls['id']] = array('id'=>$ls['id']);
+    $locked[$ls['id']] = array('id'=>$ls['lid']);
   }
 
   foreach($seatList as $key=>$seat){
@@ -43,16 +43,8 @@
       case 2:
         $premiumClass[$seat->id]=$link;
         break;
-      case 3:
-        $economyClass[$seat->id]=$link;
-        break;
     }
   }
-?>
-
-<?php
-$bok=CHtml::listData(BookingStatus::model()->findAll(),'id','name');  
-$book=BookingStatus::model()->findAll();
 ?>
 
 

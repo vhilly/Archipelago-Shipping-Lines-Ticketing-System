@@ -31,11 +31,11 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update','editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund','boardMe'),
+          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund','quickBoard'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete'),
+          'actions'=>array('admin','delete','create','update'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -243,60 +243,44 @@
        $this->render('transfer',array('model'=>$model,'forTransfer'=>$forTransfer));
     }
 
- public function actionboardMe()
-    {
-      if(isset($_GET['Booking'])){
-        $pass = isset($_SESSION['checklist']) ? $_SESSION['checklist'] : Array();
-        $add = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : "";
-        array_push($pass,$add);
-        $_SESSION['checklist'] = $pass;
-        $ids = implode("','",$pass);
-      }else{
-        $pass = Array();
-        unset($_SESSION['checklist']);
-        $ids = "";
-      }
-
+  public function actionQuickBoard(){
       $model=new Booking;
-      if(isset($_GET['print'])){
-        $ids = isset($_GET['ids']) ? $_GET['ids'] : null;
+      if(isset($_GET['Booking'])){
+        $tkt_no = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : null;
+        if($tkt_no){
+          $booking = Booking::model()->findByAttributes(array('tkt_serial'=>$tkt_no));
+          if($booking && $booking->status == 3){
+            $booking->status=4;
+            if($booking->save()){
+              Yii::app()->user->setFlash('success', "<b>{$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_serial}<br> </b>Successfully Boarded!");
+            }else{
+              Yii::app()->user->setFlash('error', "Fatal Error! Please Contact Your Administrator");
+            }
+          }else{
+            $status = isset($booking->status) ? $booking->status : 0;
+            $msg = $status == 4 ? " {$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_serial}<br>is already boarded" :
+             "Unable to board passenger! <br> Make sure Ticket No. is valid and the passenger already checked-in!";
+            Yii::app()->user->setFlash('error', $msg);
+          }
+        }
+          $this->redirect(array('booking/quickBoard'));
       }
-      if(isset($_GET['Booking']) || isset($_GET['print'])){
-        $sql = "SELECT cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_serial,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_serial IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id AND b.status=3";
-        $data = Yii::app()->db->createCommand($sql);
-        $pass = $data->queryAll();
-        $sql = "UPDATE booking SET status=4 WHERE tkt_serial IN ('{$ids}') AND status=3";
-        $cin = Yii::app()->db->createCommand($sql);
-        $chk = $cin->query();
-	/*if(isset($data)){
-	Yii::app()->user->setFlash('success', "Boarded!");
-	}
-	else
-	Yii::app()->user->setFlash('error', "Unable to Board,check-in first");
-	*/
-      }
-      if(isset($_GET['print'])){
+      $this->render('quickBoard',array('model'=>$model));
+  }
 
 
-       /* $mPDF1 = Yii::app()->ePdf->mpdf('',array(50.8,101.6));
-        //$mPDF1 = Yii::app()->ePdf->mpdf('',array(100.8,151.6));
-        $mPDF1->WriteHTML($this->renderPartial('boardMe',array(
-          'passenger'=>$pass,
-          'print'=>1,
-          'ids'=>$ids,
-        ),true,true));
-        $mPDF1->Output();
-*/
-              //$this->renderPartial('reader',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,))
+
+public function actionAdmin()
+{
+$model=new Booking('search');
+$model->unsetAttributes();  // clear any default values
+if(isset($_GET['Booking']))
+$model->attributes=$_GET['Booking'];
+
+$this->render('admin',array(
+'model'=>$model,
+));
 }
-      else
-        $this->render('boardMe',array('model'=>$model,'passenger'=>$pass,'ids'=>$ids,));
-	    
-}
-
-
-
-
 
     public function actionReader()
     {

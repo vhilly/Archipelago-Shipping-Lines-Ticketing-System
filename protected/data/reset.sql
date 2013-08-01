@@ -9,12 +9,11 @@ TRUNCATE booking_cargo;
 TRUNCATE cargo;
 TRUNCATE paid_misc_fees;
 TRUNCATE price_history;
-TRUNCATE route;
 TRUNCATE seat_lock;
-/*TRUNCATE route;*/
 TRUNCATE transaction;
-/*TRUNCATE vessel;*/
 TRUNCATE voyage;
 TRUNCATE refunded_tkts;
+/*TRUNCATE route;*/
+/*TRUNCATE vessel;*/
 
 SET FOREIGN_KEY_CHECKS=1;

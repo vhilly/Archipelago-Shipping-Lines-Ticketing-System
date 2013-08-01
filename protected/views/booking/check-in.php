@@ -11,7 +11,6 @@
         echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status < 3')),'id','name')); //hide all closed voyages
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
-   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>
 <br><br>
 <div class='span9'>
 <?php
