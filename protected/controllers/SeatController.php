@@ -154,7 +154,7 @@
       $sl =  SeatLock::model()->findByAttributes(array('vsid'=>$voyage.'-'.$sid));
       if($sl)
         die();
-      $sql = "INSERT INTO seat_lock (voyage,seat,vsid,row_index,created_by) VALUES ('{$voyage}', '{$sid}', '{$voyage}-{$sid}','{$index}','$cBy') on duplicate key update seat={$sid},vsid='{$voyage}-{$sid}'";
+      $sql = "INSERT INTO seat_lock (voyage,seat,vsid,row_index,created_by) VALUES ('{$voyage}', '{$sid}', '{$voyage}-{$sid}','{$index}','$cBy') on duplicate key update seat={$sid},vsid='{$voyage}-{$sid}',created_by='{$cBy}'";
       try{
         Yii::app()->db->createCommand($sql)->query();
         echo true;
