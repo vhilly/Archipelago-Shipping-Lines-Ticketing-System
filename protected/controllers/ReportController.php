@@ -77,7 +77,7 @@
         $model->attributes=$_POST['Report'];
         $voyage = Voyage::model()->findByPk($model->voyage);
         //$result = Booking::model()->findAllByAttributes(array('voyage'=>$voyage->id));
-        $sql = "SELECT count(b.id) count, c.name FROM booking b,passage_fare_rates r,seating_class c where b.voyage = $voyage->id  AND r.class = c.id AND  b.rate = r.id GROUP BY r.class " ;
+        $sql = "SELECT SUM(IF(r.type !=7,1,0)) paying,SUM(IF(r.type =7,1,0)) pass, c.name FROM booking b,passage_fare_rates r,seating_class c where b.voyage = $voyage->id AND b.status=4 AND r.class = c.id AND  b.rate = r.id GROUP BY r.class " ;
         $pass = Yii::app()->db->createCommand($sql)->queryAll();
         $cargo = BookingCargo::model()->findAll(array('condition'=>"voyage={$voyage->id}"));
        

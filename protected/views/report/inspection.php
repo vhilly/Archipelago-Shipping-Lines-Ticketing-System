@@ -39,7 +39,8 @@
         <?php foreach ($pass as $r):?>
         <tr>
           <th><?=$r['name']?></th>
-          <th><?=$r['count']?></th>
+          <th><?=$r['paying']?></th>
+          <th><?=$r['pass']?></th>
         </tr>
         <?php endforeach;?>
         <tr>

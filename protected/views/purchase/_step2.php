@@ -95,23 +95,25 @@
 </div>
 
 <script>
+
   $('#Booking_0_tkt_serial').bind('change', function (Event){
     function strpad(i,l,s) {
       var o = i.toString();
       if(!s) { s = '0'; }
-      while(o.lenght < l) {
+      while(o.length < l) {
         o = s + o;
       }
-      //alert(o);
+      return o;
     }
     var passCount = <?php echo $passCount;?>;
     var tikNum = this.value;
-    alert(tikNum.lenght);
+    //alert(tikNum.lenght);
       for(var i=1;i<passCount;i++){
         tikNum++;
-        strpad(tikNum,5,'0');
-        //$('#Booking_'+i+'_tkt_serial').val(strpad(tikNum,5,'0'));
+        //strpad(tikNum,5,'0');
+        $('#Booking_'+i+'_tkt_serial').val(strpad(tikNum,5,'0'));
       }
     });
+
 </script>
 
