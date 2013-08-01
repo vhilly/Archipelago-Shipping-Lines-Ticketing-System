@@ -30,7 +30,6 @@
         echo "<input type=hidden name=print value=0>";
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
-   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>
    <?php $this->endWidget()?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
      'Booking[tkt_serial]'=>$model->tkt_serial,

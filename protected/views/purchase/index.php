@@ -196,3 +196,4 @@
      
     <?php $this->endWidget(); ?>
 <?php echo $this->renderPartial('modal');?>
+

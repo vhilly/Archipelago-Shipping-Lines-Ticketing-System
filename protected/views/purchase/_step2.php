@@ -1,4 +1,4 @@
-
+<?php $passCount = 0;?>
       <?php
       $seatList = Seat::model()->findAll(array(
         'condition'=>'seating_class=:cl',
@@ -10,6 +10,7 @@
     <h3>PASSENGER DETAILS</h3>
     <table class="table table-bordered">
       <?php foreach($passengers as $key=>$passenger):?>
+        <?php $passCount++;?>
         <?php $alter = ($key%2) ? "alter" : ""; ?>
         <tr class="<?=$alter?>">
           <td rowspan=2 >
@@ -93,4 +94,24 @@
   </fieldset>
 </div>
 
+<script>
+  $('#Booking_0_tkt_serial').bind('change', function (Event){
+    function strpad(i,l,s) {
+      var o = i.toString();
+      if(!s) { s = '0'; }
+      while(o.lenght < l) {
+        o = s + o;
+      }
+      //alert(o);
+    }
+    var passCount = <?php echo $passCount;?>;
+    var tikNum = this.value;
+    alert(tikNum.lenght);
+      for(var i=1;i<passCount;i++){
+        tikNum++;
+        strpad(tikNum,5,'0');
+        //$('#Booking_'+i+'_tkt_serial').val(strpad(tikNum,5,'0'));
+      }
+    });
+</script>
 
