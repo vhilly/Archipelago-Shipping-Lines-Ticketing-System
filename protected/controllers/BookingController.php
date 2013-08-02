@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund','quickBoard'),
+          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund','quickBoard','cancel'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -209,6 +209,16 @@
         $refund->attributes = $booking->attributes;
         if($booking->save()){ 
           $refund->save();
+            Yii::app()->user->setFlash('success', 'Ticket Refunded!');
+        }
+        $this->redirect(array('index'));
+    }
+    public function actionCancel($id)
+    {
+        $booking = $this->loadModel($id);
+        $booking->status=7;
+        if($booking->save()){ 
+            Yii::app()->user->setFlash('success', 'Booking Canceled');
         }
         $this->redirect(array('index'));
     }

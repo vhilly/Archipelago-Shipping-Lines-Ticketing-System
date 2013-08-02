@@ -67,7 +67,7 @@
     ),
     array(
       'class' => 'bootstrap.widgets.TbButtonColumn',
-      'template'=>'{viewtkt} {refund}',
+      'template'=>'{viewtkt} {refund} {cancel}',
       'buttons'=>array(
         'viewtkt' => array(
           'label'=>'view',
@@ -88,6 +88,14 @@
           ),
           'icon'=>'minus',
           'url'=>'Yii::app()->controller->createUrl("booking/refund", array("id"=>$data->id))',
+        ),
+        'cancel' => array(
+          'label'=>'cancel',
+          'options'=>array(
+            'onClick'=>'return confirm("Are you sure?");'
+          ),
+          'icon'=>'trash',
+          'url'=>'Yii::app()->controller->createUrl("booking/cancel", array("id"=>$data->id))',
         ),
       ),
     ),
