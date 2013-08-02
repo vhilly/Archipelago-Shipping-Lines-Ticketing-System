@@ -77,7 +77,9 @@ $book=BookingStatus::model()->findAll();
         }
         $counter ++;
       }
-      $btr .= '<tr>'.implode('',$btd).'</tr>';
+     if(isset($btd)){
+       $btr .= '<tr>'.implode('',$btd).'</tr>';
+     }
 
       $counter = 1;$ptd=array();$ptr='';
       foreach($premiumClass as $pc){

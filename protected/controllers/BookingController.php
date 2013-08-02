@@ -111,7 +111,7 @@
       $model=new Booking('printSearch');
       $model->unsetAttributes();  // clear any default values
       $model->voyage=0;
-      $model->status=4;
+      $model->status<5;
       if(isset($_GET['Booking'])){
         $model->attributes=$_GET['Booking'];
       }

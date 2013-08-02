@@ -31,11 +31,11 @@ array('allow',  // allow all users to perform 'index' and 'view' actions
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update'),
+'actions'=>array('admin','create','update','editableSaver','voyageRates','status'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','editableSaver','voyageRates','status'),
+'actions'=>array('delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -97,7 +97,12 @@ $model=$this->loadModel($id);
 
 if(isset($_POST['Voyage']))
 {
+$dt = $_POST['Voyage']['departure_time'];
+$da = $_POST['Voyage']['arrival_time'];
+$_POST['Voyage']['departure_time'] = date('H:i:s',strtotime($dt));
+$_POST['Voyage']['arrival_time'] = date('H:i:s',strtotime($da));
 $model->attributes=$_POST['Voyage'];
+
 try{
   $model->save();
   Yii::app()->user->setFlash('success', 'Voyage has been added!');

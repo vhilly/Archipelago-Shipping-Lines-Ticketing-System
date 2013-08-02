@@ -22,8 +22,8 @@
         array('value'=>'$data->vessel0->name', 'header'=>'Vessel'),
         array('value'=>'$data->route0->name', 'header'=>'Route'),
         array('name'=>'departure_date', 'header'=>'Departure Date'),
-        array('name'=>'departure_time', 'header'=>'Departure Time'),
-        array('name'=>'arrival_time', 'header'=>'Arrival Time'),
+        array('name'=>'departure_time', 'header'=>'Departure Time','value'=>'date("H:i A",strtotime($data->departure_time))'),
+        array('name'=>'arrival_time', 'header'=>'Arrival Time','value'=>'date("H:i A",strtotime($data->arrival_time))'),
     ),
     'htmlOptions'=>array('class'=>'grid-view tbcenter'),
 )); ?>

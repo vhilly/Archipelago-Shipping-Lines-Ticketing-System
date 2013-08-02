@@ -109,7 +109,7 @@ tr.border td, tr.border th {
         <td> <?=$b->passenger0->address?> </td>
         <td style="text-align:center"> <?=$b->voyage0->route0->to_port?> </td>
       </tr>
-  <?php if($counter==35 || (count($model->printSearch()->getData()) == $key+1)):?>
+  <?php if($counter==40 || (count($model->printSearch()->getData()) == $key+1)):?>
 
       <tr>
         <td colspan='8' style="border:1px solid white;border-top:1px"><br>

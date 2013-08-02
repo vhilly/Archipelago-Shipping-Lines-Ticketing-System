@@ -11,7 +11,7 @@ TRUNCATE paid_misc_fees;
 TRUNCATE price_history;
 TRUNCATE seat_lock;
 TRUNCATE transaction;
-TRUNCATE voyage;
+/*TRUNCATE voyage;*/
 TRUNCATE refunded_tkts;
 /*TRUNCATE route;*/
 /*TRUNCATE vessel;*/
