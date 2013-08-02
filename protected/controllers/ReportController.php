@@ -39,27 +39,50 @@
         $model->attributes=$_POST['Report'];
         if($model->validate()){
 
-          $sql ="SELECT sc.name,sc.id as class, voy.name as vname,ves.name vessel, b.voyage,SUM(IF(sc.id=1,1,0)) as bus,SUM(t.ovamount) ovamt,SUM(t.ovdiscount) ovdscnt ,SUM(IF(b.status=6,1,0)) refund
-            FROM booking as b,transaction  as t,voyage as voy,vessel as ves ,passage_fare_rates as r,seating_class as sc
-            WHERE t.id = b.transaction AND voy.id=b.voyage AND ves.id=voy.vessel AND b.rate=r.id AND sc.id=r.class AND voy.vessel={$model->vessel}";
+
+
+
+
+          $sql = "SELECT id,name from voyage voy  WHERE voy.vessel={$model->vessel}";
+
 
           if($model->departure_date)
             $sql .= " AND voy.departure_date = '{$model->departure_date}'" ;
           else
             $sql .= " AND voy.departure_date = CURDATE()" ;
 
-          $sql .= " GROUP BY b.voyage,sc.name ORDER BY b.voyage,sc.name";
+
           $res = Yii::app()->db->createCommand($sql)->queryAll();
+
           if(count($res)){
             foreach($res as $r){
-              $dR[$r['class']][$r['vname']]=isset($r['ovamt']) ? $r['ovamt']:0;
-              $vname[$r['vname']]=$r['vname'];
-              
-              $total[$r['vname']] =  isset($total[$r['vname']]) ? $total[$r['vname']]: 0;
-              $total[$r['vname']]+=isset($r['ovamt'])? $r['ovamt']:0;
+              $bsql = "SELECT tr.ovamount amt
+                FROM booking b,transaction tr,passage_fare_rates pr
+                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1
+                GROUP BY tr.id,tr.ovamount
+              ";
+              $bs = Yii::app()->db->createCommand($bsql)->queryAll();
+              if(count($bs))
+               $amt =array_sum(array_map(function($amts){return $amts['amt'];},$bs));
+              else
+               $amt =0;
+              $class[1][] =$amt; 
+
+              $esql = "SELECT tr.ovamount amt
+                FROM booking b,transaction tr,passage_fare_rates pr
+                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2
+                GROUP BY tr.id,tr.ovamount
+              ";
+              $ec = Yii::app()->db->createCommand($esql)->queryAll();
+              if(count($ec))
+               $amt1 =array_sum(array_map(function($amts1){return $amts1['amt'];},$ec));
+              else
+               $amt1 =0;
+              $class[2][] =$amt1; 
             }
           }
-          $this->render('dailyRevenue',array('dR'=>$dR,'vname'=>$vname,'total'=>$total,'sc'=>SeatingClass::model()->findAll(),'voy'=>Voyage::model()->findAll(array('condition'=>'vessel=:v','params'=>array(':v'=>$model->vessel))),'model'=>$model,'is_empty'=>0));
+
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'is_empty'=>0));
         }else{
           $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
         }

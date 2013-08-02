@@ -1,6 +1,6 @@
 
   <?php $this->renderPartial('_form',array('model'=>$model),false,false)?>
-  <?php if(!$is_empty && count($vname)):?>
+  <?php if(!$is_empty && count($res)):?>
 
   <center>
     <h2>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h2>
@@ -19,30 +19,26 @@
   <table border=1 class="well" width=800px align=center>
     <tr>
       <th rowspan=2>REVENUE</th>
-      <th colspan=<?=count($vname)?>><center>VOYAGE</center></th>
+      <th colspan=<?=count($res)?>><center>VOYAGE</center></th>
       <th rowspan=2>TOTAL</th>
     </tr>
     <tr>
-      <th><?=implode('</th><th>',$vname)?></th>
+      <th><?=implode('</th><th>',array_map(function($voyages){return $voyages['name'];},$res))?></th>
     </tr>
     <tr>
       <td>Business Class</td>
-      <?php foreach($vname as $v):?>
-      <td><?=isset($dR[1][$v]) ? $dR[1][$v]: 0?></td>
-      <?php endforeach;?>
-      <td><?=isset($dR[1][$v]) ?array_sum($dR[1]) :0?></td>
+      <td><?=implode('</td><td>',$class[1])?></td>
+      <td><?=array_sum($class[1])?></td>
     </tr>
     <tr>
       <td>Premium Economy</td>
-      <?php foreach($vname as $v):?>
-      <td><?=isset($dR[2][$v]) ? $dR[2][$v]: 0?></td>
-      <?php endforeach;?>
-      <td><?=isset($dR[2][$v]) ? array_sum($dR[2]):0?></td>
+      <td><?=implode('</td><td>',$class[2])?></td>
+      <td><?=array_sum($class[2])?></td>
     </tr>
     <tr>
       <td>TOTAL REVENUE</td>
-      <td><?=implode('</td><td>',$total)?></td>
-      <td><?=isset($total) ? array_sum($total) : 0?></td>
+      <td></td>
+      <td></td>
     </tr>
   </table>
   <?php endif;?>

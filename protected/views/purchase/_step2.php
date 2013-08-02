@@ -88,7 +88,7 @@
            <?php echo $form->dropDownListRow($seats[$key],"[$key]id",CHtml::listData($seatList,'id','name'),array('class'=>'span2','empty'=>'')); ?>
          </td>
          <td>
-           <?php echo $form->textFieldRow($serials[$key],"[$key]tkt_serial",array('class'=>'span2')); ?>
+           <?php echo $form->hiddenField($serials[$key],"[$key]tkt_serial",array('class'=>'span2')); ?>
          </td>
        </tr>
        <?php endforeach;?>
