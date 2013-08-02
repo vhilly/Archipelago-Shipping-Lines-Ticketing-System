@@ -54,8 +54,8 @@ div.normal {font-style:normal;}
 'htmlOptions'=>array('class'=>'well'),
 )); ?>
 <?php
-echo $form->textFieldRow($model, 'tkt_serial',
-array('class'=>'input-large','id'=>'tkt_serial','prepend'=>'<i class="icon-search"></i>'));
+echo $form->textFieldRow($model, 'tkt_no',
+array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"></i>'));
 ?>
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
 <br>
@@ -78,7 +78,7 @@ array('class'=>'input-large','id'=>'tkt_serial','prepend'=>'<i class="icon-searc
           </tr>
         <?php foreach($passenger as $key=>$pass):?>
           <tr>
-            <td><?=$pass['tkt_serial']?></td>
+            <td><?=$pass['tkt_no']?></td>
             <td><?=$pass['first_name']?></td>
             <td><?=$pass['last_name']?></td>
 	    <td><?=$pass['seat']?></td>
@@ -136,7 +136,7 @@ array('class'=>'input-large','id'=>'tkt_serial','prepend'=>'<i class="icon-searc
         }
         ?>
 
-	  <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$pass['tkt_serial']?></div>
+	  <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$pass['tkt_no']?></div>
         <div style="border-top:1px dashed black;width:100%"></div>
 	  <div style="height:20px"></div>
         <!-- end -->
@@ -146,5 +146,5 @@ array('class'=>'input-large','id'=>'tkt_serial','prepend'=>'<i class="icon-searc
     <?php endif;?>
 <?php endif;?>
 <script>
-  $('#tkt_serial').focus();
+  $('#tkt_no').focus();
 </script>

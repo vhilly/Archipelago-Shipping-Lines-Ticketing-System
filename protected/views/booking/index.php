@@ -26,7 +26,6 @@
       'sortable'=>true,
     ),
      'booking_no',
-     'tkt_serial',
      'tkt_no',
     array(
       'name'=>'first_name',

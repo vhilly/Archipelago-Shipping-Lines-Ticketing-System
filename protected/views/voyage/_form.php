@@ -15,9 +15,9 @@
 
         <?php echo $form->datePickerRow($model, 'departure_date', array('append'=>'<i class="icon-calendar" style="cursor:pointer"></i>','class'=>'span2','options'=>array( 'format' => 'yyyy-mm-dd')));?>
 
-        <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'01:00','minuteStep'=>1,'showMeridian'=>false)));?>
+        <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'01:00','minuteStep'=>1,'showMeridian'=>true)));?>
 
-        <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'02:30','minuteStep'=>1,'showMeridian'=>false)));?>
+        <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'02:30','minuteStep'=>1,'showMeridian'=>true)));?>
 
 
 <div class="form-actions">

@@ -111,7 +111,8 @@ try{
   Yii::app()->user->setFlash('error', 'Voyage name already exists!');
 }
 }
-
+$model->departure_time=date('g:i A',strtotime($model->departure_time));
+$model->arrival_time=date('g:i A',strtotime($model->arrival_time));
 $this->render('update',array(
 'model'=>$model,
 ));

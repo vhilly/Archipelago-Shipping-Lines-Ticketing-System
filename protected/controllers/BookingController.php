@@ -205,6 +205,7 @@
     {
         $booking = $this->loadModel($id);
         $booking->status=6;
+        $booking->seat=NULL;
         $refund = new RefundedTkts;
         $refund->attributes = $booking->attributes;
         if($booking->save()){ 
@@ -217,6 +218,7 @@
     {
         $booking = $this->loadModel($id);
         $booking->status=7;
+        $booking->seat=NULL;
         if($booking->save()){ 
             Yii::app()->user->setFlash('success', 'Booking Canceled');
         }
@@ -262,19 +264,19 @@
   public function actionQuickBoard(){
       $model=new Booking;
       if(isset($_GET['Booking'])){
-        $tkt_no = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : null;
+        $tkt_no = isset($_GET['Booking']['tkt_no']) ? $_GET['Booking']['tkt_no'] : null;
         if($tkt_no){
-          $booking = Booking::model()->findByAttributes(array('tkt_serial'=>$tkt_no));
+          $booking = Booking::model()->findByAttributes(array('tkt_no'=>$tkt_no));
           if($booking && $booking->status == 3){
             $booking->status=4;
             if($booking->save()){
-              Yii::app()->user->setFlash('success', "<b>{$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_serial}<br> </b>Successfully Boarded!");
+              Yii::app()->user->setFlash('success', "<b>{$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_no}<br> </b>Successfully Boarded!");
             }else{
               Yii::app()->user->setFlash('error', "Fatal Error! Please Contact Your Administrator");
             }
           }else{
             $status = isset($booking->status) ? $booking->status : 0;
-            $msg = $status == 4 ? " {$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_serial}<br>is already boarded" :
+            $msg = $status == 4 ? " {$booking->passenger0->first_name} {$booking->passenger0->last_name} with Ticket No. {$booking->tkt_no}<br>is already boarded" :
              "Unable to board passenger! <br> Make sure Ticket No. is valid and the passenger already checked-in!";
             Yii::app()->user->setFlash('error', $msg);
           }
@@ -303,7 +305,7 @@ $this->render('admin',array(
       //$this->layout = 'kios';
       if(isset($_GET['Booking'])){
         $pass = isset($_SESSION['checklist']) ? $_SESSION['checklist'] : Array();
-        $add = isset($_GET['Booking']['tkt_serial']) ? $_GET['Booking']['tkt_serial'] : "";
+        $add = isset($_GET['Booking']['tkt_no']) ? $_GET['Booking']['tkt_no'] : "";
         array_push($pass,$add);
         $_SESSION['checklist'] = $pass;
         $ids = implode("','",$pass);
@@ -318,7 +320,7 @@ $this->render('admin',array(
         $ids = isset($_GET['ids']) ? $_GET['ids'] : null;
       }
       if(isset($_GET['Booking']) || isset($_GET['print'])){
-        $sql = "SELECT cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_serial,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_serial IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
+        $sql = "SELECT cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_no,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_no IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
         $data = Yii::app()->db->createCommand($sql);
         $pass = $data->queryAll();
       }
@@ -326,7 +328,7 @@ $this->render('admin',array(
 	Yii::app()->user->setFlash('success', "Check-In Successful!");
       }
       if(isset($_GET['print'])){
-        $sql = "UPDATE booking SET status=3 WHERE tkt_serial IN ('{$ids}')";
+        $sql = "UPDATE booking SET status=3 WHERE tkt_no IN ('{$ids}')";
         $cin = Yii::app()->db->createCommand($sql);
 	$chk = $cin->query();
         

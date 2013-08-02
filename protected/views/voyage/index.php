@@ -6,8 +6,8 @@
       array('header'=>'From','value'=>'$data->route0->from_port'),
       array('header'=>'To','value'=>'$data->route0->to_port'),
       'departure_date',
-      'departure_time',
-      'arrival_time',
+      array('name'=>'departure_time','value'=>'date("g:i A",strtotime($data->departure_time))'),
+      array('name'=>'arrival_time','value'=>'date("g:i A",strtotime($data->arrival_time))'),
       array('name'=>'status','value'=>'$data->status0->name'),
       array(
         'class'=>'bootstrap.widgets.TbButtonColumn',

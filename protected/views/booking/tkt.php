@@ -22,7 +22,7 @@
 	'htmlOptions'=>array('class'=>'span10'),
    )); ?>
    <?php
-	echo $form->textFieldRow($model, 'tkt_serial',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
+	echo $form->textFieldRow($model, 'tkt_no',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
@@ -32,7 +32,7 @@
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
    <?php $this->endWidget()?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
-     'Booking[tkt_serial]'=>$model->tkt_serial,
+     'Booking[tkt_no]'=>$model->tkt_no,
      'Booking[booking_no]'=>$model->booking_no,
      'Booking[first_name]'=>$model->first_name,
      'Booking[last_name]'=>$model->last_name,
@@ -73,7 +73,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$amt?></b></div>
-     <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_serial))?>'></div>
+     <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    </div>
    <div style="position:absolute;height:140px;width:280px;left:455px;top:15px">
@@ -87,7 +87,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$amt?></b></div>
-     <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_serial))?>'></div>
+     <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    <div>
 
@@ -98,7 +98,7 @@
     <?php
     $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','icon'=>'print', 
       'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' ,'onclick'=>'window.open("'.Yii::app()->createUrl('booking/tkt',array(
-        'Booking[tkt_serial]'=>$b->tkt_serial,
+        'Booking[tkt_no]'=>$b->tkt_no,
         'Booking[voyage]'=>$b->voyage,
         'print'=>1)).'");')));
     ?>

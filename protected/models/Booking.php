@@ -59,7 +59,7 @@ class Booking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array($this->_requiredFields.'transaction, tkt_serial,passenger, tkt_no, booking_no, voyage, status,rate', 'required'),
+			array($this->_requiredFields.'transaction,passenger, tkt_no, booking_no, voyage, status,rate', 'required'),
 			array('transaction, passenger,type, voyage, seat, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

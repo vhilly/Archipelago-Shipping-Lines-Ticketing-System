@@ -6,12 +6,12 @@
   )); 
 ?>
 <?php
-  echo $form->textFieldRow($model, 'tkt_serial',array('id'=>'tkt_serial','class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
+  echo $form->textFieldRow($model, 'tkt_no',array('id'=>'tkt_no','class'=>'input-large', 'prepend'=>'<i class="icon-search"></i>'));
 ?>
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
 <?php $this->endWidget();?>
 
 <script>
-  $('#tkt_serial').focus();
+  $('#tkt_no').focus();
 </script>
               

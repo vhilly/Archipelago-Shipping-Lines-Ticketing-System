@@ -56,7 +56,7 @@ div.normal {font-style:normal;}
 	'htmlOptions'=>array('class'=>'span10'),
    )); ?>
    <?php
-	echo $form->textFieldRow($model, 'tkt_serial',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
+	echo $form->textFieldRow($model, 'tkt_no',array('class'=>'input-medium span2','id'=>'tktno', 'prepend'=>'<i class="icon-search"></i>'));
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
@@ -64,10 +64,9 @@ div.normal {font-style:normal;}
         echo "<input type=hidden name=print value=0>";
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
-   <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Clear')); ?>
    <?php $this->endWidget()?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/bpass',array(
-     'Booking[tkt_serial]'=>$model->tkt_serial,
+     'Booking[tkt_no]'=>$model->tkt_no,
      'Booking[booking_no]'=>$model->booking_no,
      'Booking[first_name]'=>$model->first_name,
      'Booking[last_name]'=>$model->last_name,
@@ -130,7 +129,7 @@ div.normal {font-style:normal;}
       -->  
 
 
-	  <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$b->tkt_serial?></div>
+	  <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$b->tkt_no?></div>
 	
 
 	  </td>
@@ -164,7 +163,7 @@ div.normal {font-style:normal;}
 
 
 
-          <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$b->tkt_serial?></div>
+          <div id="ub1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket No:<?=$b->tkt_no?></div>
 
         <br>
 
@@ -175,7 +174,7 @@ div.normal {font-style:normal;}
     <?php if(!isset($print)):?>
     <?php
     $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/bpass',array(
-     'Booking[tkt_serial]'=>$b->tkt_serial,
+     'Booking[tkt_no]'=>$b->tkt_no,
      'Booking[voyage]'=>$b->voyage,
      'print'=>1,
     )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'span2' )));

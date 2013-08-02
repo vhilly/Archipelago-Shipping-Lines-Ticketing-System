@@ -151,8 +151,8 @@
 
                 $nb = new Booking;
 	        $counter = $this->numberGenerator('count');
-                $nb->tkt_no = str_pad($counter,10,'0',STR_PAD_LEFT);
-                $nb->booking_no = str_pad($bookCounter,10,'0',STR_PAD_LEFT);
+                $nb->tkt_no = str_pad($counter,6,'0',STR_PAD_LEFT);
+                $nb->booking_no = str_pad($bookCounter,6,'0',STR_PAD_LEFT);
                 $nb->voyage = $purchase->voyage;
                 $nb->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
                 $nb->seat = $seats[$key]->id;
@@ -171,8 +171,8 @@
 		$bookingCounter = $this->numberGenerator('book');
                 $nc = new BookingCargo;
 		$lading = $this->numberGenerator('lading');
-		$nc->lading_no = str_pad($lading,10,'0',STR_PAD_LEFT);
-		$nc->booking_no = str_pad($bookingCounter,10,'0',STR_PAD_LEFT);
+		$nc->lading_no = str_pad($lading,6,'0',STR_PAD_LEFT);
+		$nc->booking_no = str_pad($bookingCounter,6,'0',STR_PAD_LEFT);
                 $nc->transaction = $tr->id;
                 $nc->voyage = $purchase->voyage;
                 $nc->status = $purchase->payment_status == 1? 2 : 1;
