@@ -35,6 +35,7 @@
       $voy=array();
       $total=array();
       $vname=array();
+      $class=array();
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
         if($model->validate()){
