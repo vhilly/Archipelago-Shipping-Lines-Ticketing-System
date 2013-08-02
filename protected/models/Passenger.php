@@ -57,16 +57,16 @@ class Passenger extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array($this->_requiredFields.'first_name,last_name,gender,birth_date', 'required'),
+			array($this->_requiredFields.'first_name,last_name,age', 'required'),
 			array('first_name, last_name, email, middle_name, nationality', 'length', 'max'=>100),
 			array('prefix', 'length', 'max'=>5),
-			array('contact', 'numerical', 'integerOnly'=>true),
+			array('contact,age', 'numerical', 'integerOnly'=>true),
 			array('email', 'email'),
 			array('gender, civil_status', 'length', 'max'=>1),
 			array('address', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, first_name, last_name, email, contact, middle_name, prefix, gender, civil_status, nationality, address, birth_date', 'safe', 'on'=>'search'),
+			array('id,age, first_name, last_name, email, contact, middle_name, prefix, gender, civil_status, nationality, address, birth_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +100,7 @@ class Passenger extends CActiveRecord
 			'nationality' => 'Nationality',
 			'address' => 'Address',
 			'birth_date' => 'Birth Date',
+			'age' => 'Age',
 		);
 	}
 
@@ -126,6 +127,7 @@ class Passenger extends CActiveRecord
 		$criteria->compare('nationality',$this->nationality,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('birth_date',$this->birth_date,true);
+		$criteria->compare('age',$this->age,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
