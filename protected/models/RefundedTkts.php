@@ -45,7 +45,7 @@ class RefundedTkts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tkt_no, tkt_serial, booking_no, transaction, passenger, voyage, status, date_booked, rate', 'required'),
+			array('tkt_no,  booking_no, transaction, passenger, voyage, status, date_booked, rate', 'required'),
 			array('transaction, passenger, voyage, seat, status, rate, type', 'numerical', 'integerOnly'=>true),
 			array('tkt_no, tkt_serial, booking_no', 'length', 'max'=>32),
 			// The following rule is used by search().
