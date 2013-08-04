@@ -31,11 +31,11 @@ array('allow',  // allow all users to perform 'index' and 'view' actions
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update'),
+'actions'=>array('create','update','pay'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','pay'),
+'actions'=>array('admin','delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -45,16 +45,17 @@ array('deny',  // deny all users
 }
 public function actionPay($type){
   $fee = MiscFees::model()->findByPk($type);
-  if(isset($_GET['record'])){
-    $model = new PaidMiscFees;
+  $model = new PaidMiscFees;
+  if(isset($_POST['PaidMiscFees']) && $_POST['type']){
     $model->misc_fee = $fee->id;
     $model->amt = $fee->amt;
+    $model->type = $fee->type;
     if($model->save()){
       Yii::app()->user->setFlash('success', 'Transaction Complete!');
       $this->redirect(array('pay','type'=>$type));
     }
   }
-  $this->render('pay',array('fee'=>$fee,'type'=>$type));
+  $this->render('pay',array('fee'=>$fee,'type'=>$type,'model'=>$model));
 }
 
 /**
