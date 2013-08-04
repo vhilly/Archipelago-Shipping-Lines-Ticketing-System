@@ -1,7 +1,8 @@
 
   <?php $this->renderPartial('_form',array('model'=>$model),false,false)?>
   <?php if(!$is_empty && count($res)):?>
-
+  <?php $ves = Vessel::model()->findByPk($model->vessel)?>
+  <div id=printArea>
   <center>
     <h2>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h2>
 
@@ -12,7 +13,7 @@
 
     <h1>DAILY REVENUE REPORT NO.:__</h1>
 
-    <h3 >VESSEL:<u>  </u>&thinsp; &ensp; &#09; &emsp; &nbsp; DATE:<u>  </u></h3></h3>
+    <h3 >VESSEL:<u><?=$ves->name?></u>&thinsp; &ensp; &#09; &emsp; &nbsp; DATE:<u><?=$model->departure_date?>  </u></h3>
     <h3 >ROUTE:<u>  </u></h3>
   </center>
 
@@ -37,8 +38,20 @@
     </tr>
     <tr>
       <td>TOTAL REVENUE</td>
-      <td></td>
-      <td></td>
+      <td><?=implode('</td><td>',$all)?></td>
+      <td><?=array_sum($class[1])+array_sum($class[2])?></td>
     </tr>
   </table>
+  </div>
+  <script>
+   function print(){
+     var w = window.open('','dr');
+     w.document.write($('#printArea').html());
+     w.print();
+     w.close();
+   }
+  </script>
+  <?php  $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','icon'=>'print', 
+      'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' ,'onclick'=>'print();')));
+    ?>
   <?php endif;?>

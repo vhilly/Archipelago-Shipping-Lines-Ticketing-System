@@ -55,6 +55,8 @@ return false;
                         true),
 			'sortable'=>true,
                 ),
+                array('name'=>'departure_time','value'=>'date("g:i A",strtotime($data->departure_time))'),
+                array('name'=>'arrival_time','value'=>'date("g:i A",strtotime($data->arrival_time))'),
 		/*
 		'departure_date',
 		'status',

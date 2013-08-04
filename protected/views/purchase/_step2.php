@@ -47,7 +47,7 @@
            <?php echo $form->textField($seats[$key],"[$key]name",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_id','readonly'=>true)); ?>
          </td>
         <td>
-          <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('class'=>'span2')); ?>
+          <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('empty'=>'','class'=>'span2')); ?>
         </td>
       </tr>
       <tr class="<?=$alter?>">

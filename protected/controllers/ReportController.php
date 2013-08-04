@@ -14,11 +14,11 @@
           'users'=>array('*'),
         ),
         array('allow',
-          'actions'=>array(''),
+          'actions'=>array('index','dailyRevenue','inspection'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('index','admin','create','edit','update','dailyRevenue','inspection'),
+          'actions'=>array('admin','create','edit','update'),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
@@ -36,6 +36,7 @@
       $total=array();
       $vname=array();
       $class=array();
+      $all=array();
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
         if($model->validate()){
@@ -50,7 +51,8 @@
           if($model->departure_date)
             $sql .= " AND voy.departure_date = '{$model->departure_date}'" ;
           else
-            $sql .= " AND voy.departure_date = CURDATE()" ;
+            $sql .= " AND voy.departure_date = CURDATE() " ;
+
 
 
           $res = Yii::app()->db->createCommand($sql)->queryAll();
@@ -80,10 +82,11 @@
               else
                $amt1 =0;
               $class[2][] =$amt1; 
+              $all[] = $amt+$amt1;
             }
           }
 
-          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'is_empty'=>0));
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0));
         }else{
           $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
         }
