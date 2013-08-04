@@ -47,7 +47,7 @@
            <?php echo $form->textField($seats[$key],"[$key]name",array('class'=>'span1 seat smodal', 'id'=>'_'.$key.'_id','readonly'=>true)); ?>
          </td>
         <td>
-          <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('class'=>'span2')); ?>
+          <?php echo $form->dropDownListRow($passenger, "[$key]civil_status",$passenger->getCSOptions(), array('empty'=>'','class'=>'span2')); ?>
         </td>
       </tr>
       <tr class="<?=$alter?>">
@@ -88,7 +88,7 @@
            <?php echo $form->dropDownListRow($seats[$key],"[$key]id",CHtml::listData($seatList,'id','name'),array('class'=>'span2','empty'=>'')); ?>
          </td>
          <td>
-           <?php echo $form->textFieldRow($serials[$key],"[$key]tkt_serial",array('class'=>'span2')); ?>
+           <?php echo $form->hiddenField($serials[$key],"[$key]tkt_serial",array('class'=>'span2')); ?>
          </td>
        </tr>
        <?php endforeach;?>
