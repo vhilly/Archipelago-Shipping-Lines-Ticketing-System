@@ -49,7 +49,7 @@ public function actionPay($type){
   if(isset($_POST['PaidMiscFees']) && $_POST['type']){
     $model->misc_fee = $fee->id;
     $model->amt = $fee->amt;
-    $model->type = $fee->type;
+    $model->misc_fee = $fee->id;
     if($model->save()){
       Yii::app()->user->setFlash('success', 'Transaction Complete!');
       $this->redirect(array('pay','type'=>$type));
