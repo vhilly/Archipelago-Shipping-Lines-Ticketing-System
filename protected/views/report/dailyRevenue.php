@@ -13,7 +13,7 @@
 
     <h1>DAILY REVENUE REPORT NO.:__</h1>
 
-    <h3 >VESSEL:<u><?=$ves->name?></u>&thinsp; &ensp; &#09; &emsp; &nbsp; DATE:<u><?=$model->departure_date?>  </u></h3>
+    <h3 >VESSEL:<u><?=$ves->name?></u>&thinsp; &ensp; &#09; &emsp; &nbsp; DATE:<u><?=$model->departure_date ? $model->departure_date :date('Y-m-d') ?>  </u></h3>
     <h3 >ROUTE:<u>  </u></h3>
   </center>
 

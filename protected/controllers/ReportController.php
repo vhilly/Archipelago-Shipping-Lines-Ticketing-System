@@ -61,7 +61,7 @@
             foreach($res as $r){
               $bsql = "SELECT tr.ovamount amt
                 FROM booking b,transaction tr,passage_fare_rates pr
-                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1
+                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1 AND b.status < 5
                 GROUP BY tr.id,tr.ovamount
               ";
               $bs = Yii::app()->db->createCommand($bsql)->queryAll();
@@ -73,7 +73,7 @@
 
               $esql = "SELECT tr.ovamount amt
                 FROM booking b,transaction tr,passage_fare_rates pr
-                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2
+                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2 AND b.status < 5
                 GROUP BY tr.id,tr.ovamount
               ";
               $ec = Yii::app()->db->createCommand($esql)->queryAll();
