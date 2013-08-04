@@ -38,7 +38,7 @@
     <?php
 	$ids = isset($_GET['id'])? $_GET['id'] : '';
 	$type = isset($_GET['class']) ? $_GET['class']: 1;
-	$skp = Array('45D','45E','45F','45G','44A','44B','44C','29A','29B','29C');
+	$skp = Array('45D','45E','45F','45G','44A','44B','44C','29A','29B','29C','30A','30B','30C','30D');
         for($n="C";$n<="G";$n++){
         	for($m=10;$m<=17;$m++){
                 	$ap = "$m$n";

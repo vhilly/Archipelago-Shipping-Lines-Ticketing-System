@@ -89,9 +89,9 @@
                 array('icon'=>'barcode','label'=>'Check-In', 'url'=>array('/booking/reader'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
-		array('icon'=>'barcode','label'=>'Board', 'url'=>array('/booking/quickBoard'
-                ), 'visible'=>!Yii::app()->user->isGuest, ),
-                '...',
+		#array('icon'=>'barcode','label'=>'Board', 'url'=>array('/booking/quickBoard'
+                #), 'visible'=>!Yii::app()->user->isGuest, ),
+                #'...',
 		    array('icon'=>'wrench','label'=>'Tools', 'url'=>'#', 'items'=>array(
                     array('icon'=>'book','label'=>'Booking Transfer', 'url'=>array('/booking/transfer')),
                     array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),

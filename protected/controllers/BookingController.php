@@ -328,7 +328,7 @@ $this->render('admin',array(
 	Yii::app()->user->setFlash('success', "Check-In Successful!");
       }
       if(isset($_GET['print'])){
-        $sql = "UPDATE booking SET status=3 WHERE tkt_no IN ('{$ids}')";
+        $sql = "UPDATE booking SET status=4 WHERE tkt_no IN ('{$ids}')";
         $cin = Yii::app()->db->createCommand($sql);
 	$chk = $cin->query();
 	      $this->renderPartial('reader',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,));
@@ -359,6 +359,7 @@ $this->render('admin',array(
       $model->voyage=0;
       if(isset($_POST['Booking'])){
         $model->attributes=$_POST['Booking'];
+        $model->status = 3;
       }
       $this->render('board',array(
         'model'=>$model,

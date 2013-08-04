@@ -31,7 +31,7 @@
           'birth_date',
           'civil_status',
           'email',
-          array('name'=>'seat','value'=>$b->seat0->name),
+          array('name'=>'seat','value'=>isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'),
       )
     ));
     $this->widget('bootstrap.widgets.TbButton', array('type'=>'warning','label'=>"Change Seat",'htmlOptions'=>array('id'=>$b->id,'class'=>'tlink ticket_print_box')));

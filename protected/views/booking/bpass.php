@@ -60,7 +60,7 @@ div.normal {font-style:normal;}
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
-	echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'),array('empty'=>''));
+	echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'));
         echo "<input type=hidden name=print value=0>";
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
@@ -108,9 +108,9 @@ div.normal {font-style:normal;}
 	$ot=$dt." ".$da."-".$aa;
 	?>
          <div id="ub3" class="normal"><?=$ot?></div>         
-	 <?php $cl=$b->rate0->class0->name;
+	 <?php $cl=$b->rate0->class;
         //echo $cl;
-        if($cl=='Business Class'){
+        if($cl==1){
         //echo "Yes!";
         echo '<div class="bl" id="ub4"><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
         echo ' <div id="ub5" class="italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$b->seat0->name.'</b></div>';
@@ -144,9 +144,9 @@ div.normal {font-style:normal;}
 	 <div id="ub3"><?=$b->voyage0->route0->name?></div>
 
 	 <div id="ub3" class="normal"><?=$ot?></div>
-	<?php $cl=$b->rate0->class0->name;
+	<?php $cl=$b->rate0->class;
 	//echo $cl;
-	if($cl=='Business Class'){
+	if($cl==1){
 	//echo "Yes!";
 	echo '<div class="bl" id="ub4"><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
 	echo ' <div id="ub5" class="italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$b->seat0->name.'</b></div>';

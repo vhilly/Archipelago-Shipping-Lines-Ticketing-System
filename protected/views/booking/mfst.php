@@ -103,7 +103,7 @@ tr.border td, tr.border th {
          </td>
         <td> <?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?> </td>
         <td style="text-align:center"> <?=$b->passenger0->gender?></td>
-        <td style="text-align:center"> <?=$age?></td>
+        <td style="text-align:center"> <?=$b->passenger0->age?></td>
         <td style="text-align:center"> <?=$cs[$b->passenger0->civil_status]?></td>
         <td style="text-align:center"> <?=$b->passenger0->nationality?></td>
         <td> <?=$b->passenger0->address?> </td>
