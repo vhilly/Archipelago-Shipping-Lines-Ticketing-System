@@ -68,16 +68,23 @@ $model=new Voyage;
 
 if(isset($_POST['Voyage']))
 {
+$dt = $_POST['Voyage']['departure_time'];
+$da = $_POST['Voyage']['arrival_time'];
+$_POST['Voyage']['departure_time'] = date('H:i:s',strtotime($dt));
+$_POST['Voyage']['arrival_time'] = date('H:i:s',strtotime($da));
 $model->attributes=$_POST['Voyage'];
 try{
-  $model->save();
-  Yii::app()->user->setFlash('success', 'Voyage has been added!');
-  $this->redirect(array('admin'));
+  if($model->save()){
+    Yii::app()->user->setFlash('success', 'Voyage has been added!');
+    $this->redirect(array('admin'));
+  }
 }catch (Exception $e){
   Yii::app()->user->setFlash('error', 'Voyage name already exists!');
 }
 }
 
+$model->departure_time=date('g:i A',strtotime($model->departure_time));
+$model->arrival_time=date('g:i A',strtotime($model->arrival_time));
 $this->render('create',array(
 'model'=>$model,
 ));
@@ -143,7 +150,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Voyage');
+$dataProvider=new CActiveDataProvider('Voyage',array('sort'=>array('defaultOrder'=>'id DESC')));
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
