@@ -26,7 +26,7 @@
 	echo $form->textFieldRow($model, 'booking_no',array('class'=>'input-medium span2','id'=>'booking'));
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
-	echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'),array('empty'=>''));
+	echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(),'id','name'));
         echo "<input type=hidden name=print value=0>";
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
@@ -65,7 +65,7 @@
    <div style="position:absolute;height:140px;width:280px;left:130px;top:15px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
-     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('H:i A',strtotime($b->voyage0->departure_time))?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
      <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
      <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
@@ -79,7 +79,7 @@
    <div style="position:absolute;height:140px;width:280px;left:455px;top:15px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
-     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('H:i A',strtotime($b->voyage0->departure_time))?></div>
+     <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
      <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
      <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
