@@ -93,7 +93,7 @@ class Booking extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'tkt_no' => 'E-Ticket No.',
-			'tkt_serial' => 'Ticket No.',
+			'tkt_serial' => 'Ticket Serial.',
 			'booking_no' => 'Booking No.',
 			'transaction' => 'Transaction',
 			'passenger' => 'Passenger',

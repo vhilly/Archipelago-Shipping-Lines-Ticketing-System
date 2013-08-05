@@ -31,7 +31,7 @@
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
    <?php $this->endWidget()?>
-   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
+   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tktHP',array(
      'Booking[tkt_no]'=>$model->tkt_no,
      'Booking[booking_no]'=>$model->booking_no,
      'Booking[first_name]'=>$model->first_name,
@@ -44,6 +44,10 @@
    <div style="clear:both"> </div><br>
    <?php foreach($model->printSearch()->getData() as $key=>$b):?>
    <?php if($key>0):?>
+   <br><br>
+   <br><br>
+   <br><br>
+   <br><br>
    <br><br>
    <?php endif;?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'1','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'");?>
@@ -61,8 +65,8 @@
    <table height=140px; width=980px;>
      <tr>
        <td>
-   <div style="position:relative;height:150px;width:560px;">
-   <div style="position:absolute;height:140px;width:280px;left:130px;top:15px">
+   <div style="position:relative;height:190px;width:560px;">
+   <div style="position:absolute;height:140px;width:280px;left:165px;top:75px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
@@ -76,7 +80,7 @@
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    </div>
-   <div style="position:absolute;height:140px;width:280px;left:455px;top:15px">
+   <div style="position:absolute;height:190px;width:280px;left:490px;top:75px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
@@ -97,7 +101,7 @@
     <?php if(!isset($print)):?>
     <?php
     $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','icon'=>'print', 
-      'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' ,'onclick'=>'window.open("'.Yii::app()->createUrl('booking/tkt',array(
+      'label'=>'Print','htmlOptions'=>array('target'=>'_blank','class'=>'ticket_print_box' ,'onclick'=>'window.open("'.Yii::app()->createUrl('booking/tktHP',array(
         'Booking[tkt_no]'=>$b->tkt_no,
         'Booking[voyage]'=>$b->voyage,
         'print'=>1)).'");')));

@@ -27,6 +27,7 @@
     ),
      'booking_no',
      'tkt_no',
+     'tkt_serial',
     array(
       'name'=>'first_name',
       'value'=>'$data->passenger0->first_name',

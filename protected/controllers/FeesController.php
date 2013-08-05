@@ -47,6 +47,8 @@ public function actionPay($type){
   $fee = MiscFees::model()->findByPk($type);
   $model = new PaidMiscFees;
   if(isset($_POST['PaidMiscFees']) && $_POST['type']){
+    $model->attributes=$_POST['PaidMiscFees'];
+     print_r($model->attributes);
     $model->misc_fee = $fee->id;
     $model->amt = $fee->amt;
     $model->misc_fee = $fee->id;

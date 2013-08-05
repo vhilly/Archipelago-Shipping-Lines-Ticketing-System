@@ -79,7 +79,7 @@
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
                 array('icon'=>'print','label'=>'Print', 'url'=>'#', 'items'=>array(
-	            array('icon'=>'file','label'=>'Tickets', 'url'=>array('/booking/tkt')),
+	            array('icon'=>'file','label'=>'Tickets', 'url'=>array('/booking/tktHP')),
                     array('icon'=>'file','label'=>'Boarding Pass', 'url'=>array('/booking/bpass')),
 		    array('icon'=>'file','label'=>'Bill of Lading', 'url'=>array('/bookingCargo/wBill')),
 		    array('icon'=>'file','label'=>'Manifest', 'url'=>array('/booking/manifest')),

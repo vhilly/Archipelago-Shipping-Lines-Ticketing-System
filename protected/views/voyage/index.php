@@ -22,7 +22,7 @@
      );
     $this->widget('bootstrap.widgets.TbGridView', array(
       'dataProvider'=>$dataProvider,
-      'template'=>"{items}",
+      'template'=>"{items}{pager}",
       'columns'=>$gridColumns,
     ));
 /*
