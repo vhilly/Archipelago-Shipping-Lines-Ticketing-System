@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','manifest','reader','admin','refund','quickBoard','cancel'),
+          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','tktHP','manifest','reader','admin','refund','quickBoard','cancel'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -106,6 +106,27 @@
       }
     }
    
+    public function actionTktHP()
+    {
+      $model=new Booking('printSearch');
+      $model->unsetAttributes();  // clear any default values
+      $model->first_name = isset($_GET['Booking']['first_name']) ? $_GET['Booking']['first_name'] : '';
+      $model->last_name = isset($_GET['Booking']['last_name']) ? $_GET['Booking']['last_name'] : '';
+      $model->voyage=0;
+      if(isset($_GET['Booking'])){
+        $model->attributes=$_GET['Booking'];
+      }
+      if(isset($_GET['Booking']) && $_GET['print']){
+        $this->renderPartial('tktHP',array(
+          'model'=>$model,
+          'print'=>1,
+        ));
+      }else{
+        $this->render('tktHP',array(
+          'model'=>$model,
+        ));
+      }
+    }
     public function actionManifest()
     {
       $model=new Booking('printSearch');
