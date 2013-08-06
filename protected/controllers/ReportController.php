@@ -29,7 +29,7 @@
     public function actionIndex(){
       $this->render('index');
     }
-    public function actionDailyRevenue(){
+    public function actionDailyRevenue($graph=null){
       $model=new Report;
       $dR=array();
       $voy=array();
@@ -59,10 +59,8 @@
 
           if(count($res)){
             foreach($res as $r){
-              $bsql = "SELECT tr.ovamount amt
-                FROM booking b,transaction tr,passage_fare_rates pr
-                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1 AND b.status < 5
-                GROUP BY tr.id,tr.ovamount
+              $bsql = "
+                SELECT SUM(pr.price) amt FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5
               ";
               $bs = Yii::app()->db->createCommand($bsql)->queryAll();
               if(count($bs))
@@ -71,10 +69,8 @@
                $amt =0;
               $class[1][] =$amt; 
 
-              $esql = "SELECT tr.ovamount amt
-                FROM booking b,transaction tr,passage_fare_rates pr
-                WHERE tr.id=b.transaction AND b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2 AND b.status < 5
-                GROUP BY tr.id,tr.ovamount
+              $esql = "
+                SELECT SUM(pr.price) amt FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2  AND b.status BETWEEN 1 AND 5
               ";
               $ec = Yii::app()->db->createCommand($esql)->queryAll();
               if(count($ec))
@@ -86,7 +82,7 @@
             }
           }
 
-          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0));
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph));
         }else{
           $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
         }
