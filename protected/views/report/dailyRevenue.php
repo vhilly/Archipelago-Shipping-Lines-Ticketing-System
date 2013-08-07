@@ -64,7 +64,7 @@
         // Create and draw the visualization.
         new google.visualization.ColumnChart(document.getElementById('visualization')).
             draw(data,
-                 {title:"Daily Revenue Report",
+                 {title:"Daily Revenue Report <?=$model->departure_date ? $model->departure_date :date('Y-m-d') ?>",
                   width:800, height:600,
                   hAxis: {title: "Voyage"},
                   isStacked: true
