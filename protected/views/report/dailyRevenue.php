@@ -2,6 +2,9 @@
   <?php $this->renderPartial('_form',array('model'=>$model),false,false)?>
   <?php if(!$is_empty && count($res)):?>
   <?php $ves = Vessel::model()->findByPk($model->vessel)?>
+  <?php
+    $ft = CHtml::listData(PassageFaretypes::model()->findAll(),'id','name');
+  ?>
   <div id=printArea>
   <?php if(!isset($graph)): ?>
   <center>
@@ -28,15 +31,28 @@
       <th><?=implode('</th><th>',$voyages =array_map(function($voyages){return $voyages['name'];},$res))?></th>
     </tr>
     <tr>
-      <td>Business Class</td>
+      <th>Business Class</td>
       <td><?=implode('</td><td>',$class[1])?></td>
       <td><?=array_sum($class[1])?></td>
     </tr>
+    <?php if($bdown):?>
+    <tr><td><?=implode('</td></tr><tr><td>',$ft)?></td></tr>
+    <?php endif;?>
     <tr>
-      <td>Premium Economy</td>
+      <th>Premium Economy</th>
       <td><?=implode('</td><td>',$class[2])?></td>
       <td><?=array_sum($class[2])?></td>
     </tr>
+    <?php if($bdown):?>
+    <?php foreach($ft as $key=>$f):?>
+    
+    <tr>
+      <td>
+        <?=$f?>
+      </td>
+    </tr>
+    <?php endforeach;?>
+    <?php endif;?>
     <tr>
       <td>TOTAL REVENUE</td>
       <td><?=implode('</td><td>',$all)?></td>

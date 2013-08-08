@@ -14,7 +14,7 @@
           'users'=>array('*'),
         ),
         array('allow',
-          'actions'=>array('index','dailyRevenue','inspection'),
+          'actions'=>array('index','dailyRevenue','dailyRevenueBdown','inspection'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,17 +60,19 @@
           if(count($res)){
             foreach($res as $r){
               $bsql = "
-                SELECT SUM(pr.price) amt FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5
+                SELECT b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5 GROUP BY b.rate
               ";
               $bs = Yii::app()->db->createCommand($bsql)->queryAll();
-              if(count($bs))
+              if(count($bs)){
                $amt =array_sum(array_map(function($amts){return $amts['amt'];},$bs));
-              else
+              }
+              else{
                $amt =0;
+              }
               $class[1][] =$amt; 
 
               $esql = "
-                SELECT SUM(pr.price) amt FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2  AND b.status BETWEEN 1 AND 5
+                SELECT b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2  AND b.status BETWEEN 1 AND 5 GROUP BY b.rate
               ";
               $ec = Yii::app()->db->createCommand($esql)->queryAll();
               if(count($ec))
@@ -82,7 +84,74 @@
             }
           }
 
-          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph));
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph,'bdown'=>false));
+        }else{
+          $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
+        }
+
+      }else{
+        $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
+      }
+    }
+    public function actionDailyRevenueBdown($graph=null){
+      $model=new Report;
+      $dR=array();
+      $voy=array();
+      $total=array();
+      $vname=array();
+      $class=array();
+      $all=array();
+      if(isset($_POST['Report'])){
+        $model->attributes=$_POST['Report'];
+        if($model->validate()){
+
+
+
+
+
+          $sql = "SELECT id,name from voyage voy  WHERE voy.vessel={$model->vessel}";
+
+
+          if($model->departure_date)
+            $sql .= " AND voy.departure_date = '{$model->departure_date}'" ;
+          else
+            $sql .= " AND voy.departure_date = CURDATE() " ;
+
+
+
+          $res = Yii::app()->db->createCommand($sql)->queryAll();
+
+          if(count($res)){
+            foreach($res as $r){
+              $amt = 0;
+              $bsql = "
+                SELECT pr.type type,b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5 GROUP BY pr.type,b.rate
+              ";
+              $bs = Yii::app()->db->createCommand($bsql)->queryAll();
+              if(count($bs)){
+                foreach($bs as $b){
+                  $amt += $b['amt'];
+                }
+              }
+              else{
+               $amt =0;
+              }
+              $class[1][] =$amt; 
+
+              $esql = "
+                SELECT pr.type type,b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=2  AND b.status BETWEEN 1 AND 5 GROUP BY pr.type,b.rate
+              ";
+              $ec = Yii::app()->db->createCommand($esql)->queryAll();
+              if(count($ec))
+               $amt1 =array_sum(array_map(function($amts1){return $amts1['amt'];},$ec));
+              else
+               $amt1 =0;
+              $class[2][] =$amt1; 
+              $all[] = $amt+$amt1;
+            }
+          }
+
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph,'bdown'=>true));
         }else{
           $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
         }
