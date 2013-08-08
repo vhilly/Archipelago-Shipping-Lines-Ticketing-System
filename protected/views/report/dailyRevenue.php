@@ -32,8 +32,8 @@
     </tr>
     <tr>
       <th>Business Class</td>
-      <td><?=implode('</td><td>',$class[1])?></td>
-      <td><?=array_sum($class[1])?></td>
+      <th><?=implode('</th><th>',$class[1])?></th>
+      <th><?=array_sum($class[1])?></th>
     </tr>
     <?php if($bdown):?>
     <?php foreach($ft as $key=>$f):?>
