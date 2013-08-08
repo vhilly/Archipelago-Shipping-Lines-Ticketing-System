@@ -3,7 +3,7 @@
   <?php if(!$is_empty && count($res)):?>
   <?php $ves = Vessel::model()->findByPk($model->vessel)?>
   <?php
-    $ft = CHtml::listData(PassageFaretypes::model()->findAll(),'id','name');
+    $ft = CHtml::listData(PassageFareTypes::model()->findAll(),'id','name');
   ?>
   <div id=printArea>
   <?php if(!isset($graph)): ?>
@@ -36,7 +36,16 @@
       <td><?=array_sum($class[1])?></td>
     </tr>
     <?php if($bdown):?>
-    <tr><td><?=implode('</td></tr><tr><td>',$ft)?></td></tr>
+    <?php foreach($ft as $key=>$f):?>
+    <tr>
+      <td>
+        <?=$f?>
+      </td>
+      <td>
+        <?=implode('</td><td>',$perType[1][$key])?>
+      </td>
+    </tr>
+    <?php endforeach;?>
     <?php endif;?>
     <tr>
       <th>Premium Economy</th>
@@ -45,10 +54,12 @@
     </tr>
     <?php if($bdown):?>
     <?php foreach($ft as $key=>$f):?>
-    
     <tr>
       <td>
         <?=$f?>
+      </td>
+      <td>
+        <?=implode('</td><td>',$perType[1][$key])?>
       </td>
     </tr>
     <?php endforeach;?>
