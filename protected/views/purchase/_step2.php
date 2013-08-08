@@ -13,7 +13,7 @@
         <?php $passCount++;?>
         <?php $alter = ($key%2) ? "alter" : ""; ?>
         <tr class="<?=$alter?>">
-          <td rowspan=2 >
+          <td >
 	    <b><?=$key+1?></b>
           </td>
   
