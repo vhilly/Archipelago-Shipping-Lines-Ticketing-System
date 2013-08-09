@@ -168,20 +168,20 @@
               if(count($ec)){
                 foreach($ec as $c){
                   $amt1 += $c['amt'];
-                  foreach($ft as $key1=>$k1){
-                    if($key1==$c['type']){
-                     $type2[$key1]=$c['amt'];
-                     $count2[$key1]=$c['count'];
+                  foreach($ft as $key=>$k){
+                    if($key==$c['type']){
+                     $type2[$key]=$c['amt'];
+                     $count2[$key]=$c['count'];
                     }else{
-                     $type2[$key1]=isset($type2[$key1])?$type2[$key1]:0;
-                     $count2[$key1]=isset($count2[$key1])?$count2[$key1]:0;
+                     $type2[$key]=isset($type2[$key])?$type2[$key]:0;
+                     $count2[$key]=isset($count2[$key])?$count2[$key]:0;
                     }
                   }
                 }
               }else{
                foreach($ft as $key=>$k){
-                 $type2[$key1]=0;
-                 $count2[$key1]=0;
+                 $type2[$key]=0;
+                 $count2[$key]=0;
                }
                $amt1 =0;
               }

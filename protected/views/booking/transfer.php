@@ -5,7 +5,7 @@
 )); ?>
 SEARCH BOOKING TO TRANSFER<br>
 <?php
-  echo $form->textFieldRow($model, 'booking_no',
+  echo $form->textFieldRow($model, 'tkt_no',
   array('class'=>'input-medium', 'prepend'=>'<i class="icon-search"></i>','id'=>'booking_no'));
 ?>
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
@@ -36,18 +36,16 @@ SEARCH BOOKING TO TRANSFER<br>
       </tr>
     </thead>
     <tbody>
-    <?php foreach($forTransfer  as $booking):?>
       <tr>
-        <td><?=$booking->tkt_no?></td>
-        <td><?=$booking->passenger0->first_name?></td>
-        <td><?=$booking->passenger0->last_name?></td>
-        <td><?=$booking->voyage0->name?></td>
-        <td><?=$booking->voyage0->route0->name?></td>
-        <td><?=$booking->voyage0->vessel0->name?></td>
-        <td><?=isset($booking->seat0->name) ? $booking->seat0->name : 'NO SEAT ASSIGNED'?></td>
-        <td class=tlink id=<?=$booking->id?>>Transfer<td>
+        <td><?=$forTransfer->tkt_no?></td>
+        <td><?=$forTransfer->passenger0->first_name?></td>
+        <td><?=$forTransfer->passenger0->last_name?></td>
+        <td><?=$forTransfer->voyage0->name?></td>
+        <td><?=$forTransfer->voyage0->route0->name?></td>
+        <td><?=$forTransfer->voyage0->vessel0->name?></td>
+        <td><?=isset($forTransfer->seat0->name) ? $forTransfer->seat0->name : 'NO SEAT ASSIGNED'?></td>
+        <td class=tlink id=<?=$forTransfer->id?>>Transfer<td>
       </tr>
-    <?endforeach;?>
     </tbody>
     </table>
     <?php $this->endWidget();?>

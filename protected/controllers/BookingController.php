@@ -267,15 +267,15 @@
        $model = new Booking;
        $forTransfer ='';
        if($booking_no && !isset($_POST['Booking']))
-         $_POST['Booking']['booking_no'] = $booking_no;
+         $_POST['Booking']['tkt_no'] = $booking_no;
        if(isset($_POST['Booking'])){
         $model->attributes = $_POST['Booking'];
         if($model->booking_no || $model->tkt_no)
-         $forTransfer =  $model->findAllByAttributes(
+         $forTransfer =  $model->findByAttributes(
            array(),
-           $condition  = 'booking_no = :bn',
+           $condition  = 'tkt_no = :bn',
            $params     = array(
-             ':bn' => $model->booking_no, 
+             ':bn' => $model->tkt_no, 
            )
          );
        }
