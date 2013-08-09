@@ -44,13 +44,19 @@
       <td>
         <?=implode('</td><td>',$perType[1][$key])?>
       </td>
+      <td>
+        <?=array_sum($perType[1][$key])?>
+      </td>
     </tr>
     <?php endforeach;?>
     <?php endif;?>
     <tr>
+     <td></td>
+    </tr>
+    <tr>
       <th>Premium Economy</th>
-      <td><?=implode('</td><td>',$class[2])?></td>
-      <td><?=array_sum($class[2])?></td>
+      <th><?=implode('</th><th>',$class[2])?></td>
+      <th><?=array_sum($class[2])?></th>
     </tr>
     <?php if($bdown):?>
     <?php foreach($ft as $key=>$f):?>
@@ -59,15 +65,18 @@
         <?=$f?>
       </td>
       <td>
-        <?=implode('</td><td>',$perType[1][$key])?>
+        <?=implode('</td><td>',$perType[2][$key])?>
+      </td>
+      <td>
+        <?=array_sum($perType[2][$key])?>
       </td>
     </tr>
     <?php endforeach;?>
     <?php endif;?>
     <tr>
-      <td>TOTAL REVENUE</td>
-      <td><?=implode('</td><td>',$all)?></td>
-      <td><?=array_sum($class[1])+array_sum($class[2])?></td>
+      <th>TOTAL REVENUE</td>
+      <th><?=implode('</th><th>',$all)?></td>
+      <th><?=array_sum($class[1])+array_sum($class[2])?></th>
     </tr>
   </table>
   <?php if(isset($graph)):?>

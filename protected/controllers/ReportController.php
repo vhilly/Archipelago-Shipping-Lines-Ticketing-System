@@ -103,6 +103,7 @@
       $type=array();
       $type1=array();
       $perType=array();
+      $cntPerType=array();
       $all=array();
       if(isset($_POST['Report'])){
         $model->attributes=$_POST['Report'];
@@ -125,6 +126,9 @@
             foreach($res as $r){
               $amt = 0;
               $amt1 = 0;
+              $type = array();
+              $type2 = array();
+              $count = array();
               $bsql = "
                 SELECT pr.type type,b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5 GROUP BY pr.type,b.rate
               ";
@@ -133,19 +137,27 @@
                 foreach($bs as $b){
                   $amt += $b['amt'];
                   foreach($ft as $key=>$k){
-                    if($key==$b['type'])
+                    if($key==$b['type']){
                      $type[$key]=$b['amt'];
-                    else
+                     $count[$key]=$b['count'];
+                    }else{
                      $type[$key]=isset($type[$key])?$type[$key]:0;
+                     $count[$key]=isset($count[$key])?$count[$key]:0;
+                    }
                   }
                 }
               }else{
+               foreach($ft as $key=>$k){
+                 $type[$key]=0;
+                 $count[$key]=0;
+               }
                $amt =0;
               }
 
               $class[1][] =$amt; 
               foreach($type as $key=>$t){
                 $perType[1][$key][] = $t;
+                $cntPerType[1][$key][] = $count[$key];
               }
 
               $esql = "
@@ -156,24 +168,33 @@
                 foreach($ec as $c){
                   $amt1 += $c['amt'];
                   foreach($ft as $key1=>$k1){
-                    if($key1==$c['type'])
-                     $type[$key1]=$c['amt'];
-                    else
-                     $type[$key1]=isset($type[$key1])?$type[$key1]:0;
+                    if($key1==$c['type']){
+                     $type2[$key1]=$c['amt'];
+                     $count2[$key1]=$c['count'];
+                    }else{
+                     $type2[$key1]=isset($type2[$key1])?$type2[$key1]:0;
+                     $count2[$key1]=isset($count2[$key1])?$count2[$key1]:0;
+                    }
                   }
                 }
               }else{
+               foreach($ft as $key=>$k){
+                 $type2[$key1]=0;
+                 $count2[$key1]=0;
+               }
                $amt1 =0;
               }
               $class[2][] =$amt1; 
-
+              foreach($type2 as $key=>$t){
+                $perType[2][$key][] = $t;
+              }
 
               $all[] = $amt+$amt1;
             }
            
           }
 
-          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph,'perType'=>$perType,'bdown'=>true));
+          $this->render('dailyRevenue',array('model'=>$model,'res'=>$res,'class'=>$class,'all'=>$all,'is_empty'=>0,'graph'=>$graph,'perType'=>$perType,'cntPerType'=>$cntPerType,'bdown'=>true));
         }else{
           $this->render('dailyRevenue',array('is_empty'=>1,'model'=>$model));
         }
