@@ -100,6 +100,7 @@
 		      array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
 		        array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),
 		        array('label'=>'Daily Revenue Report - w/ Chart', 'url'=>array('/report/dailyRevenue&graph')),
+		        array('label'=>'Daily Revenue Report Break Down', 'url'=>array('/report/dailyRevenueBdown')),
 		        array('label'=>"Inspection Report", 'url'=>array('/report/inspection')),
 	              ),
 					),

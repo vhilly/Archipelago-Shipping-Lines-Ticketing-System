@@ -30,7 +30,7 @@
     <tr>
       <th><?=implode('</th><th>',$voyages =array_map(function($voyages){return $voyages['name'];},$res))?></th>
     </tr>
-    <tr>
+    <tr bgcolor=orange>
       <th>Business Class</td>
       <th><?=implode('</th><th>',$class[1])?></th>
       <th><?=array_sum($class[1])?></th>
@@ -38,8 +38,8 @@
     <?php if($bdown):?>
     <?php foreach($ft as $key=>$f):?>
     <tr>
-      <td>
-        <?=$f?>
+      <td rowspan=2>
+        <?=$f?><br><br>No. of passenger
       </td>
       <td>
         <?=implode('</td><td>',$perType[1][$key])?>
@@ -48,12 +48,20 @@
         <?=array_sum($perType[1][$key])?>
       </td>
     </tr>
+    <tr bgcolor=gray>
+      <td>
+        <?=implode('</td><td>',$cntPerType[1][$key])?>
+      </td>
+      <td>
+        <?=array_sum($cntPerType[1][$key])?>
+      </td>
+    </tr>
     <?php endforeach;?>
     <?php endif;?>
     <tr>
      <td></td>
     </tr>
-    <tr>
+    <tr bgcolor=cyan>
       <th>Premium Economy</th>
       <th><?=implode('</th><th>',$class[2])?></td>
       <th><?=array_sum($class[2])?></th>
@@ -61,14 +69,22 @@
     <?php if($bdown):?>
     <?php foreach($ft as $key=>$f):?>
     <tr>
-      <td>
-        <?=$f?>
+      <td rowspan=2>
+        <?=$f?><br><br>No. of passenger
       </td>
       <td>
         <?=implode('</td><td>',$perType[2][$key])?>
       </td>
       <td>
         <?=array_sum($perType[2][$key])?>
+      </td>
+    </tr>
+    <tr bgcolor=gray>
+      <td>
+        <?=implode('</td><td>',$cntPerType[2][$key])?>
+      </td>
+      <td>
+        <?=array_sum($cntPerType[2][$key])?>
       </td>
     </tr>
     <?php endforeach;?>

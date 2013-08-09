@@ -129,6 +129,7 @@
               $type = array();
               $type2 = array();
               $count = array();
+              $count2 = array();
               $bsql = "
                 SELECT pr.type type,b.rate rate,SUM(pr.price) amt,COUNT(b.id) count FROM booking b,passage_fare_rates pr WHERE  b.voyage={$r['id']} AND b.rate=pr.id AND pr.class=1  AND b.status BETWEEN 1 AND 5 GROUP BY pr.type,b.rate
               ";
@@ -187,6 +188,7 @@
               $class[2][] =$amt1; 
               foreach($type2 as $key=>$t){
                 $perType[2][$key][] = $t;
+                $cntPerType[2][$key][] = $count2[$key];
               }
 
               $all[] = $amt+$amt1;
