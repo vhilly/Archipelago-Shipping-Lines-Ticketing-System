@@ -38,12 +38,21 @@
     <?php
 	$ids = isset($_GET['id'])? $_GET['id'] : '';
 	$type = isset($_GET['class']) ? $_GET['class']: 1;
-	$skp = Array('45D','45E','45F','45G','44A','44B','44C','29A','29B','29C','30A','30B','30C','30D');
-        for($n="C";$n<="G";$n++){
+	//$skp = Array('45D','45E','45F','45G','44A','44B','44C','29A','29B','29C','30A','30B','30C','30D');
+	$skp = Array('45E','45F','45G','29A','29B','29C','29D','30A','30B','30C','30D');
+        //for($n="C";$n<="G";$n++){
+        for($n="A";$n<="F";$n++){
         	for($m=10;$m<=17;$m++){
                 	$ap = "$m$n";
                         array_push($skp,$ap);
                 }
+        }
+        //filter for H line
+        for($m=1;$m<=45;$m++){
+          if($m<=9 || $m>=18){
+            $sh = "{$m}H";
+            array_push($skp,$sh);
+          }
         }
         switch($type){
           //case 1: $cl = "BUSINESS CLASS";$min=10;$max=29;break;
@@ -60,8 +69,11 @@
 
   echo "<b>$cl</b>";
   $body = "";
-  for($a="A";$a<="G";$a++){
-  	if($a=="D"){$body .= "<tr style=\"height:80px;border-left:1px solid transparent;border-right:1px solid transparent\"></tr>";}
+  //for($a="A";$a<="G";$a++){
+  for($a="A";$a<="H";$a++){
+  	//if($a=="D"){$body .= "<tr style=\"height:80px;border-left:1px solid transparent;border-right:1px solid transparent\"></tr>";}
+        //divider
+  	if($a=="E"){$body .= "<tr style=\"height:80px;border-left:1px solid transparent;border-right:1px solid transparent\"></tr>";}
     $body .= "<tr>";
     for($b=$min;$b<=$max;$b++){
     	$ts = "$b$a";

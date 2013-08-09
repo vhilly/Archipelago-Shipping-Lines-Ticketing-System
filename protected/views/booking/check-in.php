@@ -10,6 +10,7 @@
 	echo $form->textFieldRow($model, 'first_name',array('class'=>'input-medium span2','id'=>'fname'));
 	echo $form->textFieldRow($model, 'last_name',array('class'=>'input-medium span2','id'=>'lname'));
         echo "<br><br>";
+        echo $form->dropDownListRow($model, 'status',CHtml::listData(BookingStatus::model()->findAll(array('condition'=>'id < 3')),'id','name'),array('empty'=>''));
         echo $form->dropDownListRow($model, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status < 3')),'id','name')); //hide all closed voyages
    ?>
    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
