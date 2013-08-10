@@ -117,6 +117,7 @@ array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"><
         $arv=$pass['departure_date']." ".$pass['departure_time']."-".$pass['arrival_time']; 
 	$ot=$dt." ".$da."-".$aa;
 	?>
+        <br>
  	<div id="ub1"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastCat Boarding Pass</b></div>
   	<div id="ub2" class="condensed"><?=$pass['first_name']?> <?=$pass['last_name']?></div>
 	<div id="ub2"><?=$pass['voyage']?></div>
@@ -124,7 +125,7 @@ array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"><
         <div id="ub3" class="normal" ><?=$ot?></div>         
 	 <?php $cl=$pass['class'];
         //echo $cl;
-        if($cl=='Business Class'){
+        if($pass['cid']==1){
         //echo "Yes!";
         echo '<div class="bl" id="ub4" ><i>&nbsp;&nbsp;<u>'.$cl.'</u></i></div>';
         echo ' <div id="ub5" class="italic seats">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$pass['seat'].'</b></div>';
@@ -141,6 +142,7 @@ array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"><
 	  <div style="height:20px"></div>
         <!-- end -->
         <?php }?>
+        <br>
         <?php endforeach?>
     <script>window.print();window.close();</script>
     <?php endif;?>

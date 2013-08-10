@@ -341,7 +341,7 @@ $this->render('admin',array(
         $ids = isset($_GET['ids']) ? $_GET['ids'] : null;
       }
       if(isset($_GET['Booking']) || isset($_GET['print'])){
-        $sql = "SELECT cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_no,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_no IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
+        $sql = "SELECT cs.id as cid ,cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_no,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_no IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
         $data = Yii::app()->db->createCommand($sql);
         $pass = $data->queryAll();
       }
