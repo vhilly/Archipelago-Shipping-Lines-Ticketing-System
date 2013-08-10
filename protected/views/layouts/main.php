@@ -96,6 +96,7 @@
                     array('icon'=>'book','label'=>'Booking Transfer', 'url'=>array('/booking/transfer')),
                     array('icon'=>'book','label'=>'Seat Availability', 'url'=>array('/seat/index')),
                     array('icon'=>'book','label'=>'Locked Seats', 'url'=>array('/seat/locked')),
+                    array('icon'=>'book','label'=>'Upgrades', 'url'=>array('/upgrades/admin')),
                     array('icon'=>'group','label'=>'Passenger', 'url'=>array('/passenger/index')),
 		      array('icon'=>'book','label'=>'Reports', 'url'=>'#', 'items'=>array(
 		        array('label'=>'Daily Revenue Report', 'url'=>array('/report/dailyRevenue')),

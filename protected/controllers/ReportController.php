@@ -109,7 +109,7 @@
         $model->attributes=$_POST['Report'];
         if($model->validate()){
 
-          $sql = "SELECT id,name from voyage voy  WHERE voy.vessel={$model->vessel}";
+          $sql = "SELECT id,name,(SELECT SUM(amt) FROM upgrades WHERE voyage=voy.id) as ups from voyage voy  WHERE voy.vessel={$model->vessel}";
 
 
           if($model->departure_date)
@@ -191,7 +191,7 @@
                 $cntPerType[2][$key][] = $count2[$key];
               }
 
-              $all[] = $amt+$amt1;
+              $all[] = $amt+$amt1+$r['ups'];
             }
            
           }
