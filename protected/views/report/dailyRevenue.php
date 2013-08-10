@@ -1,8 +1,3 @@
-  <style>
-   .drr {
-     font-size:5pt;
-   }
-  </style>
   <?php $this->renderPartial('_form',array('model'=>$model),false,false)?>
   <?php if(!$is_empty && count($res)):?>
   <?php $ves = Vessel::model()->findByPk($model->vessel)?>
@@ -12,18 +7,30 @@
   <body>
   <div id=printArea>
   <?php if(!isset($graph)): ?>
+  <style>
+   .drr {
+     border-collapse:collapse;
+   }
+   .drr th, .drr td {
+     font-size:10px;
+     padding:2px;
+   }
+   h1,h2,h3,h4,h5,h6 {
+     margin:0;
+   }
+  </style>
   <center>
-    <h4>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h4>
+    <h5>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h5>
 
     <h6>7/F Mapfre Asian Corporate Center Acacia Ave.,<br>
       Madrigal Business Park, Ayala Alabang, Muntinlupa City<br>
       Tel No.:(02) 775-0441 Fax No.:807-5670
     </h6>
-
-    <h1>DAILY REVENUE REPORT NO.:__</h1>
+<br>
+    <h4>DAILY REVENUE REPORT NO.:__</h4>
 
     <h5 >VESSEL:<u><?=$ves->name?></u>&thinsp; &ensp; &#09; &emsp; &nbsp; DATE:<u><?=$model->departure_date ? $model->departure_date :date('Y-m-d') ?>  </u></h5>
-    <h5 >ROUTE:<u>  </u></h5>
+    <h5 >ROUTE:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></h5>
   </center>
   <?php endif;?>
   <table border=1 class="drr" width=600px align=center>
@@ -122,10 +129,10 @@
       <td colspan=<?=count($res)+4?>>Others</td>
     </tr>
     <tr>
-      <td colspan=<?=count($res)+4?>></td>
+      <td colspan=<?=count($res)+4?>>&nbsp;</td>
     </tr>
     <tr>
-      <td colspan=<?=count($res)+4?>></td>
+      <td colspan=<?=count($res)+4?>>&nbsp;</td>
     </tr>
     <tr>
       <th>NET CASH COLLECTION:</th>
@@ -141,7 +148,7 @@
       <td>PAYOR</td>
       <td>REMARKS</td>
       <td>AMOUNT</td>
-      <td></td>
+      <td width="100px">&nbsp;</td>
     </tr>
     <?php for($counter=1;$counter<13;$counter++):?>
     <tr>
@@ -227,8 +234,8 @@
      var w = window.open('','dr');
      w.document.write($('#printArea').html());
      <?php  if(!isset($graph)):?>
-       w.print();
-       w.close();
+       //w.print();
+       //w.close();
      <?php endif;?>
    }
   </script>
