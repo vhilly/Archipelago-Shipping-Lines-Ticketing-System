@@ -424,10 +424,10 @@ $this->render('admin',array(
           if($model->save()){
             if($ref=='cIN'){
               Yii::app()->user->setFlash('success', "Seat Transfer Successful!");
-              $this->redirect(array('booking/checkin','booking_no'=>$model->booking_no));
+              $this->redirect(array('booking/checkin','booking_no'=>$model->tkt_no));
             }else{
               Yii::app()->user->setFlash('success', 'Booking Transfer Successful!');
-              $this->redirect(array('booking/transfer','booking_no'=>$model->booking_no));
+              $this->redirect(array('booking/transfer','booking_no'=>$model->tkt_no));
             }
           }
       }
