@@ -1,4 +1,10 @@
 
+  <?php if(isset($print)):?>
+  <script>
+    window.print();
+    window.close();
+  </script>
+  <?php endif;?>
   <?php if(!isset($print)):?>
   <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'searchForm',

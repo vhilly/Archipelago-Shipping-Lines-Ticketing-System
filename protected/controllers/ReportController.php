@@ -42,10 +42,7 @@
         if($model->validate()){
 
 
-
-
-
-          $sql = "SELECT id,name from voyage voy  WHERE voy.vessel={$model->vessel}";
+          $sql = "SELECT id,name,IFNULL((SELECT SUM(amt) FROM upgrades WHERE voyage=voy.id),0) as ups from voyage voy  WHERE voy.vessel={$model->vessel}";
 
 
           if($model->departure_date)
@@ -80,7 +77,7 @@
               else
                $amt1 =0;
               $class[2][] =$amt1; 
-              $all[] = $amt+$amt1;
+              $all[] = $amt+$amt1+$r['ups'];
             }
           }
 
@@ -109,14 +106,13 @@
         $model->attributes=$_POST['Report'];
         if($model->validate()){
 
-          $sql = "SELECT id,name,(SELECT SUM(amt) FROM upgrades WHERE voyage=voy.id) as ups from voyage voy  WHERE voy.vessel={$model->vessel}";
+          $sql = "SELECT id,name,IFNULL((SELECT SUM(amt) FROM upgrades WHERE voyage=voy.id),0) as ups from voyage voy  WHERE voy.vessel={$model->vessel}";
 
 
           if($model->departure_date)
             $sql .= " AND voy.departure_date = '{$model->departure_date}'" ;
           else
             $sql .= " AND voy.departure_date = CURDATE() " ;
-
 
 
           $res = Yii::app()->db->createCommand($sql)->queryAll();

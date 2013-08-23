@@ -110,6 +110,7 @@
       <th><?=implode('</th><th>',$all)?></td>
       <th colspan=3><?=number_format(array_sum($class[1])+array_sum($class[2])+array_sum($ups))?></th>
     </tr>
+    <?php if($bdown):?>
     <tr>
       <td colspan=<?=count($res)+4?>>Less: Collections</td>
     </tr>
@@ -192,6 +193,7 @@
       <td></td>
       <td></td>
     </tr>
+    <?php endif;?>
   </table>
   <?php if(isset($graph)):?>
     <?php 

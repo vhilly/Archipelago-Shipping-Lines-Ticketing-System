@@ -226,13 +226,10 @@
         $model->attributes=$_GET['BookingCargo'];
       }
       if(isset($_GET['BookingCargo']) && $_GET['print']){
-        $mPDF1 = Yii::app()->ePdf->mpdf();
-        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
-        $mPDF1->WriteHTML($this->renderPartial('wbill',array(
+        $this->renderPartial('wbill',array(
           'model'=>$model,
           'print'=>1,
-        ),true,true));
-        $mPDF1->Output();
+        ));
       }else{
         $this->render('wbill',array(
           'model'=>$model,
