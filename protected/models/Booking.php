@@ -26,6 +26,9 @@ class Booking extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Booking the static model class
 	 */
+    public $ptype;
+    public $class;
+    public $route;
     public $last_name;
     public $first_name;
     public $transNo;
@@ -59,7 +62,7 @@ class Booking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array($this->_requiredFields.'transaction,passenger, tkt_no, booking_no, voyage, status,rate', 'required'),
+			array($this->_requiredFields.'transaction, tkt_no, booking_no, voyage,rate', 'required'),
 			array('transaction, passenger,type, voyage, seat, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
