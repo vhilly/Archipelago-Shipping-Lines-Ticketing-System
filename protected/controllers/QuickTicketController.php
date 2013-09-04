@@ -29,10 +29,12 @@
       );
      }
      public function actionIndex(){
+       $bs_per_class= array();
        $voyage='';
        $voyages='';
        $booking='';
        $vid='';
+
        $bn = isset($_GET['bn']) ?  $_GET['bn'] : '';
        if(isset($_GET['id'])){
           $_SESSION['voyage'] = $_GET['id'];
@@ -54,7 +56,7 @@
           $amts[] = $amt[$p];
          }
          $total_amt = array_sum($amts);
-         $sql = "SELECT s.id, b.id bookid,s.name FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$_POST['Booking']['voyage']} AND b.status=bs.id";
+         $sql = "SELECT s.id  FROM booking b,seat s WHERE s.id=b.seat AND b.voyage  ={$_POST['Booking']['voyage']} ";
          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
          $sids = array_map(function($s){return $s['id'];},$bookedSeats);
          $booked = implode(',',$sids);
@@ -80,7 +82,12 @@
            $sql .=  " AND name NOT IN ($skip)"; 
          $sql .= " ORDER BY name+1,name ";
          $seatList= Yii::app()->db->createCommand($sql)->queryAll();
+         
          $available_seats = array_map(function($as){return $as['id'];},$seatList);
+         if(count($available_seats) < count($_POST['Booking']['ptype'] )){
+              Yii::app()->user->setFlash('info', count($available_seats)." Seats Available!");
+              $this->redirect(array("QuickTicket/"));
+         }
          $transaction = Yii::app()->db->beginTransaction();
             try{
               $tr = new Transaction;
@@ -126,12 +133,14 @@
        }
 
        if($vid){
+         $sql = "SELECT count(*) cnt,s.seating_class FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$vid} AND b.status=bs.id GROUP BY s.seating_class";
+         $bs_per_class= Yii::app()->db->createCommand($sql)->queryAll();
          $voyage = Voyage::model()->findByPk($vid);
          $booking = new Booking;
        }else{
          $voyages = Voyage::model()->findAll(array('condition'=>"departure_date = CURDATE() AND status < 3"));
        }
-       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn)));
+       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class)));
      }
     public function numberGenerator($type){
       $countBooking = Counter::model()->findByPk($type);

@@ -63,6 +63,8 @@
                 array('icon'=>'credit-card','label'=>'Transaction', 'url'=>'#', 'items'=>$transLink,
                 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',
+                array('label'=>'FastTicket', 'url'=>array('QuickTicket/')),
+		'...',
                 array('label'=>'Voyage', 'url'=>array('/voyage/index'
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
 		'...',

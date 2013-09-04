@@ -16,6 +16,22 @@
   <?php endforeach;?>
 <?php endif;?>
 <?php if($data['voyage']) :?>
+     <h4>Seats Remaining:<br>
+    <?php
+      $bc = "Business Class = 159 ";
+      $pe = "Premium / Economy = 105 ";
+      foreach($data['bs_pc'] as $b){
+        if($b['seating_class']  == 1){
+          $remaining = 159 - $b['cnt'];
+          $bc = "Business Class = $remaining ";
+        }else{
+          $remaining = 105 - $b['cnt'];
+          $pe = "Premium / Economy = $remaining ";
+        }
+      }
+      echo $bc.' '.$pe;
+    ?>
+    </h4>
     <?php
       $seating_class = CHtml::listData(SeatingClass::model()->findAll(array('order'=>'id DESC')),'id','name');
       $fare_types = CHtml::listData(PassageFareTypes::model()->findAll(),'id','name');
