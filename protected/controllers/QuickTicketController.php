@@ -54,6 +54,33 @@
           $amts[] = $amt[$p];
          }
          $total_amt = array_sum($amts);
+         $sql = "SELECT s.id, b.id bookid,s.name FROM booking b,seat s,booking_status bs WHERE s.id=b.seat AND b.voyage  ={$_POST['Booking']['voyage']} AND b.status=bs.id";
+         $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
+         $sids = array_map(function($s){return $s['id'];},$bookedSeats);
+         $booked = implode(',',$sids);
+	 $skp = array('45E','45F','45G','29A','29B','29C','29D','30A','30B','30C','30D');
+        for($n="A";$n<="F";$n++){
+        	for($m=10;$m<=17;$m++){
+                	$ap = "$m$n";
+                        array_push($skp,$ap);
+                }
+        }
+        //filter for H line
+        for($m=1;$m<=45;$m++){
+          if($m<=9 || $m>=18){
+            $sh = "{$m}H";
+            array_push($skp,$sh);
+          }
+         }
+	 $skip ='\''.implode('\',\'', $skp).'\'';
+         $sql = "SELECT id,name FROM seat WHERE seating_class={$_POST['Booking']['class']}";
+         if($booked)
+           $sql .=  " AND id NOT IN ($booked)"; 
+         if($skip)
+           $sql .=  " AND name NOT IN ($skip)"; 
+         $sql .= " ORDER BY name+1,name ";
+         $seatList= Yii::app()->db->createCommand($sql)->queryAll();
+         $available_seats = array_map(function($as){return $as['id'];},$seatList);
          $transaction = Yii::app()->db->beginTransaction();
             try{
               $tr = new Transaction;
@@ -69,7 +96,7 @@
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
               $bookCounter = $this->numberGenerator(1);
-              foreach($_POST['Booking']['ptype'] as $p){
+              foreach($_POST['Booking']['ptype'] as $key=>$p){
                 $pass = new Passenger;
                 if(!$pass->save())
                   throw new Exception('Cannot save passanger');
@@ -82,6 +109,7 @@
                 $nb->rate = $rate[$p];
                 $nb->transaction = $tr->id;
                 $nb->type = 1;
+                $nb->seat =  $available_seats[$key];
                 $nb->passenger = $pass->id;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');

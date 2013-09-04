@@ -50,7 +50,7 @@
      </div>
    </div>
    <br>
-  <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Submit')); ?>
+  <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Submit','id'=>'buy')); ?>
   <?php $this->endWidget();?>
 <?php endif;?>
 <script>
@@ -70,6 +70,8 @@
      break;
      case 45: removeSelect(); // - sign
      break;
+     case 13: if(confirm('Are you sure?'))$('#buy').click(); // - sign
+     break;
     }
   });
   var current = 1;
@@ -86,12 +88,12 @@
       current--;
     }
   }
+  <?php if($data['bn']):?>
   var bn = <?=$data['bn']?>;
-  if(bn){
     url = '<?=Yii::app()->createUrl('booking/tkt',array(
      'Booking[booking_no]'=>$data['bn'],
      'Booking[voyage]'=>isset($data['voyage']->id) ? $data['voyage']->id:'',
      'print'=>1));?>';
     window.open(url);
-  }
+  <?php endif;?>
 </script>
