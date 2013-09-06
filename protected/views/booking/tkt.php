@@ -63,6 +63,8 @@
    <br><br>
    <br><br>
    <br><br>
+   <br><br>
+   <br><br>
    <?php endif;?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'1','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'");?>
    <?php $amt = isset($orig_price->price) ? $orig_price->price :$b->rate0->price?>
@@ -91,6 +93,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$amt?></b></div>
+     <div style=position:absolute;top:165px;left:<?=$left_x?>><b><?=$b->rate0->class0->name?></b></div>
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    </div>
@@ -105,6 +108,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$amt?></b></div>
+     <div style=position:absolute;top:165px;left:<?=$left_x?>><b><?=$b->rate0->class0->name?></b></div>
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    <div>
