@@ -57,6 +57,8 @@
    F1 = Premium Economy F2 = Business Class<br>
    Use left and right arrow to switch between fare types <br>
    Use +/- sign to add/remove passenger<br><br>
+   ADVANCE TICKET <input type=text name=advance_ticket><br>
+   <br><br>
    <?php echo $form->hiddenField($data['booking'],'voyage',array('value'=>$data['voyage']->id));?>
    <?php echo $form->dropDownListRow($data['booking'],'class',$seating_class,array('id'=>'class'));?><br><br>
    <?php echo $form->hiddenField($data['booking'],'route',array('value'=>$data['voyage']->route));?>

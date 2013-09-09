@@ -49,12 +49,12 @@ class AdvanceTicket extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('tkt_no, class, type, validity_date', 'required'),
-			array('seat, class, type, age', 'numerical', 'integerOnly'=>true),
+			array(' class, type, age', 'numerical', 'integerOnly'=>true),
 			array('tkt_no', 'length', 'max'=>32),
 			array('first_name, last_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tkt_no, seat, class, type, first_name, last_name, age, date_created, validity_date', 'safe', 'on'=>'search'),
+			array('id, tkt_no,class, type, first_name, last_name, age, date_created, validity_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +67,6 @@ class AdvanceTicket extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'type0' => array(self::BELONGS_TO, 'PassageFareTypes', 'type'),
-			'seat0' => array(self::BELONGS_TO, 'Seat', 'seat'),
 			'class0' => array(self::BELONGS_TO, 'SeatingClass', 'class'),
 		);
 	}
@@ -80,7 +79,6 @@ class AdvanceTicket extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'tkt_no' => 'Ticket No',
-			'seat' => 'Seat',
 			'class' => 'Class',
 			'type' => 'Type',
 			'first_name' => 'First Name',
@@ -104,7 +102,6 @@ class AdvanceTicket extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('tkt_no',$this->tkt_no,true);
-		$criteria->compare('seat',$this->seat);
 		$criteria->compare('class',$this->class);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('first_name',$this->first_name,true);

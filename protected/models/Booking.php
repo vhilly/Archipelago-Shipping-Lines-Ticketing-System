@@ -31,6 +31,7 @@ class Booking extends CActiveRecord
     public $route;
     public $last_name;
     public $first_name;
+    public $age;
     public $transNo;
     public $transaction;
     public $cnt;//reserved
@@ -102,6 +103,7 @@ class Booking extends CActiveRecord
 			'passenger' => 'Passenger',
 			'voyage' => 'Voyage',
 			'seat' => 'Seat',
+			'age' => 'Age',
 			'first_name' => 'Firstname',
 			'last_name' => 'Lastname',
 			'status' => 'Status',

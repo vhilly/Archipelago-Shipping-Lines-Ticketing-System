@@ -114,12 +114,7 @@
             $error += $this->validatePassengersField($passengers,$seats,$fares,$serials);           
           }
           if($purchase->current_step ==3){
-            $vs = Voyage::model()->find(array(
-              'select'=>'status',
-              'condition'=>'id=:vid',
-              'params'=>array(':vid'=>"$purchase->voyage"),)
-            );
-            $b_type = $vs->status ==1 ? 1:2;
+            $b_type = 2;
             $transaction = Yii::app()->db->beginTransaction();
             try{
               $tr = new Transaction;
@@ -143,8 +138,8 @@
 
                 $nb = new Booking;
 	        $counter = numberGenerator(2);
-                $nb->tkt_no = str_pad($counter,6,'0',STR_PAD_LEFT);
-                $nb->booking_no = str_pad($bookCounter,6,'0',STR_PAD_LEFT);
+                $nb->tkt_no = $counter;
+                $nb->booking_no = $bookCounter;
                 $nb->voyage = $purchase->voyage;
                 $nb->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
                 $nb->seat = $seats[$key]->id;
@@ -163,8 +158,8 @@
 		$bookingCounter = numberGenerator(1);
                 $nc = new BookingCargo;
 		$lading = numberGenerator(3);
-		$nc->lading_no = str_pad($lading,6,'0',STR_PAD_LEFT);
-		$nc->booking_no = str_pad($bookingCounter,6,'0',STR_PAD_LEFT);
+		$nc->lading_no = $lading;
+		$nc->booking_no = $bookingCounter;
                 $nc->transaction = $tr->id;
                 $nc->voyage = $purchase->voyage;
                 $nc->status = $purchase->payment_status == 1? 2 : 1;

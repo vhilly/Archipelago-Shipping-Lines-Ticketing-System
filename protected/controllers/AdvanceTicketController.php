@@ -69,9 +69,16 @@ $model=new AdvanceTicket;
 if(isset($_POST['AdvanceTicket']))
 {
 $model->attributes=$_POST['AdvanceTicket'];
-$model->tkt_no = 1;
-if($model->save())
-$this->redirect(array('view','id'=>$model->id));
+if($model->validate(array('class','type','validity_date')))
+  $model->tkt_no =  numberGenerator(4);
+try{
+  if($model->save()){
+    Yii::app()->user->setFlash('success', 'Advance ticket has been created!');
+    $this->redirect(array('admin'));
+  }
+}catch(Exception $e){
+  Yii::app()->user->setFlash('error', 'Duplicate ticket number!');
+}
 }
 
 $this->render('create',array(
