@@ -102,13 +102,13 @@
               $tr->validate();
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
-              $bookCounter = $this->numberGenerator(1);
+              $bookCounter = numberGenerator(1);
               foreach($_POST['Booking']['ptype'] as $key=>$p){
                 $pass = new Passenger;
                 if(!$pass->save())
                   throw new Exception('Cannot save passanger');
                 $nb = new Booking;
-	        $counter = $this->numberGenerator(2);
+	        $counter = numberGenerator(2);
                 $nb->tkt_no = str_pad($counter,6,'0',STR_PAD_LEFT);
                 $nb->booking_no = str_pad($bookCounter,6,'0',STR_PAD_LEFT);
                 $nb->voyage = $_POST['Booking']['voyage'];
@@ -142,10 +142,4 @@
        }
        $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class)));
      }
-    public function numberGenerator($type){
-      $countBooking = Counter::model()->findByPk($type);
-      $countBooking->saveCounters(array('counter'=>1));
-      $countBooking->save();
-      return $countBooking->counter;
-    }
   }

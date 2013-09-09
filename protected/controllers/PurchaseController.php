@@ -31,23 +31,6 @@
       );
     }
 
-    public function numberGenerator($type){
-/*
-      $count = file_get_contents("$name.txt");
-      $count = trim($count);
-      $count = $count + 1;
-      $fl = fopen("$name.txt","w+");
-      fwrite($fl,$count);
-      fclose($fl);
-*/
-      $countBooking = Counter::model()->findByPk($type);
-      $countBooking->saveCounters(array('counter'=>1));
-      //$countBooking->counter = $countBooking->counter+1;
-      $countBooking->save();
-  
-
-      return $countBooking->counter;
-    }
 
     public function actionIndex($type){
 
@@ -153,13 +136,13 @@
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
               $purchase->tr_no = $tr->id;
-              $bookCounter = $this->numberGenerator(1);
+              $bookCounter = numberGenerator(1);
               foreach($passengers as $key=>$p){
                 if(!$p->save())
                   throw new Exception('Cannot save passanger');
 
                 $nb = new Booking;
-	        $counter = $this->numberGenerator(2);
+	        $counter = numberGenerator(2);
                 $nb->tkt_no = str_pad($counter,6,'0',STR_PAD_LEFT);
                 $nb->booking_no = str_pad($bookCounter,6,'0',STR_PAD_LEFT);
                 $nb->voyage = $purchase->voyage;
@@ -177,9 +160,9 @@
                 if(!$cargo->save())
                   throw new Exception('Cannot save passanger');
 
-		$bookingCounter = $this->numberGenerator(1);
+		$bookingCounter = numberGenerator(1);
                 $nc = new BookingCargo;
-		$lading = $this->numberGenerator(3);
+		$lading = numberGenerator(3);
 		$nc->lading_no = str_pad($lading,6,'0',STR_PAD_LEFT);
 		$nc->booking_no = str_pad($bookingCounter,6,'0',STR_PAD_LEFT);
                 $nc->transaction = $tr->id;

@@ -7,6 +7,7 @@
 
 <?php echo $form->errorSummary($model); ?>
 
+
 	<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>100)); ?>
 
 	<?php echo $form->dropDownListRow($model,'vessel',CHtml::listData(Vessel::model()->findAll(),'id','name'),array('class'=>'span5')); ?>
