@@ -142,15 +142,25 @@ return array(
             'allowAutoLogin'=>true,
             'loginUrl' => array('/user/login'),
         ),
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=archipelago',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'mysqladmin',
-			'charset' => 'utf8',
-      'enableParamLogging'=>true,
-      'enableProfiling'=>true,
-		),
+       'db'=>array(
+	 'connectionString' => 'mysql:host=localhost;dbname=archipelago',
+	 'emulatePrepare' => true,
+	 'username' => 'root',
+	 'password' => 'mysqladmin',
+	 'charset' => 'utf8',
+         'enableParamLogging'=>true,
+         'enableProfiling'=>true,
+       ),
+       'syncdb'=>array(
+	 'connectionString' => 'mysql:host=localhost;dbname=sync',
+	 'emulatePrepare' => true,
+	 'username' => 'root',
+	 'password' => 'mysqladmin',
+	 'charset' => 'utf8',
+         'enableParamLogging'=>true,
+         'enableProfiling'=>true,
+         'class'=>'CDbConnection'
+       ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',

@@ -47,7 +47,7 @@
        if(isset($_POST['Booking'])){
          $at = isset($_POST['advance_ticket']) ? $_POST['advance_ticket'] : null;
          if($at){
-           $advance_tkt = AdvanceTicket::model()->findByAttributes(array('tkt_no'=>$at));
+           $advance_tkt = AdvanceTicket::model()->findByAttributes(array('tkt_no'=>$at,'status'=>1));
            if($advance_tkt){
              $_POST['Booking']['class'] = $advance_tkt->class;
              $_POST['Booking']['ptype'] = array($advance_tkt->type);
@@ -56,7 +56,7 @@
              $_POST['Booking']['last_name'] = array($advance_tkt->last_name);
              $_POST['Booking']['age'] = array($advance_tkt->age);
            }else{
-              Yii::app()->user->setFlash('error', "Ticket #{$_POST['advance_ticket']} Does not Exist!");
+              Yii::app()->user->setFlash('error', "Ticket #{$_POST['advance_ticket']} Does not Exist! ");
               $this->redirect(array("QuickTicket/"));
            }
          }
@@ -138,6 +138,12 @@
                 $nb->passenger = $pass->id;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
+
+                if($at){
+                  $advance_tkt->status = 2;
+                  $advance_tkt->is_sync = 'N';
+                  $advance_tkt->save();
+                }
               }
               $transaction->commit();
               Yii::app()->user->setFlash('info', "Transaction Complete! <br>Total Amount: $total_amt ");

@@ -23,7 +23,9 @@
     $this->widget('bootstrap.widgets.TbGridView', array(
       'dataProvider'=>$dataProvider,
       'template'=>"{items}{pager}",
+      //'ajaxUpdate'=>false,
       'columns'=>$gridColumns,
+      'type'=>'hover striped bordered'
     ));
 /*
 

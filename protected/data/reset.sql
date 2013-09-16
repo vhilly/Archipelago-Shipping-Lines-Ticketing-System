@@ -2,7 +2,7 @@ SET FOREIGN_KEY_CHECKS=0;
 TRUNCATE authorized_cust_shipper;
 TRUNCATE authorized_cust_vehicle;
 TRUNCATE booking_history;
-/*TRUNCATE booking_cargo_history;*/
+TRUNCATE bhistory_upload;
 TRUNCATE booking;
 TRUNCATE passenger;
 TRUNCATE booking_cargo;
@@ -11,6 +11,7 @@ TRUNCATE paid_misc_fees;
 TRUNCATE price_history;
 TRUNCATE seat_lock;
 TRUNCATE transaction;
+TRUNCATE upgrades;
 TRUNCATE voyage;
 TRUNCATE refunded_tkts;
 /*TRUNCATE route;*/
