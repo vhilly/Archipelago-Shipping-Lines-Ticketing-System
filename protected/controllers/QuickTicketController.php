@@ -45,21 +45,6 @@
        $vid = isset($_SESSION['voyage']) ? $_SESSION['voyage'] : null;
        
        if(isset($_POST['Booking'])){
-         $at = isset($_POST['advance_ticket']) ? $_POST['advance_ticket'] : null;
-         if($at){
-           $advance_tkt = AdvanceTicket::model()->findByAttributes(array('tkt_no'=>$at,'status'=>1));
-           if($advance_tkt){
-             $_POST['Booking']['class'] = $advance_tkt->class;
-             $_POST['Booking']['ptype'] = array($advance_tkt->type);
-             $_POST['Booking']['tkt_no'] = $advance_tkt->tkt_no;
-             $_POST['Booking']['first_name'] = array($advance_tkt->first_name);
-             $_POST['Booking']['last_name'] = array($advance_tkt->last_name);
-             $_POST['Booking']['age'] = array($advance_tkt->age);
-           }else{
-              Yii::app()->user->setFlash('error', "Ticket #{$_POST['advance_ticket']} Does not Exist! ");
-              $this->redirect(array("QuickTicket/"));
-           }
-         }
          $fares = PassageFareRates::model()->findAll(array(
            'condition'=>'class=:cl AND route=:rt AND active="Y"',
            'params'=>array(':cl'=>$_POST['Booking']['class'],':rt'=> $_POST['Booking']['route']),
@@ -126,24 +111,19 @@
                 if(!$pass->save())
                   throw new Exception('Cannot save passanger');
                 $nb = new Booking;
-	        $counter = $at ? $_POST['Booking']['tkt_no'] : numberGenerator(2);
+	        $counter =  numberGenerator(2);
                 $nb->tkt_no = $counter;
                 $nb->booking_no = $bookCounter;
                 $nb->voyage = $_POST['Booking']['voyage'];
                 $nb->status = 2;
                 $nb->rate = $rate[$p];
                 $nb->transaction = $tr->id;
-                $nb->type = $at ? 1 :2;
+                $nb->type = 2;
                 $nb->seat =  $available_seats[$key];
                 $nb->passenger = $pass->id;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
 
-                if($at){
-                  $advance_tkt->status = 2;
-                  $advance_tkt->is_sync = 'N';
-                  $advance_tkt->save();
-                }
               }
               $transaction->commit();
               Yii::app()->user->setFlash('info', "Transaction Complete! <br>Total Amount: $total_amt ");

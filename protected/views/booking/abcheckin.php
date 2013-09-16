@@ -46,7 +46,7 @@ div.normal {font-style:normal;}
 </style>
 
 <?php if(!isset($print)):?>
-
+<h3>Advance Ticket</h3>
 <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 'id'=>'searchForm',
 'type'=>'search',
@@ -54,8 +54,9 @@ div.normal {font-style:normal;}
 'htmlOptions'=>array('class'=>'well'),
 )); ?>
 <?php
-echo $form->textFieldRow($model, 'tkt_no',
-array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"></i>'));
+  echo $form->textFieldRow($model, 'tkt_no',
+  array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"></i>'));
+  echo $form->dropDownListRow($model,'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>"departure_date=CURDATE() AND status < 3 ORDER BY id desc")),'id','name'));
 ?>
 <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Go')); ?>
 <br>
@@ -93,7 +94,7 @@ array('class'=>'input-large','id'=>'tkt_no','prepend'=>'<i class="icon-search"><
 
     <?php $this->endWidget(); ?>
     <?php $this->endWidget();?>
-<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'','url'=>Yii::app()->createUrl('booking/aBCheckin'),'label'=>'Advance Ticket'));?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'','url'=>Yii::app()->createUrl('booking/reader'),'label'=>'Walk-In'));?>
 <?php else:?>
       <script>
         //window.print();

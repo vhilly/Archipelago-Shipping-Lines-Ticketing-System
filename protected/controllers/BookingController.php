@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','board','checkInBoardForm','relational','tkt','tktHP','manifest','reader','admin','refund','quickBoard','cancel'),
+          'actions'=>array('editableSaver','transfer','transferForm','bpass','checkIn','aBCheckin','board','checkInBoardForm','relational','tkt','tktHP','manifest','reader','admin','refund','quickBoard','cancel'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -320,6 +320,123 @@ $this->render('admin',array(
 'model'=>$model,
 ));
 }
+    public function actionABCheckin()
+    {
+      //$this->layout = 'kios';
+      if(isset($_GET['Booking'])){
+        $pass = isset($_SESSION['checklist']) ? $_SESSION['checklist'] : Array();
+        $add = isset($_GET['Booking']['tkt_no']) ? $_GET['Booking']['tkt_no'] : "";
+        $vid = isset($_GET['Booking']['voyage']) ? $_GET['Booking']['voyage'] : "";
+        $advance_tkt = AdvanceTicket::model()->findByAttributes(array('tkt_no'=>$add,'status'=>1));
+        if($advance_tkt){
+          $voyage = Voyage::model()->findByPk($vid);
+          $rate = PassageFareRates::model()->findByAttributes(array('class'=>$advance_tkt->class,'route'=>$voyage->route,'type'=>$advance_tkt->type));
+          $sql = "SELECT s.id  FROM booking b,seat s WHERE s.id=b.seat AND b.voyage  ={$voyage->id} ";
+          $bookedSeats= Yii::app()->db->createCommand($sql)->queryAll();
+          $sids = array_map(function($s){return $s['id'];},$bookedSeats);
+          $booked = implode(',',$sids);
+	  $skp = array('45E','45F','45G','29A','29B','29C','29D','30A','30B','30C','30D');
+          for($n="A";$n<="F";$n++){
+        	for($m=10;$m<=17;$m++){
+                	$ap = "$m$n";
+                        array_push($skp,$ap);
+                }
+          }
+          for($m=1;$m<=45;$m++){
+          if($m<=9 || $m>=18){
+            $sh = "{$m}H";
+            array_push($skp,$sh);
+          }
+         }
+	 $skip ='\''.implode('\',\'', $skp).'\'';
+         $sql = "SELECT id,name FROM seat WHERE seating_class={$advance_tkt->class}";
+         if($booked)
+           $sql .=  " AND id NOT IN ($booked)"; 
+         if($skip)
+           $sql .=  " AND name NOT IN ($skip)"; 
+         $sql .= " ORDER BY name+1,name ";
+         $seatList= Yii::app()->db->createCommand($sql)->queryAll();
+         
+         $available_seats = array_map(function($as){return $as['id'];},$seatList);
+         if(!count($available_seats)){
+              Yii::app()->user->setFlash('info', count($available_seats)." Seats Available!");
+              $this->redirect(array("booking/aBCheckin"));
+         }
+
+         $transaction = Yii::app()->db->beginTransaction();
+            try{
+              $tr = new Transaction;
+              $tr->ovamount = $rate->price;
+              $tr->type = 1;
+              $curDate = date('Y-m-d H:i:s');
+              $tr->trans_date = $curDate;
+              $tr->input_date = $curDate;
+              $tr->created_by =Yii::app()->user->name;
+              $tr->payment_method = 1;
+              $tr->payment_status = 1;
+              $tr->validate();
+              if(!$tr->save())
+                throw new Exception('Cannot save transaction');
+              $bookCounter = numberGenerator(1);
+              $np = new Passenger;
+                if(!$np->save())
+                  throw new Exception('Cannot save passanger');
+              $nb = new Booking;
+              $nb->tkt_no = $advance_tkt->tkt_no;
+              $nb->transaction = $tr->id;
+              $nb->class = $advance_tkt->class;
+              $nb->ptype = $advance_tkt->type;
+              $nb->voyage = $voyage->id;
+              $nb->rate = $rate->id;
+              $nb->status = 2;
+              $nb->booking_no = $bookCounter;
+              $nb->seat =  $available_seats[0];
+              $nb->passenger = $np->id;
+              if(!$nb->save())
+                throw new Exception('Cannot save Booking');
+              $advance_tkt->status = 2;
+              $advance_tkt->is_sync = 'N';
+              $advance_tkt->isNewRecord = false;
+              $advance_tkt->validate();
+              if(!$advance_tkt->save())
+                throw new Exception('Cannot update advance ticket');
+              $transaction->commit();
+            }catch(Exception $e){
+              $transaction->rollback();
+              throw new CHttpException(400,$e);
+              $this->refresh();
+            }
+           array_push($pass,$add);
+           $_SESSION['checklist'] = $pass;
+        }
+        $ids = implode("','",$pass);
+      }else{
+        $pass = Array();
+        unset($_SESSION['checklist']);
+        $ids = "";
+      }
+
+      $model=new Booking;
+      if(isset($_GET['print'])){
+        $ids = isset($_GET['ids']) ? $_GET['ids'] : null;
+      }
+      if(isset($_GET['Booking']) || isset($_GET['print'])){
+        $sql = "SELECT cs.id as cid ,cs.name as class,r.name as route,v.departure_date,v.departure_time,v.arrival_time,b.voyage,b.tkt_no,b.tkt_no,p.first_name, p.last_name, v.name as voyage, s.name as seat FROM booking b, passenger p, voyage v, seat s, route r,seating_class cs WHERE cs.id=s.seating_class AND r.id=v.route AND p.id=b.passenger AND b.tkt_no IN ('{$ids}') AND b.voyage=v.id AND b.seat=s.id";
+        $data = Yii::app()->db->createCommand($sql);
+        $pass = $data->queryAll();
+      }
+      if(isset($_GET['success'])){      
+	Yii::app()->user->setFlash('success', "Check-In Successful!");
+      }
+      if(isset($_GET['print'])){
+        $sql = "UPDATE booking SET status=4 WHERE tkt_no IN ('{$ids}')";
+        $cin = Yii::app()->db->createCommand($sql);
+	$chk = $cin->query();
+	      $this->renderPartial('abcheckin',array('passenger'=>$pass,'print'=>1,'ids'=>$ids,));
+}
+      else
+        $this->render('abcheckin',array('model'=>$model,'passenger'=>$pass,'ids'=>$ids,));
+    }
 
     public function actionReader()
     {
