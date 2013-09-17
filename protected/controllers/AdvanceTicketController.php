@@ -62,28 +62,39 @@ $this->render('view',array(
 public function actionCreate()
 {
 $model=new AdvanceTicket;
+$tkts = array();
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['AdvanceTicket']))
-{
-$model->attributes=$_POST['AdvanceTicket'];
-if($model->validate(array('class','type','validity_date')))
-  $model->tkt_no =  numberGenerator(4);
-try{
-  if($model->save()){
-    Yii::app()->user->setFlash('success', 'Advance ticket has been created!');
-    $this->redirect(array('admin'));
+  if(isset($_POST['AdvanceTicket'])){
+     $model->attributes=$_POST['AdvanceTicket'];
+     if($model->validate(array('class','type','pcs'))){
+       for($counter=0;$counter < $model->pcs;$counter++){
+         $tkt = new AdvanceTicket;
+         $tkt->tkt_no =  numberGenerator(4);
+         $tkt->class = $model->class;
+         $tkt->type = $model->type;
+         $tkt->date_created = date('Y-m-d');
+         try{
+            if($tkt->save()){
+               array_push($tkts,$tkt);
+            }
+         }catch(Exception $e){
+            Yii::app()->user->setFlash('error', 'Duplicate ticket number!');
+         }
+       }
+    }
   }
-}catch(Exception $e){
-  Yii::app()->user->setFlash('error', 'Duplicate ticket number!');
-}
-}
-
-$this->render('create',array(
-'model'=>$model,
-));
+  if(count($tkts)){
+    $this->renderPartial('create',array(
+      'model'=>$model,'tkts'=>$tkts,
+    ));
+  }else{
+    $this->render('create',array(
+      'model'=>$model,
+    ));
+  }
 }
 
 /**

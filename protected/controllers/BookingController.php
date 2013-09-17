@@ -328,7 +328,7 @@ $this->render('admin',array(
         $add = isset($_GET['Booking']['tkt_no']) ? $_GET['Booking']['tkt_no'] : "";
         $vid = isset($_GET['Booking']['voyage']) ? $_GET['Booking']['voyage'] : "";
         $advance_tkt = AdvanceTicket::model()->findByAttributes(array('tkt_no'=>$add,'status'=>1));
-        if($advance_tkt){
+        if($advance_tkt  && $vid){
           $voyage = Voyage::model()->findByPk($vid);
           $rate = PassageFareRates::model()->findByAttributes(array('class'=>$advance_tkt->class,'route'=>$voyage->route,'type'=>$advance_tkt->type));
           $sql = "SELECT s.id  FROM booking b,seat s WHERE s.id=b.seat AND b.voyage  ={$voyage->id} ";

@@ -6,18 +6,10 @@
 <p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 <?php echo $form->errorSummary($model); ?>
-
-
+        <?php echo $form->textFieldRow($model,'pcs',array('class'=>'span1','value'=>1));?> 
 	<?php echo $form->dropDownListRow($model,'class',CHtml::listData(SeatingClass::model()->findAll(),'id','name'),array('class'=>'span3')); ?>
 
 	<?php echo $form->dropDownListRow($model,'type',CHtml::listData(PassageFareTypes::model()->findAll(),'id','name'),array('class'=>'span3')); ?>
-
-
-	<?php echo $form->textFieldRow($model,'first_name',array('class'=>'span5','maxlength'=>255)); ?>
-
-	<?php echo $form->textFieldRow($model,'last_name',array('class'=>'span5','maxlength'=>255)); ?>
-
-	<?php echo $form->textFieldRow($model,'age',array('class'=>'span5')); ?>
 
         <?php echo $form->datePickerRow($model, 'validity_date', array('append'=>'<i class="icon-calendar" style="cursor:pointer"></i>','class'=>'span2','options'=>array( 'format' => 'yyyy-mm-dd')));?>
 <div class="form-actions">

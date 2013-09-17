@@ -20,8 +20,10 @@
  * @property Seat $seat0
  * @property SeatingClass $class0
  */
+
 class AdvanceTicket extends CActiveRecord
 {
+       public $pcs;
        public function getDbConnection() { 
          return Yii::app()->syncdb; 
        } 
@@ -52,9 +54,10 @@ class AdvanceTicket extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tkt_no, class, type, validity_date', 'required'),
-			array(' class, type, age', 'numerical', 'integerOnly'=>true),
+			array('tkt_no, class,type', 'required'),
+			array(' class,pcs, type, age', 'numerical', 'integerOnly'=>true),
 			array('tkt_no', 'length', 'max'=>32),
+                        array('pcs', 'numerical','min'=>1,'max'=>5),
 			array('first_name, last_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
