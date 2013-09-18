@@ -23,7 +23,6 @@
 
 class AdvanceTicket extends CActiveRecord
 {
-       public $pcs;
        public function getDbConnection() { 
          return Yii::app()->syncdb; 
        } 
@@ -55,13 +54,11 @@ class AdvanceTicket extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('tkt_no, class,type', 'required'),
-			array(' class,pcs, type, age', 'numerical', 'integerOnly'=>true),
+			array(' class, type', 'numerical', 'integerOnly'=>true),
 			array('tkt_no', 'length', 'max'=>32),
-                        array('pcs', 'numerical','min'=>1,'max'=>5),
-			array('first_name, last_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tkt_no,class, type, first_name, last_name, age, date_created, validity_date', 'safe', 'on'=>'search'),
+			array('id, tkt_no,class, type, date_created, validity_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,9 +85,6 @@ class AdvanceTicket extends CActiveRecord
 			'tkt_no' => 'Ticket No',
 			'class' => 'Class',
 			'type' => 'Type',
-			'first_name' => 'First Name',
-			'last_name' => 'Last Name',
-			'age' => 'Age',
 			'date_created' => 'Date Created',
 			'validity_date' => 'Validity Date',
 		);
@@ -111,8 +105,6 @@ class AdvanceTicket extends CActiveRecord
 		$criteria->compare('tkt_no',$this->tkt_no,true);
 		$criteria->compare('class',$this->class);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('first_name',$this->first_name,true);
-		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('age',$this->age);
 		$criteria->compare('date_created',$this->date_created,true);
 		$criteria->compare('validity_date',$this->validity_date,true);
