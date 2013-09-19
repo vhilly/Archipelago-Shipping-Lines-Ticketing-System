@@ -157,9 +157,9 @@ div.normal {font-style:normal;}
         echo ' <div id="ub6">&nbsp;&nbsp;&nbsp;&nbsp;<b>'.$b->seat0->name.'</b></div>';
 	}
 	?>
-        <!--<div class="bl" id="ub4"><i>&nbsp;&nbsp;<u><?//=$b->rate0->class0->name;?></u></i></div>-->
+        <div class="bl" id="ub4"><i>&nbsp;&nbsp;<u><?=$b->rate0->class0->name;?></u></i></div>
 	
-        <!--<div id="ub5" class="italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?//=$b->seat0->name?></b></div>-->
+        <div id="ub5" class="italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?=$b->seat0->name?></b></div>
 
 
 

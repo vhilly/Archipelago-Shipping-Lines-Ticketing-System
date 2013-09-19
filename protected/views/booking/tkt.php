@@ -86,7 +86,7 @@
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
-     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?#=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?>__</div>
+     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
      <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
      <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
      <div style=position:absolute;top:95px;left:<?=$left_x?>>Net Sales &nbsp;<?=$NS?></div>
@@ -101,7 +101,7 @@
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
-     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?#=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?>__</div>
+     <div style=position:absolute;top:25px;left:<?=$left_x1?>><?=isset($b->seat0->name) ? $b->seat0->name : 'NO SEAT ASSIGNED'?></div>
      <div style=position:absolute;top:50px;><?=$b->passenger0->first_name?> <?=$b->passenger0->last_name?></div>
      <div style=position:absolute;top:70px;><?=$b->passenger0->contact?></div>
      <div style=position:absolute;top:95px;left:<?=$left_x?>>Net Sales &nbsp;<?=$NS?></div>
