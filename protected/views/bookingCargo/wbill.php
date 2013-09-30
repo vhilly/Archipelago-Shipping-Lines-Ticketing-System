@@ -2,7 +2,7 @@
   <?php if(isset($print)):?>
   <script>
     window.print();
-    window.close();
+   // window.close();
   </script>
   <?php endif;?>
   <?php if(!isset($print)):?>
@@ -37,41 +37,31 @@
    <?php foreach($model->search()->getData() as $b):?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'"); ?>
     <table class="table">
-      <tr class="odd">
-        <td colspan=4>BILL OF LADING NO : <?=$b->lading_no?></td>
-        <td colspan=4>BOOKING NO : <?=$b->booking_no?></td>
-      </tr>
-      <tr class="even">
-        <td colspan=4>Shipper/Consignee : <?=$b->cargo0->shipper?></td>
-        <td colspan=4>Carrier/Vessel/Ferry Name : <?=$b->voyage0->vessel0->name?></td>
-      </tr>
-      <tr>
-        <td rowspan=2 colspan=4>Address : <?=$b->cargo0->address?></td>
-        <td colspan=4>Port of Loading : <?=$b->voyage0->route0->from_port?></td>
-      </tr>
-      <tr>
-        <td>Port of Discharge: <?=$b->voyage0->route0->to_port?></td>
-      </tr>
     </table>
    <table class="table">
       <tr>
-        <td>Class :</td>
-        <td>No. Article :</td>
-        <td>Article Description:</td>
-        <td>Weight :</td>
-        <td>Measurement :</td>
-        <td>Rate :</td>
-        <td>Freight Charges :</td>
-        <td>Total : </td>
+        <td><?=$model->voyage0->name?></td>
       </tr>
       <tr>
-        <td><?=$b->cargo0->cargoClass->name?> </td>
-        <td><?=$b->cargo0->article_no?> </td>
-        <td><?=$b->cargo0->article_desc?> </td>
-        <td><?=$b->cargo0->weight?> </td>
-        <td><?=$b->cargo0->length?> </td>
-        <td><?=$b->rate0->lane_meter_rate?> </td>
-        <td><?=isset($orig_price->price) ? $orig_price->price : $b->rate0->proposed_tariff ?> </td>
+        <td><?=$model->voyage0->vessel0->name?></td>
+        <td><?=$model->voyage0->departure_date?></td>
+      </tr>
+      <tr>
+        <td><?=$b->cargo0->shipper ? $b->cargo0->shipper : 'N/A'?></td>
+        <td><?=$b->cargo0->address ? $b->cargo0->address : 'N/A'?></td>
+      </tr>
+      <tr>
+        <td><?=$model->voyage0->route0->from_port?></td>
+        <td><?=$model->voyage0->route0->to_port?></td>
+      </tr>
+      <tr>
+        <td><?=$b->cargo0->cargoClass->name?></td>
+        <td><?=$b->cargo0->cargoClass->description?></td>
+        <td>1</td>
+        <td></td>
+        <td><?=$b->cargo0->weight?></td>
+        <td><?=$b->rate0->lane_meter_rate?></td>
+        <td><?=$b->rate0->proposed_tariff?></td>
       </tr>
    </table>
 
