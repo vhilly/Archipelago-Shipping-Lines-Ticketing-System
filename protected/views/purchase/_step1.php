@@ -34,7 +34,7 @@
       <?php else:?>
         <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span2','maxlength'=>100)); ?>
         <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>
-        <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','name'),array('empty'=>'')); ?>
+        <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','description'),array('empty'=>'')); ?>
         <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100)); ?>
         <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
         <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255)); ?>

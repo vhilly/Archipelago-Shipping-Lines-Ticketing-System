@@ -1,5 +1,19 @@
-
   <?php if(isset($print)):?>
+  <style>
+    .table {
+      margin-left:1.2cm;
+    }
+    table{
+      vertical-align:top;
+      font-size:12px;
+    }
+    .table2{
+    }
+    td{
+      padding:1px;
+      margin-left:-1cm;
+    }
+  </style>
   <script>
     window.print();
    // window.close();
@@ -36,32 +50,33 @@
    <div style="clear:both"> </div><br>
    <?php foreach($model->search()->getData() as $b):?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'"); ?>
-    <table class="table">
-    </table>
    <table class="table">
       <tr>
-        <td><?=$model->voyage0->name?></td>
+        <td colspan=3><?=$model->voyage0->name?></td>
       </tr>
       <tr>
-        <td><?=$model->voyage0->vessel0->name?></td>
-        <td><?=$model->voyage0->departure_date?></td>
+        <td colspan=3><?=$model->voyage0->vessel0->name?></td>
+        <td colspan=4><?=$model->voyage0->departure_date?></td>
       </tr>
       <tr>
-        <td><?=$b->cargo0->shipper ? $b->cargo0->shipper : 'N/A'?></td>
-        <td><?=$b->cargo0->address ? $b->cargo0->address : 'N/A'?></td>
+        <td width=120px><?=$b->cargo0->shipper ? $b->cargo0->shipper : 'N/A'?></td>
+        <td width=120px><?=$b->cargo0->address ? $b->cargo0->address : 'N/A'?></td>
       </tr>
       <tr>
-        <td><?=$model->voyage0->route0->from_port?></td>
-        <td><?=$model->voyage0->route0->to_port?></td>
+        <td width=120px><?=$model->voyage0->route0->from_port?></td>
+        <td width=120px><?=$model->voyage0->route0->to_port?></td>
       </tr>
+   </table>
+   <br><br>
+   <table class=table2>
       <tr>
-        <td><?=$b->cargo0->cargoClass->name?></td>
-        <td><?=$b->cargo0->cargoClass->description?></td>
-        <td>1</td>
-        <td></td>
-        <td><?=$b->cargo0->weight?></td>
-        <td><?=$b->rate0->lane_meter_rate?></td>
-        <td><?=$b->rate0->proposed_tariff?></td>
+        <td width=120px valign=top><?=$b->cargo0->cargoClass->name?></td>
+        <td width=122px><?=$b->cargo0->cargoClass->description?> meters</td>
+        <td width=50px>1</td>
+        <td width=50px></td>
+        <td width=50px><?=$b->cargo0->weight?></td>
+        <td width=50px><?=$b->rate0->lane_meter_rate?>1</td>
+        <td width=50px><?=$b->rate0->proposed_tariff?></td>
       </tr>
    </table>
 
