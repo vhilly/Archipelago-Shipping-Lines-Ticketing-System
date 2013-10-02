@@ -15,7 +15,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('index'),
+          'actions'=>array('index','seriesNumber'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -121,10 +121,13 @@
                 $nb->type = 2;
                 $nb->seat =  $available_seats[$key];
                 $nb->passenger = $pass->id;
+                $nb->tkt_serial = $_POST['Booking']['tkt_serial'][$key];
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
 
               }
+              if(isset($_SESSION['series']))
+                $_SESSION['series']=$_POST['Booking']['tkt_serial'][$key]+1;
               $transaction->commit();
               Yii::app()->user->setFlash('info', "Transaction Complete! <br>Total Amount: $total_amt ");
               $this->redirect(array("QuickTicket/index&bn=$nb->booking_no"));
@@ -146,4 +149,11 @@
        }
        $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class)));
      }
+    public function actionSeriesNumber(){
+       $value=isset($_POST['value']) ? $_POST['value'] :'';
+       if($value){
+         $_SESSION['series'] = $value;
+         echo json_encode(compact('value'));
+       }
+    }
   }

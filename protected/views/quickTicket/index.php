@@ -16,6 +16,7 @@
   <?php endforeach;?>
 <?php endif;?>
 <?php if($data['voyage']) :?>
+     <h4>Series Number Begins At:</h4><input type=text id=series value=<?=isset($_SESSION['series'])?$_SESSION['series']:''?>><input class='btn btn-primary' type=button id=setSeries value=Save>
      <h4>Seats Remaining:<br>
     <?php
       $bc = "Business Class = 159 ";
@@ -63,7 +64,10 @@
    <?php echo $form->hiddenField($data['booking'],'route',array('value'=>$data['voyage']->route));?>
    <div id=passengers>
      <div id=container1>
-   1. <?php echo $form->dropDownList($data['booking'],'ptype[]',$fare_types,array('id'=>'ptype_1'));?> <br><br>
+   1. <?php echo $form->dropDownList($data['booking'],'ptype[]',$fare_types,array('id'=>'ptype_1'));?> 
+     First Name <input class=span2 id=fname_1 type=text name='Booking[first_name][]'> 
+     Last Name <input class=span2 id=lname_1 type=text name='Booking[last_name][]'> 
+     Series# <input class=span2 id=series_1 type=text name='Booking[tkt_serial][]' value=<?=isset($_SESSION['series'])?$_SESSION['series']:'-'?>> <br><br>
      </div>
    </div>
    <br>
@@ -71,6 +75,7 @@
   <?php $this->endWidget();?>
 <?php endif;?>
 <script>
+  $('#buy').attr('disabled','disabled');
   var current = 1;
   $(document).keypress(function (evt) {
     var charCode = evt.charCode || evt.keyCode;
@@ -87,14 +92,30 @@
      break;
      case 45: removeSelect(); // - sign
      break;
-     case 13: if(confirm('Are you sure?'))$('#buy').click(); // - sign
+     case 13: confirmSubmit(); // - sign
      break;
     }
   });
   var current = 1;
+  function confirmSubmit(){
+    if(confirm('Are You Sure?')){
+      $('#buy').removeAttr('disabled');
+      $('#buy').click();
+    }
+  }
   function addSelect(){
     current++;
-    var newSelect= $('<div id=container'+current+'><label>'+current+'.</label><select id=ptype_'+current+' name=Booking[ptype][]><option></option></select><br><br></div>');
+    if($('#series').val()){
+      var newSeries = parseInt(current)+parseInt($('#series').val())-1;
+    }else{
+      var newSeries = '-';
+    }
+    var newSelect= $('<div id=container'+current+'><label>'+current+
+     '.</label><select id=ptype_'+current+' name=Booking[ptype][]><option></option></select>'+
+     ' First Name <input class=span2 id=fname_'+current+' type=text name="Booking[first_name][]">'+
+     ' Last Name <input class=span2 id=lname_'+current+' type=text  name="Booking[last_name][]">'+
+     ' Series# <input class=span2 id=series_'+current+' type=text value='+newSeries+'  name="Booking[tkt_serial][]">'+
+     '<br><br></div>');
     newSelect.appendTo("#passengers");
     var options = $('#ptype_1 option').clone();
     $('#ptype_'+current).empty().append(options);
@@ -113,4 +134,21 @@
      'print'=>1));?>';
     window.open(url);
   <?php endif;?>
+  $('#setSeries').click(function(){
+    if(!parseInt($('#series').val())){
+      alert('Invalid Number');
+      $('#series').val('');
+      return false;
+    }
+    $.post('<?=Yii::app()->controller->createUrl('quickTicket/seriesNumber')?>',{'value':$('#series').val()},
+      function(data){
+        if(data.value){
+           alert("Series number begins at "+data.value);
+           $('#series').val(data.value);
+           $('#series_1').val(data.value);
+        }
+      },
+    "json");
+     $("input").blur();
+  });
 </script>
