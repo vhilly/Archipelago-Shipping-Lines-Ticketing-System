@@ -396,6 +396,7 @@ $this->render('admin',array(
                 throw new Exception('Cannot save Booking');
               $advance_tkt->status = 2;
               $advance_tkt->is_sync = 'N';
+              $advance_tkt->date_used = date('Y-m-d');
               $advance_tkt->isNewRecord = false;
               $advance_tkt->validate();
               if(!$advance_tkt->save())
