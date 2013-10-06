@@ -29,6 +29,7 @@
       );
      }
      public function actionIndex(){
+       $sn = Counter::model()->findByPk(4)->counter;
        $bs_per_class= array();
        $voyage='';
        $voyages='';
@@ -113,6 +114,7 @@
                   throw new Exception('Cannot save passanger');
                 $nb = new Booking;
 	        $counter =  numberGenerator(2);
+	        $series =   numberGenerator(4,0);
                 $nb->tkt_no = $counter;
                 $nb->booking_no = $bookCounter;
                 $nb->voyage = $_POST['Booking']['voyage'];
@@ -125,13 +127,11 @@
                 else
                   $nb->seat =  $available_seats[$key-$infant];
                 $nb->passenger = $pass->id;
-                $nb->tkt_serial = $_POST['Booking']['tkt_serial'][$key];
+                $nb->tkt_serial = $series-1;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
 
               }
-              if(isset($_SESSION['series']))
-                $_SESSION['series']=$_POST['Booking']['tkt_serial'][$key]+1;
               $transaction->commit();
               Yii::app()->user->setFlash('info', "Transaction Complete! <br>Total Amount: $total_amt ");
               $this->redirect(array("QuickTicket/index&bn=$nb->booking_no"));
@@ -151,13 +151,20 @@
        }else{
          $voyages = Voyage::model()->findAll(array('condition'=>"departure_date = CURDATE() AND status < 3"));
        }
-       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class)));
+       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class,'sn'=>$sn)));
      }
     public function actionSeriesNumber(){
        $value=isset($_POST['value']) ? $_POST['value'] :'';
-       if($value){
-         $_SESSION['series'] = $value;
-         echo json_encode(compact('value'));
+       $series = Counter::model()->findByPk(4);
+       $old = $series->counter;
+       $series->counter=$value;
+       $error;
+       if($series->save()){
+         $value = $series->counter;
+       }else{
+         $value = $old;
+         $error=1;
        }
+       echo json_encode(compact('value','error'));
     }
   }

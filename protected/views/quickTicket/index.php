@@ -16,7 +16,7 @@
   <?php endforeach;?>
 <?php endif;?>
 <?php if($data['voyage']) :?>
-     <h4>Series Number Begins At:</h4><input type=text id=series value=<?=isset($_SESSION['series'])?$_SESSION['series']:''?>><input class='btn btn-primary' type=button id=setSeries value=Save>
+     <h4>Series Number Begins At:</h4><input type=text id=series value=<?=$data['sn']?>><input class='btn btn-primary' type=button id=setSeries value=Save>
      <h4>Seats Remaining:<br>
     <?php
       $bc = "Business Class = 159 ";
@@ -67,7 +67,7 @@
    1. <?php echo $form->dropDownList($data['booking'],'ptype[]',$fare_types,array('id'=>'ptype_1'));?> 
      First Name <input class=span2 id=fname_1 type=text name='Booking[first_name][]'> 
      Last Name <input class=span2 id=lname_1 type=text name='Booking[last_name][]'> 
-     Series# <input class=span2 id=series_1 type=text name='Booking[tkt_serial][]' value=<?=isset($_SESSION['series'])?$_SESSION['series']:'-'?>> <br><br>
+     <br><br>
      </div>
    </div>
    <br>
@@ -98,6 +98,10 @@
   });
   var current = 1;
   function confirmSubmit(){
+    if(!parseInt($('#series').val())){
+      alert('Please input beginning series number!');
+      return false;
+    }
     if(confirm('Are You Sure?')){
       $('#buy').removeAttr('disabled');
       $('#buy').click();
@@ -105,16 +109,10 @@
   }
   function addSelect(){
     current++;
-    if($('#series').val()){
-      var newSeries = parseInt(current)+parseInt($('#series').val())-1;
-    }else{
-      var newSeries = '-';
-    }
     var newSelect= $('<div id=container'+current+'><label>'+current+
      '.</label><select id=ptype_'+current+' name=Booking[ptype][]><option></option></select>'+
      ' First Name <input class=span2 id=fname_'+current+' type=text name="Booking[first_name][]">'+
      ' Last Name <input class=span2 id=lname_'+current+' type=text  name="Booking[last_name][]">'+
-     ' Series# <input class=span2 id=series_'+current+' type=text value='+newSeries+'  name="Booking[tkt_serial][]">'+
      '<br><br></div>');
     newSelect.appendTo("#passengers");
     var options = $('#ptype_1 option').clone();
@@ -135,17 +133,13 @@
     window.open(url);
   <?php endif;?>
   $('#setSeries').click(function(){
-    if(!parseInt($('#series').val())){
-      alert('Invalid Number');
-      $('#series').val('');
-      return false;
-    }
     $.post('<?=Yii::app()->controller->createUrl('quickTicket/seriesNumber')?>',{'value':$('#series').val()},
       function(data){
-        if(data.value){
-           alert("Series number begins at "+data.value);
+        if(data.error){
+           alert('Invalid Number');
            $('#series').val(data.value);
-           $('#series_1').val(data.value);
+        }else{
+           alert("Series number begins at "+data.value);
         }
       },
     "json");

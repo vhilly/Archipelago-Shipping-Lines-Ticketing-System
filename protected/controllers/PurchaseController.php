@@ -44,7 +44,6 @@
         $passengers            = $_SESSION['Trans']['Passenger'];
         $seats            = $_SESSION['Trans']['Seat'];
         $fares            = $_SESSION['Trans']['Fare'];
-        $serials            = $_SESSION['Trans']['Serial'];
         $purchase->attributes = $_POST['Purchase'];
         $cargo->attributes    = $_POST['Cargo'];
         $stowage->attributes    = $_POST['Stowage'];
@@ -83,11 +82,10 @@
                 };
             }
             if((!count($passengers) || (count($passengers) != $purchase->passenger_total)) && !$error){
-              $pass_details = $this->createPassengerField($purchase->passenger_total,$passengers,$seats,$fares,$purchase->class,$purchase->bundled_rate,$serials);
+              $pass_details = $this->createPassengerField($purchase->passenger_total,$passengers,$seats,$fares,$purchase->class,$purchase->bundled_rate);
               $passengers = $_SESSION['Trans']['Passenger'] = $pass_details[0];
               $seats = $_SESSION['Trans']['Seat'] = $pass_details[1];
               $fares = $_SESSION['Trans']['Fare'] = $pass_details[2];
-              $serials = $_SESSION['Trans']['Serial'] = $pass_details[3];
             }
           }
           
@@ -96,11 +94,10 @@
             $total_fares = 0;
             $discount = 0;
             $freight_cost = 0;
-            $pass_details = $this->createPassengerField($purchase->passenger_total,$_POST['Passenger'],$_POST['Seat'],$_POST['PassageFareRates'],$purchase->class,$purchase->bundled_rate,$_POST['Booking']);
+            $pass_details = $this->createPassengerField($purchase->passenger_total,$_POST['Passenger'],$_POST['Seat'],$_POST['PassageFareRates'],$purchase->class,$purchase->bundled_rate);
             $passengers = $_SESSION['Trans']['Passenger']= $pass_details[0];
             $seats = $_SESSION['Trans']['Seat']= $pass_details[1];
             $fares = $_SESSION['Trans']['Fare']= $pass_details[2];
-            $serials = $_SESSION['Trans']['Serial']= $pass_details[3];
 
             foreach($fares as $fare){
               $total_fares += $fare->price;
@@ -111,7 +108,7 @@
               $discount += $purchase->total_fares;  
             $purchase->payment_discount = $discount;
             $purchase->payment_total = $purchase->total_fares + $purchase->cargo_cost;
-            $error += $this->validatePassengersField($passengers,$seats,$fares,$serials);           
+            $error += $this->validatePassengersField($passengers,$seats,$fares);           
           }
           if($purchase->current_step ==3){
             $b_type = 2;
@@ -138,15 +135,16 @@
 
                 $nb = new Booking;
 	        $counter = numberGenerator(2);
+	        $series =   numberGenerator(4,0);
                 $nb->tkt_no = $counter;
                 $nb->booking_no = $bookCounter;
                 $nb->voyage = $purchase->voyage;
                 $nb->status = $purchase->payment_status == 1? 2 : 1;//set booking status to paid if payment is completed else reserved
                 $nb->seat = $seats[$key]->id;
                 $nb->rate = $fares[$key]->id;
-                $nb->tkt_serial = $serials[$key]->tkt_serial;
                 $nb->transaction = $tr->id;
                 $nb->passenger = $p->id;
+                $nb->tkt_serial = $series-1;
                 $nb->type = $b_type;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
@@ -195,7 +193,6 @@
         $passengers = $_SESSION['Trans']['Passenger'] = array();
         $seats = $_SESSION['Trans']['Seat'] = array();
         $fares = $_SESSION['Trans']['Fare'] = array();
-        $serials = $_SESSION['Trans']['Serial'] = array();
 
         if($transaction_type->cargo!='Y'){
           $purchase = $_SESSION['Trans']['Purchase'] = new Purchase($transaction_type->id,$transaction_type->minimum_passenger,$transaction_type->maximum_passenger);
@@ -206,7 +203,7 @@
         }
       }
       unset($_SESSION['nonce']);
-      $this->render('index',array('purchase'=>$purchase,'transaction_type'=>$transaction_type,'cargo'=>$cargo,'stowage'=>$stowage,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares,'serials'=>$serials));
+      $this->render('index',array('purchase'=>$purchase,'transaction_type'=>$transaction_type,'cargo'=>$cargo,'stowage'=>$stowage,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares));
     }
 
     public function actionGetCargoRate($id=null,$voyage=null){
@@ -217,14 +214,13 @@
         echo 0;
       Yii::app()->end(); 
     }
-    private function createPassengerField($i,$pass=null,$seats=null,$fares=null,$class=null,$rate=null,$serials=null){
+    private function createPassengerField($i,$pass=null,$seats=null,$fares=null,$class=null,$rate=null){
       $passenger_list =array();
       for($counter =0; $counter < $i;$counter++){
         $passenger = new Passenger;
         $seat = new Seat('id');
         $seat->seating_class = $class;
         $fare = new PassageFareRates;
-        $serial = new Booking;
         if($rate){
           $fare->id = $rate->id;
           $fare->price = $rate->price;
@@ -235,23 +231,20 @@
             $passenger->attributes = $pass[$counter]; 
             $seat->attributes = $seats[$counter]; 
             $fare->attributes = $fares[$counter]; 
-            $serial->attributes = $serials[$counter]; 
           }
           else{
             $passenger = $pass[$counter]; 
             $seat = $seats[$counter]; 
             $fare = $fares[$counter]; 
-            $serial = $serials[$counter]; 
           }
         }
         $passenger_list[0][] = $passenger;
         $passenger_list[1][] = $seat;
         $passenger_list[2][] = $fare;
-        $passenger_list[3][] = $serial;
       }
       return $passenger_list;
     }
-    private function validatePassengersField($pass=null,$seat,$fare,$serial){
+    private function validatePassengersField($pass=null,$seat,$fare){
       $error =0;
       foreach($pass as $key=>$p){
         if(!$p->validate())
@@ -259,8 +252,6 @@
         if(!$seat[$key]->validate())
          $error++;
         if(!$fare[$key]->validate())
-         $error++;
-        if(!$serial[$key]->validate(array('tkt_serial')) )
          $error++;
       } 
       return $error;
