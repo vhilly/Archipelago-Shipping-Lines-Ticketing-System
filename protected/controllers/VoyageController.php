@@ -75,6 +75,7 @@ $_POST['Voyage']['arrival_time'] = date('H:i:s',strtotime($da));
 $model->attributes=$_POST['Voyage'];
 try{
   if($model->save()){
+    unset($_SESSION['voyage']);
     Yii::app()->user->setFlash('success', 'Voyage has been added!');
     $this->redirect(array('admin'));
   }

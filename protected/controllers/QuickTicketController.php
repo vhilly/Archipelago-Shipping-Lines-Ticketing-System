@@ -103,6 +103,7 @@
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
               $bookCounter = numberGenerator(1);
+              $infant=0;
               foreach($_POST['Booking']['ptype'] as $key=>$p){
                 $pass = new Passenger;
                 $pass->first_name = isset($_POST['Booking']['first_name'][$key]) ? $_POST['Booking']['first_name'][$key]: '';
@@ -119,7 +120,10 @@
                 $nb->rate = $rate[$p];
                 $nb->transaction = $tr->id;
                 $nb->type = 2;
-                $nb->seat =  $available_seats[$key];
+                if($p==5)
+                  $infant++;
+                else
+                  $nb->seat =  $available_seats[$key-$infant];
                 $nb->passenger = $pass->id;
                 $nb->tkt_serial = $_POST['Booking']['tkt_serial'][$key];
                 if(!$nb->save())

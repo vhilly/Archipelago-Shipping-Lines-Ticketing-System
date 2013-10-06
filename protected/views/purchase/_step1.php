@@ -12,20 +12,20 @@
   <fieldset>
     <?php echo $form->dropDownListRow($purchase, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name')); ?>
 
-    <div style="<?= $transaction_type->cargo =='Y' ?  'display:none':'' ?> ">
+    <div class="<?= $transaction_type->cargo =='Y' ?  'hidden':'' ?> ">
       <?php echo $form->dropDownListRow($purchase, 'class',CHtml::listData(SeatingClass::model()->findAll(array('condition'=>'active="Y"')),'id','name')); ?>
       <?php echo $form->textFieldRow($purchase, 'passenger_total', array('class'=>'span1'));?>
 
     </div>
 
-    <div style="<?= $transaction_type->cargo !='Y' ?  'display:none':'' ?> ">
+    <div class="<?= $transaction_type->cargo !='Y' ?  'hidden':'' ?> ">
       <label>Freight Cost</label>
       <input type='text' readonly  id='cargo_cost' name='cargo_cost'/> 
       <?php if($transaction_type->account_to =='Y') :?>
         <?php echo $form->dropDownListRow($purchase,'account_to',CHtml::listData(Customer::model()->findAll(),'id','company' ),array('empty'=>''),array('class'=>'span2','maxlength'=>100)); ?>
         <?php echo $form->hiddenField($cargo,'company',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
         <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
-        <div style=display:none>
+        <div class=hidden>
         <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','name'),array('empty'=>'','readonly'=>true)); ?>
         </div>
         <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
@@ -43,7 +43,9 @@
       <?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'length',array('class'=>'span2','maxlength'=>100)); ?>
+      <div class=hidden>
       <?php echo $form->textFieldRow($stowage,'id',array('class'=>'span2 stmodal','maxlength'=>100,'readonly'=>true)); ?>
+      </div>
     </div>
   </fieldset>
 </div>
