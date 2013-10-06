@@ -113,7 +113,7 @@ $model->attributes=$_POST['Voyage'];
 
 try{
   $model->save();
-  Yii::app()->user->setFlash('success', 'Voyage has been added!');
+  Yii::app()->user->setFlash('success', 'Voyage has been updated!');
   $this->redirect(array('admin'));
 }catch (Exception $e){
   Yii::app()->user->setFlash('error', 'Voyage name already exists!');
@@ -161,6 +161,7 @@ public function actionStatus($id){
   if(isset($_POST['Voyage'])){
     $model->attributes=$_POST['Voyage'];
     if($model->save()){
+      unset($_SESSION['voyage']);
       if($model->status != 1){
         Booking::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL')), "status < 3 AND voyage = {$model->id}" );
         BookingCargo::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL')), "status < 3 AND voyage = {$model->id}" );
