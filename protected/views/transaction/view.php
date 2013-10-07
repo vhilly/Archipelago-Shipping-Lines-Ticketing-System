@@ -73,8 +73,19 @@
               'Booking[tkt_no]'=>$ticket['tkt_no'],
               'Booking[voyage]'=>$ticket['voyage'],
               'print'=>1,
+              'amt'=>1,
               )), 'label'=>'Print','htmlOptions'=>array('target'=>'_blank')));
             ?>
+            <?if(count($Cargos)):?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
+              'Booking[tkt_no]'=>$ticket['tkt_no'],
+              'Booking[voyage]'=>$ticket['voyage'],
+              'print'=>1,
+              'amt'=>0,
+              )), 'label'=>'W/O amount','htmlOptions'=>array('target'=>'_blank')));
+            ?>
+            <?php endif; ?>
+            </td>
             </td>
 	   </tr>
 	 <?php endforeach;?>
@@ -85,9 +96,21 @@
      'Booking[booking_no]'=>$ticket['booking_no'],
      'Booking[voyage]'=>$ticket['voyage'],
      'print'=>1,
+     'amt'=>1,
    )), 'label'=>'Print All Ticket/s','htmlOptions'=>array('target'=>'_blank','class'=>'span2' )))
    ?>
    <br>
+   <?if(count($Cargos)):?>
+   <br>
+   <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'inverse','buttonType'=>'link','icon'=>'print','url'=>Yii::app()->createUrl('booking/tkt',array(
+     'Booking[booking_no]'=>$ticket['booking_no'],
+     'Booking[voyage]'=>$ticket['voyage'],
+     'print'=>1,
+     'amt'=>0,
+   )), 'label'=>'Print All Ticket/s W/O amount','htmlOptions'=>array('target'=>'_blank','class'=>'span2' )))
+   ?>
+   <br>
+   <?php endif;?>
  <?php endif;?>
   <?php
     if(count($Cargos)):

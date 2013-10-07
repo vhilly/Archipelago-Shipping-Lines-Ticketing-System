@@ -18,6 +18,9 @@
    h1,h2,h3,h4,h5,h6 {
      margin:0;
    }
+   .drr th, td{
+     text-align:right;
+   }
   </style>
   <center>
     <h5>ARCHIPELAGO PHILIPPINES FERRIES CORPORATION</h5>
@@ -101,14 +104,22 @@
     </tr>
     <?php endforeach;?>
     <?php endif;?>
+    <?php if(isset($class[3])):?>
+    <tr bgcolor=pink>
+      <th>Cargo</th>
+      <th><?=implode('</th><th>',$class[3])?></td>
+      <th colspan=3><?=number_format(array_sum($class[3]),2)?></th>
+    </tr>
+    <?php endif;?>
     <tr>
-      <th>UPGRADES</td>
-      <td><?=implode('</td><td>',$ups =array_map(function($ups){return $ups['ups'];},$res))?></td>
+      <th>UPGRADES</th>
+      <th><?=implode('</th><th>',$ups =array_map(function($ups){return number_format($ups['ups'],2);},$res))?></th>
+      <th colspan=3><?=number_format(array_sum($ups),2)?></th>
     </tr>
     <tr>
       <th>TOTAL REVENUE</td>
       <th><?=implode('</th><th>',$all)?></td>
-      <th colspan=3><?=number_format(array_sum($class[1])+array_sum($class[2])+array_sum($ups))?></th>
+      <th colspan=3><?=@number_format(array_sum($class[1])+array_sum($class[2])+array_sum($ups)+array_sum($class[3]))?></th>
     </tr>
     <?php if($bdown):?>
     <tr>

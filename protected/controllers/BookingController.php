@@ -95,9 +95,11 @@
         $model->attributes=$_GET['Booking'];
       }
       if(isset($_GET['Booking']) && $_GET['print']){
+        $printAmt=isset($_GET['amt']) ? $_GET['amt']:1;
         $this->renderPartial('tkt',array(
           'model'=>$model,
           'print'=>1,
+          'printAmt'=>$printAmt,
         ));
       }else{
         $this->render('tkt',array(

@@ -51,7 +51,6 @@
             $sql .= " AND voy.departure_date = CURDATE() " ;
 
 
-
           $res = Yii::app()->db->createCommand($sql)->queryAll();
 
           if(count($res)){
@@ -77,7 +76,17 @@
               else
                $amt1 =0;
               $class[2][] =$amt1; 
-              $all[] = $amt+$amt1+$r['ups'];
+
+              $csql = "
+                SELECT SUM(f.proposed_tariff) amt FROM booking_cargo b,cargo_fare_rates f WHERE b.voyage={$r['id']} AND b.rate=f.id
+              ";
+              $cargo = Yii::app()->db->createCommand($csql)->queryAll();
+              if(count($cargo))
+               $amt3 =array_sum(array_map(function($amts3){return $amts3['amt'];},$cargo));
+              else
+               $amt3 =0;
+              $class[3][] =$amt3; 
+              $all[] = $amt+$amt1+$r['ups']+$amt3;
             }
           }
 

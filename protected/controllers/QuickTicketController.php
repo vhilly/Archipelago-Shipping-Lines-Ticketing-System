@@ -15,7 +15,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('index'),
+          'actions'=>array('index','seriesNumber'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -29,6 +29,7 @@
       );
      }
      public function actionIndex(){
+       $sn = Counter::model()->findByPk(4)->counter;
        $bs_per_class= array();
        $voyage='';
        $voyages='';
@@ -103,6 +104,7 @@
               if(!$tr->save())
                 throw new Exception('Cannot save transaction');
               $bookCounter = numberGenerator(1);
+              $infant=0;
               foreach($_POST['Booking']['ptype'] as $key=>$p){
                 $pass = new Passenger;
                 $pass->first_name = isset($_POST['Booking']['first_name'][$key]) ? $_POST['Booking']['first_name'][$key]: '';
@@ -112,6 +114,7 @@
                   throw new Exception('Cannot save passanger');
                 $nb = new Booking;
 	        $counter =  numberGenerator(2);
+	        $series =   numberGenerator(4,0);
                 $nb->tkt_no = $counter;
                 $nb->booking_no = $bookCounter;
                 $nb->voyage = $_POST['Booking']['voyage'];
@@ -119,8 +122,12 @@
                 $nb->rate = $rate[$p];
                 $nb->transaction = $tr->id;
                 $nb->type = 2;
-                $nb->seat =  $available_seats[$key];
+                if($p==5)
+                  $infant++;
+                else
+                  $nb->seat =  $available_seats[$key-$infant];
                 $nb->passenger = $pass->id;
+                $nb->tkt_serial = $series-1;
                 if(!$nb->save())
                   throw new Exception('Cannot save Booking');
 
@@ -144,6 +151,20 @@
        }else{
          $voyages = Voyage::model()->findAll(array('condition'=>"departure_date = CURDATE() AND status < 3"));
        }
-       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class)));
+       $this->render('index',array('data'=>array('voyages'=>$voyages,'voyage'=>$voyage,'booking'=>$booking,'bn'=>$bn,'bs_pc'=>$bs_per_class,'sn'=>$sn)));
      }
+    public function actionSeriesNumber(){
+       $value=isset($_POST['value']) ? $_POST['value'] :'';
+       $series = Counter::model()->findByPk(4);
+       $old = $series->counter;
+       $series->counter=$value;
+       $error;
+       if($series->save()){
+         $value = $series->counter;
+       }else{
+         $value = $old;
+         $error=1;
+       }
+       echo json_encode(compact('value','error'));
+    }
   }

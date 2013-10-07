@@ -23,6 +23,7 @@
            <?php endif;?>
             <?php echo $form->hiddenField($rate, "[$i]id", array('class'=>'span1')); ?>
           <td><?php echo $form->textField($rate, "[$i]proposed_tariff", array('class'=>'span1')); ?></td>
+          <td><?php echo $form->textField($rate, "[$i]lane_meter_rate", array('class'=>'span1')); ?></td>
             <?php echo $form->hiddenField($rate, "[$i]class", array('class'=>'span1')); ?>
             <?php echo $form->hiddenField($rate, "[$i]route", array('class'=>'span1')); ?>
       </tr>

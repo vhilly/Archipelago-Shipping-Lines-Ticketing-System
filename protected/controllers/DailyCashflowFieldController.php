@@ -1,6 +1,6 @@
 <?php
 
-class VoyageController extends Controller
+class DailyCashflowFieldController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -31,11 +31,11 @@ array('allow',  // allow all users to perform 'index' and 'view' actions
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('admin','create','update','editableSaver','voyageRates','status'),
+'actions'=>array('create','update'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('delete'),
+'actions'=>array('admin','delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -61,31 +61,18 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new Voyage;
+$model=new DailyCashflowField;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Voyage']))
+if(isset($_POST['DailyCashflowField']))
 {
-$dt = $_POST['Voyage']['departure_time'];
-$da = $_POST['Voyage']['arrival_time'];
-$_POST['Voyage']['departure_time'] = date('H:i:s',strtotime($dt));
-$_POST['Voyage']['arrival_time'] = date('H:i:s',strtotime($da));
-$model->attributes=$_POST['Voyage'];
-try{
-  if($model->save()){
-    unset($_SESSION['voyage']);
-    Yii::app()->user->setFlash('success', 'Voyage has been added!');
-    $this->redirect(array('admin'));
-  }
-}catch (Exception $e){
-  Yii::app()->user->setFlash('error', 'Voyage name already exists!');
-}
+$model->attributes=$_POST['DailyCashflowField'];
+if($model->save())
+$this->redirect(array('view','id'=>$model->id));
 }
 
-$model->departure_time=date('g:i A',strtotime($model->departure_time));
-$model->arrival_time=date('g:i A',strtotime($model->arrival_time));
 $this->render('create',array(
 'model'=>$model,
 ));
@@ -103,24 +90,13 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Voyage']))
+if(isset($_POST['DailyCashflowField']))
 {
-$dt = $_POST['Voyage']['departure_time'];
-$da = $_POST['Voyage']['arrival_time'];
-$_POST['Voyage']['departure_time'] = date('H:i:s',strtotime($dt));
-$_POST['Voyage']['arrival_time'] = date('H:i:s',strtotime($da));
-$model->attributes=$_POST['Voyage'];
+$model->attributes=$_POST['DailyCashflowField'];
+if($model->save())
+$this->redirect(array('view','id'=>$model->id));
+}
 
-try{
-  $model->save();
-  Yii::app()->user->setFlash('success', 'Voyage has been updated!');
-  $this->redirect(array('admin'));
-}catch (Exception $e){
-  Yii::app()->user->setFlash('error', 'Voyage name already exists!');
-}
-}
-$model->departure_time=date('g:i A',strtotime($model->departure_time));
-$model->arrival_time=date('g:i A',strtotime($model->arrival_time));
 $this->render('update',array(
 'model'=>$model,
 ));
@@ -151,26 +127,8 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Voyage',array('sort'=>array('defaultOrder'=>'id DESC')));
-$this->render('index',array(
-'dataProvider'=>$dataProvider,
-));
-}
-public function actionStatus($id){
-  $model=$this->loadModel($id);
-  if(isset($_POST['Voyage'])){
-    $model->attributes=$_POST['Voyage'];
-    if($model->save()){
-      unset($_SESSION['voyage']);
-      if($model->status != 1){
-        Booking::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL')), "status < 3 AND voyage = {$model->id}" );
-        BookingCargo::model()->updateAll(array( 'status' => 5, 'seat' => new CDbExpression('NULL')), "status < 3 AND voyage = {$model->id}" );
-      }
-      Yii::app()->user->setFlash('success', 'Voyage Status  has been updated!');
-      $this->redirect(array('index'));
-    }
-  }
-  $this->render('_statusForm',array('model'=>$model));
+$data = DailyCashflowField::model()->findAll(array('order'=>'weight,parent'));
+$this->render('index',compact('data'));
 }
 
 /**
@@ -178,16 +136,15 @@ public function actionStatus($id){
 */
 public function actionAdmin()
 {
-$model=new Voyage('search');
+$model=new DailyCashflowField('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['Voyage']))
-$model->attributes=$_GET['Voyage'];
+if(isset($_GET['DailyCashflowField']))
+$model->attributes=$_GET['DailyCashflowField'];
 
 $this->render('admin',array(
 'model'=>$model,
 ));
 }
-
 
 /**
 * Returns the data model based on the primary key given in the GET variable.
@@ -196,7 +153,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=Voyage::model()->findByPk($id);
+$model=DailyCashflowField::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -208,15 +165,10 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='voyage-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='daily-cashflow-field-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
-    public function actionEditableSaver(){
-      Yii::import('bootstrap.widgets.TbEditableSaver');
-      $es = new TbEditableSaver('Voyage');
-      $es->update();
-    }
 }

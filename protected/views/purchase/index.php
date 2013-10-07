@@ -39,7 +39,7 @@
 
 
 <div <?=$purchase->current_step==2 ? '' : 'style=display:none'?>>
-  <?php $this->renderPartial('_step2',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase,'transaction_type'=>$transaction_type,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares,'serials'=>$serials)); ?>
+  <?php $this->renderPartial('_step2',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase,'transaction_type'=>$transaction_type,'passengers'=>$passengers,'seats'=>$seats,'fares'=>$fares)); ?>
 </div>
 <div <?=$purchase->current_step==3 ? '' : 'style=display:none'?>>
   <?php $this->renderPartial('_step3',array('hidden'=>$hidden,'form'=>$form,'purchase'=>$purchase)); ?>
@@ -126,6 +126,7 @@
     $('#Cargo_address').val('');
     $('#Cargo_company').val('');
     $('#Cargo_plate_num').val('');
+    $('#Cargo_customer_id').val($(this).val());
     $('#Cargo_cargo_class').val('');
     $('#Cargo_cargo_class').change();
     
@@ -157,7 +158,7 @@
          });
          if(!$('.fare').val()){
            $('.price').val('0.00');
-         }
+customer_id}
     "
   );
 ?>
