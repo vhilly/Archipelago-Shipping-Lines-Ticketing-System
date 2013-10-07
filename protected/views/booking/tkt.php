@@ -80,7 +80,7 @@
      <tr>
        <td>
    <div style="position:relative;height:150px;width:560px;">
-   <div style="position:absolute;height:140px;width:280px;left:90px;top:35px">
+   <div style="position:absolute;height:140px;width:280px;left:60px;top:35px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
@@ -94,7 +94,7 @@
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    </div>
-   <div style="position:absolute;height:140px;width:280px;left:415px;top:35px">
+   <div style="position:absolute;height:140px;width:280px;left:390px;top:35px">
      <div style="position:absolute;top:5px;"><?=$b->voyage0->vessel0->name?></div>
      <div style=position:absolute;top:5px;left:<?=$left_x1?>><?=$b->voyage0->name?></div>
      <div style=position:absolute;top:25px;left:<?=$left_x?>><?=$b->voyage0->departure_date.' '.date('g:i A',strtotime($b->voyage0->departure_time))?></div>
