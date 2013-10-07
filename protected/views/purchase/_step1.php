@@ -31,6 +31,9 @@
         <?php echo $form->textFieldRow($cargo,'shipper',array('class'=>'span2','maxlength'=>100,'readonly'=>true)); ?>
         <?php #echo $form->textFieldRow($cargo,'destination',array('class'=>'span3','maxlength'=>100)); ?>
         <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255,'readonly'=>true)); ?>
+        <div class=''>
+        <?php echo $form->textFieldRow($cargo,'customer_id',array('class'=>'span2','maxlength'=>11,'readonly'=>true)); ?>
+        </div>
       <?php else:?>
         <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span2','maxlength'=>100)); ?>
         <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>

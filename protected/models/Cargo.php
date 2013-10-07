@@ -49,7 +49,7 @@ class Cargo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('cargo_class,plate_num', 'required'),
-			array('cargo_class, weight, length', 'numerical', 'integerOnly'=>true),
+			array('cargo_class, weight, length,customer_id', 'numerical', 'integerOnly'=>true),
 			array('shipper, company, destination, article_no, contact', 'length', 'max'=>100),
 			array('address', 'length', 'max'=>255),
 			array('article_desc', 'safe'),

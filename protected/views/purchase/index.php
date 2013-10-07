@@ -126,6 +126,7 @@
     $('#Cargo_address').val('');
     $('#Cargo_company').val('');
     $('#Cargo_plate_num').val('');
+    $('#Cargo_customer_id').val($(this).val());
     $('#Cargo_cargo_class').val('');
     $('#Cargo_cargo_class').change();
     
@@ -157,7 +158,7 @@
          });
          if(!$('.fare').val()){
            $('.price').val('0.00');
-         }
+customer_id}
     "
   );
 ?>
