@@ -19,6 +19,7 @@
      <h4>Series Number Begins At:</h4><input type=text id=series value=<?=$data['sn']?>><input class='btn btn-primary' type=button id=setSeries value=Save>
      <h4>Seats Remaining:<br>
     <?php
+      $total = 0;
       $bc = "Business Class = 159 ";
       $pe = "Premium / Economy = 105 ";
       foreach($data['bs_pc'] as $b){
@@ -29,8 +30,9 @@
           $remaining = 105 - $b['cnt'];
           $pe = "Premium / Economy = $remaining ";
         }
+        $total += $b['cnt'];
       }
-      echo $bc.' '.$pe;
+      echo $bc.' '.$pe.'<br>TOTAL PASSENGERS : '.$total;
     ?>
     </h4>
     <?php
