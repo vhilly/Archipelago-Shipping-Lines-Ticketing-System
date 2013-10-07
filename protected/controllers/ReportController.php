@@ -14,7 +14,7 @@
           'users'=>array('*'),
         ),
         array('allow',
-          'actions'=>array('index','dailyRevenue','dailyRevenueBdown','inspection'),
+          'actions'=>array('index','dailyRevenue','dailyRevenueBdown','inspection','tellers'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -226,5 +226,69 @@
 
       }
       $this->render('inspection',array('model'=>$model,'pass'=>$pass,'voyage'=>$voyage,'cargo'=>$cargo));
+    }
+    public function actionTellers($excel=null){
+      $rf = new Report;
+      $sc = array(1=>'BC',2=>'PE');
+      $pt = array(1=>'FF',2=>'SF',3=>'SC',4=>'CHILD',5=>'INFANT',6=>'PWD',7=>'W/PASS','8'=>'Weekday',9=>'Weekday');
+      $output = array();
+      $total=0;
+      if(isset($_GET['Report'])){
+        $rf->attributes = $_GET['Report'];
+        $rf->departure_date = $rf->departure_date ? $rf->departure_date : date('Y-m-d');
+        $sql = "SELECT b.tkt_serial,r.type passenger_type,r.class seating_class,r.price amt,v.name voyage FROM booking b,voyage v,passage_fare_rates r WHERE b.voyage=v.id AND v.route=1 AND b.status < 6 AND v.departure_date ='{$rf->departure_date}'
+                AND b.rate=r.id";
+        $bh = Yii::app()->db->createCommand($sql)->queryAll();
+        if(count($bh)){
+          $i = 0;
+          $tmp = null;
+          $tmp2 = null;
+          $cnt=1;
+          $cnt2=array();
+          foreach($bh as $b){
+            if(is_numeric($b['tkt_serial'])){
+             if($tmp2 != $b['voyage']){
+               $tmp = null;
+               $i=0;
+             }
+             $tmp2=$b['voyage'];
+             $kor=$sc[$b['seating_class']].'-'.$pt[$b['passenger_type']];
+             if($tmp != $kor){
+               $cnt=1;
+               $i++;
+               $output[$b['voyage']][$i][0] = $kor;
+               $output[$b['voyage']][$i][1] = $b['tkt_serial'];
+               $output[$b['voyage']][$i][2] = '-';
+               $output[$b['voyage']][$i][3] = '';
+               $output[$b['voyage']][$i][4] = $cnt.'x';
+               $output[$b['voyage']][$i][5] = $b['amt'];
+               $output[$b['voyage']][$i][6] = number_format($b['amt']*$cnt);
+             }else{
+               $output[$b['voyage']][$i][3] = $b['tkt_serial'];
+               $cnt++;
+               $output[$b['voyage']][$i][4] = $cnt.'x';
+               $output[$b['voyage']][$i][6] = number_format($b['amt']*$cnt);
+             }
+             $tmp = $kor;
+           }else{
+               $kor2=$sc[$b['seating_class']].'-'.$pt[$b['passenger_type']];
+               @$cnt2[$kor2]++;
+               $output[$b['voyage']][$kor2][0] = $kor2;
+               $output[$b['voyage']][$kor2][1] = '';
+               $output[$b['voyage']][$kor2][2] = '-';
+               $output[$b['voyage']][$kor2][3] = '';
+               $output[$b['voyage']][$kor2][4] = $cnt2[$kor2].'x';
+               $output[$b['voyage']][$kor2][5] = $b['amt'];
+               $output[$b['voyage']][$kor2][6] = number_format($b['amt']*$cnt2[$kor2]);
+           }
+           $total+=$b['amt'];
+          }
+        }
+      }
+      if($excel)
+        $this->renderPartial('tellers',array('data'=>compact('total','output','rf','excel')));
+      else
+        $this->render('tellers',array('data'=>compact('total','output','rf','excel')));
+
     }
   }

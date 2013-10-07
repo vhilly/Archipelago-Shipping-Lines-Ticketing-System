@@ -1,4 +1,3 @@
-
   <?php if(isset($print)):?>
   <script>
     window.print();
@@ -91,6 +90,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$printAmt ? $amt : '0.00'?></b></div>
+     <div style=position:absolute;top:153px;left:<?=$left_x?>><b><?=isset($b->seat0->seatingClass->name) ? $b->seat0->seatingClass->name : ''?></b></div>
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    </div>
@@ -105,6 +105,7 @@
      <div style=position:absolute;top:95px;left:<?=$left_x1?>>VAT (12%) &nbsp;<?=$VAT?></div>
      <div style=position:absolute;top:113px;left:<?=$left_x?>>Discount:0.00</div>
      <div style=position:absolute;top:133px;left:<?=$left_x?>><b><?=$printAmt ? $amt : '0.00'?></b></div>
+     <div style=position:absolute;top:153px;left:<?=$left_x?>><b><?=isset($b->seat0->seatingClass->name) ? $b->seat0->seatingClass->name : ''?></b></div>
      <div style=position:absolute;top:50px;left:115px><img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$b->tkt_no))?>'></div>
      <div style=position:absolute;top:128px;left:<?=$left_x1?>><b><?=$createdBy?></b></div>
    <div>

@@ -105,6 +105,7 @@
 		        array('label'=>'Daily Revenue Report - w/ Chart', 'url'=>array('/report/dailyRevenue&graph')),
 		        array('label'=>'Daily Revenue Report Break Down', 'url'=>array('/report/dailyRevenueBdown')),
 		        array('label'=>"Inspection Report", 'url'=>array('/report/inspection')),
+		        array('label'=>"Tellers and Pursuers Report", 'url'=>array('/report/tellers')),
 	              ),
 					),
                 ), 'visible'=>!Yii::app()->user->isGuest, ),
