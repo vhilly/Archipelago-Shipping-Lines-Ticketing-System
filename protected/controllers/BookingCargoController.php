@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('admin','create','update','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
+          'actions'=>array('admin','new','update','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -64,22 +64,64 @@
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate()
+    public function actionNew()
     {
-      $model=new BookingCargo;
-
+      $bk=new BookingCargo;
+      $cargo=new Cargo;
+      $tn='';
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
       if(isset($_POST['BookingCargo']))
       {
-        $model->attributes=$_POST['BookingCargo'];
-        if($model->save())
-          $this->redirect(array('view','id'=>$model->id));
+        $bk->attributes=$_POST['BookingCargo'];
+        $cargo->attributes=$_POST['Cargo'];
+        if($bk->validate(array('voyage')) && $cargo->validate()){
+        $route=Voyage::model()->findByPk($bk->voyage)->route;
+        $fares = CargoFareRates::model()->findByAttributes(array('route'=>$route,'class'=>$cargo->cargo_class));
+        $amt=$fares->proposed_tariff;
+        $bk->type=2;
+        $bk->rate=$fares->id;
+        $bk->status=4;
+        $transaction = Yii::app()->db->beginTransaction();
+        try{
+          $tr = new Transaction;
+          $tr->ovamount = $amt;
+          $tr->ovdiscount = 0;
+          $tr->type = 2;
+          $tr->payment_method = 1;
+          $tr->payment_status = 1;
+          $curDate = date('Y-m-d H:i:s');
+          $tr->trans_date = $curDate;
+          $tr->input_date = $curDate;
+          $tr->created_by =Yii::app()->user->name;
+          if(!$tr->save())
+             throw new Exception('Cannot save transaction');
+          if(!$cargo->save())
+            throw new Exception('Cannot save passanger');
+          $bookingCounter = numberGenerator(1);
+	  $lading = numberGenerator(3);
+          $bk->cargo=$cargo->id;
+          $bk->transaction=$tr->id;
+          $bk->lading_no=$lading;
+          $bk->booking_no=$bookingCounter;
+          if(!$bk->save())
+            throw new Exception('Cannot save Booking');
+          $transaction->commit();
+          Yii::app()->user->setFlash('success', 'Transaction Complete!');
+          $tn=$tr->id;
+        }catch(Exception $e){
+          $transaction->rollback();
+          throw new CHttpException(400,$e);
+          $this->refresh();
+        }
+        }//endif
       }
 
-      $this->render('create',array(
-        'model'=>$model,
+      $this->render('new',array(
+        'bk'=>$bk,
+        'cargo'=>$cargo,
+        'tn'=>$tn,
       ));
     }
 
