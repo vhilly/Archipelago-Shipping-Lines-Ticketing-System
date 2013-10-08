@@ -31,11 +31,11 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('create','update'),
+          'actions'=>array('admin','create','update','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-          'actions'=>array('admin','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
+          'actions'=>array(''),
           'users'=>array('admin'),
         ),
         array('deny',  // deny all users
