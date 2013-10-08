@@ -13,6 +13,9 @@
       padding:1px;
       margin-left:-1cm;
     }
+    .spacer {
+      height:30px;
+    }
   </style>
   <script>
     window.print();
@@ -50,20 +53,23 @@
    <div style="clear:both"> </div><br>
    <?php foreach($model->search()->getData() as $b):?>
    <?php $orig_price = PriceHistory::model()->findByAttributes(array('category'=>'2','category_id'=>"{$b->rate}"),"changed_at >= '{$b->date_booked}'"); ?>
+   <div class="spacer"></div>
    <table class="table">
       <tr>
         <td colspan=3><?=$model->voyage0->name?></td>
       </tr>
       <tr>
-        <td colspan=3><?=$model->voyage0->vessel0->name?></td>
+        <td colspan=2><?=$model->voyage0->vessel0->name?></td>
         <td colspan=4><?=$model->voyage0->departure_date?></td>
       </tr>
       <tr>
         <td width=120px><?=$b->cargo0->shipper ? $b->cargo0->shipper : 'N/A'?></td>
+        <td width="140px">&nbsp;</td>
         <td width=120px><?=$b->cargo0->address ? $b->cargo0->address : 'N/A'?></td>
       </tr>
       <tr>
         <td width=120px><?=$model->voyage0->route0->from_port?></td>
+        <td width="140px">&nbsp;</td>
         <td width=120px><?=$model->voyage0->route0->to_port?></td>
       </tr>
    </table>
@@ -79,7 +85,11 @@
         <td width=50px><?=$b->rate0->proposed_tariff?></td>
       </tr>
    </table>
-
+   <table>
+     <tr>
+       <td width="442px" height="185px">&nbsp;</td>
+       <td width="50px" valign=bottom><?=$b->rate0->proposed_tariff?></td>
+     </tr>
    </table>
     <?php if(!isset($print)):?>
     <?php
