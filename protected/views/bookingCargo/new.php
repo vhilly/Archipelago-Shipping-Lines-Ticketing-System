@@ -8,6 +8,8 @@
 <div>
   <fieldset>
     <?php echo $form->dropDownListRow($bk, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name')); ?>
+    <?php $_SESSION['nonce'] = $nonce = md5('salt'.microtime()); ?>
+    <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
       <label>Freight Cost</label>
       <input type='text' readonly  id='cargo_cost' name='cargo_cost'/> 
       <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span3','maxlength'=>100)); ?>

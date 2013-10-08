@@ -72,7 +72,7 @@
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-      if(isset($_POST['BookingCargo']))
+      if(isset($_POST['BookingCargo']) && $_SESSION['nonce'] == $_POST['nonce'])
       {
         $bk->attributes=$_POST['BookingCargo'];
         $cargo->attributes=$_POST['Cargo'];
@@ -316,6 +316,16 @@
         $booking->seat=NULL;
         if($booking->save()){ 
             Yii::app()->user->setFlash('success', 'Cargo Booking Canceled');
+        }
+        $this->redirect(array('index'));
+    }
+    public function actionRefund($id)
+    {
+        $booking = $this->loadModel($id);
+        $booking->status=6;
+        $booking->seat=NULL;
+        if($booking->save()){ 
+            Yii::app()->user->setFlash('success', 'Cargo Booking Refunded');
         }
         $this->redirect(array('index'));
     }

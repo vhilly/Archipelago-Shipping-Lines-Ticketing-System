@@ -54,7 +54,7 @@ $gridColumns = array(
                  array(
                    'header'=>'Cargo Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',
-                   'template'=>'{viewtkt}{cancel}',
+                   'template'=>'{viewtkt} {cancel} {refund}',
                    'buttons'=>array(
                      'viewtkt' => array(
                        'label'=>'view',
@@ -75,6 +75,14 @@ $gridColumns = array(
                        ),
                        'icon'=>'trash',
                        'url'=>'Yii::app()->controller->createUrl("bookingCargo/cancel", array("id"=>$data->id))',
+                     ),
+                     'refund' => array(
+                       'label'=>'refund',
+                       'options'=>array(
+                         'onClick'=>'return confirm("Are you sure?");'
+                       ),
+                       'icon'=>'share',
+                       'url'=>'Yii::app()->controller->createUrl("bookingCargo/refund", array("id"=>$data->id))',
                      ),
                     ),
                   ),

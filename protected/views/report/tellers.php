@@ -33,6 +33,9 @@
        <td><?=implode('</td><td>',$v)?></td>
      </tr>
      <?php endforeach;?>
+     <th>Total per Voyage</th>
+     <th colspan=5></th>
+     <th><?=number_format($data['totalPerVoyage'][$k])?></th>
    <?php endforeach;?>
    <tr>
      <th>TOTAL</th>

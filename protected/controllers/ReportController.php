@@ -233,10 +233,11 @@
       $pt = array(1=>'FF',2=>'SF',3=>'SC',4=>'CHILD',5=>'INFANT',6=>'PWD',7=>'W/PASS','8'=>'Weekday',9=>'Weekday');
       $output = array();
       $total=0;
+      $totalPerVoyage=array();
       if(isset($_GET['Report'])){
         $rf->attributes = $_GET['Report'];
         $rf->departure_date = $rf->departure_date ? $rf->departure_date : date('Y-m-d');
-        $sql = "SELECT b.tkt_serial,r.type passenger_type,r.class seating_class,r.price amt,v.name voyage FROM booking b,voyage v,passage_fare_rates r WHERE b.voyage=v.id AND v.route=1 AND b.status < 6 AND v.departure_date ='{$rf->departure_date}'
+        $sql = "SELECT b.tkt_serial,r.type passenger_type,r.class seating_class,r.price amt,v.name voyage FROM booking b,voyage v,passage_fare_rates r WHERE b.voyage=v.id AND v.route=2 AND b.status < 6 AND v.departure_date ='{$rf->departure_date}'
                 AND b.rate=r.id";
         $bh = Yii::app()->db->createCommand($sql)->queryAll();
         if(count($bh)){
@@ -281,14 +282,15 @@
                $output[$b['voyage']][$kor2][5] = $b['amt'];
                $output[$b['voyage']][$kor2][6] = number_format($b['amt']*$cnt2[$kor2]);
            }
+           @$totalPerVoyage[$b['voyage']]+=$b['amt'];;
            $total+=$b['amt'];
           }
         }
       }
       if($excel)
-        $this->renderPartial('tellers',array('data'=>compact('total','output','rf','excel')));
+        $this->renderPartial('tellers',array('data'=>compact('total','output','rf','excel','totalPerVoyage')));
       else
-        $this->render('tellers',array('data'=>compact('total','output','rf','excel')));
+        $this->render('tellers',array('data'=>compact('total','output','rf','excel','totalPerVoyage')));
 
     }
   }
