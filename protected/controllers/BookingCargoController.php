@@ -267,4 +267,14 @@
       $es = new TbEditableSaver('BookingCargo');
       $es->update();
     }
+    public function actionCancel($id)
+    {
+        $booking = $this->loadModel($id);
+        $booking->status=7;
+        $booking->seat=NULL;
+        if($booking->save()){ 
+            Yii::app()->user->setFlash('success', 'Cargo Booking Canceled');
+        }
+        $this->redirect(array('index'));
+    }
   }

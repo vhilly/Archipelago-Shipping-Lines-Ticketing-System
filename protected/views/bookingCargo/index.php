@@ -54,7 +54,7 @@ $gridColumns = array(
                  array(
                    'header'=>'Cargo Details',
                    'class' => 'bootstrap.widgets.TbButtonColumn',
-                   'template'=>'{viewtkt}',
+                   'template'=>'{viewtkt}{cancel}',
                    'buttons'=>array(
                      'viewtkt' => array(
                        'label'=>'view',
@@ -67,6 +67,14 @@ $gridColumns = array(
                                 'success'=>'function(data) { $("#ticketModal .modal-body p").html(data); $("#ticketModal").modal(); }'
                             ),
                         ),
+                     ),
+                     'cancel' => array(
+                       'label'=>'cancel',
+                       'options'=>array(
+                         'onClick'=>'return confirm("Are you sure?");'
+                       ),
+                       'icon'=>'trash',
+                       'url'=>'Yii::app()->controller->createUrl("bookingCargo/cancel", array("id"=>$data->id))',
                      ),
                     ),
                   ),
