@@ -60,7 +60,7 @@
       </tr>
       <tr>
         <td colspan=2><?=$model->voyage0->vessel0->name?></td>
-        <td colspan=4><?=$model->voyage0->departure_date?></td>
+        <td colspan=4><?=$model->voyage0->departure_date?> <?=$model->voyage0->departure_time?></td>
       </tr>
       <tr>
         <td width=120px><?=$b->cargo0->shipper ? $b->cargo0->shipper : 'N/A'?></td>
