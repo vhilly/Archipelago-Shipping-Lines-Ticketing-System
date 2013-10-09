@@ -76,8 +76,12 @@
    <br><br>
    <table class=table2>
       <tr>
-        <td width=120px valign=top><?=$b->cargo0->cargoClass->name?></td>
-        <td width=122px><?=$b->cargo0->cargoClass->description?> meters</td>
+        <td width=120px valign=top>&nbsp;</td>
+        <td width=122px height="50px">
+          <?=$b->cargo0->cargoClass->name?><br>
+          <?=$b->cargo0->cargoClass->description?> meters<br>
+          <?=$b->cargo0->plate_num?>
+        </td>
         <td width=50px>1</td>
         <td width=50px></td>
         <td width=50px><?=$b->cargo0->weight?></td>
@@ -87,7 +91,7 @@
    </table>
    <table>
      <tr>
-       <td width="442px" height="185px">&nbsp;</td>
+       <td width="442px" height="135px">&nbsp;</td>
        <td width="50px" valign=bottom><?=$b->rate0->proposed_tariff?></td>
      </tr>
    </table>
