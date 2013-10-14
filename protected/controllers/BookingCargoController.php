@@ -108,6 +108,8 @@
           if(!$bk->save())
             throw new Exception('Cannot save Booking');
           $transaction->commit();
+          $bk->unsetAttributes();
+          $cargo->unsetAttributes();
           Yii::app()->user->setFlash('success', 'Transaction Complete!');
           $tn=$tr->id;
         }catch(Exception $e){

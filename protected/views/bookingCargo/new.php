@@ -25,7 +25,7 @@
 <br>
 <?php endif;?>
   <fieldset>
-    <?php echo $form->dropDownListRow($bk, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name')); ?>
+    <?php echo $form->dropDownListRow($bk, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name'),array('class'=>'span2','id'=>'voyage')); ?>
     <?php $_SESSION['nonce'] = $nonce = md5('salt'.microtime()); ?>
     <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
       <div class=hidden>
