@@ -56,7 +56,7 @@
       $Tickets = array();
       $transType = TransactionType::model()->findByPk($trans->type);
       if($transType->cargo =='Y'){
-        $sql = "SELECT (SELECT price FROM price_history WHERE category=2 AND category_id=b.rate AND changed_at >= b.date_booked LIMIT 1) as orig_price, b.lading_no wb_no,b.voyage,c.shipper,c.company,c.contact,cl.name class,cr.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_fare_rates cr,cargo_class cl WHERE b.transaction = {$trans->id} AND b.cargo=c.id AND cr.id=b.rate  AND cl.id=cr.class";
+        $sql = "SELECT b.amt amt, (SELECT price FROM price_history WHERE category=2 AND category_id=b.rate AND changed_at >= b.date_booked LIMIT 1) as orig_price, b.lading_no wb_no,b.voyage,c.shipper,c.company,c.contact,cl.name class,cr.proposed_tariff amount,c.article_no,c.article_desc,c.weight,c.length FROM booking_cargo b,cargo c,cargo_fare_rates cr,cargo_class cl WHERE b.transaction = {$trans->id} AND b.cargo=c.id AND cr.id=b.rate  AND cl.id=cr.class";
         $Cargos = Yii::app()->db->createCommand($sql)->queryAll();
       }
         $sql = "SELECT (SELECT price FROM price_history WHERE category=1 AND category_id=b.rate AND changed_at >= b.date_booked LIMIT 1) as orig_price , b.booking_no ,b.voyage,b.tkt_no, p.first_name,p.last_name,ft.name type,c.name class, r.price FROM booking b,passenger p,passage_fare_rates r,passage_fare_types ft,seating_class c WHERE b.transaction={$trans->id} 

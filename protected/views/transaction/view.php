@@ -146,7 +146,7 @@
 	     <td><?=$cargo['article_desc']?></td>
 	     <td><?=$cargo['weight']?></td>
 	     <td><?=$cargo['length']?></td>
-            <td><?=$cargo['orig_price'] ? $cargo['orig_price'] : $cargo['amount']?></td>
+            <td><?= $cargo['amt']?></td>
 	   </tr>
 	 <?php endforeach;?>
      </tbody>

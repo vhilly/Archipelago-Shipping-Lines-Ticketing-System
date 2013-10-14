@@ -80,19 +80,20 @@
         <td width=122px height="50px">
           <?=$b->cargo0->cargoClass->name?><br>
           <?=$b->cargo0->cargoClass->description?> meters<br>
+          <?=$b->cargo0->article_desc?><br>
           <?=$b->cargo0->plate_num?>
         </td>
         <td width=50px>1</td>
         <td width=50px></td>
         <td width=50px><?=$b->cargo0->weight?></td>
         <td width=50px><?=$b->rate0->lane_meter_rate?>1</td>
-        <td width=50px><?=$b->rate0->proposed_tariff?></td>
+        <td width=50px><?=$b->amt?></td>
       </tr>
    </table>
    <table>
      <tr>
        <td width="442px" height="135px">&nbsp;</td>
-       <td width="50px" valign=bottom><?=$b->rate0->proposed_tariff?></td>
+       <td width="50px" valign=bottom><?=$b->amt?></td>
      </tr>
    </table>
     <?php if(!isset($print)):?>

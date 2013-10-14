@@ -10,8 +10,11 @@
     <?php echo $form->dropDownListRow($bk, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name')); ?>
     <?php $_SESSION['nonce'] = $nonce = md5('salt'.microtime()); ?>
     <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
+      <div class=hidden>
       <label>Freight Cost</label>
       <input type='text' readonly  id='cargo_cost' name='cargo_cost'/> 
+      </div>
+      <?php echo $form->textFieldRow($bk,'amt',array('class'=>'span2 stmodal','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span3','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','description'),array('empty'=>'')); ?>

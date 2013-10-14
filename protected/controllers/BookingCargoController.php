@@ -76,10 +76,10 @@
       {
         $bk->attributes=$_POST['BookingCargo'];
         $cargo->attributes=$_POST['Cargo'];
-        if($bk->validate(array('voyage')) && $cargo->validate()){
+        if($bk->validate(array('voyage','amt')) && $cargo->validate()){
         $route=Voyage::model()->findByPk($bk->voyage)->route;
         $fares = CargoFareRates::model()->findByAttributes(array('route'=>$route,'class'=>$cargo->cargo_class));
-        $amt=$fares->proposed_tariff;
+        $amt=$bk->amt;
         $bk->type=2;
         $bk->rate=$fares->id;
         $bk->status=4;
