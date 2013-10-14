@@ -6,6 +6,24 @@
   ));
 ?>
 <div>
+<?php if($tn):?>
+<div id="transDetails" class=pull-left></div>
+<script>
+  $.ajax({
+  type: 'GET',
+    url: '<?php echo Yii::app()->baseUrl;?>?r=transaction/view&id='+'<?=$tn?>',
+    success: function (data){
+    $('#transDetails').html(data);
+  },
+  error: function (xht){
+    alert(this.url);
+  }
+
+  });
+</script>
+<br>
+<br>
+<?php endif;?>
   <fieldset>
     <?php echo $form->dropDownListRow($bk, 'voyage',CHtml::listData(Voyage::model()->findAll(array('condition'=>'status !=3','order'=>'id DESC')),'id','name')); ?>
     <?php $_SESSION['nonce'] = $nonce = md5('salt'.microtime()); ?>
@@ -22,8 +40,8 @@
       <?php echo $form->textFieldRow($cargo,'address',array('class'=>'span2','maxlength'=>255)); ?>
       <?php echo $form->textFieldRow($cargo,'article_no',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->textAreaRow($cargo,'article_desc',array('class'=>'span2','maxlength'=>100)); ?>
-      <?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?>
-      <?php echo $form->textFieldRow($cargo,'length',array('class'=>'span2','maxlength'=>100)); ?>
+      <div class=hidden><?php echo $form->textFieldRow($cargo,'weight',array('class'=>'span2','maxlength'=>100)); ?></div>
+      <div class=hidden><?php echo $form->textFieldRow($cargo,'length',array('class'=>'span2','maxlength'=>100)); ?></div>
       <div class=hidden>
       <?php echo $form->textFieldRow($bk,'stowage',array('class'=>'span2 stmodal','maxlength'=>100,'readonly'=>true)); ?>
       </div>
@@ -56,19 +74,3 @@
     }
 ");
 ?>
-<?php if($tn):?>
-<div id="transDetails" class=pull-left></div>
-<script>
-  $.ajax({
-  type: 'GET',
-    url: '<?php echo Yii::app()->baseUrl;?>?r=transaction/view&id='+'<?=$tn?>',
-    success: function (data){
-    $('#transDetails').html(data);
-  },
-  error: function (xht){
-    alert(this.url);
-  }
-
-  });
-</script>
-<?php endif;?>

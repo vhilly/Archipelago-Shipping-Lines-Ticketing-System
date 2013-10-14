@@ -78,7 +78,7 @@
               $class[2][] =$amt1; 
 
               $csql = "
-                SELECT SUM(f.proposed_tariff) amt FROM booking_cargo b,cargo_fare_rates f WHERE b.voyage={$r['id']} AND b.rate=f.id
+                SELECT SUM(b.amt) amt FROM booking_cargo b WHERE b.voyage={$r['id']} 
               ";
               $cargo = Yii::app()->db->createCommand($csql)->queryAll();
               if(count($cargo))
