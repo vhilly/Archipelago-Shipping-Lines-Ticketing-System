@@ -385,6 +385,7 @@ $this->render('admin',array(
                   throw new Exception('Cannot save passanger');
               $nb = new Booking;
               $nb->tkt_no = $advance_tkt->tkt_no;
+              $nb->tkt_serial = $advance_tkt->tkt_series;
               $nb->transaction = $tr->id;
               $nb->class = $advance_tkt->class;
               $nb->ptype = $advance_tkt->type;
