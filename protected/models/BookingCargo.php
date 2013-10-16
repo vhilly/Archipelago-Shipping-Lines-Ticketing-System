@@ -90,7 +90,7 @@ class BookingCargo extends CActiveRecord
 			'id' => 'ID',
 			'amt' => 'Amount',
 			'stowage' => 'Stowage',
-			'lading_no' => 'Lading No.',
+			'lading_no' => 'Series No.',
 			'booking_no' => 'Booking No.',
 			'transaction' => 'Transaction',
 			'voyage' => 'Voyage',

@@ -33,6 +33,7 @@
       <input type='text' readonly  id='cargo_cost' name='cargo_cost'/> 
       </div>
       <?php echo $form->textFieldRow($bk,'amt',array('class'=>'span2 stmodal','maxlength'=>100)); ?>
+      <?php echo $form->textFieldRow($bk,'lading_no',array('class'=>'span2 stmodal','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'company',array('class'=>'span3','maxlength'=>100)); ?>
       <?php echo $form->textFieldRow($cargo,'plate_num',array('class'=>'span2','maxlength'=>100)); ?>
       <?php echo $form->dropDownListRow($cargo,'cargo_class',CHtml::listData(CargoClass::model()->findAll(),'id','description'),array('empty'=>'')); ?>

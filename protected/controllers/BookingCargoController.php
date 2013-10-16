@@ -76,7 +76,7 @@
       {
         $bk->attributes=$_POST['BookingCargo'];
         $cargo->attributes=$_POST['Cargo'];
-        if($bk->validate(array('voyage','amt')) && $cargo->validate()){
+        if($bk->validate(array('voyage','amt','lading_no')) && $cargo->validate()){
         $route=Voyage::model()->findByPk($bk->voyage)->route;
         $fares = CargoFareRates::model()->findByAttributes(array('route'=>$route,'class'=>$cargo->cargo_class));
         $amt=$bk->amt;
@@ -100,10 +100,10 @@
           if(!$cargo->save())
             throw new Exception('Cannot save passanger');
           $bookingCounter = numberGenerator(1);
-	  $lading = numberGenerator(3);
+	  //$lading = numberGenerator(3);
           $bk->cargo=$cargo->id;
           $bk->transaction=$tr->id;
-          $bk->lading_no=$lading;
+          //$bk->lading_no=$lading;
           $bk->booking_no=$bookingCounter;
           if(!$bk->save())
             throw new Exception('Cannot save Booking');
