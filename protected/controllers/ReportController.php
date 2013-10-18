@@ -78,7 +78,7 @@
               $class[2][] =$amt1; 
 
               $csql = "
-                SELECT SUM(b.amt) amt FROM booking_cargo b WHERE b.voyage={$r['id']} 
+                SELECT SUM(b.amt) amt FROM booking_cargo b WHERE b.voyage={$r['id']} AND b.status < 6 
               ";
               $cargo = Yii::app()->db->createCommand($csql)->queryAll();
               if(count($cargo))
@@ -237,7 +237,7 @@
       if(isset($_GET['Report'])){
         $rf->attributes = $_GET['Report'];
         $rf->departure_date = $rf->departure_date ? $rf->departure_date : date('Y-m-d');
-        $sql = "SELECT b.tkt_serial,r.type passenger_type,r.class seating_class,r.price amt,v.name voyage FROM booking b,voyage v,passage_fare_rates r WHERE b.voyage=v.id AND v.route=2 AND b.status < 6 AND v.departure_date ='{$rf->departure_date}'
+        $sql = "SELECT b.tkt_serial,r.type passenger_type,r.class seating_class,r.price amt,v.name voyage FROM booking b,voyage v,passage_fare_rates r WHERE b.voyage=v.id AND v.route=1 AND b.status < 6 AND v.departure_date ='{$rf->departure_date}'
                 AND b.rate=r.id";
         $bh = Yii::app()->db->createCommand($sql)->queryAll();
         if(count($bh)){

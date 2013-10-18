@@ -31,7 +31,7 @@
           'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-          'actions'=>array('admin','new','update','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view'),
+          'actions'=>array('admin','new','update','delete','editableSaver','wBill','checkIn','board','checkInBoardForm','view','cancel','refund'),
           'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -315,8 +315,7 @@
     {
         $booking = $this->loadModel($id);
         $booking->status=7;
-        $booking->seat=NULL;
-        if($booking->save()){ 
+        if($booking->save(false)){ 
             Yii::app()->user->setFlash('success', 'Cargo Booking Canceled');
         }
         $this->redirect(array('index'));
@@ -325,8 +324,7 @@
     {
         $booking = $this->loadModel($id);
         $booking->status=6;
-        $booking->seat=NULL;
-        if($booking->save()){ 
+        if($booking->save(false)){ 
             Yii::app()->user->setFlash('success', 'Cargo Booking Refunded');
         }
         $this->redirect(array('index'));
